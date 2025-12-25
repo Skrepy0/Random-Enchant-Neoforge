@@ -1,36 +1,23 @@
 package com.random_enchant;
 
-import com.random_enchant.item.ModItems;
-import org.slf4j.Logger;
-
 import com.mojang.logging.LogUtils;
-
+import com.random_enchant.item.ModItemGroup;
+import com.random_enchant.item.ModItemModelProperties;
+import com.random_enchant.item.ModItemTags;
+import com.random_enchant.item.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(RandomEnchant.MOD_ID)
@@ -39,6 +26,7 @@ public class RandomEnchant {
     public static final String MOD_ID = "random_enchant";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
+
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public RandomEnchant(IEventBus modEventBus, ModContainer modContainer) {
@@ -47,6 +35,7 @@ public class RandomEnchant {
 
         // 注册物品
         ModItems.registerModItems(modEventBus);
+        ModItemGroup.registerModItemGroup(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (RandomEnchant) to respond directly to events.
@@ -55,6 +44,9 @@ public class RandomEnchant {
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+
+        // 使用静态方法引用
+        modEventBus.addListener(this::onClientSetup);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -83,5 +75,13 @@ public class RandomEnchant {
     public void onServerStarting(ServerStartingEvent event) {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
+    }
+
+    private void onClientSetup(FMLClientSetupEvent event) {
+        // 必须在客户端线程中注册
+        event.enqueueWork(() -> {
+            ModItemModelProperties.registerProperties();
+            ModItemTags.registerModItemTags();
+        });
     }
 }
