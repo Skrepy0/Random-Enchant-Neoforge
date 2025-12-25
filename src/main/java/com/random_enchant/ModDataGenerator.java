@@ -27,5 +27,6 @@ public class ModDataGenerator {
         generator.addProvider(event.includeClient(), blockTagsProvider);
         generator.addProvider(event.includeClient(), new ModRecipesProvider(packOutput, lookUpProvider));
         generator.addProvider(event.includeClient(), new ModItemTagsProvider(packOutput, lookUpProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeClient(), new ModEnchantmentsProvider(packOutput, lookUpProvider));
     }
 }
