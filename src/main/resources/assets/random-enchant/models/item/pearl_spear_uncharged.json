@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-    "layer0": "random-enchant:item/pearl_spear_uncharged"
-  }
-}

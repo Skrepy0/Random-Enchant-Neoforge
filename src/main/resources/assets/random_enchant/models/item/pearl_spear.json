@@ -1,0 +1,14 @@
+{
+  "parent": "item/handheld",
+  "textures": {
+    "layer0": "random_enchant:item/pearl_spear"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "random_enchant:cooldown": 1.0
+      },
+      "model": "random_enchant:item/pearl_spear_uncharged"
+    }
+  ]
+}
