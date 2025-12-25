@@ -17,7 +17,7 @@ public class ModItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(RandomEnchant.MOD_ID);
 
-    public static final DeferredItem<Item> PEARL_SPEAR = ITEMS.register("pearl_spear",()-> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PEARL_SPEAR = ITEMS.register("pearl_spear",()-> new PearlSpear(new Item.Properties()));
     public static void registerModItems(IEventBus bus) {
         ITEMS.register(bus);
     }
