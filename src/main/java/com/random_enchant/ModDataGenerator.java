@@ -21,12 +21,13 @@ public class ModDataGenerator {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         CompletableFuture<HolderLookup.Provider> lookUpProvider = event.getLookupProvider();
         BlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(packOutput, lookUpProvider, existingFileHelper);
+        generator.addProvider(event.includeServer(), new ModRecipesProvider(packOutput, lookUpProvider));
         generator.addProvider(event.includeClient(), new ModItemModelsProvider(packOutput, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModENUSLanProvider(packOutput));
         generator.addProvider(event.includeClient(), new ModZHCNLangProvider(packOutput));
         generator.addProvider(event.includeClient(), blockTagsProvider);
-        generator.addProvider(event.includeClient(), new ModRecipesProvider(packOutput, lookUpProvider));
         generator.addProvider(event.includeClient(), new ModItemTagsProvider(packOutput, lookUpProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        generator.addProvider(event.includeClient(), new ModEnchantmentTagsProvider(packOutput,lookUpProvider,existingFileHelper));
         generator.addProvider(event.includeClient(), new ModEnchantmentsProvider(packOutput, lookUpProvider));
     }
 }

@@ -39,6 +39,8 @@ public class ModENUSLanProvider extends LanguageProvider {
 
         add("enchantment.random_enchant.fury_of_fly","§aFury Of Fly");
 
+        add("entity.minecraft.bee.random_enchant.spawn_name","§aFly");
+
         add("item.tooltip.random_enchant.for_shift_tooltip","Press §6[SHIFT]§r show detail information");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1","§bLeft-click to attack the entity and teleport, right-click to teleport§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_2","§bEntities in the teleportation path take 8 base damage(real damage is related to the level of §a[Sweep Edge]§b)§r");
