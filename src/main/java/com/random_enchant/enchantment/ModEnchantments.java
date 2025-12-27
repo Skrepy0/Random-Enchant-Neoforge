@@ -18,12 +18,13 @@ public class ModEnchantments {
         HolderGetter<Enchantment> registryEntryLookup2 = registry.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> registryEntryLookup3 = registry.lookup(Registries.ITEM);
         register(registry, FURY_OF_FLY, Enchantment.enchantment(Enchantment.definition(
-                registryEntryLookup3.getOrThrow(ModItemTags.FURY_OF_FLY_AVAILABLE),
-                3, 5,
-                Enchantment.dynamicCost(10, 5),
-                Enchantment.dynamicCost(27, 10), 5,
-                EquipmentSlotGroup.MAINHAND
-        )));
+                        registryEntryLookup3.getOrThrow(ModItemTags.FURY_OF_FLY_AVAILABLE),
+                        3, 5,
+                        Enchantment.dynamicCost(10, 5),
+                        Enchantment.dynamicCost(27, 10), 5,
+                        EquipmentSlotGroup.MAINHAND))
+                .exclusiveWith(registryEntryLookup2.getOrThrow(ModEnchantmentTags.FURY_OF_FLY_EXCLUSIVE))
+        );
     }
 
     public static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key, Enchantment.Builder builder) {

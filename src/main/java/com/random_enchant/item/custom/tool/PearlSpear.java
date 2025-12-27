@@ -2,6 +2,7 @@ package com.random_enchant.item.custom.tool;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantHelper;
+import com.random_enchant.enchantment.ModEnchantments;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -18,9 +19,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
@@ -48,7 +52,7 @@ public class PearlSpear extends Item {
                         Attributes.ATTACK_DAMAGE,
                         new AttributeModifier(
                                 Item.BASE_ATTACK_DAMAGE_ID,
-                                Tiers.DIAMOND.getAttackDamageBonus() + 4,
+                                Tiers.DIAMOND.getAttackDamageBonus()+1,
                                 AttributeModifier.Operation.ADD_VALUE
 
                         ),
@@ -162,7 +166,10 @@ public class PearlSpear extends Item {
         // 实体伤害
         target.hurt(user.damageSources().playerAttack(user), damage);
         //System.out.println(damage);
-        // TODO FURY_OF_FLY enchantment
+        int furyOfFlyLevel = ModEnchantHelper.getEnchantmentLevel(stack,world, ModEnchantments.FURY_OF_FLY);
+        if (furyOfFlyLevel>0){
+            spawnBee(world,target,furyOfFlyLevel,user);
+        }
 
         ServerLevel serverLevel = (ServerLevel) world;
         serverLevel.sendParticles(
@@ -375,43 +382,6 @@ public class PearlSpear extends Item {
         }
     }
 
-    private void spawnLightningEntity(int channelingLevel, Level world, Entity entity) {
-        Random random = new Random();
-        if (channelingLevel > 0 && world instanceof ServerLevel serverWorld) {
-            // 限制最大闪电数量，防止性能问题
-            int lightningCount = Math.min(channelingLevel, 8); // 最多8道闪电
-
-            for (int i = 0; i < lightningCount; i++) {
-                // 计算随机偏移位置，避免所有闪电都在同一点
-                double offsetX = (random.nextDouble() - 0.5) * 10.0; // ±5格范围
-                double offsetZ = (random.nextDouble() - 0.5) * 10.0;
-
-                // 在目标实体位置附近生成闪电
-                BlockPos lightningPos = entity.blockPosition().offset((int) offsetX, 0, (int) offsetZ);
-
-                // 找到该位置的地面高度 (findGroundPosition方法需要你根据原有逻辑自行适配)
-                BlockPos groundPos = findGroundPosition(serverWorld, lightningPos); // 注意参数名通常为 `level`
-
-                // 创建闪电实体
-                LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
-                // 设置位置
-                lightningBolt.setPos(Vec3.atBottomCenterOf(groundPos));
-                // 在世界中生成闪电 - 方法名改变
-                world.addFreshEntity(lightningBolt);
-
-                // 添加音效和粒子效果
-                world.playSound(
-                        null, // 玩家
-                        groundPos.getX(), groundPos.getY(), groundPos.getZ(), // 位置坐标分开
-                        SoundEvents.LIGHTNING_BOLT_THUNDER,
-                        SoundSource.WEATHER, // 常量名改变
-                        5.0F,
-                        1.0F
-                );
-            }
-        }
-    }
-
     private void showTrack(Level world, Vec3 startPos, Vec3 endPos) {
         final int PARTICLE_COUNT = 50;
 
@@ -474,6 +444,134 @@ public class PearlSpear extends Item {
         }
     }
 
+    private void spawnLightningEntity(int channelingLevel, Level world, Entity entity) {
+        Random random = new Random();
+        if (channelingLevel > 0 && world instanceof ServerLevel serverWorld) {
+            // 限制最大闪电数量，防止性能问题
+            int lightningCount = Math.min(channelingLevel, 8); // 最多8道闪电
+
+            for (int i = 0; i < lightningCount; i++) {
+                // 计算随机偏移位置，避免所有闪电都在同一点
+                double offsetX = (random.nextDouble() - 0.5) * 10.0; // ±5格范围
+                double offsetZ = (random.nextDouble() - 0.5) * 10.0;
+
+                // 在目标实体位置附近生成闪电
+                BlockPos lightningPos = entity.blockPosition().offset((int) offsetX, 0, (int) offsetZ);
+
+                // 找到该位置的地面高度 (findGroundPosition方法需要你根据原有逻辑自行适配)
+                BlockPos groundPos = findGroundPosition(serverWorld, lightningPos); // 注意参数名通常为 `level`
+
+                // 创建闪电实体
+                LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, world);
+                // 设置位置
+                lightningBolt.setPos(Vec3.atBottomCenterOf(groundPos));
+                // 在世界中生成闪电 - 方法名改变
+                world.addFreshEntity(lightningBolt);
+
+                // 添加音效和粒子效果
+                world.playSound(
+                        null, // 玩家
+                        groundPos.getX(), groundPos.getY(), groundPos.getZ(), // 位置坐标分开
+                        SoundEvents.LIGHTNING_BOLT_THUNDER,
+                        SoundSource.WEATHER, // 常量名改变
+                        5.0F,
+                        1.0F
+                );
+            }
+        }
+    }
+    private static void spawnBee(Level world, Entity target, int count, LivingEntity livingEntity) {
+        if (target == null || world.isClientSide() || livingEntity == null) return;
+
+        for (int i = 0; i < Math.min(count, 20); i++) {
+            // 修改点1：实体创建方式
+            Bee bee = new Bee(EntityType.BEE, world) {
+                @Override
+                public boolean doHurtTarget(Entity target) {
+                    boolean result = super.doHurtTarget(target);
+                    if (result && !this.level().isClientSide()) {
+                        this.discard();
+                    }
+                    return result;
+                }
+
+                @Override
+                public void tick() {
+                    super.tick();
+                    // 在服务端持续检查：如果目标无效（死亡、消失等），则立即消失
+                    if (!this.level().isClientSide()) {
+                        LivingEntity currentTarget = this.getTarget();
+                        if (currentTarget == null || !currentTarget.isAlive()) {
+                            this.discard();
+                        }
+                    }
+                }
+            };
+
+            bee.setPos(target.getX(), target.getY() + 1, target.getZ());
+            if (target instanceof LivingEntity) {
+                bee.setTarget((LivingEntity) target);
+            }
+            showBeeParticleEffect(world, livingEntity);
+            world.addFreshEntity(bee);
+            bee.setCustomName(Component.translatable("entity.minecraft.bee.random_enchant.spawn_name"));
+            bee.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 11451419, count * 2));
+            bee.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 11451419, count * 2));
+            bee.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 11451419, (int) (count * 0.2)));
+            bee.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 11451419, count * 2));
+            bee.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 11451419, count * 2));
+        }
+    }
+
+    private static void showBeeParticleEffect(Level world, LivingEntity target) {
+        Vec3 pos = target.position();
+        final int PARTICLE_COUNT = 20;
+        final double RADIUS = 2.0;
+        for (int i = 0; i < PARTICLE_COUNT; i++) {
+            double angle = 2 * Math.PI * i / PARTICLE_COUNT;
+            double x = target.getX() + RADIUS * Math.sin(angle);
+            double y = target.getY();
+            double z = target.getZ() + RADIUS * Math.cos(angle);
+            // 在服务器端发送粒子数据包给所有客户端
+            if (!world.isClientSide()) {
+                ServerLevel serverWorld = (ServerLevel) world;
+                double speed = 0.08;
+
+                // 计算从中心指向粒子位置的方向（向外）
+                Vec3 direction1 = new Vec3(x - pos.x, y - pos.y, z - pos.z).normalize(); // Vec3d -> Vec3
+
+                // 使用 sendParticles 方法，通过速度参数设置粒子运动方向
+                serverWorld.sendParticles(
+                        ParticleTypes.FLASH,
+                        x, y + 0.3, z,          // 粒子位置
+                        10,                          // 粒子数量
+                        direction1.x * speed,        // X方向速度
+                        direction1.y * speed,        // Y方向速度
+                        direction1.z * speed,        // Z方向速度
+                        0.01                         // 基础速度（会被方向向量缩放）
+                );
+                serverWorld.sendParticles( // spawnParticles -> sendParticles
+                        ParticleTypes.ENCHANTED_HIT,
+                        x, y + 0.3, z,          // 粒子位置
+                        10,                          // 粒子数量
+                        direction1.x * speed,        // X方向速度
+                        direction1.y * speed,        // Y方向速度
+                        direction1.z * speed,        // Z方向速度
+                        0.01                         // 基础速度（会被方向向量缩放）
+                );
+                serverWorld.sendParticles( // spawnParticles -> sendParticles
+                        ParticleTypes.ENCHANT,
+                        x, y + 0.3, z,                // 粒子位置
+                        10,                                // 粒子数量
+                        direction1.x * speed * 1.1,        // X方向速度
+                        direction1.y * speed * 1.1,        // Y方向速度
+                        direction1.z * speed * 1.1,        // Z方向速度
+                        0.03                               // 基础速度（会被方向向量缩放）
+                );
+            }
+        }
+    }
+
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
@@ -493,6 +591,11 @@ public class PearlSpear extends Item {
     @Override
     public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
         return true;
+    }
+
+    @Override
+    public int getDefaultMaxStackSize() {
+        return 1;
     }
 
     @Override
