@@ -3,7 +3,7 @@ This **Minecraft Mod** revamps the vanilla enchantment system. Now, all you need
 Additionally, we’ve introduced several exciting **new items** to enhance your gameplay.
 
 # Installation
-Make sure to install `fabricloader` (version at least `0.17.2`) and `fabric-api` first.
+Make sure to install `NeoForge` (version at least `21.1.216`) first.
 Make sure your Minecraft version is `1.21.1`.
 
 # How to Play
