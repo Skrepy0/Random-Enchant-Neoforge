@@ -1,6 +1,7 @@
 package com.random_enchant;
 
 import com.mojang.logging.LogUtils;
+import com.random_enchant.enchantment.ModEnchantmentTags;
 import com.random_enchant.item.ModItemGroup;
 import com.random_enchant.item.ModItemModelProperties;
 import com.random_enchant.item.ModItemTags;
@@ -82,6 +83,7 @@ public class RandomEnchant {
         event.enqueueWork(() -> {
             ModItemModelProperties.registerProperties();
             ModItemTags.registerModItemTags();
+            ModEnchantmentTags.registerModEnchantmentTags();
         });
     }
 }
