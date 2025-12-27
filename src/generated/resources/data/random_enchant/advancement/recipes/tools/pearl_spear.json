@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pearl_spear": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:ender_pearl"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "random_enchant:pearl_spear"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_pearl_spear"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "random_enchant:pearl_spear"
+    ]
+  }
+}

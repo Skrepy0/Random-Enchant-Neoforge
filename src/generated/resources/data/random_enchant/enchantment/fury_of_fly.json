@@ -3,6 +3,7 @@
   "description": {
     "translate": "enchantment.random_enchant.fury_of_fly"
   },
+  "exclusive_set": "#random_enchant:fury_of_fly_exclusive",
   "max_cost": {
     "base": 27,
     "per_level_above_first": 10

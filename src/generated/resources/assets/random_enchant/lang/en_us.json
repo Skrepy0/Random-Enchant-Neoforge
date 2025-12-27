@@ -245,6 +245,7 @@
   "enchantment.level.98": "XCVIII",
   "enchantment.level.99": "XCIX",
   "enchantment.random_enchant.fury_of_fly": "§aFury Of Fly",
+  "entity.minecraft.bee.random_enchant.spawn_name": "§aFly",
   "item.random_enchant.pearl_spear": "Pearl Spear",
   "item.tooltip.random_enchant.for_shift_tooltip": "Press §6[SHIFT]§r show detail information",
   "item.tooltip.random_enchant.pearl_spear.detail_description_1": "§bLeft-click to attack the entity and teleport, right-click to teleport§r",
