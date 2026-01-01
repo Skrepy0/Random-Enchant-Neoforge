@@ -1,7 +1,10 @@
 package com.random_enchant;
 
 import com.mojang.logging.LogUtils;
+import com.random_enchant.command.ModCommands;
 import com.random_enchant.enchantment.ModEnchantmentTags;
+import com.random_enchant.event.ModEvents;
+import com.random_enchant.event.RandomEnchantEvent;
 import com.random_enchant.item.ModItemGroup;
 import com.random_enchant.item.ModItemModelProperties;
 import com.random_enchant.item.ModItemTags;
@@ -17,6 +20,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
@@ -49,6 +53,12 @@ public class RandomEnchant {
         // 使用静态方法引用
         modEventBus.addListener(this::onClientSetup);
 
+        // 注册命令
+        NeoForge.EVENT_BUS.addListener(this::onCommandSetup);
+
+        // 主事件
+        NeoForge.EVENT_BUS.addListener(ModEvents::registerAttackEntityEvent);
+
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
@@ -79,11 +89,16 @@ public class RandomEnchant {
     }
 
     private void onClientSetup(FMLClientSetupEvent event) {
-        // 必须在客户端线程中注册
+        // 在客户端线程中注册
         event.enqueueWork(() -> {
             ModItemModelProperties.registerProperties();
             ModItemTags.registerModItemTags();
             ModEnchantmentTags.registerModEnchantmentTags();
         });
     }
+
+    private void onCommandSetup(RegisterCommandsEvent event) {
+        ModCommands.registerModCommands(event);
+    }
+
 }
