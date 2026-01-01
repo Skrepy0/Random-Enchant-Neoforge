@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import com.random_enchant.command.ModCommands;
 import com.random_enchant.enchantment.ModEnchantmentTags;
 import com.random_enchant.event.ModEvents;
-import com.random_enchant.event.RandomEnchantEvent;
 import com.random_enchant.item.ModItemGroup;
 import com.random_enchant.item.ModItemModelProperties;
 import com.random_enchant.item.ModItemTags;

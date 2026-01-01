@@ -14,10 +14,14 @@ public class ModZHCNLangProvider extends LanguageProvider {
     protected void addTranslations() {
         add("itemGroup.random_enchant.title", "随机附魔");
         add(ModItems.PEARL_SPEAR.get(), "珍珠矛");
+        add(ModItems.ENCHANT_BRUSH.get(), "附魔刷");
 
         add("enchantment.random_enchant.fury_of_fly","§aFly之怒");
 
         add("message.random_enchant.enchant_added","§6已附魔：§r");
+        add("message.random_enchant.item.enchant_brush.selected_1","§a已设置起始点，请点击第二个方块以确定区域。");
+        add("message.random_enchant.item.enchant_brush.selected_2","§a区域附魔操作完成。");
+        add("message.random_enchant.item.enchant_brush.clear_area","§a已清除区域内的所有附魔。");
 
         add("item.tooltip.random_enchant.for_shift_tooltip","按下§6[SHIFT]§r查看详细信息");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1","§b左键攻击实体并瞬移，右键瞬移§r");

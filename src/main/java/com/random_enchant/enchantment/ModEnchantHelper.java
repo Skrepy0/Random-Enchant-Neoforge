@@ -1,5 +1,6 @@
 package com.random_enchant.enchantment;
 
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -12,6 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
+
+import java.util.Optional;
 
 public class ModEnchantHelper {
     public static int getEnchantmentLevel(ItemStack stack, Level world, ResourceKey<Enchantment> enchantmentKey) {
@@ -33,6 +36,19 @@ public class ModEnchantHelper {
 
         return 0;
     }
+
+    public static int getEnchantmentLevel(ItemStack item, ResourceKey<Enchantment> enchantmentResourceKey) {
+        if (item == null) {
+            return 0;
+        }
+        ItemEnchantments itemEnchantments = item.get(DataComponents.ENCHANTMENTS);
+        if (itemEnchantments == null) {
+            return -1;
+        }
+        Optional<Object2IntMap.Entry<Holder<Enchantment>>> levelOptional = itemEnchantments.entrySet().stream().filter(int2Enchatment -> int2Enchatment.getKey().is(enchantmentResourceKey)).findFirst();
+        return levelOptional.map(Object2IntMap.Entry::getIntValue).orElse(-1);
+    }
+
     public static Holder<Enchantment> getHolder(ResourceKey<Enchantment> enchantmentKey) {
         Level world = Minecraft.getInstance().level;
         return world.registryAccess()
@@ -40,6 +56,7 @@ public class ModEnchantHelper {
                 .getHolder(enchantmentKey)
                 .orElse(null);
     }
+
     public static String toRoman(int number) {
         if (number < 11 || number > 255) {
             throw new IllegalArgumentException("输入必须在11到255之间");
@@ -63,6 +80,7 @@ public class ModEnchantHelper {
                 tens[tenPart] +
                 units[unitPart];
     }
+
     public static String getDescriptionId(Enchantment enchantment, RegistryAccess registryAccess) {
         Registry<Enchantment> registry = registryAccess.registryOrThrow(Registries.ENCHANTMENT);
         ResourceLocation id = registry.getKey(enchantment);

@@ -15,12 +15,16 @@ public class ModENUSLanProvider extends LanguageProvider {
     protected void addTranslations() {
         add("itemGroup.random_enchant.title", "Random Enchant");
         add(ModItems.PEARL_SPEAR.get(), "Pearl Spear");
+        add(ModItems.ENCHANT_BRUSH.get(), "Enchant Brush");
 
         add("enchantment.random_enchant.fury_of_fly","§aFury Of Fly");
 
         add("entity.minecraft.bee.random_enchant.spawn_name","§aFly");
 
         add("message.random_enchant.enchant_added","§6Enchanted:§r");
+        add("message.random_enchant.item.enchant_brush.selected_1", "§aStarting point set. Please click the second block to define the area.");
+        add("message.random_enchant.item.enchant_brush.selected_2", "§aArea enchantment operation completed.");
+        add("message.random_enchant.item.enchant_brush.clear_area", "§aAll enchantments in the area have been cleared.");
 
         add("item.tooltip.random_enchant.for_shift_tooltip","Press §6[SHIFT]§r show detail information");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1","§bLeft-click to attack the entity and teleport, right-click to teleport§r");

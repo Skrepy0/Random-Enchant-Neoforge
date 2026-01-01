@@ -17,6 +17,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -56,7 +57,9 @@ public class ModItemGroup {
                         );
                     }
                 }
+                output.accept(Blocks.ANVIL.asItem());
                 output.accept(ModItems.PEARL_SPEAR.get());
+                output.accept(ModItems.ENCHANT_BRUSH.get());
 
             })
             .build());
