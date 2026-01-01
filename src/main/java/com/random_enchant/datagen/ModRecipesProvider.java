@@ -4,7 +4,6 @@ import com.random_enchant.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
@@ -17,7 +16,6 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     public ModRecipesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
     }
-
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
         super.buildRecipes(recipeOutput);
