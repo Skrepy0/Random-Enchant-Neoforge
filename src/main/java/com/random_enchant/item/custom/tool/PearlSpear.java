@@ -81,24 +81,29 @@ public class PearlSpear extends Item {
 
     private static int getItemDamage(int unbreakingLevel) {
         Random random = new Random();
-        int rand = random.nextInt(10);
-        if (unbreakingLevel == 1) {
-            if (rand <= 6) {
-                return 1;
+        int rand = random.nextInt(100);
+        if (unbreakingLevel == 0) {
+            if (rand <= 20) {
+                return 0;
             }
-            return 0;
+            return 1;
+        } else if  (unbreakingLevel == 1) {
+            if (rand <= 40) {
+                return 0;
+            }
+            return 1;
         } else if (unbreakingLevel == 2) {
-            if (rand <= 4) {
-                return 1;
+            if (rand <= 60) {
+                return 0;
             }
-            return 0;
+            return 1;
         } else if (unbreakingLevel > 2) {
-            if (rand <= 7) {
-                return 1;
+            if (rand <= 80) {
+                return 0;
             }
-            return 0;
+            return 1;
         }
-        return 0;
+        return 1;
     }
 
     @Override
@@ -111,7 +116,7 @@ public class PearlSpear extends Item {
         // 损耗耐久
         if (!user.isCreative()) {
             int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(stack, level, Enchantments.UNBREAKING);
-            stack.setDamageValue(getItemDamage(unbreakingLevel));
+            stack.setDamageValue(stack.getDamageValue()+getItemDamage(unbreakingLevel));
         }
         // 播放音效
         level.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.TOTEM_USE,
@@ -159,7 +164,7 @@ public class PearlSpear extends Item {
         // 物品损耗
         if (!user.isCreative()) {
             int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(stack, world, Enchantments.UNBREAKING);
-            stack.setDamageValue(getItemDamage(unbreakingLevel));
+            stack.setDamageValue(stack.getDamageValue()+getItemDamage(unbreakingLevel));
         }
         // 粒子效果
         showParticleEffect(world, user);
