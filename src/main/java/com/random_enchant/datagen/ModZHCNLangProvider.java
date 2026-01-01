@@ -17,11 +17,15 @@ public class ModZHCNLangProvider extends LanguageProvider {
 
         add("enchantment.random_enchant.fury_of_fly","§aFly之怒");
 
+        add("message.random_enchant.enchant_added","§6已附魔：§r");
+
         add("item.tooltip.random_enchant.for_shift_tooltip","按下§6[SHIFT]§r查看详细信息");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1","§b左键攻击实体并瞬移，右键瞬移§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_2","§b瞬移路径上的实体会受到8点基础伤害(实际伤害与§a[横扫之刃]§b等级有关)§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_3","§b左键攻击时与目标的相对速度越大，伤害越高§r");
 
+        add("command.random_enchant.randomEnchant.enable","§a已启用随机附魔");
+        add("command.random_enchant.randomEnchant.disable","§6已禁用随机附魔");
 
     }
 }
