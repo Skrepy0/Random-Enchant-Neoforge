@@ -19,6 +19,7 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
@@ -35,7 +36,9 @@ public class ModItemGroup {
             Enchantments.POWER,
             Enchantments.CHANNELING,
             Enchantments.UNBREAKING,
-            ModEnchantments.FURY_OF_FLY
+            ModEnchantments.FURY_OF_FLY,
+            ModEnchantments.BAD_LUCK_OF_THE_SEA,
+            ModEnchantments.REDIRECT_PROJECTILE
     );
 
     public static final Supplier<CreativeModeTab> RANDOM_ENCHANT = CREATIVE_MODE_TAB.register("random_enchant_tab", () -> CreativeModeTab.builder()

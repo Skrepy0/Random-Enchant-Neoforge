@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "B": {
+      "item": "minecraft:stick"
+    },
+    "P": {
+      "item": "minecraft:enchanted_book"
+    },
+    "T": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    " #P",
+    " T#",
+    "B  "
+  ],
+  "result": {
+    "count": 1,
+    "id": "random_enchant:enchant_brush"
+  }
+}

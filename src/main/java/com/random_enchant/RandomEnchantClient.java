@@ -13,7 +13,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = RandomEnchant.MOD_ID, dist = Dist.CLIENT)
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-@EventBusSubscriber(modid = RandomEnchant.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = RandomEnchant.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class RandomEnchantClient {
     public RandomEnchantClient(ModContainer container) {
         // Allows NeoForge to create a config screen for this mod's configs.

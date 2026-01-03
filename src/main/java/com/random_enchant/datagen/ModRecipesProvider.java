@@ -30,6 +30,16 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .define('B', Items.BREEZE_ROD)
                 .unlockedBy(getHasName(ModItems.PEARL_SPEAR), has(Items.ENDER_PEARL))
                 .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.ENCHANT_BRUSH)
+                .pattern(" #P")
+                .pattern(" T#")
+                .pattern("B  ")
+                .define('P',Items.ENCHANTED_BOOK)
+                .define('#', Items.STRING)
+                .define('T', Items.COPPER_INGOT)
+                .define('B', Items.STICK)
+                .unlockedBy(getHasName(ModItems.ENCHANT_BRUSH), has(Items.STICK))
+                .save(recipeOutput);
     }
     protected static void oreSmelting(
             RecipeOutput recipeOutput, List<ItemLike> ingredients, RecipeCategory category, ItemLike result, float experience, int cookingTime, String group

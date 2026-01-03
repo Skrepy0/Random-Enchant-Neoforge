@@ -1,6 +1,6 @@
 package com.random_enchant.event.tool.brush;
 
-import com.random_enchant.data.ngt.BrushNBTUtils;
+import com.random_enchant.data.nbt.BrushNBTUtils;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import com.random_enchant.item.ModItems;
 import com.random_enchant.mixin_helper.InjectHelper;
@@ -20,10 +20,10 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 @EventBusSubscriber
-public class AttackBlockHandler {
+public class EnchantBrushHelper {
 
     @SubscribeEvent
-    public static void attackBlock(PlayerInteractEvent.RightClickBlock event) {
+    public static void useOnBlock(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getLevel();
         Player player = event.getEntity();
         BlockPos pos = event.getPos();
@@ -32,13 +32,16 @@ public class AttackBlockHandler {
         if (level.isClientSide()) return;
 
         ItemStack mainHandItem = player.getMainHandItem();
-        // 检查主手物品是否是我们的刷子
+        // 检查主手物品是否是刷子
         if (!mainHandItem.is(ModItems.ENCHANT_BRUSH)) {
             return;
         }
 
+        if(!player.isCreative()) return;
         // 获取刷子物品
         ItemStack brush = mainHandItem;
+        boolean status = BrushNBTUtils.getStatus(brush);
+        if (!status)return;
 
         if (brush.isEnchanted()) {
             // 有附魔的刷子：进行区域附魔操作

@@ -1,0 +1,6 @@
+{
+  "options.off": "§cOFF",
+  "options.off.composed": "%s: §cOFF",
+  "options.on": "§aON",
+  "options.on.composed": "%s: §aON"
+}

@@ -1,22 +1,60 @@
 package com.random_enchant.item.custom.tool;
 
+import com.random_enchant.data.nbt.BrushNBTUtils;
+import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import com.random_enchant.mixin_helper.InjectHelper;
+import net.minecraft.ChatFormatting;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BrushItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 
 public class EnchantBrush extends BrushItem {
     public EnchantBrush(Properties properties) {
-        super(properties);
+        super(properties.durability(256).rarity(Rarity.UNCOMMON).stacksTo(1));
+    }
+
+    private static int getItemDamage(int unbreakingLevel) {
+        Random random = new Random();
+        int rand = random.nextInt(100);
+        if (unbreakingLevel == 0) {
+            if (rand <= 20) {
+                return 0;
+            }
+            return 1;
+        } else if  (unbreakingLevel == 1) {
+            if (rand <= 40) {
+                return 0;
+            }
+            return 1;
+        } else if (unbreakingLevel == 2) {
+            if (rand <= 60) {
+                return 0;
+            }
+            return 1;
+        } else if (unbreakingLevel > 2) {
+            if (rand <= 80) {
+                return 0;
+            }
+            return 1;
+        }
+        return 1;
     }
 
     @Override
@@ -26,6 +64,8 @@ public class EnchantBrush extends BrushItem {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
+        Player user = context.getPlayer();
+        ItemStack stack = context.getItemInHand();
         if (!context.getLevel().isClientSide) {
             if (context.getItemInHand().isEnchanted()) {
                 //如果Pos位置方块没有附魔
@@ -46,6 +86,10 @@ public class EnchantBrush extends BrushItem {
                 //删除信息
                 BlockEnchantmentStorage.removeBlockEnchantment(context.getClickedPos().immutable());
             }
+            if (!user.isCreative()) {
+                int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.UNBREAKING);
+                stack.setDamageValue(stack.getDamageValue()+getItemDamage(unbreakingLevel));
+            }
         }
         return super.useOn(context);
     }
@@ -65,5 +109,17 @@ public class EnchantBrush extends BrushItem {
     @Override
     public int getEnchantmentValue() {
         return 10;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        // 获取刷子状态
+        boolean status = BrushNBTUtils.getStatus(stack);
+
+        // 显示状态信息
+        Component statusComponent = Component.translatable("item.tooltip.random_enchant.enchant_brush.status").append(status?Component.translatable("item.tooltip.random_enchant.enchant_brush.status.regional"):Component.translatable("item.tooltip.random_enchant.enchant_brush.status.single"));
+
+        tooltipComponents.add(statusComponent);
     }
 }

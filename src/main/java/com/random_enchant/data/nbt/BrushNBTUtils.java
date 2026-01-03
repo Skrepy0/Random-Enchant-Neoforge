@@ -1,4 +1,4 @@
-package com.random_enchant.data.ngt;
+package com.random_enchant.data.nbt;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -14,6 +14,7 @@ public class BrushNBTUtils {
     private static final String KEY_SELECTION_END = "SelectionEnd";
     private static final String KEY_HAS_START = "HasStart";
     private static final String KEY_ENCHANTMENTS = "Enchantments";
+    private static final String KEY_BRUSH_STATUS = "BrushStatus";
 
     /**
      * 获取刷子数据的Tag（只读，适用于读取操作）
@@ -95,7 +96,16 @@ public class BrushNBTUtils {
         brushTag.put(KEY_SELECTION_END, endTag);
         saveBrushTag(stack, brushTag);
     }
-
+    /**
+     * 设置状态
+     */
+    public static void setStatus(boolean status, ItemStack stack) {
+        CompoundTag brushTag = getBrushTagForUpdate(stack);
+        CompoundTag statusTag = new CompoundTag();
+        statusTag.putBoolean(KEY_BRUSH_STATUS, status);
+        brushTag.put(KEY_BRUSH_STATUS, statusTag);
+        saveBrushTag(stack, brushTag);
+    }
     /**
      * 清除选择状态
      */
@@ -141,6 +151,17 @@ public class BrushNBTUtils {
                 endTag.getInt("Y"),
                 endTag.getInt("Z")
         );
+    }
+    /**
+     * 获取状态
+     */
+    public static boolean getStatus(ItemStack stack) {
+        CompoundTag brushTag = getBrushTagForReading(stack);
+        if (!brushTag.contains(KEY_BRUSH_STATUS)) {
+            return false;
+        }
+        CompoundTag statusTag = brushTag.getCompound(KEY_BRUSH_STATUS);
+        return statusTag.getBoolean(KEY_BRUSH_STATUS);
     }
 
     /**

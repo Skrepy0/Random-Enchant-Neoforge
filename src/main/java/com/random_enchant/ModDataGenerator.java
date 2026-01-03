@@ -12,7 +12,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(modid = RandomEnchant.MOD_ID)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = RandomEnchant.MOD_ID)
 public class ModDataGenerator {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {

@@ -1,7 +1,9 @@
-package com.random_enchant.mixin.enchantment_item_mixin;
+package com.random_enchant.mixin.enchantment_item_mixin.infinity;
 
+import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,17 +24,19 @@ public class InfinityBlockMixin {
     private void onSetPlacedBy(Level level, BlockPos pos, BlockState state,
                                @Nullable LivingEntity placer, ItemStack stack,
                                CallbackInfo ci) {
+        if(!Config.infinityBlock())return;
         if (placer instanceof Player player && !player.isCreative()) {
-            ItemStack heldItem = player.getMainHandItem();
+            for (InteractionHand hand : InteractionHand.values()) {
+                ItemStack handItem = player.getItemInHand(hand);
+                // 检查无限附魔
+                if (ModEnchantHelper.getEnchantmentLevel(handItem, Enchantments.INFINITY) > 0) {
+                    // 恢复一个物品
+                    ItemStack restored = stack.copy();
+                    restored.setCount(1);
 
-            // 检查无限附魔
-            if (ModEnchantHelper.getEnchantmentLevel(heldItem, Enchantments.INFINITY) > 0) {
-                // 恢复一个物品
-                ItemStack restored = stack.copy();
-                restored.setCount(1);
-
-                if (!player.getInventory().add(restored)) {
-                    player.drop(restored, false);
+                    if (!player.getInventory().add(restored)) {
+                        player.drop(restored, false);
+                    }
                 }
             }
         }

@@ -9,7 +9,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-@EventBusSubscriber
+@EventBusSubscriber(modid = RandomEnchant.MOD_ID,bus = EventBusSubscriber.Bus.MOD)
 public class ModMessage {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event) {
@@ -57,6 +57,14 @@ public class ModMessage {
                 new DirectionalPayloadHandler<>(
                         null,
                         ShieldDashC2SPacket::handle
+                )
+        );
+        registrar.playBidirectional(
+                BrushStatusC2SPacket.TYPE,
+                BrushStatusC2SPacket.STREAM_CODEC,
+                new DirectionalPayloadHandler<>(
+                        null,
+                        BrushStatusC2SPacket::handle
                 )
         );
         registrar.playBidirectional(

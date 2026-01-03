@@ -1,7 +1,6 @@
 package com.random_enchant.event;
 
 import com.random_enchant.RandomEnchant;
-import com.random_enchant.command.RandomEnchantCommand;
 import com.random_enchant.data.GlobalSwitchData;
 import com.random_enchant.data.GlobalSwitchManager;
 import net.minecraft.core.Holder;
@@ -14,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 
 import java.util.ArrayList;
@@ -22,6 +22,7 @@ import java.util.List;
 import static com.random_enchant.enchantment.ModEnchantHelper.getDescriptionId;
 import static net.minecraft.network.chat.Component.translatable;
 
+@EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class RandomEnchantEvent {
 
     @SubscribeEvent
@@ -37,7 +38,7 @@ public class RandomEnchantEvent {
             return;
         }
         Entity target = event.getTarget();
-        if (!(target instanceof LivingEntity))return;
+        if (!(target instanceof LivingEntity)) return;
         ItemStack mainHandItem = player.getMainHandItem();
         if (mainHandItem.isEmpty()) {
             return;

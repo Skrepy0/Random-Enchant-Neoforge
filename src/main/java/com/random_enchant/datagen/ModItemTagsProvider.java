@@ -7,14 +7,19 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagsProvider extends ItemTagsProvider {
+
     public ModItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, blockTags, RandomEnchant.MOD_ID, existingFileHelper);
     }
@@ -23,6 +28,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         tag(ModItemTags.FURY_OF_FLY_AVAILABLE)
                 .add(ModItems.PEARL_SPEAR.get());
+        tag(ModItemTags.REDIRECT_PROJECTILE_AVAILABLE)
+                .add(Items.TRIDENT);
         tag(ItemTags.SWORDS)
                 .add(ModItems.PEARL_SPEAR.get());
         tag(ItemTags.DURABILITY_ENCHANTABLE)
@@ -46,5 +53,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.CHANNELING)
                 .add(ModItems.PEARL_SPEAR.get())
                 .addTag(ItemTags.TRIDENT_ENCHANTABLE);
+
     }
 }

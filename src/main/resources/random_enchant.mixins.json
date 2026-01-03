@@ -3,13 +3,24 @@
   "package": "com.random_enchant.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "enchantment_block_mixin.custom.badluckofthesea.FallingBlockEntityMixin",
+    "enchantment_block_mixin.custom.badluckofthesea.FlowableFluidMixin",
     "enchantment_block_mixin.custom.blastprotection.ExplosionBehaviorMixin",
+    "enchantment_block_mixin.custom.fallprotection.BlockMixin",
     "enchantment_block_mixin.custom.fasthopper.HopperBlockEntityMixin",
+    "enchantment_block_mixin.custom.knockback.AbstractBlockMixin",
+    "enchantment_block_mixin.custom.knockback.AbstractPressurePlateBlockMixin",
+    "enchantment_block_mixin.custom.knockback.BlockMixin",
+    "enchantment_block_mixin.custom.knockback.ButtonBlockMixin",
+    "enchantment_block_mixin.custom.knockback.LivingEntityMixin",
+    "enchantment_block_mixin.custom.knockback.NetherPortalBlockMixin",
+    "enchantment_block_mixin.custom.knockback.TripwireBlockMixin",
     "enchantment_block_mixin.custom.punchtrapdoor.TrapdoorBlockMixin",
     "enchantment_block_mixin.custom.respiration.FlowableFluidMixin",
     "enchantment_block_mixin.custom.targetblock.TargetBlockMixin",
     "enchantment_block_mixin.custom.thorns.AbstractBlockMixin",
     "enchantment_block_mixin.custom.thorns.BlockMixin",
+    "enchantment_block_mixin.custom.tnt.TntBlockMixin",
     "enchantment_block_mixin.custom.waterbroken.FlowableFluidMixin",
     "enchantment_block_mixin.main.BlockMixin",
     "enchantment_block_mixin.main.PistonBlockMixin",
@@ -25,15 +36,23 @@
     "enchantment_block_mixin.main.sigle_inject.StructureBlockMixin",
     "enchantment_block_mixin.main.sigle_inject.TallPlantBlockMixin",
     "enchantment_block_mixin.main.sigle_inject.TripwireHookBlockMixin",
-    "enchantment_item_mixin.InfiniteBucketMixin$InFiniteBucketMixin",
-    "enchantment_item_mixin.InfiniteFoodMixin$InFiniteFoodMixin",
-    "enchantment_item_mixin.InfiniteUndyingMixin",
-    "enchantment_item_mixin.InfinityBlockMixin"
+    "enchantment_entity_mixin.custom.minecart.AbstractMinecartMixin",
+    "enchantment_entity_mixin.custom.minecart.MinecartItemMixin",
+    "enchantment_item_mixin.AnvilMenuMixin",
+    "enchantment_item_mixin.ArmorEnchantmentMixin",
+    "enchantment_item_mixin.BadLuckOfSeaItemEntityMixin",
+    "enchantment_item_mixin.custom.luoyangshovel.FallingBlockEntityMixin",
+    "enchantment_item_mixin.custom.luoyangshovel.ShovelItemMixin",
+    "enchantment_item_mixin.custom.trident.multishot_trident.TridentItemMixin",
+    "enchantment_item_mixin.custom.trident.redirect_trident.ThrownTridentMixin",
+    "enchantment_item_mixin.custom.trident.redirect_trident.TridentItemMixin",
+    "enchantment_item_mixin.infinity.InfiniteBucketMixin$InFiniteBucketMixin",
+    "enchantment_item_mixin.infinity.InfiniteFoodMixin$InFiniteFoodMixin",
+    "enchantment_item_mixin.infinity.InfinityBlockMixin",
+    "enchantment_item_mixin.infinity.InfinityPotionItemMixin",
+    "enchantment_item_mixin.infinity.InfinityThrowablePotionMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "overwrites": {
-    "requireAnnotations": true
   }
 }

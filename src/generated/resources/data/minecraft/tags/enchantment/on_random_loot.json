@@ -1,0 +1,16 @@
+{
+  "values": [
+    {
+      "id": "random_enchant:fury_of_fly",
+      "required": false
+    },
+    {
+      "id": "random_enchant:bad_luck_of_the_sea",
+      "required": false
+    },
+    {
+      "id": "random_enchant:redirect_projectile",
+      "required": false
+    }
+  ]
+}

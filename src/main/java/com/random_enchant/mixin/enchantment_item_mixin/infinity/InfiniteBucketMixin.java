@@ -1,7 +1,6 @@
-package com.random_enchant.mixin.enchantment_item_mixin;
+package com.random_enchant.mixin.enchantment_item_mixin.infinity;
 
 import com.random_enchant.enchantment.ModEnchantHelper;
-import com.random_enchant.mixin_helper.InjectHelper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
