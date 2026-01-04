@@ -1,0 +1,20 @@
+{
+  "anvil_cost": 10,
+  "description": {
+    "translate": "enchantment.random_enchant.fly"
+  },
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 30,
+    "per_level_above_first": 0
+  },
+  "slots": [
+    "chest"
+  ],
+  "supported_items": "#random_enchant:fly_available",
+  "weight": 2
+}
