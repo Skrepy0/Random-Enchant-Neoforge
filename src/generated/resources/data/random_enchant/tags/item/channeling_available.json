@@ -1,8 +1,6 @@
 {
   "values": [
     "random_enchant:pearl_spear",
-    "#minecraft:enchantable/trident",
-    "random_enchant:pearl_spear",
     "#minecraft:enchantable/trident"
   ]
 }

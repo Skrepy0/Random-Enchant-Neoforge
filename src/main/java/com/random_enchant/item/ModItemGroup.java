@@ -4,8 +4,6 @@ import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantments;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -14,18 +12,14 @@ import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 import java.util.function.Supplier;
-
-import static com.random_enchant.enchantment.ModEnchantHelper.getHolder;
 
 public class ModItemGroup {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RandomEnchant.MOD_ID);
@@ -38,7 +32,8 @@ public class ModItemGroup {
             Enchantments.UNBREAKING,
             ModEnchantments.FURY_OF_FLY,
             ModEnchantments.BAD_LUCK_OF_THE_SEA,
-            ModEnchantments.REDIRECT_PROJECTILE
+            ModEnchantments.REDIRECT_PROJECTILE,
+            ModEnchantments.FLY
     );
 
     public static final Supplier<CreativeModeTab> RANDOM_ENCHANT = CREATIVE_MODE_TAB.register("random_enchant_tab", () -> CreativeModeTab.builder()

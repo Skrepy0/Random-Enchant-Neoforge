@@ -40,6 +40,10 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.QUICK_CHARGE_AVAILABLE)
                 .addTag(ItemTags.CROSSBOW_ENCHANTABLE)
                 .add(ModItems.PEARL_SPEAR.get());
+        tag(ModItemTags.REDIRECT_PROJECTILE_AVAILABLE)
+                .add(Items.TRIDENT);
+        tag(ModItemTags.FLY_AVAILABLE)
+                .add(Items.ELYTRA);
         tag(ModItemTags.CHANNELING)
                 .add(ModItems.PEARL_SPEAR.get())
                 .addTag(ItemTags.TRIDENT_ENCHANTABLE);
@@ -50,9 +54,5 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.FROST_WALKER)
                 .add(Items.ARROW)
                 .addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
-        tag(ModItemTags.CHANNELING)
-                .add(ModItems.PEARL_SPEAR.get())
-                .addTag(ItemTags.TRIDENT_ENCHANTABLE);
-
     }
 }
