@@ -14,10 +14,14 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -38,9 +42,14 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     @Unique
     private static final EntityDataAccessor<Byte> DATA_REDIRECT_LEVEL =
             SynchedEntityData.defineId(ThrownTridentMixin.class, EntityDataSerializers.BYTE);
-
+    @Unique
+    private static final EntityDataAccessor<Byte> DATA_FIRE_ASPECT_LEVEL =
+            SynchedEntityData.defineId(ThrownTridentMixin.class, EntityDataSerializers.BYTE);
     @Unique
     private static final String NBT_REDIRECT_LEVEL = "RandomEnchant_RedirectLevel";
+
+    @Unique
+    private static final String NBT_FIRE_ASPECT_LEVEL = "RandomEnchant_FireAspectLevel";
 
     @Unique
     private static final double GROUND_TELEPORT_DISTANCE = 0.5;
@@ -49,13 +58,13 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         super(entityType, level);
     }
 
-    // ===== 初始化方法 =====
 
     @Inject(method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;)V",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V"))
     private void onInitWithShooter(Level level, LivingEntity shooter, ItemStack pickupItemStack, CallbackInfo ci) {
         this.randomEnchant$setRedirectLevelFromItem(pickupItemStack);
+        this.randomEnchant$setFireAspectLevelFromItem(pickupItemStack);
     }
 
     @Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V",
@@ -63,18 +72,19 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
                     target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V"))
     private void onInitWithPosition(Level level, double x, double y, double z, ItemStack pickupItemStack, CallbackInfo ci) {
         this.randomEnchant$setRedirectLevelFromItem(pickupItemStack);
+        this.randomEnchant$setFireAspectLevelFromItem(pickupItemStack);
     }
 
     @Inject(method = "defineSynchedData", at = @At(value = "TAIL"))
     private void onDefineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
         builder.define(DATA_REDIRECT_LEVEL, (byte) 0);
+        builder.define(DATA_FIRE_ASPECT_LEVEL, (byte) 0);
     }
-
-    // ===== 数据保存/加载 =====
 
     @Inject(method = "addAdditionalSaveData", at = @At(value = "RETURN"))
     public void onSaveAdditionalData(CompoundTag compound, CallbackInfo ci) {
         compound.putByte(NBT_REDIRECT_LEVEL, this.randomEnchant$getRedirectLevel());
+        compound.putByte(NBT_FIRE_ASPECT_LEVEL,this.entityData.get(DATA_FIRE_ASPECT_LEVEL));
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At(value = "RETURN"))
@@ -85,6 +95,12 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
             // 兼容旧存档：从物品重新计算
             this.randomEnchant$setRedirectLevelFromItem(this.getPickupItem());
         }
+
+        if (compound.contains(NBT_FIRE_ASPECT_LEVEL)) {
+            this.entityData.set(DATA_FIRE_ASPECT_LEVEL, compound.getByte(NBT_FIRE_ASPECT_LEVEL));
+        } else {
+            this.randomEnchant$setFireAspectLevelFromItem(this.getPickupItem());
+        }
     }
 
     @Inject(at = @At(value = "INVOKE",
@@ -94,20 +110,31 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         int redirectLevel = this.randomEnchant$getRedirectLevel();
         Entity owner = this.getOwner();
 
-        if (redirectLevel <= 0 || owner == null) {
-            return;
+        if (redirectLevel > 0 && owner != null){
+            // 检查左键点击
+            if (!OnPlayerLeftClick.onPlayerLeftClicked()) {
+                this.randomEnchant$resetGravityIfNeeded();
+                return;
+            }
+
+            this.dealtDamage = false; // 重置伤害标志，允许再次伤害
+
+            if (this.randomEnchant$shouldPerformRedirect()) {
+                this.randomEnchant$performRedirect(owner, redirectLevel);
+            }
         }
+    }
 
-        // 检查左键点击
-        if (!OnPlayerLeftClick.onPlayerLeftClicked()) {
-            this.randomEnchant$resetGravityIfNeeded();
-            return;
-        }
-
-        this.dealtDamage = false; // 重置伤害标志，允许再次伤害
-
-        if (this.randomEnchant$shouldPerformRedirect()) {
-            this.randomEnchant$performRedirect(owner, redirectLevel);
+    @Inject(method = "onHitEntity",at = @At("HEAD"))
+    private void onHitEntity(EntityHitResult result, CallbackInfo ci){
+        Entity hitEntity = result.getEntity();
+        Level level = hitEntity.level();
+        if (level.isClientSide)return;
+        if (hitEntity instanceof LivingEntity) {
+            int fireAspectLevel = this.entityData.get(DATA_FIRE_ASPECT_LEVEL);
+            if (fireAspectLevel > 0) {
+                hitEntity.setRemainingFireTicks(fireAspectLevel*80);
+            }
         }
     }
 
@@ -120,6 +147,12 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     private void randomEnchant$setRedirectLevelFromItem(ItemStack stack) {
         byte level = this.randomEnchant$calculateRedirectLevelFromItem(stack);
         this.entityData.set(DATA_REDIRECT_LEVEL, level);
+    }
+
+    @Unique
+    private void randomEnchant$setFireAspectLevelFromItem(ItemStack stack) {
+        byte level = this.randomEnchant$calculateFireAspectLevelFromItem(stack);
+        this.entityData.set(DATA_FIRE_ASPECT_LEVEL, level);
     }
 
     @Unique
@@ -137,6 +170,20 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     }
 
     @Unique
+    private byte randomEnchant$calculateFireAspectLevelFromItem(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            return 0;
+        }
+
+        Level level = this.level();
+        if (level instanceof ServerLevel) {
+            int enchantLevel = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.FIRE_ASPECT);
+            return (byte) Math.min(enchantLevel, Byte.MAX_VALUE);
+        }
+        return 0;
+    }
+
+    @Unique
     private boolean randomEnchant$shouldPerformRedirect() {
         // 在地面或飞行中未造成伤害时都可以重定向
         return this.inGround || (!this.dealtDamage && !this.isNoPhysics());
@@ -144,7 +191,7 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
 
     @Unique
     private void randomEnchant$performRedirect(Entity owner, int redirectLevel) {
-        double raycastDistance = Config.redirectTridentSetPointDistance();
+        double raycastDistance = Config.getRedirectTridentSetPointDistance();
         Vec3 targetPos = this.randomEnchant$calculateTargetPosition(owner, raycastDistance);
 
         if (targetPos == null) {
@@ -179,8 +226,33 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
                 )
         );
 
+        // 检查实体
+        if (hitResult.getType() != HitResult.Type.BLOCK) {
+            // 进行实体检测
+            EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(
+                    owner.level(),
+                    owner,
+                    startPos,
+                    endPos,
+                    new AABB(startPos, endPos).inflate(1.0), // 搜索范围
+                    entity -> {
+                        // 过滤条件：不检测自己，且实体可被击中
+                        return entity != owner
+                                && entity.isAlive()
+                                && entity.isPickable()
+                                && !entity.isSpectator();
+                    },
+                    0.0F // 距离阈值
+            );
+
+            if (entityHitResult != null) {
+                Vec3 res = entityHitResult.getLocation();
+                return new Vec3(res.x, res.y+0.3, res.z);
+            }
+        }
+
         // 返回命中点或视线末端
-        if (hitResult.getType() == HitResult.Type.BLOCK) {
+        if (hitResult.getType() == HitResult.Type.BLOCK || hitResult.getType() == HitResult.Type.ENTITY) {
             return hitResult.getLocation();
         } else {
             return endPos;

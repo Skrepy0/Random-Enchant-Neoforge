@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
@@ -84,4 +85,42 @@ public class BadLuckOfTheSeaHelper {
 
         entity.setDeltaMovement(newVelocity);
     }
+
+    public static void thrownTridentEntityWithBadLuckOfTheSea(Entity entity, double lvl) {
+        BlockPos closestNonLiquidBlockPos = null;
+        double closestDistanceSq = Double.MAX_VALUE; // 初始设置为最大值
+        BlockPos blockPos = entity.blockPosition();
+        Level world = entity.level();
+        for (int xOffset = -20; xOffset <= 19; xOffset++) {
+            for (int zOffset = -20; zOffset <= 19; zOffset++) {
+                BlockPos currentPos = blockPos.offset(xOffset, 0, zOffset);
+                FluidState fluidState1 = world.getFluidState(currentPos);
+
+                // 检查当前方块是否不是液体方块
+                if (!fluidState1.is(FluidTags.WATER)) {
+                    double distanceSq = entity.distanceToSqr(Vec3.atCenterOf(currentPos));
+
+                    // 如果当前方块更近，则更新最近的非液体方块信息
+                    if (distanceSq < closestDistanceSq) {
+                        closestDistanceSq = distanceSq;
+                        closestNonLiquidBlockPos = currentPos;
+                    }
+                }
+            }
+        }
+
+        if (closestNonLiquidBlockPos != null) {
+            // 计算方向向量
+            Vec3 direction = Vec3.atCenterOf(closestNonLiquidBlockPos).subtract(entity.position()).normalize();
+
+            double speed = 0.5; // 设定速度大小（可以根据需要调整）
+
+            // 计算最终的速度向量
+            Vec3 velocity = direction.scale(speed);
+
+            entity.push(0, 1, 0);
+            entity.addDeltaMovement(velocity); // 应用速度
+        }
+    }
 }
+
