@@ -41,6 +41,8 @@
     "enchantment_item_mixin.AnvilMenuMixin",
     "enchantment_item_mixin.ArmorEnchantmentMixin",
     "enchantment_item_mixin.BadLuckOfSeaItemEntityMixin",
+    "enchantment_item_mixin.custom.elytra.LivingEntityMixin",
+    "enchantment_item_mixin.custom.elytra.PlayerEntityMixin",
     "enchantment_item_mixin.custom.luoyangshovel.FallingBlockEntityMixin",
     "enchantment_item_mixin.custom.luoyangshovel.ShovelItemMixin",
     "enchantment_item_mixin.custom.trident.multishot_trident.TridentItemMixin",

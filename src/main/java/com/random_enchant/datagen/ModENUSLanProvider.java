@@ -23,6 +23,8 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("random_enchant.configuration.InfinityPotion","Infinity Potion");
         add("random_enchant.configuration.redirectTridentSetPointDistance","§6[Redirect Projectile]§rMax distance for radiographic testing");
 //        add("random_enchant.configuration.redirectTridentSetPointDistance.comment","The max distance between the right-clicking point and the player when using a Trident with §6Redirect Projectile§r");
+        add("random_enchant.configuration.flyEnchantmentLiftHeightPerTick", "The height that the elytra with §d[Fly]§r enchantment can lift per tick");
+
 
         add(ModItems.PEARL_SPEAR.get(), "Pearl Spear");
         add(ModItems.ENCHANT_BRUSH.get(), "Enchant Brush");
@@ -32,7 +34,7 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("entity.minecraft.bee.random_enchant.spawn_name","§aFly");
         add("enchantment.random_enchant.bad_luck_of_the_sea","§cBad Luck Of The Sea§r");
         add("enchantment.random_enchant.redirect_projectile","§6Redirect Projectile§r");
-
+        add("enchantment.random_enchant.fly","§dFly§r");
 
         add("message.random_enchant.enchant_added","§6Enchanted:§r");
         add("message.random_enchant.item.enchant_brush.selected_1", "§aStarting point set. Please click the second block to define the area.");

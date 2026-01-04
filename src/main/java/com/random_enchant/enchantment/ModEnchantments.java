@@ -8,6 +8,7 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +18,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> FURY_OF_FLY = of("fury_of_fly");
     public static final ResourceKey<Enchantment> BAD_LUCK_OF_THE_SEA = of("bad_luck_of_the_sea");
     public static final ResourceKey<Enchantment> REDIRECT_PROJECTILE = of("redirect_projectile");
-
+    public static final ResourceKey<Enchantment> FLY = of("fly");
     public static void bootstrap(BootstrapContext<Enchantment> registry) {
         HolderGetter<Enchantment> registryEntryLookup2 = registry.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> registryEntryLookup3 = registry.lookup(Registries.ITEM);
@@ -44,6 +45,14 @@ public class ModEnchantments {
                 Enchantment.constantCost(50),
                 8,
                 EquipmentSlotGroup.ANY))
+        );
+        register(registry, FLY, Enchantment.enchantment(Enchantment.definition(
+                registryEntryLookup3.getOrThrow(ModItemTags.FLY_AVAILABLE),
+                2,1,
+                Enchantment.constantCost(30),
+                Enchantment.constantCost(50),
+                10,
+                EquipmentSlotGroup.CHEST))
         );
     }
 

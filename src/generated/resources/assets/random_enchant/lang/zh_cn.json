@@ -2,6 +2,7 @@
   "command.random_enchant.randomEnchant.disable": "§6已禁用随机附魔",
   "command.random_enchant.randomEnchant.enable": "§a已启用随机附魔",
   "enchantment.random_enchant.bad_luck_of_the_sea": "§c海之嫌弃§r",
+  "enchantment.random_enchant.fly": "§dFly§r",
   "enchantment.random_enchant.fury_of_fly": "§aFly之怒",
   "enchantment.random_enchant.redirect_projectile": "§6重定向§r",
   "item.random_enchant.enchant_brush": "附魔刷",
@@ -21,10 +22,11 @@
   "message.random_enchant.item.enchant_brush.selected_1": "§a已设置起始点，请点击第二个方块以确定区域。",
   "message.random_enchant.item.enchant_brush.selected_2": "§a区域附魔操作完成。",
   "message.random_enchant.item.enchant_brush.status.changed": "§a转换至：",
-  "random_enchant.configuration.infinityBlock": "§d[无限]§r附魔对可放置方块的兼容",
-  "random_enchant.configuration.infinityPotion": "§d[无限]§r附魔对药水的兼容",
-  "random_enchant.configuration.infinityTnt": "§d[无限]§r附魔对TNT的兼容",
-  "random_enchant.configuration.infinityUndyingTotem": "§d[无限]§r附魔对不死图腾的兼容",
+  "random_enchant.configuration.flyEnchantmentLiftHeightPerTick": "含有§d[Fly]§r附魔的鞘翅每tick提升的高度",
+  "random_enchant.configuration.infinityBlock": "§a[无限]§r附魔对可放置方块的兼容",
+  "random_enchant.configuration.infinityPotion": "§a[无限]§r附魔对药水的兼容",
+  "random_enchant.configuration.infinityTnt": "§a[无限]§r附魔对TNT的兼容",
+  "random_enchant.configuration.infinityUndyingTotem": "§a[无限]§r附魔对不死图腾的兼容",
   "random_enchant.configuration.isAlwaysEnchantable": "所有物品可附魔",
   "random_enchant.configuration.redirectTridentSetPointDistance": "§6[重定向]§r射线检测最大距离"
 }
