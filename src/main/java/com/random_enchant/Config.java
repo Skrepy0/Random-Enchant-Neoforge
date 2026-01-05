@@ -34,7 +34,8 @@ public class Config {
 
     public static boolean infinityTnt(){return infinityTnt.get();}
 
-    public static boolean infinityPotion(){return infinityPotion.get();}
+    public static boolean infinityPotion(){return infinityPotion.get();
+    }
 
     public static int getRedirectTridentSetPointDistance() {
         return redirectTridentSetPointDistance.get();
