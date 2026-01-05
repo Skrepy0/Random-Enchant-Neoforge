@@ -33,16 +33,15 @@ import java.util.Objects;
 @Mixin(TntBlock.class)
 public abstract class TntBlockMixin extends Block {
 
+    public TntBlockMixin(Properties properties) {
+        super(properties);
+    }
+
     @Shadow
     @Deprecated
     protected static void explode(Level level, BlockPos pos, @Nullable LivingEntity entity) {
 
     }
-
-    public TntBlockMixin(Properties properties) {
-        super(properties);
-    }
-
 
     /**
      * @author Mafuyu33

@@ -14,6 +14,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
     protected void addTranslations() {
         add("itemGroup.random_enchant.title", "随机附魔");
 
+        add("random_enchant.configuration.randomEnchant", "§g随机附魔§r事件");
         add("random_enchant.configuration.isAlwaysEnchantable", "所有物品可附魔");
 //        add("random_enchant.configuration.isAlwaysEnchantable.comment","§l所有物品§r可以通过§a铁砧§r附魔");
         add("random_enchant.configuration.infinityUndyingTotem", "§a[无限]§r附魔对不死图腾的兼容");
@@ -51,6 +52,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("key.categories.random_enchant", "随机附魔");
         add("command.random_enchant.randomEnchant.enable", "§a已启用随机附魔");
         add("command.random_enchant.randomEnchant.disable", "§6已禁用随机附魔");
-
+        add("command.random_enchant.config.changed", "已被更改为");
+        add("command.random_enchant.config.unchanged", "的状态§c未发生有效更改§r");
     }
 }

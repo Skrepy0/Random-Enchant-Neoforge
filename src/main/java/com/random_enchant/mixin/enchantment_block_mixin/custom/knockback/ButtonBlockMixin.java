@@ -27,7 +27,7 @@ public abstract class ButtonBlockMixin extends Block {
     @Inject(at = @At("HEAD"), method = "entityInside")
     private void init3(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
         Direction direction = state.getValue(BlockStateProperties.HORIZONTAL_FACING);
-        int k = BlockEnchantmentStorage.getLevel(Enchantments.KNOCKBACK,pos);
+        int k = BlockEnchantmentStorage.getLevel(Enchantments.KNOCKBACK, pos);
         if (!level.isClientSide() && k > 0) {
             Vec3 velocity = new Vec3(direction.step()).scale(k * 0.5);
             entity.push(velocity.x, velocity.y, velocity.z);

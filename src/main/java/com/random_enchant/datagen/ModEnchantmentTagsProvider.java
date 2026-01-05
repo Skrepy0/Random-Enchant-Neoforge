@@ -2,7 +2,6 @@ package com.random_enchant.datagen;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantmentTags;
-import com.random_enchant.enchantment.ModEnchantments;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.EnchantmentTagsProvider;

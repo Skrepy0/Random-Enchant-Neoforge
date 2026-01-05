@@ -1,12 +1,10 @@
 package com.random_enchant.event;
 
+import com.random_enchant.Config;
 import com.random_enchant.RandomEnchant;
-import com.random_enchant.data.GlobalSwitchData;
-import com.random_enchant.data.GlobalSwitchManager;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -28,15 +26,12 @@ public class RandomEnchantEvent {
     @SubscribeEvent
     public static void onPlayerAttack(AttackEntityEvent event) {
         if (event.getEntity().level().isClientSide) return;
-        GlobalSwitchData data = GlobalSwitchManager.get((ServerLevel) event.getEntity().level());
-        if (!data.getDoRandomEnchant()) {
+
+        if (!Config.randomEnchant()) {
             return;
         }
 
         Player player = event.getEntity();
-        if (player == null) {
-            return;
-        }
         Entity target = event.getTarget();
         if (!(target instanceof LivingEntity)) return;
         ItemStack mainHandItem = player.getMainHandItem();

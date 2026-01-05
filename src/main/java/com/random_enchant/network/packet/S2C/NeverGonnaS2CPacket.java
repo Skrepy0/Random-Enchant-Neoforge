@@ -1,11 +1,10 @@
 package com.random_enchant.network.packet.S2C;
 
-import com.random_enchant.sound.ModSounds;
 import com.random_enchant.RandomEnchant;
+import com.random_enchant.sound.ModSounds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -18,30 +17,27 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import java.util.Random;
 
 public class NeverGonnaS2CPacket implements CustomPacketPayload {
-    public static Type<NeverGonnaS2CPacket> TYPE =
-            new Type<NeverGonnaS2CPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID,"never_gonna"));
-
     // stream codec
     public static final StreamCodec<FriendlyByteBuf, NeverGonnaS2CPacket> STREAM_CODEC =
-            CustomPacketPayload.codec(NeverGonnaS2CPacket::write,NeverGonnaS2CPacket::new);
+            CustomPacketPayload.codec(NeverGonnaS2CPacket::write, NeverGonnaS2CPacket::new);
+    public static Type<NeverGonnaS2CPacket> TYPE =
+            new Type<NeverGonnaS2CPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "never_gonna"));
 
 
-
-    public NeverGonnaS2CPacket(){
+    public NeverGonnaS2CPacket() {
     }
 
-    public NeverGonnaS2CPacket(FriendlyByteBuf buf){
+    public NeverGonnaS2CPacket(FriendlyByteBuf buf) {
     }
 
-    public void write(FriendlyByteBuf pBuffer) {
-    }
-    public static void handle(NeverGonnaS2CPacket data, IPayloadContext context){
+    public static void handle(NeverGonnaS2CPacket data, IPayloadContext context) {
         runEnqueue(context);
     }
+
     @OnlyIn(Dist.CLIENT)
     private static void runEnqueue(IPayloadContext context) {
-        context.enqueueWork(()->{
-            playRandomSound(Minecraft.getInstance().level,Minecraft.getInstance().player);
+        context.enqueueWork(() -> {
+            playRandomSound(Minecraft.getInstance().level, Minecraft.getInstance().player);
         });
     }
 
@@ -83,6 +79,10 @@ public class NeverGonnaS2CPacket implements CustomPacketPayload {
                 break;
         }
     }
+
+    public void write(FriendlyByteBuf pBuffer) {
+    }
+
     @Override
     public Type<? extends CustomPacketPayload> type() {
         return TYPE;

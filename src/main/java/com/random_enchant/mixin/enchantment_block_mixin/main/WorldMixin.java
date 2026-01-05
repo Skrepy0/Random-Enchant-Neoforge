@@ -15,14 +15,15 @@ import java.util.Objects;
 
 @Mixin(Level.class)
 public abstract class WorldMixin {
-	@Shadow public abstract boolean isClientSide();
+    @Shadow
+    public abstract boolean isClientSide();
 
-	@Inject(at = @At("HEAD"), method = "destroyBlock")
-	private void init(BlockPos pos, boolean dropBlock, Entity entity, int recursionLeft, CallbackInfoReturnable<Boolean> cir) {
-		if (!this.isClientSide()) {
-			if (!Objects.equals(BlockEnchantmentStorage.getEnchantmentsAtPosition(pos), new ListTag())) {
-				BlockEnchantmentStorage.removeBlockEnchantment(pos.immutable());//删除信息
-			}
-		}
-	}
+    @Inject(at = @At("HEAD"), method = "destroyBlock")
+    private void init(BlockPos pos, boolean dropBlock, Entity entity, int recursionLeft, CallbackInfoReturnable<Boolean> cir) {
+        if (!this.isClientSide()) {
+            if (!Objects.equals(BlockEnchantmentStorage.getEnchantmentsAtPosition(pos), new ListTag())) {
+                BlockEnchantmentStorage.removeBlockEnchantment(pos.immutable());//删除信息
+            }
+        }
+    }
 }

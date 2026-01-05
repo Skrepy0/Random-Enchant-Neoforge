@@ -16,7 +16,11 @@ import static com.random_enchant.particle.ModParticleHelper.addParticlesOnBlock;
 public class AddEnchantedBlockParticleS2CPacket implements CustomPacketPayload {
     public static final Type<AddEnchantedBlockParticleS2CPacket> TYPE =
             new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "add_enchanted_block_particle"));
-
+    public static final StreamCodec<FriendlyByteBuf, AddEnchantedBlockParticleS2CPacket> STREAM_CODEC =
+            StreamCodec.of(
+                    (buf, packet) -> packet.write(buf),
+                    AddEnchantedBlockParticleS2CPacket::new
+            );
     public final BlockPos blockPos;
     public final RenderType type;
 
@@ -30,17 +34,6 @@ public class AddEnchantedBlockParticleS2CPacket implements CustomPacketPayload {
         this.type = buf.readEnum(RenderType.class);
     }
 
-    public void write(FriendlyByteBuf buf) {
-        buf.writeBlockPos(this.blockPos);
-        buf.writeEnum(this.type);
-    }
-
-    public static final StreamCodec<FriendlyByteBuf, AddEnchantedBlockParticleS2CPacket> STREAM_CODEC =
-            StreamCodec.of(
-                    (buf, packet) -> packet.write(buf),
-                    AddEnchantedBlockParticleS2CPacket::new
-            );
-
     public static void handle(AddEnchantedBlockParticleS2CPacket data, IPayloadContext context) {
         context.enqueueWork(() -> {
             SimpleParticleType particleType = switch (data.type) {
@@ -50,6 +43,11 @@ public class AddEnchantedBlockParticleS2CPacket implements CustomPacketPayload {
             };
             addParticlesOnBlock(data.blockPos, particleType);
         });
+    }
+
+    public void write(FriendlyByteBuf buf) {
+        buf.writeBlockPos(this.blockPos);
+        buf.writeEnum(this.type);
     }
 
     @Override

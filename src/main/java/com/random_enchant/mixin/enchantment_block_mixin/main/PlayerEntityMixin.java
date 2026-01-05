@@ -22,33 +22,33 @@ import java.util.Set;
 @Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
 
-	protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level level) {
-		super(entityType, level);
-	}
+    protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level level) {
+        super(entityType, level);
+    }
 
-	@Inject(at = @At("TAIL"), method = "tick")
-	private void init(CallbackInfo info) {
-		if (!this.level().isClientSide && (this.isHolding(Items.BRUSH)||this.isHolding(ModItems.ENCHANT_BRUSH.asItem()))) {
-			randomEnchant_Neoforge$renderEnchantedBlockParticles();
-		}
-	}
+    @Inject(at = @At("TAIL"), method = "tick")
+    private void init(CallbackInfo info) {
+        if (!this.level().isClientSide && (this.isHolding(Items.BRUSH) || this.isHolding(ModItems.ENCHANT_BRUSH.asItem()))) {
+            randomEnchant_Neoforge$renderEnchantedBlockParticles();
+        }
+    }
 
 
-	@Unique
-	private void randomEnchant_Neoforge$renderEnchantedBlockParticles() {
-		// 从存储中获取所有附魔方块
-		Set<BlockPos> enchantedBlocks = BlockEnchantmentStorage.getAllEnchantedBlocks();
+    @Unique
+    private void randomEnchant_Neoforge$renderEnchantedBlockParticles() {
+        // 从存储中获取所有附魔方块
+        Set<BlockPos> enchantedBlocks = BlockEnchantmentStorage.getAllEnchantedBlocks();
 
-		// 为每个附魔方块生成粒子效果
-		for (BlockPos blockPos : enchantedBlocks) {
-			// 检查方块是否仍然存在（可能已被破坏）
-			if (this.level().getBlockState(blockPos).isAir()) {
-				// 从存储中移除不存在的方块
-				BlockEnchantmentStorage.removeBlockEnchantment(blockPos);
-			} else {
-				//S2C，在客户端生成粒子
-				PacketDistributor.sendToAllPlayers(new AddEnchantedBlockParticleS2CPacket(blockPos, ParticleRenderType.RenderType.COMMON));
-			}
-		}
-	}
+        // 为每个附魔方块生成粒子效果
+        for (BlockPos blockPos : enchantedBlocks) {
+            // 检查方块是否仍然存在（可能已被破坏）
+            if (this.level().getBlockState(blockPos).isAir()) {
+                // 从存储中移除不存在的方块
+                BlockEnchantmentStorage.removeBlockEnchantment(blockPos);
+            } else {
+                //S2C，在客户端生成粒子
+                PacketDistributor.sendToAllPlayers(new AddEnchantedBlockParticleS2CPacket(blockPos, ParticleRenderType.RenderType.COMMON));
+            }
+        }
+    }
 }

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class InfinityThrowablePotionMixin {
     @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"))
     private void redirectConsume(ItemStack instance, int amount, LivingEntity entity) {
-        if (!Config.infinityPotion()){
+        if (!Config.infinityPotion()) {
             instance.consume(amount, entity);
             return;
         }

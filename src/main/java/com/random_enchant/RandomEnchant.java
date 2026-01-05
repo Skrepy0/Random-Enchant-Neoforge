@@ -3,13 +3,10 @@ package com.random_enchant;
 import com.mojang.logging.LogUtils;
 import com.random_enchant.command.ModCommands;
 import com.random_enchant.enchantment.ModEnchantmentTags;
-import com.random_enchant.event.ModEvents;
 import com.random_enchant.item.ModItemGroup;
 import com.random_enchant.item.ModItemModelProperties;
 import com.random_enchant.item.ModItemTags;
 import com.random_enchant.item.ModItems;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -34,6 +31,8 @@ public class RandomEnchant {
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public RandomEnchant(IEventBus modEventBus, ModContainer modContainer) {
+        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
@@ -56,8 +55,6 @@ public class RandomEnchant {
         NeoForge.EVENT_BUS.addListener(this::onCommandSetup);
 
 
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

@@ -22,9 +22,9 @@ public abstract class BlockMixin extends BlockBehaviour implements ItemLike, net
 
     @Inject(at = @At("HEAD"), method = "stepOn")
     private void init3(Level level, BlockPos pos, BlockState state, Entity entity, CallbackInfo ci) {
-        int k = BlockEnchantmentStorage.getLevel(Enchantments.THORNS,pos);
+        int k = BlockEnchantmentStorage.getLevel(Enchantments.THORNS, pos);
         if (!level.isClientSide() && k > 0) {//如果有荆棘附魔
-            entity.hurt(entity.damageSources().cactus(),(float) k);
+            entity.hurt(entity.damageSources().cactus(), (float) k);
         }
     }
 }

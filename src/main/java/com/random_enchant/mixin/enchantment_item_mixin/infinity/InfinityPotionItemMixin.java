@@ -50,7 +50,7 @@ public class InfinityPotionItemMixin {
             )
     )
     private ItemStack redirectItemStackCreation(ItemLike item) {
-        if (Config.infinityPotion()&&flag) {
+        if (Config.infinityPotion() && flag) {
             flag = false;
             return ItemStack.EMPTY;
         }

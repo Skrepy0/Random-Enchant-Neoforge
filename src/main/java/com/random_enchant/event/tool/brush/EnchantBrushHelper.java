@@ -37,11 +37,11 @@ public class EnchantBrushHelper {
             return;
         }
 
-        if(!player.isCreative()) return;
+        if (!player.isCreative()) return;
         // 获取刷子物品
         ItemStack brush = mainHandItem;
         boolean status = BrushNBTUtils.getStatus(brush);
-        if (!status)return;
+        if (!status) return;
 
         if (brush.isEnchanted()) {
             // 有附魔的刷子：进行区域附魔操作

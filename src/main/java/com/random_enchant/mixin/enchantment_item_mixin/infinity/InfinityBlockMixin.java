@@ -24,7 +24,7 @@ public class InfinityBlockMixin {
     private void onSetPlacedBy(Level level, BlockPos pos, BlockState state,
                                @Nullable LivingEntity placer, ItemStack stack,
                                CallbackInfo ci) {
-        if(!Config.infinityBlock())return;
+        if (!Config.infinityBlock()) return;
         if (placer instanceof Player player && !player.isCreative()) {
             for (InteractionHand hand : InteractionHand.values()) {
                 ItemStack handItem = player.getItemInHand(hand);

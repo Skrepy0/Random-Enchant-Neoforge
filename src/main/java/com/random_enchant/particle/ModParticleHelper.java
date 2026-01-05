@@ -5,7 +5,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 
 public class ModParticleHelper {
-    private ModParticleHelper() {}
+    private ModParticleHelper() {
+    }
+
     public static void addParticlesOnBlock(BlockPos blockPos, SimpleParticleType particleType) {
         // 在方块顶部创建粒子效果
         Minecraft.getInstance().level.addParticle(particleType,

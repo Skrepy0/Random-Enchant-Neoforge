@@ -22,9 +22,9 @@ public class InfiniteFoodMixin {
             super(entityType, level);
         }
 
-        @Inject(method = "eat*" , at = @At("HEAD"))
-        private void afterEatFood(Level level, ItemStack food, FoodProperties foodProperties,CallbackInfoReturnable<ItemStack> cir) {
-            if(foodProperties!=null) {
+        @Inject(method = "eat*", at = @At("HEAD"))
+        private void afterEatFood(Level level, ItemStack food, FoodProperties foodProperties, CallbackInfoReturnable<ItemStack> cir) {
+            if (foodProperties != null) {
                 int k = ModEnchantHelper.getEnchantmentLevel(food, Enchantments.INFINITY);
                 if (k > 0) {
                     food.grow(1);

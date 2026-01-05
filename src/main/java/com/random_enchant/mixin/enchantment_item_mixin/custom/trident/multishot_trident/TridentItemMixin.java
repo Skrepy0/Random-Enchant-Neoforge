@@ -20,11 +20,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TridentItem.class)
 public abstract class TridentItemMixin {
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"), method = "releaseUsing")
-    private void init(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft, CallbackInfo ci , @Local ThrownTrident throwntrident) {
+    private void init(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft, CallbackInfo ci, @Local ThrownTrident throwntrident) {
         int k = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.MULTISHOT);
-        int o = ModEnchantHelper.getEnchantmentLevel(stack,ModEnchantments.REDIRECT_PROJECTILE);
-        if(k>0){
-            if(o>0){
+        int o = ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.REDIRECT_PROJECTILE);
+        if (k > 0) {
+            if (o > 0) {
                 //抛出m+2个，存放在1至m中
                 for (int i = 0; i < k + 1; i++) {
                     Player playerEntity = ((Player) entityLiving);
@@ -66,17 +66,17 @@ public abstract class TridentItemMixin {
                     Vec3 finalPosition = basePoint.add(lookDirection.scale(axialOffset)).add(spiralOffset);
 
 
-                    ThrownTrident tridentEntity = new ThrownTrident(level,finalPosition.x,finalPosition.y,finalPosition.z, stack);
+                    ThrownTrident tridentEntity = new ThrownTrident(level, finalPosition.x, finalPosition.y, finalPosition.z, stack);
 
                     tridentEntity.setOwner(playerEntity);
-                    tridentEntity.setDeltaMovement(0,0,0);
+                    tridentEntity.setDeltaMovement(0, 0, 0);
                     tridentEntity.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 0.03F, 1.0F);
                     tridentEntity.setNoGravity(true);
 
                     tridentEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     level.addFreshEntity(tridentEntity);
                 }
-            }else {
+            } else {
                 //抛出m+2个，存放在1至m中
                 for (int i = 0; i < k + 1; i++) {
                     // 生成随机偏移速度

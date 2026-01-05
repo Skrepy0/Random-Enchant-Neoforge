@@ -25,12 +25,12 @@ public abstract class TrapdoorBlockMixin {
     private void init(Player player, Level level, BlockPos pos, boolean isOpened, CallbackInfo ci) {
         BlockState state = level.getBlockState(pos);
         Direction facing = state.getValue(TrapDoorBlock.FACING);
-        Vec3 directionVector  = mafishmod$get45DegreeVector(facing).normalize();
-        List<Entity> entities =  getEntitiesOnBlockPos(level,pos);
+        Vec3 directionVector = mafishmod$get45DegreeVector(facing).normalize();
+        List<Entity> entities = getEntitiesOnBlockPos(level, pos);
 
-        int k = BlockEnchantmentStorage.getLevel(Enchantments.PUNCH,pos);
+        int k = BlockEnchantmentStorage.getLevel(Enchantments.PUNCH, pos);
         System.out.println(entities);
-        if (k > 0 && entities!=null && isOpened) {//如果有冲击附魔,并且在活板门上，并且活板门打开
+        if (k > 0 && entities != null && isOpened) {//如果有冲击附魔,并且在活板门上，并且活板门打开
             for (Entity entity : entities) {
                 entity.push(directionVector.x * k, directionVector.y * k, directionVector.z * k);
             }
@@ -44,16 +44,16 @@ public abstract class TrapdoorBlockMixin {
 
         switch (facing) {
             case NORTH:
-                directionVector = new Vec3(0, Math.sqrt(2)/2, Math.sqrt(2)/2);
+                directionVector = new Vec3(0, Math.sqrt(2) / 2, Math.sqrt(2) / 2);
                 break;
             case SOUTH:
-                directionVector = new Vec3(0, Math.sqrt(2)/2, -Math.sqrt(2)/2);
+                directionVector = new Vec3(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2);
                 break;
             case WEST:
-                directionVector = new Vec3(Math.sqrt(2)/2, Math.sqrt(2)/2, 0);
+                directionVector = new Vec3(Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0);
                 break;
             case EAST:
-                directionVector = new Vec3(-Math.sqrt(2)/2, Math.sqrt(2)/2, 0);
+                directionVector = new Vec3(-Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0);
                 break;
             default:
                 directionVector = Vec3.ZERO;

@@ -16,10 +16,8 @@ public class InfiniteBucketMixin {
         }
 
         /**
-         * @author
-         * Mafuyu33
-         * @reason
-         * Add infinite bucket
+         * @author Mafuyu33
+         * @reason Add infinite bucket
          */
         @Overwrite
         public static ItemStack getEmptySuccessItem(ItemStack stack, Player player) {

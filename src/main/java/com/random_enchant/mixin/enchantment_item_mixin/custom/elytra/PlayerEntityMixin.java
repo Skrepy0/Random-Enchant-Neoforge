@@ -19,12 +19,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
 
-    @Shadow
-    public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
-
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
+
+    @Shadow
+    public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void onTick(CallbackInfo ci) {

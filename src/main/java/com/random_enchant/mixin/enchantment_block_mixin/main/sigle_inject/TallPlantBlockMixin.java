@@ -16,6 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class TallPlantBlockMixin {
     @Inject(at = @At("HEAD"), method = "setPlacedBy")//存储方块的附魔
     private void init1(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack, CallbackInfo ci) {
-        InjectHelper.onPlacedInject(level,stack,pos);
+        InjectHelper.onPlacedInject(level, stack, pos);
     }
 }

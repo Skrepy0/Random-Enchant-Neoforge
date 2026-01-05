@@ -16,14 +16,17 @@ public class OnPlayerLeftClick {
         playerLeftClicked = true;
         lastClickTime = System.currentTimeMillis();
     }
+
     @SubscribeEvent
     private static void onPlayerLeftClickEmpty(PlayerInteractEvent.LeftClickEmpty event) {
         registerLeftClick();
     }
+
     @SubscribeEvent
     private static void onPlayerLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         registerLeftClick();
     }
+
     @SubscribeEvent
     private static void onPlayerAttackEntity(AttackEntityEvent event) {
         registerLeftClick();

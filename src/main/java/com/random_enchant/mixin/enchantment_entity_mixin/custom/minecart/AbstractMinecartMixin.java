@@ -21,10 +21,10 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements IAb
         super(entityType, level);
     }
 
-    @Inject(method = "tick",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;applyGravity()V"))
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;applyGravity()V"))
     private void init(CallbackInfo ci) {
-        if(this.getTags().contains("bad_luck_of_the_sea")){
-            this.addDeltaMovement(new Vec3(0,1,0));
+        if (this.getTags().contains("bad_luck_of_the_sea")) {
+            this.addDeltaMovement(new Vec3(0, 1, 0));
         }
     }
 }

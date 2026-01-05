@@ -19,32 +19,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TargetBlock.class)
 public abstract class TargetBlockMixin {
-	@Inject(at = @At("HEAD"), method = "onProjectileHit",cancellable = true)
-	private void init(Level level, BlockState state, BlockHitResult hit, Projectile projectile, CallbackInfo ci) {
+    @Inject(at = @At("HEAD"), method = "onProjectileHit", cancellable = true)
+    private void init(Level level, BlockState state, BlockHitResult hit, Projectile projectile, CallbackInfo ci) {
 
-		int k = BlockEnchantmentStorage.getLevel(Enchantments.PROJECTILE_PROTECTION,hit.getBlockPos());
-		if(k>0 && !level.isClientSide){
-			Entity entity = projectile.getOwner();
-			if(entity instanceof LivingEntity livingEntity) {
-				double d = livingEntity.getX() - projectile.getX();
-				double e = livingEntity.getY() - projectile.getY();
-				double f = livingEntity.getZ() - projectile.getZ();
-			// 创建物品实体并设置位置
-			Projectile newProjectileEntity = new Arrow(level,  projectile.getX(), projectile.getY(), projectile.getZ() ,new ItemStack(Items.ARROW),null);
-			newProjectileEntity.setDeltaMovement(d * 0.1*1.3, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08*1.3, f * 0.1*1.3);
+        int k = BlockEnchantmentStorage.getLevel(Enchantments.PROJECTILE_PROTECTION, hit.getBlockPos());
+        if (k > 0 && !level.isClientSide) {
+            Entity entity = projectile.getOwner();
+            if (entity instanceof LivingEntity livingEntity) {
+                double d = livingEntity.getX() - projectile.getX();
+                double e = livingEntity.getY() - projectile.getY();
+                double f = livingEntity.getZ() - projectile.getZ();
+                // 创建物品实体并设置位置
+                Projectile newProjectileEntity = new Arrow(level, projectile.getX(), projectile.getY(), projectile.getZ(), new ItemStack(Items.ARROW), null);
+                newProjectileEntity.setDeltaMovement(d * 0.1 * 1.3, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08 * 1.3, f * 0.1 * 1.3);
 
-			// 将物品实体添加到世界中
-			projectile.discard();
-			level.addFreshEntity(newProjectileEntity);
-		}else {
-			Projectile newProjectileEntity = new Arrow(level, projectile.getX(), projectile.getY(), projectile.getZ(),new ItemStack(Items.ARROW),null);
-			newProjectileEntity.setPos(projectile.getX(), projectile.getY(), projectile.getZ());
-			newProjectileEntity.setDeltaMovement(0,0,0);
-			// 将物品实体添加到世界中
-			projectile.discard();
-			level.addFreshEntity(newProjectileEntity);
-		}
-			ci.cancel();
-		}
-	}
+                // 将物品实体添加到世界中
+                projectile.discard();
+                level.addFreshEntity(newProjectileEntity);
+            } else {
+                Projectile newProjectileEntity = new Arrow(level, projectile.getX(), projectile.getY(), projectile.getZ(), new ItemStack(Items.ARROW), null);
+                newProjectileEntity.setPos(projectile.getX(), projectile.getY(), projectile.getZ());
+                newProjectileEntity.setDeltaMovement(0, 0, 0);
+                // 将物品实体添加到世界中
+                projectile.discard();
+                level.addFreshEntity(newProjectileEntity);
+            }
+            ci.cancel();
+        }
+    }
 }

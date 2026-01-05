@@ -1,9 +1,10 @@
 package com.random_enchant.command;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.random_enchant.Config;
 import com.random_enchant.RandomEnchant;
-import com.random_enchant.data.GlobalSwitchData;
-import com.random_enchant.data.GlobalSwitchManager;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -16,25 +17,6 @@ public class RandomEnchantCommand {
 
     public static void register(RegisterCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("random_enchant")
-                .requires(source -> source.hasPermission(2))
-                .then(Commands.literal("doRandomEnchant")
-                        .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                .executes(context -> {
-                                            boolean enabled = BoolArgumentType.getBool(context, "enabled");
-                                            GlobalSwitchData data = GlobalSwitchManager.get(context.getSource().getLevel());
-                                            data.setDoRandomEnchant(enabled);
-                                            Component message = enabled ?
-                                                    Component.translatable("command.random_enchant.randomEnchant.enable") :
-                                                    Component.translatable("command.random_enchant.randomEnchant.disable");
-
-                                            RandomEnchant.LOGGER.info(message.getString());
-                                            context.getSource().sendSuccess(() -> message, false);
-
-                                            return 1;
-                                        }
-                                )
-                        )
-                )
                 .then(Commands.literal("description").executes(context -> {
                     Component modName = Component.literal("§6[§nRandom Enchant§r§6]§r")
                             .withStyle(style -> style
@@ -68,6 +50,152 @@ public class RandomEnchantCommand {
                     }
                     return 1;
                 }))
+                .then(Commands.literal("config")
+                        .requires(source -> source.hasPermission(2))
+                        .then(Commands.literal("doRandomEnchant")
+                                .then(Commands.argument("enabled", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                                    boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                    Config.setRandomEnchant(enabled);
+                                                    Component message = enabled ?
+                                                            Component.translatable("command.random_enchant.randomEnchant.enable") :
+                                                            Component.translatable("command.random_enchant.randomEnchant.disable");
+
+                                                    RandomEnchant.LOGGER.info(message.getString());
+                                                    context.getSource().sendSuccess(() -> message, false);
+
+                                                    return 1;
+                                                }
+                                        )
+                                )
+                        )
+                        .then(Commands.literal("alwaysEnchantable")
+                                .then(Commands.argument("enabled", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            boolean preStatus = Config.isAlwaysEnchantable();
+                                            boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                            if (preStatus == enabled) {
+                                                Component message = Component.literal("§a[isAlwaysEnchantable]§r").append(Component.translatable("command.random_enchant.config.unchanged"));
+                                                RandomEnchant.LOGGER.info(message.getString());
+                                                context.getSource().sendSuccess(() -> message, false);
+                                                return 1;
+                                            }
+                                            Config.setIsAlwaysEnchantable(enabled);
+                                            Component message = Component.literal("§a[isAlwaysEnchantable]§r").append(Component.translatable("command.random_enchant.config.changed")).append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                            RandomEnchant.LOGGER.info(message.getString());
+                                            context.getSource().sendSuccess(() -> message, false);
+                                            return 1;
+                                        }))
+                        )
+                        .then(Commands.literal("infinityUndyingTotem")
+                                .then(Commands.argument("enabled", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            boolean preStatus = Config.infinityUndyingTotem();
+                                            boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                            if (preStatus == enabled) {
+                                                Component message = Component.literal("§a[infinityUndyingTotem]§r").append(Component.translatable("command.random_enchant.config.unchanged"));
+                                                RandomEnchant.LOGGER.info(message.getString());
+                                                context.getSource().sendSuccess(() -> message, false);
+                                                return 1;
+                                            }
+                                            Config.setInfinityUndyingTotem(enabled);
+                                            Component message = Component.literal("§a[infinityUndyingTotem]§r").append(Component.translatable("command.random_enchant.config.changed")).append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                            RandomEnchant.LOGGER.info(message.getString());
+                                            context.getSource().sendSuccess(() -> message, false);
+                                            return 1;
+                                        }))
+                        )
+                        .then(Commands.literal("infinityBlock")
+                                .then(Commands.argument("enabled", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            boolean preStatus = Config.infinityBlock();
+                                            boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                            if (preStatus == enabled) {
+                                                Component message = Component.literal("§a[infinityBlock]§r").append(Component.translatable("command.random_enchant.config.unchanged"));
+                                                RandomEnchant.LOGGER.info(message.getString());
+                                                context.getSource().sendSuccess(() -> message, false);
+                                                return 1;
+                                            }
+                                            Config.setInfinityBlock(enabled);
+                                            Component message = Component.literal("§a[infinityBlock]§r").append(Component.translatable("command.random_enchant.config.changed")).append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                            RandomEnchant.LOGGER.info(message.getString());
+                                            context.getSource().sendSuccess(() -> message, false);
+                                            return 1;
+                                        }))
+                        )
+                        .then(Commands.literal("infinityTnt")
+                                .then(Commands.argument("enabled", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            boolean preStatus = Config.infinityTnt();
+                                            boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                            if (preStatus == enabled) {
+                                                Component message = Component.literal("§a[infinityTnt]§r").append(Component.translatable("command.random_enchant.config.unchanged"));
+                                                RandomEnchant.LOGGER.info(message.getString());
+                                                context.getSource().sendSuccess(() -> message, false);
+                                                return 1;
+                                            }
+                                            Config.setInfinityTnt(enabled);
+                                            Component message = Component.literal("§a[infinityTnt]§r").append(Component.translatable("command.random_enchant.config.changed")).append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                            RandomEnchant.LOGGER.info(message.getString());
+                                            context.getSource().sendSuccess(() -> message, false);
+                                            return 1;
+                                        }))
+                        )
+                        .then(Commands.literal("infinityPotion")
+                                .then(Commands.argument("enabled", BoolArgumentType.bool())
+                                        .executes(context -> {
+                                            boolean preStatus = Config.infinityPotion();
+                                            boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                            if (preStatus == enabled) {
+                                                Component message = Component.literal("§a[infinityPotion]§r").append(Component.translatable("command.random_enchant.config.unchanged"));
+                                                RandomEnchant.LOGGER.info(message.getString());
+                                                context.getSource().sendSuccess(() -> message, false);
+                                                return 1;
+                                            }
+                                            Config.setInfinityPotion(enabled);
+                                            Component message = Component.literal("§a[infinityPotion]§r").append(Component.translatable("command.random_enchant.config.changed")).append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                            RandomEnchant.LOGGER.info(message.getString());
+                                            context.getSource().sendSuccess(() -> message, false);
+                                            return 1;
+                                        }))
+                        )
+                        .then(Commands.literal("redirectTridentSetPointDistance")
+                                .then(Commands.argument("value", IntegerArgumentType.integer(1, Integer.MAX_VALUE))
+                                        .executes(context -> {
+                                            int preValue = Config.getRedirectTridentSetPointDistance();
+                                            int value = IntegerArgumentType.getInteger(context, "value");
+                                            if (preValue == value) {
+                                                Component message = Component.literal("§a[redirectTridentSetPointDistance]§r").append(Component.translatable("command.random_enchant.config.unchanged"));
+                                                RandomEnchant.LOGGER.info(message.getString());
+                                                context.getSource().sendSuccess(() -> message, false);
+                                                return 1;
+                                            }
+                                            Config.setRedirectTridentSetPointDistance(value);
+                                            Component message = Component.literal("§a[redirectTridentSetPointDistance]§r").append(Component.translatable("command.random_enchant.config.changed")).append(" §6" + value);
+                                            RandomEnchant.LOGGER.info(message.getString());
+                                            context.getSource().sendSuccess(() -> message, false);
+                                            return 1;
+                                        }))
+                        )
+                        .then(Commands.literal("flyEnchantmentLiftHeightPerTick")
+                                .then(Commands.argument("value", DoubleArgumentType.doubleArg(0.00000001, 1))
+                                        .executes(context -> {
+                                            double preValue = Config.getFlyEnchantmentLiftHeightPerTick();
+                                            double value = DoubleArgumentType.getDouble(context, "value");
+                                            if (preValue == value) {
+                                                Component message = Component.literal("§a[flyEnchantmentLiftHeightPerTick]§r").append(Component.translatable("command.random_enchant.config.unchanged"));
+                                                RandomEnchant.LOGGER.info(message.getString());
+                                                context.getSource().sendSuccess(() -> message, false);
+                                                return 1;
+                                            }
+                                            Config.setFlyEnchantmentLiftHeightPerTick(value);
+                                            Component message = Component.literal("§a[flyEnchantmentLiftHeightPerTick]§r").append(Component.translatable("command.random_enchant.config.changed")).append(" §6" + value);
+                                            RandomEnchant.LOGGER.info(message.getString());
+                                            context.getSource().sendSuccess(() -> message, false);
+                                            return 1;
+                                        }))
+                        )
+                )
         );
     }
 }

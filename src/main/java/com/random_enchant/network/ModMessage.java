@@ -9,7 +9,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
-@EventBusSubscriber(modid = RandomEnchant.MOD_ID,bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = RandomEnchant.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ModMessage {
     @SubscribeEvent
     public static void register(final RegisterPayloadHandlersEvent event) {

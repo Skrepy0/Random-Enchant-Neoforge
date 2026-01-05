@@ -9,6 +9,8 @@ import java.lang.reflect.Method;
 
 public class BlockEntityReflectionHelper {
 
+    // 带防护机制的调用，防止递归
+    private static final ThreadLocal<Integer> RECURSION_DEPTH = ThreadLocal.withInitial(() -> 0);
     private static Method SAVE_ADDITIONAL_METHOD = null;
     private static boolean METHOD_INITIALIZED = false;
 
@@ -50,9 +52,6 @@ public class BlockEntityReflectionHelper {
             }
         }
     }
-
-    // 带防护机制的调用，防止递归
-    private static final ThreadLocal<Integer> RECURSION_DEPTH = ThreadLocal.withInitial(() -> 0);
 
     public static void invokeSaveAdditionalSafe(BlockEntity blockEntity, CompoundTag tag, HolderLookup.Provider registries) {
         int depth = RECURSION_DEPTH.get();

@@ -35,9 +35,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ThrownTrident.class)
 public abstract class ThrownTridentMixin extends AbstractArrow {
 
-    @Shadow
-    private boolean dealtDamage;
-
     // 常量定义
     @Unique
     private static final EntityDataAccessor<Byte> DATA_REDIRECT_LEVEL =
@@ -47,12 +44,12 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
             SynchedEntityData.defineId(ThrownTridentMixin.class, EntityDataSerializers.BYTE);
     @Unique
     private static final String NBT_REDIRECT_LEVEL = "RandomEnchant_RedirectLevel";
-
     @Unique
     private static final String NBT_FIRE_ASPECT_LEVEL = "RandomEnchant_FireAspectLevel";
-
     @Unique
     private static final double GROUND_TELEPORT_DISTANCE = 0.5;
+    @Shadow
+    private boolean dealtDamage;
 
     protected ThrownTridentMixin(EntityType<? extends AbstractArrow> entityType, Level level) {
         super(entityType, level);
@@ -84,7 +81,7 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     @Inject(method = "addAdditionalSaveData", at = @At(value = "RETURN"))
     public void onSaveAdditionalData(CompoundTag compound, CallbackInfo ci) {
         compound.putByte(NBT_REDIRECT_LEVEL, this.randomEnchant$getRedirectLevel());
-        compound.putByte(NBT_FIRE_ASPECT_LEVEL,this.entityData.get(DATA_FIRE_ASPECT_LEVEL));
+        compound.putByte(NBT_FIRE_ASPECT_LEVEL, this.entityData.get(DATA_FIRE_ASPECT_LEVEL));
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At(value = "RETURN"))
@@ -110,7 +107,7 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         int redirectLevel = this.randomEnchant$getRedirectLevel();
         Entity owner = this.getOwner();
 
-        if (redirectLevel > 0 && owner != null){
+        if (redirectLevel > 0 && owner != null) {
             // 检查左键点击
             if (!OnPlayerLeftClick.onPlayerLeftClicked()) {
                 this.randomEnchant$resetGravityIfNeeded();
@@ -125,15 +122,15 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         }
     }
 
-    @Inject(method = "onHitEntity",at = @At("HEAD"))
-    private void onHitEntity(EntityHitResult result, CallbackInfo ci){
+    @Inject(method = "onHitEntity", at = @At("HEAD"))
+    private void onHitEntity(EntityHitResult result, CallbackInfo ci) {
         Entity hitEntity = result.getEntity();
         Level level = hitEntity.level();
-        if (level.isClientSide)return;
+        if (level.isClientSide) return;
         if (hitEntity instanceof LivingEntity) {
             int fireAspectLevel = this.entityData.get(DATA_FIRE_ASPECT_LEVEL);
             if (fireAspectLevel > 0) {
-                hitEntity.setRemainingFireTicks(fireAspectLevel*80);
+                hitEntity.setRemainingFireTicks(fireAspectLevel * 80);
             }
         }
     }
@@ -247,7 +244,7 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
 
             if (entityHitResult != null) {
                 Vec3 res = entityHitResult.getLocation();
-                return new Vec3(res.x, res.y+0.3, res.z);
+                return new Vec3(res.x, res.y + 0.3, res.z);
             }
         }
 

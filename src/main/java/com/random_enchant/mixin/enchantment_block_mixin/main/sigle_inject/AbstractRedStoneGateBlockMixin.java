@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DiodeBlock.class)
-public abstract class AbstractRedStoneGateBlockMixin{
+public abstract class AbstractRedStoneGateBlockMixin {
     @Inject(at = @At("HEAD"), method = "setPlacedBy")//存储方块的附魔
     private void init1(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack, CallbackInfo info) {
-        InjectHelper.onPlacedInject(world,itemStack,pos);
+        InjectHelper.onPlacedInject(world, itemStack, pos);
     }
 }

@@ -18,9 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AbstractBlockMixin implements FeatureElement {
     @Inject(at = @At("HEAD"), method = "entityInside")//荆棘附魔，踩上去受伤
     private void init3(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
-        int k = BlockEnchantmentStorage.getLevel(Enchantments.THORNS,pos);
+        int k = BlockEnchantmentStorage.getLevel(Enchantments.THORNS, pos);
         if (!level.isClientSide() && k > 0) {//如果有荆棘附魔
-            entity.hurt(entity.damageSources().cactus(),(float) k);
+            entity.hurt(entity.damageSources().cactus(), (float) k);
         }
     }
 

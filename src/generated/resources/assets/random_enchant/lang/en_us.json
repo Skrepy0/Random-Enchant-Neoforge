@@ -1,4 +1,6 @@
 {
+  "command.random_enchant.config.changed": "has changed to ",
+  "command.random_enchant.config.unchanged": "'s status §chas not undergone a valid change§r",
   "command.random_enchant.randomEnchant.disable": "§6Disabled Random Enchant",
   "command.random_enchant.randomEnchant.enable": "§aEnabled Random Enchant",
   "enchantment.level.100": "C",
@@ -274,5 +276,6 @@
   "random_enchant.configuration.infinityTnt": "Infinity TNT",
   "random_enchant.configuration.infinityUndyingTotem": "Infinity Undying Totem",
   "random_enchant.configuration.isAlwaysEnchantable": "Always Enchantable",
+  "random_enchant.configuration.randomEnchant": "§gRandom Enchant§r Event",
   "random_enchant.configuration.redirectTridentSetPointDistance": "§6[Redirect Projectile]§rMax distance for radiographic testing"
 }

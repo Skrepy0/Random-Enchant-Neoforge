@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+
 import static com.random_enchant.enchantment.custom.BadLuckOfTheSeaHelper.entityWithBadLuckOfTheSea;
 import static com.random_enchant.enchantment.custom.BadLuckOfTheSeaHelper.thrownTridentEntityWithBadLuckOfTheSea;
 
@@ -22,7 +23,7 @@ public class EntityEvent {
         if (entity.isInWater()) {
             if (entity instanceof ThrownTrident trident) {
                 int lvl = ModEnchantHelper.getEnchantmentLevel(trident.getWeaponItem(), ModEnchantments.BAD_LUCK_OF_THE_SEA);
-                if (lvl > 0) thrownTridentEntityWithBadLuckOfTheSea(trident, lvl*0.5);
+                if (lvl > 0) thrownTridentEntityWithBadLuckOfTheSea(trident, lvl * 0.5);
             } else if (entity instanceof ThrownEnderpearl ||
                     entity instanceof Fireball ||
                     entity instanceof Snowball ||

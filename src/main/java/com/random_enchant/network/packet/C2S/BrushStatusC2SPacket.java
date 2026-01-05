@@ -31,10 +31,6 @@ public class BrushStatusC2SPacket implements CustomPacketPayload {
         this.newStatus = buf.readBoolean();
     }
 
-    public void write(FriendlyByteBuf buf) {
-        buf.writeBoolean(this.newStatus);
-    }
-
     public static void handle(BrushStatusC2SPacket packet, IPayloadContext context) {
         // 确保在服务器线程执行
         context.enqueueWork(() -> {
@@ -62,6 +58,10 @@ public class BrushStatusC2SPacket implements CustomPacketPayload {
                 }
             }
         });
+    }
+
+    public void write(FriendlyByteBuf buf) {
+        buf.writeBoolean(this.newStatus);
     }
 
     @Override

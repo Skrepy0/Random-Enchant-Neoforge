@@ -4,8 +4,6 @@ import com.random_enchant.data.nbt.BrushNBTUtils;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import com.random_enchant.mixin_helper.InjectHelper;
-import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -17,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
 import java.util.List;
@@ -38,7 +35,7 @@ public class EnchantBrush extends BrushItem {
                 return 0;
             }
             return 1;
-        } else if  (unbreakingLevel == 1) {
+        } else if (unbreakingLevel == 1) {
             if (rand <= 40) {
                 return 0;
             }
@@ -55,6 +52,13 @@ public class EnchantBrush extends BrushItem {
             return 1;
         }
         return 1;
+    }
+
+    private static ListTag mergeNbtLists(ListTag list1, ListTag list2) {
+        ListTag mergedList = new ListTag();
+        mergedList.addAll(list1);
+        mergedList.addAll(list2);
+        return mergedList;
     }
 
     @Override
@@ -88,17 +92,10 @@ public class EnchantBrush extends BrushItem {
             }
             if (!user.isCreative()) {
                 int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.UNBREAKING);
-                stack.setDamageValue(stack.getDamageValue()+getItemDamage(unbreakingLevel));
+                stack.setDamageValue(stack.getDamageValue() + getItemDamage(unbreakingLevel));
             }
         }
         return super.useOn(context);
-    }
-
-    private static ListTag mergeNbtLists(ListTag list1, ListTag list2) {
-        ListTag mergedList = new ListTag();
-        mergedList.addAll(list1);
-        mergedList.addAll(list2);
-        return mergedList;
     }
 
     @Override
@@ -118,7 +115,7 @@ public class EnchantBrush extends BrushItem {
         boolean status = BrushNBTUtils.getStatus(stack);
 
         // 显示状态信息
-        Component statusComponent = Component.translatable("item.tooltip.random_enchant.enchant_brush.status").append(status?Component.translatable("item.tooltip.random_enchant.enchant_brush.status.regional"):Component.translatable("item.tooltip.random_enchant.enchant_brush.status.single"));
+        Component statusComponent = Component.translatable("item.tooltip.random_enchant.enchant_brush.status").append(status ? Component.translatable("item.tooltip.random_enchant.enchant_brush.status.regional") : Component.translatable("item.tooltip.random_enchant.enchant_brush.status.single"));
 
         tooltipComponents.add(statusComponent);
     }

@@ -16,31 +16,7 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
     public ModRecipesProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
     }
-    @Override
-    protected void buildRecipes(RecipeOutput recipeOutput) {
-        super.buildRecipes(recipeOutput);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.PEARL_SPEAR)
-                .pattern(" #P")
-                .pattern("@T#")
-                .pattern("B@ ")
-                .define('P',Items.ENDER_PEARL)
-                .define('#', Items.ECHO_SHARD)
-                .define('T', Items.HEAVY_CORE)
-                .define('@', Items.POPPED_CHORUS_FRUIT)
-                .define('B', Items.BREEZE_ROD)
-                .unlockedBy(getHasName(ModItems.PEARL_SPEAR), has(Items.ENDER_PEARL))
-                .save(recipeOutput);
-        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.ENCHANT_BRUSH)
-                .pattern(" #P")
-                .pattern(" T#")
-                .pattern("B  ")
-                .define('P',Items.ENCHANTED_BOOK)
-                .define('#', Items.STRING)
-                .define('T', Items.COPPER_INGOT)
-                .define('B', Items.STICK)
-                .unlockedBy(getHasName(ModItems.ENCHANT_BRUSH), has(Items.STICK))
-                .save(recipeOutput);
-    }
+
     protected static void oreSmelting(
             RecipeOutput recipeOutput, List<ItemLike> ingredients, RecipeCategory category, ItemLike result, float experience, int cookingTime, String group
     ) {
@@ -93,5 +69,31 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                     .unlockedBy(getHasName(itemlike), has(itemlike))
                     .save(recipeOutput, getItemName(result) + suffix + "_" + getItemName(itemlike));
         }
+    }
+
+    @Override
+    protected void buildRecipes(RecipeOutput recipeOutput) {
+        super.buildRecipes(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.PEARL_SPEAR)
+                .pattern(" #P")
+                .pattern("@T#")
+                .pattern("B@ ")
+                .define('P', Items.ENDER_PEARL)
+                .define('#', Items.ECHO_SHARD)
+                .define('T', Items.HEAVY_CORE)
+                .define('@', Items.POPPED_CHORUS_FRUIT)
+                .define('B', Items.BREEZE_ROD)
+                .unlockedBy(getHasName(ModItems.PEARL_SPEAR), has(Items.ENDER_PEARL))
+                .save(recipeOutput);
+        ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, ModItems.ENCHANT_BRUSH)
+                .pattern(" #P")
+                .pattern(" T#")
+                .pattern("B  ")
+                .define('P', Items.ENCHANTED_BOOK)
+                .define('#', Items.STRING)
+                .define('T', Items.COPPER_INGOT)
+                .define('B', Items.STICK)
+                .unlockedBy(getHasName(ModItems.ENCHANT_BRUSH), has(Items.STICK))
+                .save(recipeOutput);
     }
 }

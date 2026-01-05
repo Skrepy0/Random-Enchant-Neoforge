@@ -96,6 +96,7 @@ public class BrushNBTUtils {
         brushTag.put(KEY_SELECTION_END, endTag);
         saveBrushTag(stack, brushTag);
     }
+
     /**
      * 设置状态
      */
@@ -106,6 +107,7 @@ public class BrushNBTUtils {
         brushTag.put(KEY_BRUSH_STATUS, statusTag);
         saveBrushTag(stack, brushTag);
     }
+
     /**
      * 清除选择状态
      */
@@ -152,6 +154,7 @@ public class BrushNBTUtils {
                 endTag.getInt("Z")
         );
     }
+
     /**
      * 获取状态
      */

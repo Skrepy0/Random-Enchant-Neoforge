@@ -23,11 +23,11 @@ public abstract class MinecartItemMixin extends Item {
         super(properties);
     }
 
-    @Inject(method = "useOn",at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
+    @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private void init(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local(ordinal = 0) AbstractMinecart abstractminecart) {
         // 获取正在使用的物品
         ItemStack stack = context.getItemInHand();
-        if (ModEnchantHelper.getEnchantmentLevel(stack,ModEnchantments.BAD_LUCK_OF_THE_SEA) > 0) {
+        if (ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.BAD_LUCK_OF_THE_SEA) > 0) {
             abstractminecart.addTag("bad_luck_of_the_sea");
         }
     }

@@ -6,40 +6,32 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class PlayerActionC2SPacket implements CustomPacketPayload {
+    public static final Type<PlayerActionC2SPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "player_attack_action_c2s"));
     private static int aimedEntityId;
+    public static final StreamCodec<FriendlyByteBuf, PlayerActionC2SPacket> STREAM_CODEC =
+            CustomPacketPayload.codec(PlayerActionC2SPacket::write, PlayerActionC2SPacket::new);
 
-    public static final Type<PlayerActionC2SPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID,"player_attack_action_c2s"));
-    public static final StreamCodec<FriendlyByteBuf,PlayerActionC2SPacket> STREAM_CODEC =
-            CustomPacketPayload.codec(PlayerActionC2SPacket::write,PlayerActionC2SPacket::new);
-    @Override
-    public Type<? extends CustomPacketPayload> type() {
-        return TYPE;
-    }
-    public PlayerActionC2SPacket(FriendlyByteBuf buf){
+    public PlayerActionC2SPacket(FriendlyByteBuf buf) {
         aimedEntityId = buf.readInt();
     }
 
-    public PlayerActionC2SPacket(int aimedEntityId){
+    public PlayerActionC2SPacket(int aimedEntityId) {
         PlayerActionC2SPacket.aimedEntityId = aimedEntityId;
     }
 
-
-    public void write(FriendlyByteBuf pBuffer) {
-        pBuffer.writeInt(aimedEntityId);
-    }
-    public static void handle(final PlayerActionC2SPacket data, final IPayloadContext context){
+    public static void handle(final PlayerActionC2SPacket data, final IPayloadContext context) {
         movePlayerDir(context);
     }
+
     @OnlyIn(Dist.CLIENT)
     private static void movePlayerDir(IPayloadContext context) {
-        context.enqueueWork(()-> {
+        context.enqueueWork(() -> {
             Entity nearestEntity = context.player().level().getEntity(aimedEntityId);
             // 将玩家瞬移到最近实体的附近
             Vec3 directionToEntity = nearestEntity.position().subtract(context.player().position()).normalize();
@@ -51,5 +43,14 @@ public class PlayerActionC2SPacket implements CustomPacketPayload {
 //            nearestEntity.hurt(context.player().damageSources().playerAttack(context.player()), attackDamage);
             context.player().attack(nearestEntity);
         });
+    }
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
+    }
+
+    public void write(FriendlyByteBuf pBuffer) {
+        pBuffer.writeInt(aimedEntityId);
     }
 }

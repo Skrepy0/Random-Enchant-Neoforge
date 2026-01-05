@@ -26,15 +26,15 @@ import static com.random_enchant.enchantment.custom.BadLuckOfTheSeaHelper.entity
 @Mixin(LivingEntity.class)
 public abstract class ArmorEnchantmentMixin extends Entity implements Attackable, net.neoforged.neoforge.common.extensions.ILivingEntityExtension {
 
-    @Shadow
-    public abstract Iterable<ItemStack> getArmorAndBodyArmorSlots();
-
     @Unique
     private static Vec3 lastPos = new Vec3(0, 0, 0);
 
     public ArmorEnchantmentMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
+
+    @Shadow
+    public abstract Iterable<ItemStack> getArmorAndBodyArmorSlots();
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void init1(CallbackInfo info) {
@@ -49,7 +49,7 @@ public abstract class ArmorEnchantmentMixin extends Entity implements Attackable
                     BlockPos blockPos = this.blockPosition();
                     FluidState fluidState = world.getFluidState(blockPos);
                     if (fluidState.is(FluidTags.WATER)) {
-                        entityWithBadLuckOfTheSea(this,k);
+                        entityWithBadLuckOfTheSea(this, k);
                     }
                 }
             }

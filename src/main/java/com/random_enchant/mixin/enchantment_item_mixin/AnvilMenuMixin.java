@@ -25,7 +25,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         // 获取左边物品
         ItemStack leftItem = this.inputSlots.getItem(0);
 
-        if (!leftItem.isEmpty() && (leftItem.getItem() == ModItems.ENCHANT_BRUSH.get()||Config.isAlwaysEnchantable())) {
+        if (!leftItem.isEmpty() && (leftItem.getItem() == ModItems.ENCHANT_BRUSH.get() || Config.isAlwaysEnchantable())) {
             return true;
         }
 
@@ -40,7 +40,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         // 获取左边物品
         ItemStack leftItem = this.inputSlots.getItem(0);
 
-        if (!leftItem.isEmpty() && (leftItem.getItem() == ModItems.ENCHANT_BRUSH.get()|| Config.isAlwaysEnchantable())) {
+        if (!leftItem.isEmpty() && (leftItem.getItem() == ModItems.ENCHANT_BRUSH.get() || Config.isAlwaysEnchantable())) {
             return true;
         }
 
@@ -52,7 +52,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/item/ItemStack;supportsEnchantment(Lnet/minecraft/core/Holder;)Z"))
     private boolean redirectSupportsEnchantment(ItemStack stack, net.minecraft.core.Holder<Enchantment> enchantment) {
-        if (!stack.isEmpty() && (stack.getItem() == ModItems.ENCHANT_BRUSH.get()||Config.isAlwaysEnchantable())) {
+        if (!stack.isEmpty() && (stack.getItem() == ModItems.ENCHANT_BRUSH.get() || Config.isAlwaysEnchantable())) {
             return true;
         }
         return stack.supportsEnchantment(enchantment);
@@ -62,7 +62,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/world/item/ItemStack;isDamageableItem()Z"))
     private boolean redirectIsDamageableItem(ItemStack stack) {
-        if (!stack.isEmpty() && (stack.getItem() == ModItems.ENCHANT_BRUSH.get()||Config.isAlwaysEnchantable())) {
+        if (!stack.isEmpty() && (stack.getItem() == ModItems.ENCHANT_BRUSH.get() || Config.isAlwaysEnchantable())) {
             return true;
         }
 

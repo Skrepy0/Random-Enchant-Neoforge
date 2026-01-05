@@ -10,30 +10,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Mafuyu33
  */
 public class BlockStateSaverAndLoader extends SavedData {
+    private static Factory<BlockStateSaverAndLoader> type = new Factory<>(
+            BlockStateSaverAndLoader::new, // 若不存在 'BlockStateSaverAndLoader' 则创建
+            BlockStateSaverAndLoader::createFromNbt, // 若存在 'BlockStateSaverAndLoader' NBT, 则调用 'createFromNbt' 传入参数
+            null // 此处理论上应为 'DataFixTypes' 的枚举，但我们直接传递为空(null)也可以
+    );
     public final ConcurrentHashMap<BlockPos, ListTag> blockEnchantments = new ConcurrentHashMap<>();
-
-    @Override
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
-        ListTag blockEnchantmentsList = new ListTag();
-        blockEnchantments.forEach((pos, enchantments) -> {
-            CompoundTag blockEnchantmentNbt = new CompoundTag();
-            blockEnchantmentNbt.putIntArray("BlockPos", new int[]{pos.getX(), pos.getY(), pos.getZ()});
-            blockEnchantmentNbt.put("Enchantments", enchantments);
-            blockEnchantmentsList.add(blockEnchantmentNbt);
-        });
-        tag.put("BlockEnchantments", blockEnchantmentsList);
-        return tag;
-    }
-
 
     public static BlockStateSaverAndLoader createFromNbt(CompoundTag nbt, HolderLookup.Provider lookup) {
         BlockStateSaverAndLoader state = new BlockStateSaverAndLoader();
@@ -48,19 +36,9 @@ public class BlockStateSaverAndLoader extends SavedData {
         return state;
     }
 
-    public void removeBlockEnchantment(BlockPos targetBlockPos) {
-        blockEnchantments.remove(targetBlockPos);
-    }
-
-    private static Factory<BlockStateSaverAndLoader> type = new Factory<>(
-            BlockStateSaverAndLoader::new, // 若不存在 'BlockStateSaverAndLoader' 则创建
-            BlockStateSaverAndLoader::createFromNbt, // 若存在 'BlockStateSaverAndLoader' NBT, 则调用 'createFromNbt' 传入参数
-            null // 此处理论上应为 'DataFixTypes' 的枚举，但我们直接传递为空(null)也可以
-    );
-
     public static BlockStateSaverAndLoader getServerState(MinecraftServer server) {
         // (注：如需在任意维度生效，请使用 'World.OVERWORLD' ，不要使用 'World.END' 或 'World.NETHER')
-        if(server!=null) {
+        if (server != null) {
             DimensionDataStorage persistentStateManager = server.getLevel(Level.OVERWORLD).getDataStorage();
 
             // 当第一次调用了方法 'getOrCreate' 后，它会创建新的 'BlockStateSaverAndLoader' 并将其存储于  'PersistentStateManager' 中。
@@ -75,5 +53,22 @@ public class BlockStateSaverAndLoader extends SavedData {
             return state;
         }
         return null;
+    }
+
+    @Override
+    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
+        ListTag blockEnchantmentsList = new ListTag();
+        blockEnchantments.forEach((pos, enchantments) -> {
+            CompoundTag blockEnchantmentNbt = new CompoundTag();
+            blockEnchantmentNbt.putIntArray("BlockPos", new int[]{pos.getX(), pos.getY(), pos.getZ()});
+            blockEnchantmentNbt.put("Enchantments", enchantments);
+            blockEnchantmentsList.add(blockEnchantmentNbt);
+        });
+        tag.put("BlockEnchantments", blockEnchantmentsList);
+        return tag;
+    }
+
+    public void removeBlockEnchantment(BlockPos targetBlockPos) {
+        blockEnchantments.remove(targetBlockPos);
     }
 }

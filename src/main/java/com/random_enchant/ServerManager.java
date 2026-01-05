@@ -7,20 +7,19 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 
 
 @EventBusSubscriber
-public class ServerManager
-{
+public class ServerManager {
     public static MinecraftServer serverInstance;
 
-    public static void setServerInstance(MinecraftServer server){
-        serverInstance = server;
-    }
-
-    public static MinecraftServer getServerInstance(){
+    public static MinecraftServer getServerInstance() {
         return serverInstance;
     }
 
+    public static void setServerInstance(MinecraftServer server) {
+        serverInstance = server;
+    }
+
     @SubscribeEvent
-    public static void onServerStarted(ServerStartedEvent event){
+    public static void onServerStarted(ServerStartedEvent event) {
         serverInstance = event.getServer();
     }
 }
