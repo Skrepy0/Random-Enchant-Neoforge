@@ -23,6 +23,7 @@
     "enchantment_block_mixin.custom.tnt.TntBlockMixin",
     "enchantment_block_mixin.custom.waterbroken.FlowableFluidMixin",
     "enchantment_block_mixin.main.BlockMixin",
+    "enchantment_block_mixin.main.SilkTouchEnchantedBlockMixin",
     "enchantment_block_mixin.main.PistonBlockMixin",
     "enchantment_block_mixin.main.PlayerEntityMixin",
     "enchantment_block_mixin.main.WorldMixin",

@@ -276,6 +276,7 @@
   "random_enchant.configuration.infinityTnt": "Infinity TNT",
   "random_enchant.configuration.infinityUndyingTotem": "Infinity Undying Totem",
   "random_enchant.configuration.isAlwaysEnchantable": "Always Enchantable",
+  "random_enchant.configuration.isEnchantedBlockGetatable": "§b[Silk Touch]§r Obtained enchanted block",
   "random_enchant.configuration.randomEnchant": "§gRandom Enchant§r Event",
   "random_enchant.configuration.redirectTridentSetPointDistance": "§6[Redirect Projectile]§rMax distance for radiographic testing"
 }

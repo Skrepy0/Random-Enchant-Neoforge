@@ -17,6 +17,9 @@ public class Config {
     public static ModConfigSpec.BooleanValue infinityBlock = BUILDER.define("infinityBlock", false);
     public static ModConfigSpec.BooleanValue infinityTnt = BUILDER.define("infinityTnt", true);
     public static ModConfigSpec.BooleanValue infinityPotion = BUILDER.define("infinityPotion", true);
+    public static ModConfigSpec.BooleanValue isEnchantedBlockGetatable = BUILDER
+            .comment("玩家使用带有§b[精准采集]§r附魔的工具破坏被附魔的方块时，可以掉落该带有附魔的方块")
+            .define("isEnchantedBlockGetatable", true);
     public static ModConfigSpec.IntValue redirectTridentSetPointDistance = BUILDER
             .comment("含有§6[重定向]§r附魔的三叉戟在使用时右键，落点与玩家的最大距离")
             .defineInRange("redirectTridentSetPointDistance", 15, 1, Integer.MAX_VALUE);
@@ -47,7 +50,9 @@ public class Config {
     public static boolean infinityPotion() {
         return infinityPotion.get();
     }
-
+    public static boolean isEnchantedBlockGetatable() {
+        return isEnchantedBlockGetatable.get();
+    }
     public static int getRedirectTridentSetPointDistance() {
         return redirectTridentSetPointDistance.get();
     }
@@ -84,6 +89,10 @@ public class Config {
     }
     public static void setFlyEnchantmentLiftHeightPerTick(double value) {
         flyEnchantmentLiftHeightPerTick.set(value);
+    }
+
+    public static void setIsEnchantedBlockGetatable(boolean value) {
+        isEnchantedBlockGetatable.set(value);
     }
     static final ModConfigSpec SPEC = BUILDER.build();
 }

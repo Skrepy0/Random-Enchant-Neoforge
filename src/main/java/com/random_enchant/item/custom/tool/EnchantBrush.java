@@ -24,7 +24,7 @@ import java.util.Random;
 
 public class EnchantBrush extends BrushItem {
     public EnchantBrush(Properties properties) {
-        super(properties.durability(256).rarity(Rarity.UNCOMMON).stacksTo(1));
+        super(properties.durability(64).rarity(Rarity.UNCOMMON).stacksTo(1));
     }
 
     private static int getItemDamage(int unbreakingLevel) {

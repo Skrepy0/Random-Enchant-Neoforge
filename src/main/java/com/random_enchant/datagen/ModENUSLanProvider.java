@@ -22,6 +22,7 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("random_enchant.configuration.infinityUndyingTotem", "Infinity Undying Totem");
         add("random_enchant.configuration.infinityBlock", "Infinity Block");
         add("random_enchant.configuration.infinityTnt", "Infinity TNT");
+        add("random_enchant.configuration.isEnchantedBlockGetatable", "§b[Silk Touch]§r Obtained enchanted block");
         add("random_enchant.configuration.InfinityPotion", "Infinity Potion");
         add("random_enchant.configuration.redirectTridentSetPointDistance", "§6[Redirect Projectile]§rMax distance for radiographic testing");
 //        add("random_enchant.configuration.redirectTridentSetPointDistance.comment","The max distance between the right-clicking point and the player when using a Trident with §6Redirect Projectile§r");

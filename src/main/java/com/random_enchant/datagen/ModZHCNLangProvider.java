@@ -21,6 +21,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("random_enchant.configuration.infinityBlock", "§a[无限]§r附魔对可放置方块的兼容");
         add("random_enchant.configuration.infinityTnt", "§a[无限]§r附魔对TNT的兼容");
         add("random_enchant.configuration.infinityPotion", "§a[无限]§r附魔对药水的兼容");
+        add("random_enchant.configuration.isEnchantedBlockGetatable", "§b[精准采集]§r获得已经附魔的方块");
         add("random_enchant.configuration.redirectTridentSetPointDistance", "§6[重定向]§r射线检测最大距离");
 //        add("random_enchant.configuration.redirectTridentSetPointDistance.comment","含有§6重定向§r附魔的三叉戟在使用时右键，落点与玩家的最大距离");
         add("random_enchant.configuration.flyEnchantmentLiftHeightPerTick", "含有§d[Fly]§r附魔的鞘翅每tick提升的高度");
