@@ -19,7 +19,5 @@ public class ModItemTags {
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, id));
     }
 
-    public static void registerModItemTags() {
-        RandomEnchant.LOGGER.info("Register Mod Item Tags");
-    }
+    public static void registerModItemTags() { RandomEnchant.LOGGER.info("Register Mod Item Tags"); }
 }

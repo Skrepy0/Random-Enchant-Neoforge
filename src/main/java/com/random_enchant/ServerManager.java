@@ -10,13 +10,9 @@ import net.neoforged.neoforge.event.server.ServerStartedEvent;
 public class ServerManager {
     public static MinecraftServer serverInstance;
 
-    public static MinecraftServer getServerInstance() {
-        return serverInstance;
-    }
+    public static MinecraftServer getServerInstance() { return serverInstance; }
 
-    public static void setServerInstance(MinecraftServer server) {
-        serverInstance = server;
-    }
+    public static void setServerInstance(MinecraftServer server) { serverInstance = server; }
 
     @SubscribeEvent
     public static void onServerStarted(ServerStartedEvent event) {

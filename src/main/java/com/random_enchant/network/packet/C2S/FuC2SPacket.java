@@ -1,6 +1,7 @@
 package com.random_enchant.network.packet.C2S;
 
 import com.random_enchant.RandomEnchant;
+import java.util.UUID;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -8,10 +9,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.UUID;
-
 public class FuC2SPacket implements CustomPacketPayload {
-    public static final Type<FuC2SPacket> TYPE = new Type<FuC2SPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "fu_c2s"));
+    public static final Type<FuC2SPacket> TYPE =
+            new Type<FuC2SPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "fu_c2s"));
     public static final StreamCodec<FriendlyByteBuf, FuC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(FuC2SPacket::write, FuC2SPacket::new);
     static Vec3 direction;
@@ -37,19 +37,18 @@ public class FuC2SPacket implements CustomPacketPayload {
 
     public static void receive(FuC2SPacket data) {
         // Everything here happens ONLY on the Server!
-        // Do whatever processing you need here, then send a packet to the client to inform them of the game mode change.
+        // Do whatever processing you need here, then send a packet to the client to inform them of the game mode
+        // change.
         int flag = data.flag;
         if (flag == 1) {
             direction = data.directionMessage;
         } else if (flag == 2) {
             uuid = data.uuidMessage;
         }
-//      itemStack.addVelocity(direction.x * horizontalSpeed, 0.3, direction.z * horizontalSpeed);
+        //      itemStack.addVelocity(direction.x * horizontalSpeed, 0.3, direction.z * horizontalSpeed);
     }
 
-    public static Vec3 getDirection() {
-        return direction;
-    }
+    public static Vec3 getDirection() { return direction; }
 
     public static UUID getUuid() {
         if (uuid == null) {
@@ -60,9 +59,7 @@ public class FuC2SPacket implements CustomPacketPayload {
     }
 
     public static void handle(final FuC2SPacket data, final IPayloadContext context) {
-        context.enqueueWork(() -> {
-            receive(data);
-        });
+        context.enqueueWork(() -> { receive(data); });
     }
 
     public void write(FriendlyByteBuf buf) {

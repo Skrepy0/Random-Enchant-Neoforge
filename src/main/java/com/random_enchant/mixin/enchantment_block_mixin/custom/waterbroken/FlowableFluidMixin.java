@@ -18,7 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(FlowingFluid.class)
 public abstract class FlowableFluidMixin {
     @Inject(at = @At("HEAD"), method = "canSpreadTo", cancellable = true)
-    private void init(BlockGetter level, BlockPos fromPos, BlockState fromBlockState, Direction direction, BlockPos toPos, BlockState toBlockState, FluidState toFluidState, Fluid fluid, CallbackInfoReturnable<Boolean> cir) {
+    private void init(BlockGetter level, BlockPos fromPos, BlockState fromBlockState, Direction direction,
+                      BlockPos toPos, BlockState toBlockState, FluidState toFluidState, Fluid fluid,
+                      CallbackInfoReturnable<Boolean> cir) {
         if (BlockEnchantmentStorage.getLevel(Enchantments.AQUA_AFFINITY, toPos) > 0) {
             System.out.println("canFlow");
             cir.setReturnValue(true);
@@ -26,7 +28,8 @@ public abstract class FlowableFluidMixin {
     }
 
     @Inject(at = @At("HEAD"), method = "canPassThroughWall", cancellable = true)
-    private void init1(Direction direction, BlockGetter level, BlockPos pos, BlockState state, BlockPos spreadPos, BlockState spreadState, CallbackInfoReturnable<Boolean> cir) {
+    private void init1(Direction direction, BlockGetter level, BlockPos pos, BlockState state, BlockPos spreadPos,
+                       BlockState spreadState, CallbackInfoReturnable<Boolean> cir) {
         if (BlockEnchantmentStorage.getLevel(Enchantments.AQUA_AFFINITY, pos) > 0) {
             System.out.println("receivesFlow");
             // 获取当前方块的世界对象，必须确保world是World类型

@@ -2,6 +2,7 @@ package com.random_enchant.mixin.enchantment_block_mixin.custom.tnt;
 
 import com.random_enchant.Config;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
+import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.stats.Stats;
@@ -28,27 +29,22 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 
-import java.util.Objects;
-
 @Mixin(TntBlock.class)
 public abstract class TntBlockMixin extends Block {
 
-    public TntBlockMixin(Properties properties) {
-        super(properties);
-    }
+    public TntBlockMixin(Properties properties) { super(properties); }
 
     @Shadow
     @Deprecated
-    protected static void explode(Level level, BlockPos pos, @Nullable LivingEntity entity) {
-
-    }
+    protected static void explode(Level level, BlockPos pos, @Nullable LivingEntity entity) {}
 
     /**
      * @author Mafuyu33
      * @reason infinite explosion
      */
     @Overwrite
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+                                              Player player, InteractionHand hand, BlockHitResult hitResult) {
         int k = BlockEnchantmentStorage.getLevel(Enchantments.INFINITY, pos);
         ItemStack itemStack = player.getItemInHand(hand);
         if (!itemStack.is(Items.FLINT_AND_STEEL) && !itemStack.is(Items.FIRE_CHARGE)) {
@@ -56,14 +52,14 @@ public abstract class TntBlockMixin extends Block {
         } else {
             explode(level, pos, player);
             if (k == 0 || !Config.infinityTnt()) {
-                level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);//删除TNT
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), 11); // 删除TNT
             }
             Item item = itemStack.getItem();
             if (!player.isCreative()) {
                 if (itemStack.is(Items.FLINT_AND_STEEL)) {
-//					itemStack.hurtAndBreak(1, player, (playerx) -> {
-//						playerx.sendToolBreakStatus(hand);
-//					});
+                    //					itemStack.hurtAndBreak(1, player, (playerx) -> {
+                    //						playerx.sendToolBreakStatus(hand);
+                    //					});
                     itemStack.hurtAndBreak(1, player, Objects.requireNonNull(itemStack.getEquipmentSlot()));
                 } else {
                     itemStack.shrink(1);
@@ -85,11 +81,13 @@ public abstract class TntBlockMixin extends Block {
         if (!world.isClientSide) {
             int k = BlockEnchantmentStorage.getLevel(Enchantments.INFINITY, pos);
             if (Config.infinityTnt() && k > 0) {
-                ListTag enchantments = BlockEnchantmentStorage.getEnchantmentsAtPosition(pos); // 获取物品栈上的附魔信息列表
-                BlockEnchantmentStorage.addBlockEnchantment(pos, enchantments);// 将附魔信息列表存储
-                world.setBlock(pos, Blocks.TNT.defaultBlockState(), 16);//添加TNT
+                ListTag enchantments =
+                        BlockEnchantmentStorage.getEnchantmentsAtPosition(pos); // 获取物品栈上的附魔信息列表
+                BlockEnchantmentStorage.addBlockEnchantment(pos, enchantments); // 将附魔信息列表存储
+                world.setBlock(pos, Blocks.TNT.defaultBlockState(), 16); // 添加TNT
             }
-            PrimedTnt tntEntity = new PrimedTnt(world, (double) pos.getX() + 0.5, (double) pos.getY(), (double) pos.getZ() + 0.5, explosion.getIndirectSourceEntity());
+            PrimedTnt tntEntity = new PrimedTnt(world, (double) pos.getX() + 0.5, (double) pos.getY(),
+                                                (double) pos.getZ() + 0.5, explosion.getIndirectSourceEntity());
             int i = tntEntity.getFuse();
             tntEntity.setFuse((short) (world.random.nextInt(i / 4) + i / 8));
             world.addFreshEntity(tntEntity);
@@ -120,11 +118,13 @@ public abstract class TntBlockMixin extends Block {
      * @reason infinite explosion
      */
     @Overwrite
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos,
+                                   boolean isMoving) {
         int k = BlockEnchantmentStorage.getLevel(Enchantments.INFINITY, pos);
         if (level.hasNeighborSignal(pos)) {
             this.onCaughtFire(state, level, pos, null, null);
-            if (!Config.infinityTnt() || k == 0) level.removeBlock(pos, false);
+            if (!Config.infinityTnt() || k == 0)
+                level.removeBlock(pos, false);
         }
     }
 }

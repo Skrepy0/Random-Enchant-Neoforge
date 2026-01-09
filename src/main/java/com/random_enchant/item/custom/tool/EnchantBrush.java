@@ -4,6 +4,9 @@ import com.random_enchant.data.nbt.BrushNBTUtils;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import com.random_enchant.mixin_helper.InjectHelper;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -17,15 +20,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-
 
 public class EnchantBrush extends BrushItem {
-    public EnchantBrush(Properties properties) {
-        super(properties.durability(64).rarity(Rarity.UNCOMMON).stacksTo(1));
-    }
+    public EnchantBrush(Properties properties) { super(properties.durability(64).rarity(Rarity.UNCOMMON).stacksTo(1)); }
 
     private static int getItemDamage(int unbreakingLevel) {
         Random random = new Random();
@@ -72,22 +69,27 @@ public class EnchantBrush extends BrushItem {
         ItemStack stack = context.getItemInHand();
         if (!context.getLevel().isClientSide) {
             if (context.getItemInHand().isEnchanted()) {
-                //如果Pos位置方块没有附魔
-                if (Objects.equals(BlockEnchantmentStorage.getEnchantmentsAtPosition(context.getClickedPos()), new ListTag())) {
+                // 如果Pos位置方块没有附魔
+                if (Objects.equals(BlockEnchantmentStorage.getEnchantmentsAtPosition(context.getClickedPos()),
+                                   new ListTag())) {
                     InjectHelper.addToList(context.getItemInHand(), context.getClickedPos());
-                    EquipmentSlot equipmentSlot = context.getItemInHand().equals(context.getPlayer().getItemBySlot(EquipmentSlot.OFFHAND)) ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
+                    EquipmentSlot equipmentSlot =
+                            context.getItemInHand().equals(context.getPlayer().getItemBySlot(EquipmentSlot.OFFHAND))
+                                    ? EquipmentSlot.OFFHAND
+                                    : EquipmentSlot.MAINHAND;
                     context.getItemInHand().hurtAndBreak(1, context.getPlayer(), equipmentSlot);
                 } else {
-                    ListTag oldEnchantments = BlockEnchantmentStorage.getEnchantmentsAtPosition(context.getClickedPos());
+                    ListTag oldEnchantments =
+                            BlockEnchantmentStorage.getEnchantmentsAtPosition(context.getClickedPos());
                     BlockEnchantmentStorage.removeBlockEnchantment(context.getClickedPos().immutable());
                     ListTag enchantments = InjectHelper.enchantmentsToNbtList(context.getItemInHand());
                     // 合并附魔列表
                     ListTag newEnchantments = mergeNbtLists(oldEnchantments, enchantments);
-                    //储存信息
+                    // 储存信息
                     BlockEnchantmentStorage.addBlockEnchantment(context.getClickedPos().immutable(), newEnchantments);
                 }
             } else {
-                //删除信息
+                // 删除信息
                 BlockEnchantmentStorage.removeBlockEnchantment(context.getClickedPos().immutable());
             }
             if (!user.isCreative()) {
@@ -109,13 +111,19 @@ public class EnchantBrush extends BrushItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents,
+                                TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
         // 获取刷子状态
         boolean status = BrushNBTUtils.getStatus(stack);
 
         // 显示状态信息
-        Component statusComponent = Component.translatable("item.tooltip.random_enchant.enchant_brush.status").append(status ? Component.translatable("item.tooltip.random_enchant.enchant_brush.status.regional") : Component.translatable("item.tooltip.random_enchant.enchant_brush.status.single"));
+        Component statusComponent =
+                Component.translatable("item.tooltip.random_enchant.enchant_brush.status")
+                        .append(status ? Component.translatable(
+                                                 "item.tooltip.random_enchant.enchant_brush.status.regional")
+                                       : Component.translatable(
+                                                 "item.tooltip.random_enchant.enchant_brush.status.single"));
 
         tooltipComponents.add(statusComponent);
     }

@@ -42,32 +42,31 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     @Unique
     private static final EntityDataAccessor<Byte> DATA_FIRE_ASPECT_LEVEL =
             SynchedEntityData.defineId(ThrownTridentMixin.class, EntityDataSerializers.BYTE);
-    @Unique
-    private static final String NBT_REDIRECT_LEVEL = "RandomEnchant_RedirectLevel";
-    @Unique
-    private static final String NBT_FIRE_ASPECT_LEVEL = "RandomEnchant_FireAspectLevel";
-    @Unique
-    private static final double GROUND_TELEPORT_DISTANCE = 0.5;
-    @Shadow
-    private boolean dealtDamage;
+    @Unique private static final String NBT_REDIRECT_LEVEL = "RandomEnchant_RedirectLevel";
+    @Unique private static final String NBT_FIRE_ASPECT_LEVEL = "RandomEnchant_FireAspectLevel";
+    @Unique private static final double GROUND_TELEPORT_DISTANCE = 0.5;
+    @Shadow private boolean dealtDamage;
 
     protected ThrownTridentMixin(EntityType<? extends AbstractArrow> entityType, Level level) {
         super(entityType, level);
     }
 
 
-    @Inject(method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/ItemStack;)V",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V"))
-    private void onInitWithShooter(Level level, LivingEntity shooter, ItemStack pickupItemStack, CallbackInfo ci) {
+    @Inject(method = "<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/" +
+                     "minecraft/world/item/ItemStack;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/" +
+                                                "network/syncher/EntityDataAccessor;Ljava/lang/Object;)V"))
+    private void
+    onInitWithShooter(Level level, LivingEntity shooter, ItemStack pickupItemStack, CallbackInfo ci) {
         this.randomEnchant$setRedirectLevelFromItem(pickupItemStack);
         this.randomEnchant$setFireAspectLevelFromItem(pickupItemStack);
     }
 
     @Inject(method = "<init>(Lnet/minecraft/world/level/Level;DDDLnet/minecraft/world/item/ItemStack;)V",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/network/syncher/EntityDataAccessor;Ljava/lang/Object;)V"))
-    private void onInitWithPosition(Level level, double x, double y, double z, ItemStack pickupItemStack, CallbackInfo ci) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/network/syncher/SynchedEntityData;set(Lnet/minecraft/" +
+                                                "network/syncher/EntityDataAccessor;Ljava/lang/Object;)V"))
+    private void
+    onInitWithPosition(Level level, double x, double y, double z, ItemStack pickupItemStack, CallbackInfo ci) {
         this.randomEnchant$setRedirectLevelFromItem(pickupItemStack);
         this.randomEnchant$setFireAspectLevelFromItem(pickupItemStack);
     }
@@ -100,10 +99,11 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
         }
     }
 
-    @Inject(at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/network/syncher/SynchedEntityData;get(Lnet/minecraft/network/syncher/EntityDataAccessor;)Ljava/lang/Object;"),
+    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/network/syncher/SynchedEntityData;get(Lnet/minecraft/" +
+                                                "network/syncher/EntityDataAccessor;)Ljava/lang/Object;"),
             method = "tick")
-    private void onTick(CallbackInfo ci) {
+    private void
+    onTick(CallbackInfo ci) {
         int redirectLevel = this.randomEnchant$getRedirectLevel();
         Entity owner = this.getOwner();
 
@@ -126,7 +126,8 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     private void onHitEntity(EntityHitResult result, CallbackInfo ci) {
         Entity hitEntity = result.getEntity();
         Level level = hitEntity.level();
-        if (level.isClientSide) return;
+        if (level.isClientSide)
+            return;
         if (hitEntity instanceof LivingEntity) {
             int fireAspectLevel = this.entityData.get(DATA_FIRE_ASPECT_LEVEL);
             if (fireAspectLevel > 0) {
@@ -216,28 +217,17 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
 
         // 射线检测
         HitResult hitResult = owner.level().clip(
-                new ClipContext(startPos, endPos,
-                        ClipContext.Block.OUTLINE,
-                        ClipContext.Fluid.NONE,
-                        owner
-                )
-        );
+                new ClipContext(startPos, endPos, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, owner));
 
         // 检查实体
         if (hitResult.getType() != HitResult.Type.BLOCK) {
             // 进行实体检测
             EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(
-                    owner.level(),
-                    owner,
-                    startPos,
-                    endPos,
-                    new AABB(startPos, endPos).inflate(1.0), // 搜索范围
-                    entity -> {
+                    owner.level(), owner, startPos, endPos, new AABB(startPos, endPos).inflate(1.0), // 搜索范围
+                    entity
+                    -> {
                         // 过滤条件：不检测自己，且实体可被击中
-                        return entity != owner
-                                && entity.isAlive()
-                                && entity.isPickable()
-                                && !entity.isSpectator();
+                        return entity != owner && entity.isAlive() && entity.isPickable() && !entity.isSpectator();
                     },
                     0.0F // 距离阈值
             );

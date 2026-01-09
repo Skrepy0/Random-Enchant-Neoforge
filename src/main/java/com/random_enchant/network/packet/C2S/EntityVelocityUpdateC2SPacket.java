@@ -10,7 +10,8 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class EntityVelocityUpdateC2SPacket implements CustomPacketPayload {
-    public static final Type<EntityVelocityUpdateC2SPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "entity_velocity_update_c2s"));
+    public static final Type<EntityVelocityUpdateC2SPacket> TYPE =
+            new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "entity_velocity_update_c2s"));
     public static final StreamCodec<FriendlyByteBuf, EntityVelocityUpdateC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(EntityVelocityUpdateC2SPacket::write, EntityVelocityUpdateC2SPacket::new);
     public Vec3 finalVelocity;
@@ -36,7 +37,7 @@ public class EntityVelocityUpdateC2SPacket implements CustomPacketPayload {
                 Entity entity = context.player().level().getEntity(data.id);
                 if (entity != null) {
                     if (!data.finalVelocity.equals(Vec3.ZERO)) {
-                        //同步速度
+                        // 同步速度
                         entity.setDeltaMovement(data.finalVelocity);
                     }
                 }

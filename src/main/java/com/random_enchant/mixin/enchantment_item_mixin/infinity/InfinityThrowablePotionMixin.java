@@ -14,14 +14,20 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ThrowablePotionItem.class)
 public class InfinityThrowablePotionMixin {
-    @Redirect(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"))
-    private void redirectConsume(ItemStack instance, int amount, LivingEntity entity) {
+    @Redirect(
+            method = "use",
+            at = @At(
+                    value = "INVOKE",
+                    target =
+                            "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"))
+    private void
+    redirectConsume(ItemStack instance, int amount, LivingEntity entity) {
         if (!Config.infinityPotion()) {
             instance.consume(amount, entity);
             return;
         }
         if (entity instanceof Player player) {
-            for (InteractionHand hand : InteractionHand.values()) {
+            for (InteractionHand hand: InteractionHand.values()) {
                 if (ModEnchantHelper.getEnchantmentLevel(player.getItemInHand(hand), Enchantments.INFINITY) > 0) {
                     return;
                 }

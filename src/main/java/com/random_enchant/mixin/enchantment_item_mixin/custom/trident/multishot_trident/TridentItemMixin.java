@@ -19,13 +19,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TridentItem.class)
 public abstract class TridentItemMixin {
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"), method = "releaseUsing")
-    private void init(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft, CallbackInfo ci, @Local ThrownTrident throwntrident) {
+    @Inject(at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"),
+            method = "releaseUsing")
+    private void
+    init(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft, CallbackInfo ci,
+         @Local ThrownTrident throwntrident) {
         int k = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.MULTISHOT);
         int o = ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.REDIRECT_PROJECTILE);
         if (k > 0) {
             if (o > 0) {
-                //抛出m+2个，存放在1至m中
+                // 抛出m+2个，存放在1至m中
                 for (int i = 0; i < k + 1; i++) {
                     Player playerEntity = ((Player) entityLiving);
                     // 玩家视线起点（玩家眼睛位置）
@@ -66,18 +70,20 @@ public abstract class TridentItemMixin {
                     Vec3 finalPosition = basePoint.add(lookDirection.scale(axialOffset)).add(spiralOffset);
 
 
-                    ThrownTrident tridentEntity = new ThrownTrident(level, finalPosition.x, finalPosition.y, finalPosition.z, stack);
+                    ThrownTrident tridentEntity =
+                            new ThrownTrident(level, finalPosition.x, finalPosition.y, finalPosition.z, stack);
 
                     tridentEntity.setOwner(playerEntity);
                     tridentEntity.setDeltaMovement(0, 0, 0);
-                    tridentEntity.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 0.03F, 1.0F);
+                    tridentEntity.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F,
+                                                    0.03F, 1.0F);
                     tridentEntity.setNoGravity(true);
 
                     tridentEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     level.addFreshEntity(tridentEntity);
                 }
             } else {
-                //抛出m+2个，存放在1至m中
+                // 抛出m+2个，存放在1至m中
                 for (int i = 0; i < k + 1; i++) {
                     // 生成随机偏移速度
                     double offsetX = level.random.nextGaussian() * 0.1;
@@ -87,7 +93,8 @@ public abstract class TridentItemMixin {
                     int j = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.RIPTIDE);
                     Player playerEntity = ((Player) entityLiving);
                     ThrownTrident tridentEntity = new ThrownTrident(level, playerEntity, stack);
-                    tridentEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F, 2.5F + (float) j * 0.5F, 1.0F);
+                    tridentEntity.shootFromRotation(playerEntity, playerEntity.getXRot(), playerEntity.getYRot(), 0.0F,
+                                                    2.5F + (float) j * 0.5F, 1.0F);
                     tridentEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                     tridentEntity.push(offsetX, offsetY, offsetZ);
                     level.addFreshEntity(tridentEntity);

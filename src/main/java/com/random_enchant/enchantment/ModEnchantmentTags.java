@@ -14,7 +14,5 @@ public class ModEnchantmentTags {
         return TagKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, id));
     }
 
-    public static void registerModEnchantmentTags() {
-        RandomEnchant.LOGGER.info("Register Mod Enchantment Tags");
-    }
+    public static void registerModEnchantmentTags() { RandomEnchant.LOGGER.info("Register Mod Enchantment Tags"); }
 }

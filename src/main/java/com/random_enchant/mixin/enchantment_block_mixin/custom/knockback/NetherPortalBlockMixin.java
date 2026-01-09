@@ -18,9 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(NetherPortalBlock.class)
 public abstract class NetherPortalBlockMixin extends Block {
 
-    public NetherPortalBlockMixin(Properties properties) {
-        super(properties);
-    }
+    public NetherPortalBlockMixin(Properties properties) { super(properties); }
 
     @Inject(at = @At("HEAD"), method = "entityInside")
     private void init3(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
@@ -45,5 +43,4 @@ public abstract class NetherPortalBlockMixin extends Block {
             }
         }
     }
-
 }

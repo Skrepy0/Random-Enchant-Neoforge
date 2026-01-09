@@ -2,6 +2,7 @@ package com.random_enchant.network.packet.S2C;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.sound.ModSounds;
+import java.util.Random;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -14,8 +15,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.Random;
-
 public class NeverGonnaS2CPacket implements CustomPacketPayload {
     // stream codec
     public static final StreamCodec<FriendlyByteBuf, NeverGonnaS2CPacket> STREAM_CODEC =
@@ -24,21 +23,15 @@ public class NeverGonnaS2CPacket implements CustomPacketPayload {
             new Type<NeverGonnaS2CPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "never_gonna"));
 
 
-    public NeverGonnaS2CPacket() {
-    }
+    public NeverGonnaS2CPacket() {}
 
-    public NeverGonnaS2CPacket(FriendlyByteBuf buf) {
-    }
+    public NeverGonnaS2CPacket(FriendlyByteBuf buf) {}
 
-    public static void handle(NeverGonnaS2CPacket data, IPayloadContext context) {
-        runEnqueue(context);
-    }
+    public static void handle(NeverGonnaS2CPacket data, IPayloadContext context) { runEnqueue(context); }
 
     @OnlyIn(Dist.CLIENT)
     private static void runEnqueue(IPayloadContext context) {
-        context.enqueueWork(() -> {
-            playRandomSound(Minecraft.getInstance().level, Minecraft.getInstance().player);
-        });
+        context.enqueueWork(() -> { playRandomSound(Minecraft.getInstance().level, Minecraft.getInstance().player); });
     }
 
     public static void playRandomSound(ClientLevel world, LocalPlayer player) {
@@ -48,40 +41,49 @@ public class NeverGonnaS2CPacket implements CustomPacketPayload {
         // 根据随机数选择要执行的代码
         switch (randomIndex) {
             case 0:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER1.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER1.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 1:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER2.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER2.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 2:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER3.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER3.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 3:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER4.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER4.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 4:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER5.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER5.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 5:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER6.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER6.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 6:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER7.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER7.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 7:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER8.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER8.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 8:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER9.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER9.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
             case 9:
-                world.playSound(player, player.blockPosition(), ModSounds.NEVER10.value(), SoundSource.MASTER, 1.0f, 1.0f);
+                world.playSound(player, player.blockPosition(), ModSounds.NEVER10.value(), SoundSource.MASTER, 1.0f,
+                                1.0f);
                 break;
         }
     }
 
-    public void write(FriendlyByteBuf pBuffer) {
-    }
+    public void write(FriendlyByteBuf pBuffer) {}
 
     @Override
     public Type<? extends CustomPacketPayload> type() {

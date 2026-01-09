@@ -23,9 +23,9 @@
     "enchantment_block_mixin.custom.tnt.TntBlockMixin",
     "enchantment_block_mixin.custom.waterbroken.FlowableFluidMixin",
     "enchantment_block_mixin.main.BlockMixin",
-    "enchantment_block_mixin.main.SilkTouchEnchantedBlockMixin",
     "enchantment_block_mixin.main.PistonBlockMixin",
     "enchantment_block_mixin.main.PlayerEntityMixin",
+    "enchantment_block_mixin.main.SilkTouchEnchantedBlockMixin",
     "enchantment_block_mixin.main.WorldMixin",
     "enchantment_block_mixin.main.sigle_inject.AbstractRedStoneGateBlockMixin",
     "enchantment_block_mixin.main.sigle_inject.CobwebBlockMixin",
@@ -49,11 +49,17 @@
     "enchantment_item_mixin.custom.trident.multishot_trident.TridentItemMixin",
     "enchantment_item_mixin.custom.trident.redirect_trident.ThrownTridentMixin",
     "enchantment_item_mixin.custom.trident.redirect_trident.TridentItemMixin",
-    "enchantment_item_mixin.infinity.InfiniteBucketMixin$InFiniteBucketMixin",
+    "enchantment_item_mixin.custom.windcharge.PlayerMixin",
+    "enchantment_item_mixin.custom.windcharge.WindChargeItemMixin",
     "enchantment_item_mixin.infinity.InfiniteFoodMixin$InFiniteFoodMixin",
     "enchantment_item_mixin.infinity.InfinityBlockMixin",
+    "enchantment_item_mixin.infinity.InfinityBucketMixin$InFiniteBucketMixin",
     "enchantment_item_mixin.infinity.InfinityPotionItemMixin",
-    "enchantment_item_mixin.infinity.InfinityThrowablePotionMixin"
+    "enchantment_item_mixin.infinity.InfinityThrowablePotionMixin",
+    "enchantment_item_mixin.infinity.throwable_item.InfinityEggItemMixin",
+    "enchantment_item_mixin.infinity.throwable_item.InfinityEnderEyeItemMixin",
+    "enchantment_item_mixin.infinity.throwable_item.InfinityEnderPearlItemMixin",
+    "enchantment_item_mixin.infinity.throwable_item.InfinitySnowBallItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

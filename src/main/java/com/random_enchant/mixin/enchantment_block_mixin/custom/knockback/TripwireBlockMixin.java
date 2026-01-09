@@ -18,9 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(TripWireBlock.class)
 public abstract class TripwireBlockMixin extends Block {
 
-    public TripwireBlockMixin(Properties properties) {
-        super(properties);
-    }
+    public TripwireBlockMixin(Properties properties) { super(properties); }
 
     @Inject(at = @At("HEAD"), method = "entityInside")
     private void init3(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {

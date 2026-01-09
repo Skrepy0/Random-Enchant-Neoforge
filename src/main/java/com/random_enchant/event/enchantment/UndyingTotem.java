@@ -1,5 +1,7 @@
 package com.random_enchant.event.enchantment;
 
+import static com.random_enchant.enchantment.ModEnchantHelper.getEnchantmentLevel;
+
 import com.random_enchant.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -19,8 +21,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
 
-import static com.random_enchant.enchantment.ModEnchantHelper.getEnchantmentLevel;
-
 public class UndyingTotem {
     private static void explode(int power, Level level, double x, double y, double z, Entity entity) {
         float f = 4.0F + (float) (power * 0.5);
@@ -33,7 +33,8 @@ public class UndyingTotem {
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
         DamageSource damageSource = event.getSource();
-        if (level.isClientSide) return;
+        if (level.isClientSide)
+            return;
         if (Config.infinityUndyingTotem() && getEnchantmentLevel(totem, Enchantments.INFINITY) > 0) {
             ItemStack itemStack = totem.copy();
             itemStack.setCount(1);
@@ -44,14 +45,15 @@ public class UndyingTotem {
             }
         }
 
-        int blastProtectLevel = getEnchantmentLevel(totem, Enchantments.BLAST_PROTECTION);//爆炸保护
+        int blastProtectLevel = getEnchantmentLevel(totem, Enchantments.BLAST_PROTECTION); // 爆炸保护
         if (blastProtectLevel > 0) {
             if (damageSource.getEntity() != null && damageSource.getDirectEntity() != null) {
-                explode(blastProtectLevel - 1, level, entity.getX(), entity.getY(0.0625), entity.getZ(), damageSource.getDirectEntity());
+                explode(blastProtectLevel - 1, level, entity.getX(), entity.getY(0.0625), entity.getZ(),
+                        damageSource.getDirectEntity());
             }
         }
 
-        int channelingLevel = getEnchantmentLevel(totem, Enchantments.CHANNELING);//引雷
+        int channelingLevel = getEnchantmentLevel(totem, Enchantments.CHANNELING); // 引雷
         if (channelingLevel > 0) {
             if (level instanceof ServerLevel) {
                 if (damageSource.getEntity() != null && damageSource.getDirectEntity() != null) {
@@ -64,7 +66,9 @@ public class UndyingTotem {
                         if (blockPos != null) {
                             lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
                         }
-                        lightningBolt.setCause(damageSource.getDirectEntity() instanceof ServerPlayer ? (ServerPlayer) damageSource.getDirectEntity() : null);
+                        lightningBolt.setCause(damageSource.getDirectEntity() instanceof ServerPlayer
+                                                       ? (ServerPlayer) damageSource.getDirectEntity()
+                                                       : null);
                         level.addFreshEntity(lightningBolt);
                         SoundEvent soundEvent = SoundEvents.LIGHTNING_BOLT_THUNDER;
                         entity.playSound(soundEvent, 5, 1.0F);

@@ -2,6 +2,8 @@ package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantments;
+import java.util.List;
+import java.util.function.Supplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -18,51 +20,40 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.List;
-import java.util.function.Supplier;
-
 public class ModItemGroup {
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RandomEnchant.MOD_ID);
-    private static final List<ResourceKey<Enchantment>> ENCHANTMENT_BOOK_LIST = List.of(
-            Enchantments.INFINITY,
-            Enchantments.PROTECTION,
-            Enchantments.BLAST_PROTECTION,
-            Enchantments.POWER,
-            Enchantments.CHANNELING,
-            Enchantments.UNBREAKING,
-            ModEnchantments.FURY_OF_FLY,
-            ModEnchantments.BAD_LUCK_OF_THE_SEA,
-            ModEnchantments.REDIRECT_PROJECTILE,
-            ModEnchantments.FLY
-    );
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
+            DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RandomEnchant.MOD_ID);
+    private static final List<ResourceKey<Enchantment>> ENCHANTMENT_BOOK_LIST =
+            List.of(Enchantments.INFINITY, Enchantments.PROTECTION, Enchantments.BLAST_PROTECTION, Enchantments.POWER,
+                    Enchantments.CHANNELING, Enchantments.UNBREAKING, ModEnchantments.FURY_OF_FLY,
+                    ModEnchantments.BAD_LUCK_OF_THE_SEA, ModEnchantments.REDIRECT_PROJECTILE, ModEnchantments.FLY);
 
-    public static final Supplier<CreativeModeTab> RANDOM_ENCHANT = CREATIVE_MODE_TAB.register("random_enchant_tab", () -> CreativeModeTab.builder()
-            .icon(() -> new ItemStack(Items.ENCHANTED_BOOK))
-            .title(Component.translatable("itemGroup.random_enchant.title"))
-            .displayItems((itemDisplayParameters, output) -> {
-                HolderLookup<Enchantment> enchantmentLookup = itemDisplayParameters.holders().lookup(Registries.ENCHANTMENT).orElseThrow();
+    public static final Supplier<CreativeModeTab> RANDOM_ENCHANT = CREATIVE_MODE_TAB.register(
+            "random_enchant_tab",
+            ()
+                    -> CreativeModeTab.builder()
+                               .icon(() -> new ItemStack(Items.ENCHANTED_BOOK))
+                               .title(Component.translatable("itemGroup.random_enchant.title"))
+                               .displayItems((itemDisplayParameters, output) -> {
+                                   HolderLookup<Enchantment> enchantmentLookup =
+                                           itemDisplayParameters.holders().lookup(Registries.ENCHANTMENT).orElseThrow();
 
-                for (ResourceKey<Enchantment> enchantmentResourceKey : ENCHANTMENT_BOOK_LIST) {
-                    // 通过 lookup 获取 Holder
-                    Holder<Enchantment> enchantmentHolder = enchantmentLookup.get(enchantmentResourceKey).orElse(null);
+                                   for (ResourceKey<Enchantment> enchantmentResourceKey: ENCHANTMENT_BOOK_LIST) {
+                                       // 通过 lookup 获取 Holder
+                                       Holder<Enchantment> enchantmentHolder =
+                                               enchantmentLookup.get(enchantmentResourceKey).orElse(null);
 
-                    if (enchantmentHolder != null) {
-                        int maxLevel = enchantmentHolder.value().definition().maxLevel();
-                        output.accept(
-                                EnchantedBookItem.createForEnchantment(
-                                        new EnchantmentInstance(enchantmentHolder, maxLevel)
-                                )
-                        );
-                    }
-                }
-                output.accept(Blocks.ANVIL.asItem());
-                output.accept(ModItems.PEARL_SPEAR.get());
-                output.accept(ModItems.ENCHANT_BRUSH.get());
+                                       if (enchantmentHolder != null) {
+                                           int maxLevel = enchantmentHolder.value().definition().maxLevel();
+                                           output.accept(EnchantedBookItem.createForEnchantment(
+                                                   new EnchantmentInstance(enchantmentHolder, maxLevel)));
+                                       }
+                                   }
+                                   output.accept(Blocks.ANVIL.asItem());
+                                   output.accept(ModItems.PEARL_SPEAR.get());
+                                   output.accept(ModItems.ENCHANT_BRUSH.get());
+                               })
+                               .build());
 
-            })
-            .build());
-
-    public static void registerModItemGroup(IEventBus bus) {
-        CREATIVE_MODE_TAB.register(bus);
-    }
+    public static void registerModItemGroup(IEventBus bus) { CREATIVE_MODE_TAB.register(bus); }
 }

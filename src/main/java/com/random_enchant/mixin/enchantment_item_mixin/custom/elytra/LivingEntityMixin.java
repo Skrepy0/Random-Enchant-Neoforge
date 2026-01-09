@@ -16,22 +16,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-    public LivingEntityMixin(EntityType<?> entityType, Level level) {
-        super(entityType, level);
-    }
+    public LivingEntityMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
-    @Shadow
-    public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
+    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
 
     @Shadow
     private SoundEvent getFallDamageSound(int height) {
         return null;
     }
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V", ordinal = 6), method = "travel", cancellable = true)
-    private void init1(CallbackInfo ci, @Local(ordinal = 1) Vec3 vec3, @Local(ordinal = 3) double d3) {
+    @Inject(at = @At(value = "INVOKE",
+                     target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(Lnet/minecraft/world/phys/" +
+                              "Vec3;)V",
+                     ordinal = 6),
+            method = "travel", cancellable = true)
+    private void
+    init1(CallbackInfo ci, @Local(ordinal = 1) Vec3 vec3, @Local(ordinal = 3) double d3) {
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (ModEnchantHelper.getEnchantmentLevel(itemstack, Enchantments.INFINITY) > 0) {//鞘翅有无限附魔的时候。
+        if (ModEnchantHelper.getEnchantmentLevel(itemstack, Enchantments.INFINITY) > 0) { // 鞘翅有无限附魔的时候。
             this.setDeltaMovement(vec3);
             ci.cancel();
             this.move(MoverType.SELF, this.getDeltaMovement());

@@ -29,7 +29,8 @@ public class EnchantBrushHelper {
         BlockPos pos = event.getPos();
 
         // 只在服务端执行
-        if (level.isClientSide()) return;
+        if (level.isClientSide())
+            return;
 
         ItemStack mainHandItem = player.getMainHandItem();
         // 检查主手物品是否是刷子
@@ -37,11 +38,13 @@ public class EnchantBrushHelper {
             return;
         }
 
-        if (!player.isCreative()) return;
+        if (!player.isCreative())
+            return;
         // 获取刷子物品
         ItemStack brush = mainHandItem;
         boolean status = BrushNBTUtils.getStatus(brush);
-        if (!status) return;
+        if (!status)
+            return;
 
         if (brush.isEnchanted()) {
             // 有附魔的刷子：进行区域附魔操作
@@ -50,7 +53,8 @@ public class EnchantBrushHelper {
                 BrushNBTUtils.setStartPos(brush, pos);
                 startBlockParticlesRender(level, pos);
                 // 给玩家提示
-                player.displayClientMessage(Component.translatable("message.random_enchant.item.enchant_brush.selected_1"), true);
+                player.displayClientMessage(
+                        Component.translatable("message.random_enchant.item.enchant_brush.selected_1"), true);
             } else {
                 // 第二次点击：记录终点并执行区域操作
                 BlockPos startPos = BrushNBTUtils.getStartPos(brush);
@@ -58,18 +62,21 @@ public class EnchantBrushHelper {
                 endBlockParticlesRender(level, pos);
                 // 清除选择状态
                 BrushNBTUtils.clearSelection(brush);
-                player.displayClientMessage(Component.translatable("message.random_enchant.item.enchant_brush.selected_2"), true);
+                player.displayClientMessage(
+                        Component.translatable("message.random_enchant.item.enchant_brush.selected_2"), true);
             }
         } else {
             // 没有附魔的刷子：清除区域附魔
             if (!BrushNBTUtils.hasStartPos(brush)) {
                 BrushNBTUtils.setStartPos(brush, pos);
-                player.displayClientMessage(Component.translatable("message.random_enchant.item.enchant_brush.selected_1"), true);
+                player.displayClientMessage(
+                        Component.translatable("message.random_enchant.item.enchant_brush.selected_1"), true);
             } else {
                 BlockPos startPos = BrushNBTUtils.getStartPos(brush);
                 clearAllBlocks(level, startPos, pos);
                 BrushNBTUtils.clearSelection(brush);
-                player.displayClientMessage(Component.translatable("message.random_enchant.item.enchant_brush.clear_area"), true);
+                player.displayClientMessage(
+                        Component.translatable("message.random_enchant.item.enchant_brush.clear_area"), true);
             }
         }
 
@@ -80,13 +87,15 @@ public class EnchantBrushHelper {
     private static void startBlockParticlesRender(Level level, BlockPos pos) {
         // 确保在服务端发送数据包
         if (!level.isClientSide()) {
-            PacketDistributor.sendToAllPlayers(new AddEnchantedBlockParticleS2CPacket(pos, ParticleRenderType.RenderType.START_BLOCK));
+            PacketDistributor.sendToAllPlayers(
+                    new AddEnchantedBlockParticleS2CPacket(pos, ParticleRenderType.RenderType.START_BLOCK));
         }
     }
 
     private static void endBlockParticlesRender(Level level, BlockPos pos) {
         if (!level.isClientSide()) {
-            PacketDistributor.sendToAllPlayers(new AddEnchantedBlockParticleS2CPacket(pos, ParticleRenderType.RenderType.END_BLOCK));
+            PacketDistributor.sendToAllPlayers(
+                    new AddEnchantedBlockParticleS2CPacket(pos, ParticleRenderType.RenderType.END_BLOCK));
         }
     }
 
@@ -114,9 +123,7 @@ public class EnchantBrushHelper {
                     BlockState blockState = world.getBlockState(currentPos);
 
                     // 排除空气、水、岩浆等特定方块
-                    if (blockState.is(Blocks.AIR) ||
-                            blockState.is(Blocks.WATER) ||
-                            blockState.is(Blocks.LAVA)) {
+                    if (blockState.is(Blocks.AIR) || blockState.is(Blocks.WATER) || blockState.is(Blocks.LAVA)) {
                         continue;
                     }
 
@@ -145,9 +152,7 @@ public class EnchantBrushHelper {
                     BlockPos currentPos = new BlockPos(x, y, z);
                     BlockState blockState = world.getBlockState(currentPos);
                     // 排除空气、水、岩浆等特定方块
-                    if (blockState.is(Blocks.AIR) ||
-                            blockState.is(Blocks.WATER) ||
-                            blockState.is(Blocks.LAVA)) {
+                    if (blockState.is(Blocks.AIR) || blockState.is(Blocks.WATER) || blockState.is(Blocks.LAVA)) {
                         continue;
                     }
                     // 移除方块的附魔

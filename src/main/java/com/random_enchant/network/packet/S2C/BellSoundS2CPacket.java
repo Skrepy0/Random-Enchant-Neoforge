@@ -33,9 +33,7 @@ public class BellSoundS2CPacket implements CustomPacketPayload {
         this.flag = buf.readInt();
     }
 
-    public static void handle(BellSoundS2CPacket data, IPayloadContext context) {
-        playSound(data, context);
-    }
+    public static void handle(BellSoundS2CPacket data, IPayloadContext context) { playSound(data, context); }
 
     @OnlyIn(Dist.CLIENT)
     private static void playSound(BellSoundS2CPacket data, IPayloadContext context) {
@@ -43,8 +41,8 @@ public class BellSoundS2CPacket implements CustomPacketPayload {
             int i = data.flag;
             BlockPos pos = data.blockPos;
             if (i == 1 && Minecraft.getInstance().level != null) {
-                Minecraft.getInstance().level
-                        .playSound(Minecraft.getInstance().player, pos, SoundEvents.NOTE_BLOCK_BELL.value(), SoundSource.BLOCKS);
+                Minecraft.getInstance().level.playSound(Minecraft.getInstance().player, pos,
+                                                        SoundEvents.NOTE_BLOCK_BELL.value(), SoundSource.BLOCKS);
             }
         });
     }

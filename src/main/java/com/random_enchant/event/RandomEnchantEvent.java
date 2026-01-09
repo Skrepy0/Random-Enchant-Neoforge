@@ -1,7 +1,12 @@
 package com.random_enchant.event;
 
+import static com.random_enchant.enchantment.ModEnchantHelper.getDescriptionId;
+import static net.minecraft.network.chat.Component.translatable;
+
 import com.random_enchant.Config;
 import com.random_enchant.RandomEnchant;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -14,18 +19,13 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.random_enchant.enchantment.ModEnchantHelper.getDescriptionId;
-import static net.minecraft.network.chat.Component.translatable;
-
 @EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class RandomEnchantEvent {
 
     @SubscribeEvent
     public static void onPlayerAttack(AttackEntityEvent event) {
-        if (event.getEntity().level().isClientSide) return;
+        if (event.getEntity().level().isClientSide)
+            return;
 
         if (!Config.randomEnchant()) {
             return;
@@ -33,7 +33,8 @@ public class RandomEnchantEvent {
 
         Player player = event.getEntity();
         Entity target = event.getTarget();
-        if (!(target instanceof LivingEntity)) return;
+        if (!(target instanceof LivingEntity))
+            return;
         ItemStack mainHandItem = player.getMainHandItem();
         if (mainHandItem.isEmpty()) {
             return;
@@ -54,14 +55,14 @@ public class RandomEnchantEvent {
         }
 
         // 随机选择一个附魔
-        Enchantment selectedEnchantment = availableEnchantments.get(
-                player.getRandom().nextInt(availableEnchantments.size())
-        );
+        Enchantment selectedEnchantment =
+                availableEnchantments.get(player.getRandom().nextInt(availableEnchantments.size()));
 
         // 获取该附魔的Holder
-        Holder<Enchantment> holder = player.level().registryAccess()
-                .registryOrThrow(Registries.ENCHANTMENT)
-                .wrapAsHolder(selectedEnchantment);
+        Holder<Enchantment> holder = player.level()
+                                             .registryAccess()
+                                             .registryOrThrow(Registries.ENCHANTMENT)
+                                             .wrapAsHolder(selectedEnchantment);
 
         int level;
         java.util.Random random = new java.util.Random();
@@ -79,14 +80,13 @@ public class RandomEnchantEvent {
 
         // 发送消息
         String enchantmentName = getDescriptionId(selectedEnchantment, player.level().registryAccess());
-        player.displayClientMessage(
-                translatable("message.random_enchant.enchant_added")
-                        .append(translatable(enchantmentName)).append(translatable("enchantment.level." + (newLevel - currentLevel))),
-                true
-        );
+        player.displayClientMessage(translatable("message.random_enchant.enchant_added")
+                                            .append(translatable(enchantmentName))
+                                            .append(translatable("enchantment.level." + (newLevel - currentLevel))),
+                                    true);
 
-        RandomEnchant.LOGGER.info("为玩家 {} 的物品添加了随机附魔: {} {}",
-                player.getName().getString(), enchantmentName, newLevel);
+        RandomEnchant.LOGGER.info("为玩家 {} 的物品添加了随机附魔: {} {}", player.getName().getString(),
+                                  enchantmentName, newLevel);
     }
 
     /**
@@ -96,11 +96,11 @@ public class RandomEnchantEvent {
         List<Enchantment> available = new ArrayList<>();
 
         // 获取附魔注册表
-        Registry<Enchantment> enchantmentRegistry = player.level().registryAccess()
-                .registryOrThrow(Registries.ENCHANTMENT);
+        Registry<Enchantment> enchantmentRegistry =
+                player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT);
 
         // 遍历所有附魔
-        for (Holder<Enchantment> holder : enchantmentRegistry.asHolderIdMap()) {
+        for (Holder<Enchantment> holder: enchantmentRegistry.asHolderIdMap()) {
             Enchantment enchantment = holder.value();
             available.add(enchantment);
         }

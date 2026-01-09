@@ -1,6 +1,7 @@
 package com.random_enchant.enchantment.enchantmentblock;
 
 import com.random_enchant.RandomEnchant;
+import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -10,17 +11,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
 
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * @author Mafuyu33
  */
 public class BlockStateSaverAndLoader extends SavedData {
-    private static Factory<BlockStateSaverAndLoader> type = new Factory<>(
-            BlockStateSaverAndLoader::new, // 若不存在 'BlockStateSaverAndLoader' 则创建
-            BlockStateSaverAndLoader::createFromNbt, // 若存在 'BlockStateSaverAndLoader' NBT, 则调用 'createFromNbt' 传入参数
-            null // 此处理论上应为 'DataFixTypes' 的枚举，但我们直接传递为空(null)也可以
-    );
+    private static Factory<BlockStateSaverAndLoader> type =
+            new Factory<>(BlockStateSaverAndLoader::new, // 若不存在 'BlockStateSaverAndLoader' 则创建
+                          BlockStateSaverAndLoader::createFromNbt, // 若存在 'BlockStateSaverAndLoader' NBT, 则调用
+                                                                   // 'createFromNbt' 传入参数
+                          null // 此处理论上应为 'DataFixTypes' 的枚举，但我们直接传递为空(null)也可以
+            );
     public final ConcurrentHashMap<BlockPos, ListTag> blockEnchantments = new ConcurrentHashMap<>();
 
     public static BlockStateSaverAndLoader createFromNbt(CompoundTag nbt, HolderLookup.Provider lookup) {
@@ -41,9 +41,12 @@ public class BlockStateSaverAndLoader extends SavedData {
         if (server != null) {
             DimensionDataStorage persistentStateManager = server.getLevel(Level.OVERWORLD).getDataStorage();
 
-            // 当第一次调用了方法 'getOrCreate' 后，它会创建新的 'BlockStateSaverAndLoader' 并将其存储于  'PersistentStateManager' 中。
-            //  'getOrCreate' 的后续调用将本地的 'BlockStateSaverAndLoader' NBT 传递给 'BlockStateSaverAndLoader::createFromNbt'。
-            BlockStateSaverAndLoader state = persistentStateManager.computeIfAbsent(type, RandomEnchant.MOD_ID + "_block_enchantments");
+            // 当第一次调用了方法 'getOrCreate' 后，它会创建新的 'BlockStateSaverAndLoader' 并将其存储于
+            // 'PersistentStateManager' 中。
+            //  'getOrCreate' 的后续调用将本地的 'BlockStateSaverAndLoader' NBT 传递给
+            //  'BlockStateSaverAndLoader::createFromNbt'。
+            BlockStateSaverAndLoader state =
+                    persistentStateManager.computeIfAbsent(type, RandomEnchant.MOD_ID + "_block_enchantments");
 
             // 若状态未标记为脏(dirty)，当 Minecraft 关闭时， 'writeNbt' 不会被调用，相应地，没有数据会被保存。
             // 从技术上讲，只有在事实上发生数据变更时才应当将状态标记为脏(dirty)。
@@ -60,7 +63,7 @@ public class BlockStateSaverAndLoader extends SavedData {
         ListTag blockEnchantmentsList = new ListTag();
         blockEnchantments.forEach((pos, enchantments) -> {
             CompoundTag blockEnchantmentNbt = new CompoundTag();
-            blockEnchantmentNbt.putIntArray("BlockPos", new int[]{pos.getX(), pos.getY(), pos.getZ()});
+            blockEnchantmentNbt.putIntArray("BlockPos", new int[] {pos.getX(), pos.getY(), pos.getZ()});
             blockEnchantmentNbt.put("Enchantments", enchantments);
             blockEnchantmentsList.add(blockEnchantmentNbt);
         });
@@ -68,7 +71,5 @@ public class BlockStateSaverAndLoader extends SavedData {
         return tag;
     }
 
-    public void removeBlockEnchantment(BlockPos targetBlockPos) {
-        blockEnchantments.remove(targetBlockPos);
-    }
+    public void removeBlockEnchantment(BlockPos targetBlockPos) { blockEnchantments.remove(targetBlockPos); }
 }

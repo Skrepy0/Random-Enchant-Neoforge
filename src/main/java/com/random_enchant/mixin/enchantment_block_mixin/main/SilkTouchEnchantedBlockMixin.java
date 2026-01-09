@@ -3,6 +3,7 @@ package com.random_enchant.mixin.enchantment_block_mixin.main;
 import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
+import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.ListTag;
@@ -23,8 +24,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
-
 @Mixin(Block.class)
 public abstract class SilkTouchEnchantedBlockMixin {
 
@@ -32,19 +31,26 @@ public abstract class SilkTouchEnchantedBlockMixin {
      * 当方块被破坏时，检查玩家是否使用精准采集工具挖掘附魔方块
      * 如果是，则掉落带有附魔的方块
      */
-    @Inject(at = @At("HEAD"), method = "dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V", cancellable = true)
-    private static void onBlockDropResources(BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity entity, ItemStack tool, CallbackInfo ci) {
+    @Inject(at = @At("HEAD"),
+            method = "dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/" +
+                     "Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/" +
+                     "minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V",
+            cancellable = true)
+    private static void
+    onBlockDropResources(BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity entity,
+                         ItemStack tool, CallbackInfo ci) {
         // 只在服务端执行
         if (level.isClientSide) {
             return;
         }
 
-        if (!Config.isEnchantedBlockGetatable()) return;
+        if (!Config.isEnchantedBlockGetatable())
+            return;
 
         // 检查方块是否有附魔
         ListTag enchantments = BlockEnchantmentStorage.getEnchantmentsAtPosition(pos);
         if (!Objects.equals(BlockEnchantmentStorage.getEnchantmentsAtPosition(pos), new ListTag())) {
-            BlockEnchantmentStorage.removeBlockEnchantment(pos.immutable());//删除信息
+            BlockEnchantmentStorage.removeBlockEnchantment(pos.immutable()); // 删除信息
         }
         if (enchantments.isEmpty()) {
             return;

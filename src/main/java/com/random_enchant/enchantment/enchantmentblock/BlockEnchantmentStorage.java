@@ -1,18 +1,17 @@
 package com.random_enchant.enchantment.enchantmentblock;
 
 import com.random_enchant.ServerManager;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.enchantment.Enchantment;
-
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 /**
  * @author Mafuyu33
@@ -33,8 +32,7 @@ public class BlockEnchantmentStorage {
             clearCacheForPosition(blockPos);
 
             // 添加调试日志
-            LOGGER.fine(() -> String.format("Added enchantments to block at %s: %s",
-                    blockPos, enchantments));
+            LOGGER.fine(() -> String.format("Added enchantments to block at %s: %s", blockPos, enchantments));
         }
     }
 

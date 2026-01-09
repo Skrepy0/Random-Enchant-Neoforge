@@ -1,5 +1,7 @@
 package com.random_enchant.mixin.enchantment_item_mixin;
 
+import static com.random_enchant.enchantment.custom.BadLuckOfTheSeaHelper.entityWithBadLuckOfTheSea;
+
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
 import net.minecraft.core.BlockPos;
@@ -18,21 +20,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import static com.random_enchant.enchantment.custom.BadLuckOfTheSeaHelper.entityWithBadLuckOfTheSea;
-
 @Mixin(ItemEntity.class)
 public abstract class BadLuckOfSeaItemEntityMixin extends Entity implements TraceableEntity {
 
-    public BadLuckOfSeaItemEntityMixin(EntityType<?> entityType, Level level) {
-        super(entityType, level);
-    }
+    public BadLuckOfSeaItemEntityMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
-    @Shadow
-    public abstract ItemStack getItem();
+    @Shadow public abstract ItemStack getItem();
 
 
-    @Inject(at = @At("HEAD"), method = "tick")
-    private void init(CallbackInfo ci) {//实现丢出去的实体被水排斥
+    @Inject(at = @At("HEAD"), method = "tick") private void init(CallbackInfo ci) { // 实现丢出去的实体被水排斥
         ItemStack itemStack = this.getItem();
         Item item = itemStack.getItem();
         Level world = this.level();

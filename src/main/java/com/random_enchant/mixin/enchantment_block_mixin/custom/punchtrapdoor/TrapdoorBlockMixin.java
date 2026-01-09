@@ -1,6 +1,7 @@
 package com.random_enchant.mixin.enchantment_block_mixin.custom.punchtrapdoor;
 
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -17,8 +18,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.List;
-
 @Mixin(TrapDoorBlock.class)
 public abstract class TrapdoorBlockMixin {
     @Inject(at = @At("HEAD"), method = "playSound")
@@ -30,8 +29,8 @@ public abstract class TrapdoorBlockMixin {
 
         int k = BlockEnchantmentStorage.getLevel(Enchantments.PUNCH, pos);
         System.out.println(entities);
-        if (k > 0 && entities != null && isOpened) {//如果有冲击附魔,并且在活板门上，并且活板门打开
-            for (Entity entity : entities) {
+        if (k > 0 && entities != null && isOpened) { // 如果有冲击附魔,并且在活板门上，并且活板门打开
+            for (Entity entity: entities) {
                 entity.push(directionVector.x * k, directionVector.y * k, directionVector.z * k);
             }
         }
@@ -66,7 +65,8 @@ public abstract class TrapdoorBlockMixin {
     @Unique
     private List<Entity> getEntitiesOnBlockPos(Level world, BlockPos blockPos) {
         // 定义稍微扩展的边界框以覆盖方块的表面区域
-        AABB boundingBox = new AABB(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX() + 1, blockPos.getY() + 1, blockPos.getZ() + 1);
+        AABB boundingBox = new AABB(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX() + 1,
+                                    blockPos.getY() + 1, blockPos.getZ() + 1);
 
         // 获取边界框内的所有实体
         List<Entity> entities = world.getEntitiesOfClass(Entity.class, boundingBox, entity -> {

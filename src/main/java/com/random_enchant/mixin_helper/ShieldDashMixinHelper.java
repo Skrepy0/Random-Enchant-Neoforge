@@ -12,9 +12,7 @@ public class ShieldDashMixinHelper {
     private static boolean isAttackKeyPressed = false;
 
     // 在适当的时候将实体ID和值添加到Map中
-    public static void storeEntityValue(int entityID, int value) {
-        entityValueMap.put(entityID, value);
-    }
+    public static void storeEntityValue(int entityID, int value) { entityValueMap.put(entityID, value); }
 
     // 在需要时从Map中检索值
     public static int getEntityValue(int entityID) {
@@ -22,9 +20,7 @@ public class ShieldDashMixinHelper {
     }
 
     // 在适当的时候将实体ID和值添加到Map中
-    public static void storeHitCoolDown(int entityID, int value) {
-        HitCoolDownMap.put(entityID, value);
-    }
+    public static void storeHitCoolDown(int entityID, int value) { HitCoolDownMap.put(entityID, value); }
 
     // 在需要时从Map中检索值
     public static int getHitCoolDown(int entityID) {
@@ -35,8 +31,5 @@ public class ShieldDashMixinHelper {
         ShieldDashMixinHelper.isAttackKeyPressed = isAttackKeyPressed;
     }
 
-    public static boolean isAttackKeyPressed() {
-        return isAttackKeyPressed;
-    }
-
+    public static boolean isAttackKeyPressed() { return isAttackKeyPressed; }
 }

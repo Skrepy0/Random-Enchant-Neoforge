@@ -6,9 +6,7 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class ModZHCNLangProvider extends LanguageProvider {
-    public ModZHCNLangProvider(PackOutput output) {
-        super(output, RandomEnchant.MOD_ID, "zh_cn");
-    }
+    public ModZHCNLangProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "zh_cn"); }
 
     @Override
     protected void addTranslations() {
@@ -16,14 +14,16 @@ public class ModZHCNLangProvider extends LanguageProvider {
 
         add("random_enchant.configuration.randomEnchant", "§g随机附魔§r事件");
         add("random_enchant.configuration.isAlwaysEnchantable", "所有物品可附魔");
-//        add("random_enchant.configuration.isAlwaysEnchantable.comment","§l所有物品§r可以通过§a铁砧§r附魔");
+        //        add("random_enchant.configuration.isAlwaysEnchantable.comment","§l所有物品§r可以通过§a铁砧§r附魔");
         add("random_enchant.configuration.infinityUndyingTotem", "§a[无限]§r附魔对不死图腾的兼容");
         add("random_enchant.configuration.infinityBlock", "§a[无限]§r附魔对可放置方块的兼容");
         add("random_enchant.configuration.infinityTnt", "§a[无限]§r附魔对TNT的兼容");
         add("random_enchant.configuration.infinityPotion", "§a[无限]§r附魔对药水的兼容");
+        add("random_enchant.configuration.infinityFood", "§a[无限]§r附魔对食物的兼容");
+        add("random_enchant.configuration.infinityThrowableItem", "§a[无限]§r附魔对投掷物品的兼容");
         add("random_enchant.configuration.isEnchantedBlockGetatable", "§b[精准采集]§r获得已经附魔的方块");
         add("random_enchant.configuration.redirectTridentSetPointDistance", "§6[重定向]§r射线检测最大距离");
-//        add("random_enchant.configuration.redirectTridentSetPointDistance.comment","含有§6重定向§r附魔的三叉戟在使用时右键，落点与玩家的最大距离");
+        //        add("random_enchant.configuration.redirectTridentSetPointDistance.comment","含有§6重定向§r附魔的三叉戟在使用时右键，落点与玩家的最大距离");
         add("random_enchant.configuration.flyEnchantmentLiftHeightPerTick", "含有§d[Fly]§r附魔的鞘翅每tick提升的高度");
 
 
@@ -43,8 +43,10 @@ public class ModZHCNLangProvider extends LanguageProvider {
 
         add("item.tooltip.random_enchant.for_shift_tooltip", "按下§6[SHIFT]§r查看详细信息");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1", "§b左键攻击实体并瞬移，右键瞬移§r");
-        add("item.tooltip.random_enchant.pearl_spear.detail_description_2", "§b瞬移路径上的实体会受到8点基础伤害(实际伤害与§a[横扫之刃]§b等级有关)§r");
-        add("item.tooltip.random_enchant.pearl_spear.detail_description_3", "§b左键攻击时与目标的相对速度越大，伤害越高§r");
+        add("item.tooltip.random_enchant.pearl_spear.detail_description_2",
+            "§b瞬移路径上的实体会受到8点基础伤害(实际伤害与§a[横扫之刃]§b等级有关)§r");
+        add("item.tooltip.random_enchant.pearl_spear.detail_description_3",
+            "§b左键攻击时与目标的相对速度越大，伤害越高§r");
         add("item.tooltip.random_enchant.enchant_brush.status", "状态：");
         add("item.tooltip.random_enchant.enchant_brush.status.regional", "§a区域模式§r");
         add("item.tooltip.random_enchant.enchant_brush.status.single", "§a单方块模式§r");

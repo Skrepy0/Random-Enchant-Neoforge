@@ -15,11 +15,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(TridentItem.class)
 public abstract class TridentItemMixin {
-    @Inject(method = "releaseUsing", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;hasInfiniteMaterials()Z", ordinal = 0))
-    private void init(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft, CallbackInfo ci, @Local ThrownTrident throwntrident) {
+    @Inject(method = "releaseUsing",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;hasInfiniteMaterials()Z",
+                     ordinal = 0))
+    private void
+    init(ItemStack stack, Level level, LivingEntity entityLiving, int timeLeft, CallbackInfo ci,
+         @Local ThrownTrident throwntrident) {
         if (ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.REDIRECT_PROJECTILE) > 0) {
             throwntrident.setDeltaMovement(0, 0, 0);
-            throwntrident.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 0.03F, 1.0F);
+            throwntrident.shootFromRotation(entityLiving, entityLiving.getXRot(), entityLiving.getYRot(), 0.0F, 0.03F,
+                                            1.0F);
             throwntrident.setNoGravity(true);
         }
     }

@@ -12,11 +12,10 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class ModItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(RandomEnchant.MOD_ID);
-    public static final DeferredItem<Item> ENCHANT_BRUSH = ITEMS.register("enchant_brush", () -> new EnchantBrush(new Item.Properties()));
-    public static final DeferredItem<Item> PEARL_SPEAR = ITEMS.register("pearl_spear", () -> new PearlSpear(new Item.Properties()));
+    public static final DeferredItem<Item> ENCHANT_BRUSH =
+            ITEMS.register("enchant_brush", () -> new EnchantBrush(new Item.Properties()));
+    public static final DeferredItem<Item> PEARL_SPEAR =
+            ITEMS.register("pearl_spear", () -> new PearlSpear(new Item.Properties()));
 
-    public static void registerModItems(IEventBus bus) {
-        ITEMS.register(bus);
-    }
-
+    public static void registerModItems(IEventBus bus) { ITEMS.register(bus); }
 }

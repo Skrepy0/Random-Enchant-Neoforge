@@ -1,6 +1,7 @@
 package com.random_enchant.mixin.enchantment_block_mixin.main;
 
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
+import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;
@@ -11,18 +12,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Objects;
-
 @Mixin(Level.class)
 public abstract class WorldMixin {
-    @Shadow
-    public abstract boolean isClientSide();
+    @Shadow public abstract boolean isClientSide();
 
     @Inject(at = @At("HEAD"), method = "destroyBlock")
-    private void init(BlockPos pos, boolean dropBlock, Entity entity, int recursionLeft, CallbackInfoReturnable<Boolean> cir) {
+    private void init(BlockPos pos, boolean dropBlock, Entity entity, int recursionLeft,
+                      CallbackInfoReturnable<Boolean> cir) {
         if (!this.isClientSide()) {
             if (!Objects.equals(BlockEnchantmentStorage.getEnchantmentsAtPosition(pos), new ListTag())) {
-                BlockEnchantmentStorage.removeBlockEnchantment(pos.immutable());//删除信息
+                BlockEnchantmentStorage.removeBlockEnchantment(pos.immutable()); // 删除信息
             }
         }
     }

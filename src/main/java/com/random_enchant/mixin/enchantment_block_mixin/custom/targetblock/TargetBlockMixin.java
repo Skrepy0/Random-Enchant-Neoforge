@@ -30,14 +30,18 @@ public abstract class TargetBlockMixin {
                 double e = livingEntity.getY() - projectile.getY();
                 double f = livingEntity.getZ() - projectile.getZ();
                 // 创建物品实体并设置位置
-                Projectile newProjectileEntity = new Arrow(level, projectile.getX(), projectile.getY(), projectile.getZ(), new ItemStack(Items.ARROW), null);
-                newProjectileEntity.setDeltaMovement(d * 0.1 * 1.3, e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08 * 1.3, f * 0.1 * 1.3);
+                Projectile newProjectileEntity = new Arrow(level, projectile.getX(), projectile.getY(),
+                                                           projectile.getZ(), new ItemStack(Items.ARROW), null);
+                newProjectileEntity.setDeltaMovement(d * 0.1 * 1.3,
+                                                     e * 0.1 + Math.sqrt(Math.sqrt(d * d + e * e + f * f)) * 0.08 * 1.3,
+                                                     f * 0.1 * 1.3);
 
                 // 将物品实体添加到世界中
                 projectile.discard();
                 level.addFreshEntity(newProjectileEntity);
             } else {
-                Projectile newProjectileEntity = new Arrow(level, projectile.getX(), projectile.getY(), projectile.getZ(), new ItemStack(Items.ARROW), null);
+                Projectile newProjectileEntity = new Arrow(level, projectile.getX(), projectile.getY(),
+                                                           projectile.getZ(), new ItemStack(Items.ARROW), null);
                 newProjectileEntity.setPos(projectile.getX(), projectile.getY(), projectile.getZ());
                 newProjectileEntity.setDeltaMovement(0, 0, 0);
                 // 将物品实体添加到世界中

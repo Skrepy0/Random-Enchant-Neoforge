@@ -17,9 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BasePressurePlateBlock.class)
 public abstract class AbstractPressurePlateBlockMixin extends Block {
 
-    public AbstractPressurePlateBlockMixin(Properties properties) {
-        super(properties);
-    }
+    public AbstractPressurePlateBlockMixin(Properties properties) { super(properties); }
 
     @Inject(at = @At("HEAD"), method = "entityInside")
     private void init3(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
@@ -27,7 +25,7 @@ public abstract class AbstractPressurePlateBlockMixin extends Block {
         if (!level.isClientSide && k > 0) {
             entity.push(0, k * 0.5, 0);
         }
-        if (level.isClientSide() && k > 0 && entity instanceof Player player) {//如果有击退附魔
+        if (level.isClientSide() && k > 0 && entity instanceof Player player) { // 如果有击退附魔
             player.push(0, k * 0.5, 0);
         }
     }

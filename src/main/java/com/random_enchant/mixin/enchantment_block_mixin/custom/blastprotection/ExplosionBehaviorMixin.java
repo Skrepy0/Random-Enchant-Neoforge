@@ -15,7 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EntityBasedExplosionDamageCalculator.class)
 public abstract class ExplosionBehaviorMixin {
     @Inject(at = @At(value = "HEAD"), method = "shouldBlockExplode", cancellable = true)
-    private void init(Explosion explosion, BlockGetter world, BlockPos pos, BlockState state, float power, CallbackInfoReturnable<Boolean> cir) {
+    private void init(Explosion explosion, BlockGetter world, BlockPos pos, BlockState state, float power,
+                      CallbackInfoReturnable<Boolean> cir) {
         int i = BlockEnchantmentStorage.getLevel(Enchantments.BLAST_PROTECTION, pos);
         if (i > 0) {
             cir.setReturnValue(false);

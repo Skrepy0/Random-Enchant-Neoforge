@@ -3,6 +3,7 @@ package com.random_enchant;
 import com.mojang.logging.LogUtils;
 import com.random_enchant.command.ModCommands;
 import com.random_enchant.enchantment.ModEnchantmentTags;
+import com.random_enchant.entity.ModEntities;
 import com.random_enchant.item.ModItemGroup;
 import com.random_enchant.item.ModItemModelProperties;
 import com.random_enchant.item.ModItemTags;
@@ -40,9 +41,11 @@ public class RandomEnchant {
         ModItems.registerModItems(modEventBus);
         ModItemGroup.registerModItemGroup(modEventBus);
 
+        ModEntities.register(modEventBus);
         // Register ourselves for server and other game events we are interested in.
-        // Note that this is necessary if and only if we want *this* class (RandomEnchant) to respond directly to events.
-        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
+        // Note that this is necessary if and only if we want *this* class (RandomEnchant) to respond directly to
+        // events. Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like
+        // onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
         // Register the item to a creative tab
@@ -53,17 +56,12 @@ public class RandomEnchant {
 
         // 注册命令
         NeoForge.EVENT_BUS.addListener(this::onCommandSetup);
-
-
     }
 
-    private void commonSetup(FMLCommonSetupEvent event) {
-    }
+    private void commonSetup(FMLCommonSetupEvent event) {}
 
     // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
-    }
+    private void addCreative(BuildCreativeModeTabContentsEvent event) {}
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
@@ -81,8 +79,5 @@ public class RandomEnchant {
         });
     }
 
-    private void onCommandSetup(RegisterCommandsEvent event) {
-        ModCommands.registerModCommands(event);
-    }
-
+    private void onCommandSetup(RegisterCommandsEvent event) { ModCommands.registerModCommands(event); }
 }

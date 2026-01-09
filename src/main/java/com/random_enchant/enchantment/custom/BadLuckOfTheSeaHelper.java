@@ -1,14 +1,13 @@
 package com.random_enchant.enchantment.custom;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BadLuckOfTheSeaHelper {
     private static final List<BlockPos> SEARCH_PATTERN = createSpiralSearchPattern(20);
@@ -48,7 +47,7 @@ public class BadLuckOfTheSeaHelper {
         BlockPos closestPos = null;
         double closestDistanceSq = Double.MAX_VALUE;
 
-        for (BlockPos offset : SEARCH_PATTERN) {
+        for (BlockPos offset: SEARCH_PATTERN) {
             BlockPos checkPos = entityPos.offset(offset);
 
             if (!level.getFluidState(checkPos).is(FluidTags.WATER)) {
@@ -76,10 +75,7 @@ public class BadLuckOfTheSeaHelper {
         Vec3 newVelocity = currentVelocity.add(0, upwardForce, 0);
 
         if (closestPos != null) {
-            Vec3 direction = Vec3.atCenterOf(closestPos)
-                    .subtract(entity.position())
-                    .normalize()
-                    .scale(horizontalSpeed);
+            Vec3 direction = Vec3.atCenterOf(closestPos).subtract(entity.position()).normalize().scale(horizontalSpeed);
             newVelocity = newVelocity.add(direction);
         }
 
@@ -123,4 +119,3 @@ public class BadLuckOfTheSeaHelper {
         }
     }
 }
-

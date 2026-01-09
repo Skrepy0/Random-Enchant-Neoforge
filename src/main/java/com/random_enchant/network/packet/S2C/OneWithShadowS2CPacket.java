@@ -1,19 +1,18 @@
 package com.random_enchant.network.packet.S2C;
 
 import com.random_enchant.RandomEnchant;
+import java.util.HashMap;
+import java.util.Map;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class OneWithShadowS2CPacket implements CustomPacketPayload {
     private static final Map<Integer, Integer> ID_FLAG_MAP = new HashMap<>();
-    public static Type<OneWithShadowS2CPacket> TYPE =
-            new Type<OneWithShadowS2CPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "one_with_shadow"));
+    public static Type<OneWithShadowS2CPacket> TYPE = new Type<OneWithShadowS2CPacket>(
+            ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "one_with_shadow"));
     private static int id;
     private static int flag;
     // stream codec
@@ -33,14 +32,10 @@ public class OneWithShadowS2CPacket implements CustomPacketPayload {
     }
 
     public static void handle(OneWithShadowS2CPacket data, IPayloadContext context) {
-        context.enqueueWork(() -> {
-            ID_FLAG_MAP.put(id, flag);
-        });
+        context.enqueueWork(() -> { ID_FLAG_MAP.put(id, flag); });
     }
 
-    public static int getFlagById(int id) {
-        return ID_FLAG_MAP.getOrDefault(id, -1);
-    }
+    public static int getFlagById(int id) { return ID_FLAG_MAP.getOrDefault(id, -1); }
 
     public void write(FriendlyByteBuf pBuffer) {
         pBuffer.writeInt(id);

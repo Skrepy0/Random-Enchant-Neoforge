@@ -8,29 +8,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SheepBreedingC2SPacket implements CustomPacketPayload {
-    public static final Type<SheepBreedingC2SPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "sheep_breeding"));
+    public static final Type<SheepBreedingC2SPacket> TYPE =
+            new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "sheep_breeding"));
     public static final StreamCodec<FriendlyByteBuf, SheepBreedingC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(SheepBreedingC2SPacket::write, SheepBreedingC2SPacket::new);
     static int times;
     int timesMessage;
 
-    public SheepBreedingC2SPacket(FriendlyByteBuf buf) {
-        this.timesMessage = buf.readInt();
-    }
+    public SheepBreedingC2SPacket(FriendlyByteBuf buf) { this.timesMessage = buf.readInt(); }
 
-    public static int getTimes() {
-        return times;
-    }
+    public static int getTimes() { return times; }
 
     public static void handle(final SheepBreedingC2SPacket data, final IPayloadContext context) {
-        context.enqueueWork(() -> {
-            SheepBreedingC2SPacket.times = data.timesMessage;
-        });
+        context.enqueueWork(() -> { SheepBreedingC2SPacket.times = data.timesMessage; });
     }
 
-    private void write(FriendlyByteBuf buf) {
-        buf.writeInt(this.timesMessage);
-    }
+    private void write(FriendlyByteBuf buf) { buf.writeInt(this.timesMessage); }
 
     @Override
     public Type<? extends CustomPacketPayload> type() {

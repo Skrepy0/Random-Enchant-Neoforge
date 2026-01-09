@@ -17,12 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(AbstractMinecart.class)
 public abstract class AbstractMinecartMixin extends VehicleEntity implements IAbstractMinecartExtension {
-    public AbstractMinecartMixin(EntityType<?> entityType, Level level) {
-        super(entityType, level);
-    }
+    public AbstractMinecartMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;applyGravity()V"))
-    private void init(CallbackInfo ci) {
+    @Inject(method = "tick",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/vehicle/AbstractMinecart;applyGravity()V"))
+    private void
+    init(CallbackInfo ci) {
         if (this.getTags().contains("bad_luck_of_the_sea")) {
             this.addDeltaMovement(new Vec3(0, 1, 0));
         }

@@ -20,9 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ButtonBlock.class)
 public abstract class ButtonBlockMixin extends Block {
 
-    public ButtonBlockMixin(Properties properties) {
-        super(properties);
-    }
+    public ButtonBlockMixin(Properties properties) { super(properties); }
 
     @Inject(at = @At("HEAD"), method = "entityInside")
     private void init3(BlockState state, Level level, BlockPos pos, Entity entity, CallbackInfo ci) {
@@ -32,7 +30,7 @@ public abstract class ButtonBlockMixin extends Block {
             Vec3 velocity = new Vec3(direction.step()).scale(k * 0.5);
             entity.push(velocity.x, velocity.y, velocity.z);
         }
-        if (level.isClientSide() && k > 0 && entity instanceof Player player) {//如果有击退附魔
+        if (level.isClientSide() && k > 0 && entity instanceof Player player) { // 如果有击退附魔
             Vec3 velocity = new Vec3(direction.step()).scale(k * 0.5);
             player.push(velocity.x, velocity.y, velocity.z);
         }

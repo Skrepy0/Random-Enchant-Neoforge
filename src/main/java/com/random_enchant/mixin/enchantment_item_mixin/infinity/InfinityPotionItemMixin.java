@@ -19,17 +19,22 @@ import org.spongepowered.asm.mixin.injection.Slice;
 @Mixin(PotionItem.class)
 public class InfinityPotionItemMixin {
 
-    @Unique
-    private boolean flag = false;
+    @Unique private boolean flag = false;
 
-    @Redirect(method = "finishUsingItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"))
-    private void redirectConsume(ItemStack instance, int amount, LivingEntity entity) {
+    @Redirect(
+            method = "finishUsingItem",
+            at = @At(
+                    value = "INVOKE",
+                    target =
+                            "Lnet/minecraft/world/item/ItemStack;consume(ILnet/minecraft/world/entity/LivingEntity;)V"))
+    private void
+    redirectConsume(ItemStack instance, int amount, LivingEntity entity) {
         if (!Config.infinityPotion()) {
             instance.consume(amount, entity);
             return;
         }
         if (entity instanceof Player player) {
-            for (InteractionHand hand : InteractionHand.values()) {
+            for (InteractionHand hand: InteractionHand.values()) {
                 if (ModEnchantHelper.getEnchantmentLevel(player.getItemInHand(hand), Enchantments.INFINITY) > 0) {
                     flag = true;
                     return;
@@ -39,17 +44,11 @@ public class InfinityPotionItemMixin {
         instance.consume(amount, entity);
     }
 
-    @Redirect(
-            method = "finishUsingItem",
-            at = @At(
-                    value = "NEW",
-                    target = "net/minecraft/world/item/ItemStack"
-            ),
-            slice = @Slice(
-                    from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;awardStat(Lnet/minecraft/stats/Stat;)V")
-            )
-    )
-    private ItemStack redirectItemStackCreation(ItemLike item) {
+    @Redirect(method = "finishUsingItem", at = @At(value = "NEW", target = "net/minecraft/world/item/ItemStack"),
+              slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/" +
+                                                                   "Player;awardStat(Lnet/minecraft/stats/Stat;)V")))
+    private ItemStack
+    redirectItemStackCreation(ItemLike item) {
         if (Config.infinityPotion() && flag) {
             flag = false;
             return ItemStack.EMPTY;
@@ -57,4 +56,3 @@ public class InfinityPotionItemMixin {
         return new ItemStack(Items.GLASS_BOTTLE);
     }
 }
-

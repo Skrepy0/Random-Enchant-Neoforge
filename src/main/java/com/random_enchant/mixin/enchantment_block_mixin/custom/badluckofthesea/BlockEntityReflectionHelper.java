@@ -1,11 +1,10 @@
 package com.random_enchant.mixin.enchantment_block_mixin.custom.badluckofthesea;
 
 import com.random_enchant.RandomEnchant;
+import java.lang.reflect.Method;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
-
-import java.lang.reflect.Method;
 
 public class BlockEntityReflectionHelper {
 
@@ -18,11 +17,8 @@ public class BlockEntityReflectionHelper {
     private static synchronized Method getSaveAdditionalMethod() {
         if (!METHOD_INITIALIZED) {
             try {
-                SAVE_ADDITIONAL_METHOD = BlockEntity.class.getDeclaredMethod(
-                        "saveAdditional",
-                        CompoundTag.class,
-                        HolderLookup.Provider.class
-                );
+                SAVE_ADDITIONAL_METHOD = BlockEntity.class.getDeclaredMethod("saveAdditional", CompoundTag.class,
+                                                                             HolderLookup.Provider.class);
                 SAVE_ADDITIONAL_METHOD.setAccessible(true);
                 METHOD_INITIALIZED = true;
             } catch (NoSuchMethodException e) {
@@ -33,8 +29,10 @@ public class BlockEntityReflectionHelper {
     }
 
     // 使用反射调用saveAdditional
-    public static void invokeSaveAdditional(BlockEntity blockEntity, CompoundTag tag, HolderLookup.Provider registries) {
-        if (blockEntity == null) return;
+    public static void invokeSaveAdditional(BlockEntity blockEntity, CompoundTag tag,
+                                            HolderLookup.Provider registries) {
+        if (blockEntity == null)
+            return;
 
         try {
             Method method = getSaveAdditionalMethod();
@@ -53,13 +51,14 @@ public class BlockEntityReflectionHelper {
         }
     }
 
-    public static void invokeSaveAdditionalSafe(BlockEntity blockEntity, CompoundTag tag, HolderLookup.Provider registries) {
+    public static void invokeSaveAdditionalSafe(BlockEntity blockEntity, CompoundTag tag,
+                                                HolderLookup.Provider registries) {
         int depth = RECURSION_DEPTH.get();
 
         // 防止无限递归
         if (depth > 3) {
             RandomEnchant.LOGGER.error("Recursion depth exceeded when saving BlockEntity at " +
-                    blockEntity.getBlockPos() + ", using fallback");
+                                       blockEntity.getBlockPos() + ", using fallback");
             // 使用简化保存
             try {
                 CompoundTag fallback = blockEntity.saveWithoutMetadata(registries);

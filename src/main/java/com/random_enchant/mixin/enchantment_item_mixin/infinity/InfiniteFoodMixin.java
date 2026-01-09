@@ -1,5 +1,6 @@
 package com.random_enchant.mixin.enchantment_item_mixin.infinity;
 
+import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import net.minecraft.world.entity.Attackable;
 import net.minecraft.world.entity.Entity;
@@ -18,12 +19,13 @@ public class InfiniteFoodMixin {
     @Mixin(LivingEntity.class)
     public abstract static class InFiniteFoodMixin extends Entity implements Attackable {
 
-        public InFiniteFoodMixin(EntityType<?> entityType, Level level) {
-            super(entityType, level);
-        }
+        public InFiniteFoodMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
         @Inject(method = "eat*", at = @At("HEAD"))
-        private void afterEatFood(Level level, ItemStack food, FoodProperties foodProperties, CallbackInfoReturnable<ItemStack> cir) {
+        private void afterEatFood(Level level, ItemStack food, FoodProperties foodProperties,
+                                  CallbackInfoReturnable<ItemStack> cir) {
+            if (!Config.infinityFood())
+                return;
             if (foodProperties != null) {
                 int k = ModEnchantHelper.getEnchantmentLevel(food, Enchantments.INFINITY);
                 if (k > 0) {

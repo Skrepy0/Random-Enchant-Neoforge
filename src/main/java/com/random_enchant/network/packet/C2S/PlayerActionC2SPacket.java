@@ -12,18 +12,15 @@ import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class PlayerActionC2SPacket implements CustomPacketPayload {
-    public static final Type<PlayerActionC2SPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "player_attack_action_c2s"));
+    public static final Type<PlayerActionC2SPacket> TYPE =
+            new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "player_attack_action_c2s"));
     private static int aimedEntityId;
     public static final StreamCodec<FriendlyByteBuf, PlayerActionC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(PlayerActionC2SPacket::write, PlayerActionC2SPacket::new);
 
-    public PlayerActionC2SPacket(FriendlyByteBuf buf) {
-        aimedEntityId = buf.readInt();
-    }
+    public PlayerActionC2SPacket(FriendlyByteBuf buf) { aimedEntityId = buf.readInt(); }
 
-    public PlayerActionC2SPacket(int aimedEntityId) {
-        PlayerActionC2SPacket.aimedEntityId = aimedEntityId;
-    }
+    public PlayerActionC2SPacket(int aimedEntityId) { PlayerActionC2SPacket.aimedEntityId = aimedEntityId; }
 
     public static void handle(final PlayerActionC2SPacket data, final IPayloadContext context) {
         movePlayerDir(context);
@@ -39,8 +36,10 @@ public class PlayerActionC2SPacket implements CustomPacketPayload {
             context.player().teleportTo(teleportPos.x, teleportPos.y, teleportPos.z);
 
             // 对最近的实体造成等同于一次攻击的伤害
-//            float attackDamage = (float) context.player().getAttribute(Attributes.ATTACK_DAMAGE).getValue();
-//            nearestEntity.hurt(context.player().damageSources().playerAttack(context.player()), attackDamage);
+            //            float attackDamage = (float)
+            //            context.player().getAttribute(Attributes.ATTACK_DAMAGE).getValue();
+            //            nearestEntity.hurt(context.player().damageSources().playerAttack(context.player()),
+            //            attackDamage);
             context.player().attack(nearestEntity);
         });
     }
@@ -50,7 +49,5 @@ public class PlayerActionC2SPacket implements CustomPacketPayload {
         return TYPE;
     }
 
-    public void write(FriendlyByteBuf pBuffer) {
-        pBuffer.writeInt(aimedEntityId);
-    }
+    public void write(FriendlyByteBuf pBuffer) { pBuffer.writeInt(aimedEntityId); }
 }

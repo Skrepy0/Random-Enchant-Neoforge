@@ -18,8 +18,8 @@ public abstract class LivingEntityMixin {
         // 获取实体的碰撞箱
         AABB entityBox = entity.getBoundingBox();
         // 创建代表方块的碰撞箱
-        AABB blockBox = new AABB(blockPos.getX(), blockPos.getY(), blockPos.getZ(),
-                blockPos.getX() + 1.0, blockPos.getY() + 1.0, blockPos.getZ() + 1.0);
+        AABB blockBox = new AABB(blockPos.getX(), blockPos.getY(), blockPos.getZ(), blockPos.getX() + 1.0,
+                                 blockPos.getY() + 1.0, blockPos.getZ() + 1.0);
 
         // 检查实体的碰撞箱是否与方块的碰撞箱相交
         if (entityBox.intersects(blockBox)) {
@@ -38,7 +38,7 @@ public abstract class LivingEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void init(CallbackInfo ci) {
-//
-//		if(getDirectionVectorIfTouching(this,))
+        //
+        //		if(getDirectionVectorIfTouching(this,))
     }
 }

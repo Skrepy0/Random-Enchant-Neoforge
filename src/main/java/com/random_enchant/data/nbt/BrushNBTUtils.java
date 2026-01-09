@@ -35,9 +35,7 @@ public class BrushNBTUtils {
     /**
      * 获取刷子数据的Tag（可修改，需要配合saveBrushTag使用）
      */
-    private static CompoundTag getBrushTagForUpdate(ItemStack stack) {
-        return getBrushTagForReading(stack);
-    }
+    private static CompoundTag getBrushTagForUpdate(ItemStack stack) { return getBrushTagForReading(stack); }
 
     /**
      * 保存刷子数据的Tag回物品
@@ -130,11 +128,7 @@ public class BrushNBTUtils {
         }
 
         CompoundTag startTag = brushTag.getCompound(KEY_SELECTION_START);
-        return new BlockPos(
-                startTag.getInt("X"),
-                startTag.getInt("Y"),
-                startTag.getInt("Z")
-        );
+        return new BlockPos(startTag.getInt("X"), startTag.getInt("Y"), startTag.getInt("Z"));
     }
 
     /**
@@ -148,11 +142,7 @@ public class BrushNBTUtils {
         }
 
         CompoundTag endTag = brushTag.getCompound(KEY_SELECTION_END);
-        return new BlockPos(
-                endTag.getInt("X"),
-                endTag.getInt("Y"),
-                endTag.getInt("Z")
-        );
+        return new BlockPos(endTag.getInt("X"), endTag.getInt("Y"), endTag.getInt("Z"));
     }
 
     /**
@@ -183,7 +173,7 @@ public class BrushNBTUtils {
         BlockPos end = getEndPos(stack);
 
         if (start != null && end != null) {
-            return new BlockPos[]{start, end};
+            return new BlockPos[] {start, end};
         }
         return null;
     }
@@ -210,5 +200,4 @@ public class BrushNBTUtils {
         }
         return new ListTag();
     }
-
 }

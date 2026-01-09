@@ -17,19 +17,12 @@ public class BrushStatusC2SPacket implements CustomPacketPayload {
             new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "brush_status_toggle"));
 
     public static final StreamCodec<FriendlyByteBuf, BrushStatusC2SPacket> STREAM_CODEC =
-            StreamCodec.of(
-                    (buf, packet) -> packet.write(buf),
-                    BrushStatusC2SPacket::new
-            );
+            StreamCodec.of((buf, packet) -> packet.write(buf), BrushStatusC2SPacket::new);
     private final boolean newStatus;
 
-    public BrushStatusC2SPacket(boolean newStatus) {
-        this.newStatus = newStatus;
-    }
+    public BrushStatusC2SPacket(boolean newStatus) { this.newStatus = newStatus; }
 
-    public BrushStatusC2SPacket(FriendlyByteBuf buf) {
-        this.newStatus = buf.readBoolean();
-    }
+    public BrushStatusC2SPacket(FriendlyByteBuf buf) { this.newStatus = buf.readBoolean(); }
 
     public static void handle(BrushStatusC2SPacket packet, IPayloadContext context) {
         // 确保在服务器线程执行
@@ -60,9 +53,7 @@ public class BrushStatusC2SPacket implements CustomPacketPayload {
         });
     }
 
-    public void write(FriendlyByteBuf buf) {
-        buf.writeBoolean(this.newStatus);
-    }
+    public void write(FriendlyByteBuf buf) { buf.writeBoolean(this.newStatus); }
 
     @Override
     public Type<? extends CustomPacketPayload> type() {

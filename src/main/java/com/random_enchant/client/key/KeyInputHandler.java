@@ -26,12 +26,8 @@ public class KeyInputHandler {
     public static final String KEY_CATEGORY_ENCHANT = "itemGroup.random_enchant.title";
     public static final String KEY_TOGGLE_BRUSH_STATUS = "key.random_enchant.toggle_brush_status";
 
-    public static KeyMapping TOGGLE_BRUSH_STATUS = new KeyMapping(
-            KEY_TOGGLE_BRUSH_STATUS,
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_TAB,
-            KEY_CATEGORY_ENCHANT
-    );
+    public static KeyMapping TOGGLE_BRUSH_STATUS = new KeyMapping(KEY_TOGGLE_BRUSH_STATUS, InputConstants.Type.KEYSYM,
+                                                                  GLFW.GLFW_KEY_TAB, KEY_CATEGORY_ENCHANT);
 
     // 记录上次按键状态，防止按住不放重复触发
     private static boolean wasKeyPressed = false;
@@ -39,7 +35,8 @@ public class KeyInputHandler {
     @SubscribeEvent
     public static void registerKeyInputs(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.screen != null) return;
+        if (mc.player == null || mc.screen != null)
+            return;
 
         // 获取当前按键状态
         boolean isKeyPressed = TOGGLE_BRUSH_STATUS.isDown();
@@ -47,13 +44,14 @@ public class KeyInputHandler {
         // 检查是否是从未按下到按下（按键按下瞬间）
         if (isKeyPressed && !wasKeyPressed) {
             Player player = mc.player;
-            if (!player.isCreative()) return;
+            if (!player.isCreative())
+                return;
 
             ItemStack mainHand = player.getMainHandItem();
             ItemStack offHand = player.getOffhandItem();
 
             boolean hasBrushInHand = (mainHand.getItem() == ModItems.ENCHANT_BRUSH.get() ||
-                    offHand.getItem() == ModItems.ENCHANT_BRUSH.get());
+                                      offHand.getItem() == ModItems.ENCHANT_BRUSH.get());
 
             if (hasBrushInHand) {
                 ItemStack brushStack = mainHand.getItem() == ModItems.ENCHANT_BRUSH.get() ? mainHand : offHand;
@@ -68,15 +66,15 @@ public class KeyInputHandler {
                 }
 
                 // 显示消息
-                Component statusText = newStatus ?
-                        Component.translatable("item.tooltip.random_enchant.enchant_brush.status.regional") :
-                        Component.translatable("item.tooltip.random_enchant.enchant_brush.status.single");
+                Component statusText =
+                        newStatus ? Component.translatable("item.tooltip.random_enchant.enchant_brush.status.regional")
+                                  : Component.translatable("item.tooltip.random_enchant.enchant_brush.status.single");
 
                 player.displayClientMessage(
                         Component.translatable("message.random_enchant.item.enchant_brush.status.changed")
-                                .append(": ").append(statusText),
-                        true
-                );
+                                .append(": ")
+                                .append(statusText),
+                        true);
 
                 player.playSound(SoundEvents.UI_BUTTON_CLICK.value(), 0.5f, 1.0f);
             }

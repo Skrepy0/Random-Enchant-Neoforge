@@ -1,6 +1,9 @@
 package com.random_enchant.network.packet.S2C;
 
 import com.random_enchant.RandomEnchant;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -12,16 +15,12 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-
 public class CustomWindChargeS2CPacket implements CustomPacketPayload {
     // stream codec
     public static final StreamCodec<FriendlyByteBuf, CustomWindChargeS2CPacket> STREAM_CODEC =
             CustomPacketPayload.codec(CustomWindChargeS2CPacket::write, CustomWindChargeS2CPacket::new);
-    public static Type<CustomWindChargeS2CPacket> TYPE =
-            new Type<CustomWindChargeS2CPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "custom_wind_charge"));
+    public static Type<CustomWindChargeS2CPacket> TYPE = new Type<CustomWindChargeS2CPacket>(
+            ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "custom_wind_charge"));
     public int radius;
     public UUID uuid;
 
@@ -35,16 +34,16 @@ public class CustomWindChargeS2CPacket implements CustomPacketPayload {
         this.radius = buf.readInt();
     }
 
-    public static void handle(CustomWindChargeS2CPacket data, IPayloadContext context) {
-        runEnqueue(data, context);
-    }
+    public static void handle(CustomWindChargeS2CPacket data, IPayloadContext context) { runEnqueue(data, context); }
 
     @OnlyIn(Dist.CLIENT)
     private static void runEnqueue(CustomWindChargeS2CPacket data, IPayloadContext context) {
         context.enqueueWork(() -> {
             CustomWindChargeData.set(data.uuid, data.radius);
             if (Minecraft.getInstance().level != null && Minecraft.getInstance().player != null) {
-                Minecraft.getInstance().level.playSound(Minecraft.getInstance().player, Minecraft.getInstance().player.getOnPos(), SoundEvents.BUBBLE_COLUMN_BUBBLE_POP, SoundSource.BLOCKS);
+                Minecraft.getInstance().level.playSound(Minecraft.getInstance().player,
+                                                        Minecraft.getInstance().player.getOnPos(),
+                                                        SoundEvents.BUBBLE_COLUMN_BUBBLE_POP, SoundSource.BLOCKS);
             }
         });
     }
@@ -62,12 +61,8 @@ public class CustomWindChargeS2CPacket implements CustomPacketPayload {
     public static class CustomWindChargeData {
         private static final Map<UUID, Integer> dataMap = new ConcurrentHashMap<>();
 
-        public static void set(UUID newUuid, int newRadius) {
-            dataMap.put(newUuid, newRadius);
-        }
+        public static void set(UUID newUuid, int newRadius) { dataMap.put(newUuid, newRadius); }
 
-        public static int getRadius(UUID uuid) {
-            return dataMap.getOrDefault(uuid, 0);
-        }
+        public static int getRadius(UUID uuid) { return dataMap.getOrDefault(uuid, 0); }
     }
 }

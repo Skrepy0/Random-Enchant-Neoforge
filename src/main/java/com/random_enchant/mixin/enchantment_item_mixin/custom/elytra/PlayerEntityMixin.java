@@ -23,15 +23,16 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, level);
     }
 
-    @Shadow
-    public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
+    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void onTick(CallbackInfo ci) {
-        if (!this.isFallFlying()) return;
+        if (!this.isFallFlying())
+            return;
 
         ItemStack chestItem = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (ModEnchantHelper.getEnchantmentLevel(chestItem, ModEnchantments.FLY) <= 0) return;
+        if (ModEnchantHelper.getEnchantmentLevel(chestItem, ModEnchantments.FLY) <= 0)
+            return;
 
         if (ElytraJumpMixinHelper.isJumpKeyPressed()) {
             this.push(0, Config.getFlyEnchantmentLiftHeightPerTick(), 0);

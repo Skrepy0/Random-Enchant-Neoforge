@@ -19,12 +19,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 @Mixin(MinecartItem.class)
 public abstract class MinecartItemMixin extends Item {
-    public MinecartItemMixin(Properties properties) {
-        super(properties);
-    }
+    public MinecartItemMixin(Properties properties) { super(properties); }
 
-    @Inject(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
-    private void init(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir, @Local(ordinal = 0) AbstractMinecart abstractminecart) {
+    @Inject(method = "useOn",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/" +
+                                                "minecraft/world/entity/Entity;)Z"))
+    private void
+    init(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir,
+         @Local(ordinal = 0) AbstractMinecart abstractminecart) {
         // 获取正在使用的物品
         ItemStack stack = context.getItemInHand();
         if (ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.BAD_LUCK_OF_THE_SEA) > 0) {

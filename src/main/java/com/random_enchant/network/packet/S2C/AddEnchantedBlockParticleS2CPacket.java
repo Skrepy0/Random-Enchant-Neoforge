@@ -1,5 +1,7 @@
 package com.random_enchant.network.packet.S2C;
 
+import static com.random_enchant.particle.ModParticleHelper.addParticlesOnBlock;
+
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.render.particle.ParticleRenderType.RenderType;
 import net.minecraft.core.BlockPos;
@@ -11,16 +13,11 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import static com.random_enchant.particle.ModParticleHelper.addParticlesOnBlock;
-
 public class AddEnchantedBlockParticleS2CPacket implements CustomPacketPayload {
     public static final Type<AddEnchantedBlockParticleS2CPacket> TYPE =
             new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "add_enchanted_block_particle"));
     public static final StreamCodec<FriendlyByteBuf, AddEnchantedBlockParticleS2CPacket> STREAM_CODEC =
-            StreamCodec.of(
-                    (buf, packet) -> packet.write(buf),
-                    AddEnchantedBlockParticleS2CPacket::new
-            );
+            StreamCodec.of((buf, packet) -> packet.write(buf), AddEnchantedBlockParticleS2CPacket::new);
     public final BlockPos blockPos;
     public final RenderType type;
 

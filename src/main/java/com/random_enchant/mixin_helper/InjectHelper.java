@@ -1,9 +1,12 @@
 package com.random_enchant.mixin_helper;
 
-//import com.mafuyu33.neomafishmod.enchantmentblock.BlockEnchantmentStorage;
+// import com.mafuyu33.neomafishmod.enchantmentblock.BlockEnchantmentStorage;
+
+import static com.random_enchant.RandomEnchant.LOGGER;
 
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import java.util.Set;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -14,10 +17,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 
-import java.util.Set;
-
-import static com.random_enchant.RandomEnchant.LOGGER;
-
 
 /**
  * @author Mafuyu33
@@ -26,7 +25,7 @@ public class InjectHelper {
 
 
     public static void onPlacedInject(Level world, ItemStack itemStack, BlockPos pos) {
-        //只在服务端运行
+        // 只在服务端运行
         if (!world.isClientSide) {
             // 获取物品栈上的附魔信息
             ItemEnchantments enchantments = itemStack.getTagEnchantments();
@@ -44,7 +43,7 @@ public class InjectHelper {
 
         ListTag enchantmentNbtList = new ListTag();
         Set<Object2IntMap.Entry<Holder<Enchantment>>> entries = itemEnchantments.entrySet();
-        for (Object2IntMap.Entry<Holder<Enchantment>> entry : entries) {
+        for (Object2IntMap.Entry<Holder<Enchantment>> entry: entries) {
             Holder<Enchantment> key = entry.getKey();
             int intValue = entry.getIntValue();
 
@@ -53,7 +52,6 @@ public class InjectHelper {
             enchantmentNbt.putString("id", key.getKey().location().toString());
             enchantmentNbt.putInt("lvl", intValue);
             enchantmentNbtList.add(enchantmentNbt);
-
         }
         return enchantmentNbtList;
     }
@@ -63,5 +61,4 @@ public class InjectHelper {
         LOGGER.info("Storing enchantments at position: " + currentPos + " with data: " + listTag);
         BlockEnchantmentStorage.addBlockEnchantment(currentPos, listTag);
     }
-
 }

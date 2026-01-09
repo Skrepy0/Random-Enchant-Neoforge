@@ -1,6 +1,7 @@
 package com.random_enchant.enchantment;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import java.util.Optional;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -14,8 +15,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 
-import java.util.Optional;
-
 public class ModEnchantHelper {
     public static int getEnchantmentLevel(ItemStack stack, Level world, ResourceKey<Enchantment> enchantmentKey) {
         // 获取物品的附魔组件
@@ -24,9 +23,9 @@ public class ModEnchantHelper {
         // 通过 ResourceKey 获取 Holder<Enchantment>
         if (world != null) {
             Holder<Enchantment> enchantmentHolder = world.registryAccess()
-                    .registryOrThrow(Registries.ENCHANTMENT)
-                    .getHolder(enchantmentKey)
-                    .orElse(null);
+                                                            .registryOrThrow(Registries.ENCHANTMENT)
+                                                            .getHolder(enchantmentKey)
+                                                            .orElse(null);
 
             // 如果有附魔组件和 Holder，返回等级
             if (enchantments != null && enchantmentHolder != null) {
@@ -45,16 +44,17 @@ public class ModEnchantHelper {
         if (itemEnchantments == null) {
             return -1;
         }
-        Optional<Object2IntMap.Entry<Holder<Enchantment>>> levelOptional = itemEnchantments.entrySet().stream().filter(int2Enchatment -> int2Enchatment.getKey().is(enchantmentResourceKey)).findFirst();
+        Optional<Object2IntMap.Entry<Holder<Enchantment>>> levelOptional =
+                itemEnchantments.entrySet()
+                        .stream()
+                        .filter(int2Enchatment -> int2Enchatment.getKey().is(enchantmentResourceKey))
+                        .findFirst();
         return levelOptional.map(Object2IntMap.Entry::getIntValue).orElse(-1);
     }
 
     public static Holder<Enchantment> getHolder(ResourceKey<Enchantment> enchantmentKey) {
         Level world = Minecraft.getInstance().level;
-        return world.registryAccess()
-                .registryOrThrow(Registries.ENCHANTMENT)
-                .getHolder(enchantmentKey)
-                .orElse(null);
+        return world.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolder(enchantmentKey).orElse(null);
     }
 
     public static String toRoman(int number) {
@@ -75,10 +75,7 @@ public class ModEnchantHelper {
         int unitPart = number % 10;
 
         // 构建罗马数字字符串
-        return thousands[thousandPart] +
-                hundreds[hundredPart] +
-                tens[tenPart] +
-                units[unitPart];
+        return thousands[thousandPart] + hundreds[hundredPart] + tens[tenPart] + units[unitPart];
     }
 
     public static String getDescriptionId(Enchantment enchantment, RegistryAccess registryAccess) {

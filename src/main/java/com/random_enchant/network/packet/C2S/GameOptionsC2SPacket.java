@@ -8,7 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class GameOptionsC2SPacket implements CustomPacketPayload {
-    public static final Type<GameOptionsC2SPacket> TYPE = new Type<GameOptionsC2SPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "game_options"));
+    public static final Type<GameOptionsC2SPacket> TYPE =
+            new Type<GameOptionsC2SPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "game_options"));
     public static final StreamCodec<FriendlyByteBuf, GameOptionsC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(GameOptionsC2SPacket::write, GameOptionsC2SPacket::new);
     public static float blocks;

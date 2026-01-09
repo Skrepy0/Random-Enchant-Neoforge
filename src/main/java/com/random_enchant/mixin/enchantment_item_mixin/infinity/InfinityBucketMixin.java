@@ -7,13 +7,11 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-public class InfiniteBucketMixin {
+public class InfinityBucketMixin {
     @Mixin(BucketItem.class)
     public abstract static class InFiniteBucketMixin extends Item implements DispensibleContainerItem {
 
-        public InFiniteBucketMixin(Properties properties) {
-            super(properties);
-        }
+        public InFiniteBucketMixin(Properties properties) { super(properties); }
 
         /**
          * @author Mafuyu33
@@ -21,7 +19,7 @@ public class InfiniteBucketMixin {
          */
         @Overwrite
         public static ItemStack getEmptySuccessItem(ItemStack stack, Player player) {
-            int a = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.INFINITY);//无限
+            int a = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.INFINITY); // 无限
             if (!player.getAbilities().invulnerable & a != 1) {
                 return new ItemStack(Items.BUCKET);
             } else {

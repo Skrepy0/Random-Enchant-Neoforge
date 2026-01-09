@@ -10,7 +10,8 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class RedirectTridentC2SPacket implements CustomPacketPayload {
-    public static final Type<RedirectTridentC2SPacket> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "redirect_trident_c2s"));
+    public static final Type<RedirectTridentC2SPacket> TYPE =
+            new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "redirect_trident_c2s"));
     public static final StreamCodec<FriendlyByteBuf, RedirectTridentC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(RedirectTridentC2SPacket::write, RedirectTridentC2SPacket::new);
     public Vec3 finalVelocity;
@@ -39,10 +40,10 @@ public class RedirectTridentC2SPacket implements CustomPacketPayload {
                 Entity entity = context.player().level().getEntity(data.id);
                 if (entity != null) {
                     if (!data.finalVelocity.equals(Vec3.ZERO)) {
-                        //同步速度
+                        // 同步速度
                         if (data.flag == 1) {
                             entity.setDeltaMovement(data.finalVelocity);
-                            //同步位置
+                            // 同步位置
                         } else if (data.flag == 2) {
                             entity.setPos(data.finalVelocity);
                         }

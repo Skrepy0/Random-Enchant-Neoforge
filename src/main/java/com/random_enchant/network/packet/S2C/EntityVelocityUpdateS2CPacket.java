@@ -1,6 +1,8 @@
 package com.random_enchant.network.packet.S2C;
 
 import com.random_enchant.RandomEnchant;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -10,15 +12,12 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 public class EntityVelocityUpdateS2CPacket implements CustomPacketPayload {
     // stream codec
     public static final StreamCodec<FriendlyByteBuf, EntityVelocityUpdateS2CPacket> STREAM_CODEC =
             CustomPacketPayload.codec(EntityVelocityUpdateS2CPacket::write, EntityVelocityUpdateS2CPacket::new);
-    public static Type<EntityVelocityUpdateS2CPacket> TYPE =
-            new Type<EntityVelocityUpdateS2CPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "entity_velocity_update_s2c"));
+    public static Type<EntityVelocityUpdateS2CPacket> TYPE = new Type<EntityVelocityUpdateS2CPacket>(
+            ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "entity_velocity_update_s2c"));
     public Vec3 finalVelocity;
     public int id;
 
@@ -60,12 +59,8 @@ public class EntityVelocityUpdateS2CPacket implements CustomPacketPayload {
     public static class WindChargeStormData {
         private static final Map<Integer, Vec3> dataMap = new ConcurrentHashMap<>();
 
-        public static void set(int newid, Vec3 newVec3) {
-            dataMap.put(newid, newVec3);
-        }
+        public static void set(int newid, Vec3 newVec3) { dataMap.put(newid, newVec3); }
 
-        public static Vec3 getVec3(int id) {
-            return dataMap.getOrDefault(id, new Vec3(0, 0, 0));
-        }
+        public static Vec3 getVec3(int id) { return dataMap.getOrDefault(id, new Vec3(0, 0, 0)); }
     }
 }
