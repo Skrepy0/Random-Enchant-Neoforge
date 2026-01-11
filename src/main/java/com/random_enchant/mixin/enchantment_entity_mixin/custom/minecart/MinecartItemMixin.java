@@ -22,8 +22,8 @@ public abstract class MinecartItemMixin extends Item {
     public MinecartItemMixin(Properties properties) { super(properties); }
 
     @Inject(method = "useOn",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/" +
-                                                "minecraft/world/entity/Entity;)Z"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/"
+                                                + "minecraft/world/entity/Entity;)Z"))
     private void
     init(UseOnContext context, CallbackInfoReturnable<InteractionResult> cir,
          @Local(ordinal = 0) AbstractMinecart abstractminecart) {

@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class PistonBlockMixin {
 
     @Inject(at = @At(value = "INVOKE",
-                     target = "Lnet/minecraft/core/BlockPos;relative(Lnet/minecraft/core/Direction;)Lnet/minecraft/" +
-                              "core/BlockPos;",
+                     target = "Lnet/minecraft/core/BlockPos;relative(Lnet/minecraft/core/Direction;)Lnet/minecraft/"
+                              + "core/BlockPos;",
                      ordinal = 1),
             method = "moveBlocks") // 活塞推拉方块的部分
     private void init(Level world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean> cir,
@@ -43,7 +43,7 @@ public abstract class PistonBlockMixin {
     //"Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;I)Z"
     //			,ordinal = 4), method = "move",locals = LocalCapture.CAPTURE_FAILSOFT)//替换成空气的部分
     //	private void init1(World world, BlockPos pos, Direction dir, boolean retract, CallbackInfoReturnable<Boolean>
-    //cir, BlockPos blockPos4) {//活塞推拉方块 		if
+    // cir, BlockPos blockPos4) {//活塞推拉方块 		if
     //(!Objects.equals(BlockEnchantmentStorage.getEnchantmentsAtPosition(blockPos4), new NbtList())) {
     //			BlockEnchantmentStorage.removeBlockEnchantment(blockPos4.toImmutable());//删除信息
     //		}

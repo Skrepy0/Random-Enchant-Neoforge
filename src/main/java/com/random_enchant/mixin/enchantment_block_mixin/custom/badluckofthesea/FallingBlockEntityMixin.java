@@ -174,8 +174,8 @@ public abstract class FallingBlockEntityMixin extends Entity {
      * 方块落地时恢复它变成实体前的附魔
      */
     @Inject(method = "tick", at = @At(value = "INVOKE",
-                                      target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/" +
-                                               "BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
+                                      target = "Lnet/minecraft/world/level/Level;setBlock(Lnet/minecraft/core/"
+                                               + "BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z",
                                       shift = At.Shift.AFTER))
     public void
     onBlockLand(CallbackInfo info, @Local BlockPos blockPos) {

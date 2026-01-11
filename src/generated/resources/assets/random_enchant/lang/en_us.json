@@ -254,6 +254,7 @@
   "enchantment.random_enchant.redirect_projectile": "§6Redirect Projectile§r",
   "entity.minecraft.bee.random_enchant.spawn_name": "§aFly",
   "item.random_enchant.enchant_brush": "Enchant Brush",
+  "item.random_enchant.lightning": "Lightning",
   "item.random_enchant.pearl_spear": "Pearl Spear",
   "item.tooltip.random_enchant.enchant_brush.status": "Mode:",
   "item.tooltip.random_enchant.enchant_brush.status.regional": "§aRegional§r",

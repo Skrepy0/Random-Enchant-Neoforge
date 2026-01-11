@@ -1,0 +1,8 @@
+{
+	"scripts": {
+		"format": "node scripts/format-cpp.js"
+	},
+	"devDependencies": {
+		"glob": "^10.5.0"
+	}
+}

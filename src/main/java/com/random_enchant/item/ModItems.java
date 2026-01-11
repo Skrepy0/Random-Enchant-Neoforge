@@ -1,9 +1,11 @@
 package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
+import com.random_enchant.item.custom.LightningItem;
 import com.random_enchant.item.custom.tool.EnchantBrush;
 import com.random_enchant.item.custom.tool.PearlSpear;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -16,6 +18,8 @@ public class ModItems {
             ITEMS.register("enchant_brush", () -> new EnchantBrush(new Item.Properties()));
     public static final DeferredItem<Item> PEARL_SPEAR =
             ITEMS.register("pearl_spear", () -> new PearlSpear(new Item.Properties()));
+    public static final DeferredItem<Item> LIGHTNING_ITEM = ITEMS.register(
+            "lightning", () -> new LightningItem(Tiers.NETHERITE, new Item.Properties().fireResistant().stacksTo(1)));
 
     public static void registerModItems(IEventBus bus) { ITEMS.register(bus); }
 }

@@ -35,6 +35,7 @@ public class ModENUSLanProvider extends LanguageProvider {
 
         add(ModItems.PEARL_SPEAR.get(), "Pearl Spear");
         add(ModItems.ENCHANT_BRUSH.get(), "Enchant Brush");
+        add(ModItems.LIGHTNING_ITEM.get(), "Lightning");
 
         add("enchantment.random_enchant.fury_of_fly", "§aFury Of Fly");
 
@@ -56,8 +57,8 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1",
             "§bLeft-click to attack the entity and teleport, right-click to teleport§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_2",
-            "§bEntities in the teleportation path take 8 base damage(real damage is related to the level of §a[Sweep " +
-            "Edge]§b)§r");
+            "§bEntities in the teleportation path take 8 base damage(real damage is related to the level of §a[Sweep "
+                    + "Edge]§b)§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_3",
             "§bThe greater the relative speed to the target when left-clicking to attack,the higher the damage§r");
         add("item.tooltip.random_enchant.enchant_brush.status", "Mode:");

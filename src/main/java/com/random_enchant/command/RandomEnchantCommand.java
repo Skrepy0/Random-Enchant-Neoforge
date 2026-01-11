@@ -23,31 +23,31 @@ public class RandomEnchantCommand {
                                             .withStyle(
                                                     style
                                                     -> style.withUnderlined(true)
-                                                               .withClickEvent(
-                                                                       new ClickEvent(ClickEvent.Action.OPEN_URL,
-                                                                                      "https://github.com/Skrepy0/" +
-                                                                                      "Random-Enchant-Neoforge"))
+                                                               .withClickEvent(new ClickEvent(
+                                                                       ClickEvent.Action.OPEN_URL,
+                                                                       "https://github.com/Skrepy0/"
+                                                                               + "Random-Enchant-Neoforge"))
                                                                .withHoverEvent(new HoverEvent(
                                                                        HoverEvent.Action.SHOW_TEXT,
-                                                                       Component.literal("点击打开§6Random Enchant§r " +
-                                                                                         "的Github仓库"))));
+                                                                       Component.literal("点击打开§6Random Enchant§r "
+                                                                                         + "的Github仓库"))));
                             Component description_1 = Component.literal("  本mod").append(modName).append(
                                     "由§bSkrepy2233§r制作，以下是几点说明");
-                            Component description_2 = Component.literal("1.可以使用/§arandom_enchant doRandomEnchant " +
-                                                                        "§b<true/false>§r 进行配置，默认是关闭");
+                            Component description_2 = Component.literal("1.可以使用/§arandom_enchant doRandomEnchant "
+                                                                        + "§b<true/false>§r 进行配置，默认是关闭");
                             Component description_3 = Component.literal(
-                                    "2.§adoRandomEnchant§r开启后," +
-                                    "玩家击打有生命实体后会对玩家主手物品进行随机附魔（等级也是随机）");
+                                    "2.§adoRandomEnchant§r开启后,"
+                                    + "玩家击打有生命实体后会对玩家主手物品进行随机附魔（等级也是随机）");
                             Component description_4 =
                                     Component.literal("3.已经启用本mod自带的材质包（修复§b附魔等级的罗马数字显示§r）");
                             Component description_5 = Component.literal("4.附魔随机的范围是§d所有已附魔§r");
                             Component description_6 =
-                                    Component.literal("5.本mod对原版附魔添加了一些效果，如附魔有§a[无限]" +
-                                                      "§r的食物使用后数量不会减少，方块、不死图腾亦同");
+                                    Component.literal("5.本mod对原版附魔添加了一些效果，如附魔有§a[无限]"
+                                                      + "§r的食物使用后数量不会减少，方块、不死图腾亦同");
                             Component description_7 = Component.literal(
-                                    "最后，添加的附魔与对应的物品：\n " +
-                                    "§a[无限]§r投掷类物品，如鸡蛋、末影珍珠、药水（饮用除外）、食物（蛋糕除外）等;" +
-                                    "各种方块、不死图腾\n §a[力量]§r 火焰弹、铲子、粘液球");
+                                    "最后，添加的附魔与对应的物品：\n "
+                                    + "§a[无限]§r投掷类物品，如鸡蛋、末影珍珠、药水（饮用除外）、食物（蛋糕除外）等;"
+                                    + "各种方块、不死图腾\n §a[力量]§r 火焰弹、铲子、粘液球");
                             Component description = Component.literal("§c最后§r:按§d[T]§r查看全部");
                             ArrayList<Component> messageList = new ArrayList<>();
                             messageList.add(description_1);
@@ -76,14 +76,15 @@ public class RandomEnchantCommand {
                                                                       Config.setRandomEnchant(enabled);
                                                                       Component message =
                                                                               enabled ? Component.translatable(
-                                                                                                "command.random_" +
-                                                                                                "enchant." +
+                                                                                                "command.random_"
+                                                                                                + "enchant."
+                                                                                                +
                                                                                                 "randomEnchant.enable")
                                                                                       : Component.translatable(
-                                                                                                "command.random_" +
-                                                                                                "enchant." +
-                                                                                                "randomEnchant." +
-                                                                                                "disable");
+                                                                                                "command.random_"
+                                                                                                + "enchant."
+                                                                                                + "randomEnchant."
+                                                                                                + "disable");
 
                                                                       RandomEnchant.LOGGER.info(message.getString());
                                                                       context.getSource().sendSuccess(
@@ -100,30 +101,31 @@ public class RandomEnchantCommand {
                                                                       if (preStatus == enabled) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a[" +
-                                                                                                   "isAlwaysEnchantab" +
-                                                                                                   "le]§r")
+                                                                                          .literal("§a["
+                                                                                                   + "isAlwaysEnchantab"
+                                                                                                   + "le]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -134,10 +136,12 @@ public class RandomEnchantCommand {
                                                                       Config.setIsAlwaysEnchantable(enabled);
                                                                       Component message =
                                                                               Component
-                                                                                      .literal("§a[" +
+                                                                                      .literal("§a["
+                                                                                               +
                                                                                                "isAlwaysEnchantable]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(enabled ? "§a[true]§r"
                                                                                                       : "§c[false]§r");
@@ -155,30 +159,31 @@ public class RandomEnchantCommand {
                                                                       if (preStatus == enabled) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a[" +
-                                                                                                   "infinityUndyingTo" +
-                                                                                                   "tem]§r")
+                                                                                          .literal("§a["
+                                                                                                   + "infinityUndyingTo"
+                                                                                                   + "tem]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -190,10 +195,12 @@ public class RandomEnchantCommand {
                                                                       Component message =
                                                                               Component
                                                                                       .literal(
-                                                                                              "§a[" +
+                                                                                              "§a["
+                                                                                              +
                                                                                               "infinityUndyingTotem]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(enabled ? "§a[true]§r"
                                                                                                       : "§c[false]§r");
@@ -215,25 +222,26 @@ public class RandomEnchantCommand {
                                                                                                   "§a[infinityBlock]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -245,7 +253,8 @@ public class RandomEnchantCommand {
                                                                       Component message =
                                                                               Component.literal("§a[infinityBlock]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(enabled ? "§a[true]§r"
                                                                                                       : "§c[false]§r");
@@ -265,25 +274,26 @@ public class RandomEnchantCommand {
                                                                                   Component.literal("§a[infinityTnt]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -295,7 +305,8 @@ public class RandomEnchantCommand {
                                                                       Component message =
                                                                               Component.literal("§a[infinityTnt]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(enabled ? "§a[true]§r"
                                                                                                       : "§c[false]§r");
@@ -316,25 +327,26 @@ public class RandomEnchantCommand {
                                                                                           .literal("§a[infinityFood]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -346,7 +358,8 @@ public class RandomEnchantCommand {
                                                                       Component message =
                                                                               Component.literal("§a[infinityFood]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(enabled ? "§a[true]§r"
                                                                                                       : "§c[false]§r");
@@ -365,30 +378,31 @@ public class RandomEnchantCommand {
                                                                       if (preStatus == enabled) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a[" +
-                                                                                                   "infinityThrowable" +
-                                                                                                   "Item]§r")
+                                                                                          .literal("§a["
+                                                                                                   + "infinityThrowable"
+                                                                                                   + "Item]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -400,7 +414,8 @@ public class RandomEnchantCommand {
                                                                       Component message =
                                                                               Component.literal("§a[infinityFood]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(enabled ? "§a[true]§r"
                                                                                                       : "§c[false]§r");
@@ -419,30 +434,31 @@ public class RandomEnchantCommand {
                                                                       if (preStatus == enabled) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a[" +
-                                                                                                   "isEnchantedBlockG" +
-                                                                                                   "etatable]§r")
+                                                                                          .literal("§a["
+                                                                                                   + "isEnchantedBlockG"
+                                                                                                   + "etatable]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -453,11 +469,12 @@ public class RandomEnchantCommand {
                                                                       Config.setIsEnchantedBlockGetatable(enabled);
                                                                       Component message =
                                                                               Component
-                                                                                      .literal("§a[" +
-                                                                                               "isEnchantedBlockGetat" +
-                                                                                               "able]§r")
+                                                                                      .literal("§a["
+                                                                                               + "isEnchantedBlockGetat"
+                                                                                               + "able]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(enabled ? "§a[true]§r"
                                                                                                       : "§c[false]§r");
@@ -475,29 +492,31 @@ public class RandomEnchantCommand {
                                                                       if (preStatus == enabled) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a[" +
+                                                                                          .literal("§a["
+                                                                                                   +
                                                                                                    "infinityPotion]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -509,7 +528,8 @@ public class RandomEnchantCommand {
                                                                       Component message =
                                                                               Component.literal("§a[infinityPotion]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(enabled ? "§a[true]§r"
                                                                                                       : "§c[false]§r");
@@ -529,30 +549,32 @@ public class RandomEnchantCommand {
                                                                       if (preValue == value) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a[" +
-                                                                                                   "redirectTridentSe" +
+                                                                                          .literal("§a["
+                                                                                                   + "redirectTridentSe"
+                                                                                                   +
                                                                                                    "tPointDistance]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -563,11 +585,12 @@ public class RandomEnchantCommand {
                                                                       Config.setRedirectTridentSetPointDistance(value);
                                                                       Component message =
                                                                               Component
-                                                                                      .literal("§a[" +
-                                                                                               "redirectTridentSetPoi" +
-                                                                                               "ntDistance]§r")
+                                                                                      .literal("§a["
+                                                                                               + "redirectTridentSetPoi"
+                                                                                               + "ntDistance]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(" §6" + value);
                                                                       RandomEnchant.LOGGER.info(message.getString());
@@ -586,30 +609,32 @@ public class RandomEnchantCommand {
                                                                       if (preValue == value) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a[" +
-                                                                                                   "flyEnchantmentLif" +
+                                                                                          .literal("§a["
+                                                                                                   + "flyEnchantmentLif"
+                                                                                                   +
                                                                                                    "tHeightPerTick]§r")
                                                                                           .append(Component
                                                                                                           .translatable(
-                                                                                                                  "co" +
-                                                                                                                  "mm" +
-                                                                                                                  "an" +
-                                                                                                                  "d." +
-                                                                                                                  "ra" +
-                                                                                                                  "nd" +
-                                                                                                                  "om" +
-                                                                                                                  "_e" +
-                                                                                                                  "nc" +
-                                                                                                                  "ha" +
-                                                                                                                  "nt" +
-                                                                                                                  ".c" +
-                                                                                                                  "on" +
-                                                                                                                  "fi" +
-                                                                                                                  "g." +
-                                                                                                                  "un" +
-                                                                                                                  "ch" +
-                                                                                                                  "an" +
-                                                                                                                  "ge" +
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
                                                                                                                   "d"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -620,11 +645,12 @@ public class RandomEnchantCommand {
                                                                       Config.setFlyEnchantmentLiftHeightPerTick(value);
                                                                       Component message =
                                                                               Component
-                                                                                      .literal("§a[" +
-                                                                                               "flyEnchantmentLiftHei" +
-                                                                                               "ghtPerTick]§r")
+                                                                                      .literal("§a["
+                                                                                               + "flyEnchantmentLiftHei"
+                                                                                               + "ghtPerTick]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_" +
+                                                                                              "command.random_"
+                                                                                              +
                                                                                               "enchant.config.changed"))
                                                                                       .append(" §6" + value);
                                                                       RandomEnchant.LOGGER.info(message.getString());

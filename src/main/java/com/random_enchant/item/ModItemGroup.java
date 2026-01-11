@@ -52,6 +52,7 @@ public class ModItemGroup {
                                    output.accept(Blocks.ANVIL.asItem());
                                    output.accept(ModItems.PEARL_SPEAR.get());
                                    output.accept(ModItems.ENCHANT_BRUSH.get());
+                                   output.accept(ModItems.LIGHTNING_ITEM);
                                })
                                .build());
 

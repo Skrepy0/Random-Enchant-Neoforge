@@ -32,9 +32,9 @@ public abstract class SilkTouchEnchantedBlockMixin {
      * 如果是，则掉落带有附魔的方块
      */
     @Inject(at = @At("HEAD"),
-            method = "dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/" +
-                     "Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/" +
-                     "minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V",
+            method = "dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/"
+                     + "Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/entity/BlockEntity;Lnet/"
+                     + "minecraft/world/entity/Entity;Lnet/minecraft/world/item/ItemStack;)V",
             cancellable = true)
     private static void
     onBlockDropResources(BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity entity,

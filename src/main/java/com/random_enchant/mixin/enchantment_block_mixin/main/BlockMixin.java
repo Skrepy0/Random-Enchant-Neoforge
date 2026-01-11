@@ -24,8 +24,8 @@ public abstract class BlockMixin
 
     public BlockMixin(Properties properties) { super(properties); }
 
-    @Inject(at = @At("TAIL"), method = "dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/" +
-                                       "minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V")
+    @Inject(at = @At("TAIL"), method = "dropResources(Lnet/minecraft/world/level/block/state/BlockState;Lnet/"
+                                       + "minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;)V")
     // 删除方块的附魔
     private static void init5(BlockState state, Level level, BlockPos pos, CallbackInfo ci) {
         if (!level.isClientSide()) {
