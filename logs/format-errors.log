@@ -1,0 +1,365 @@
+src\main\java\com\random_enchant\ServerManager.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\ServerManager.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\RandomEnchantClient.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\RandomEnchantClient.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\RandomEnchant.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\RandomEnchant.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\ModDataGenerator.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\ModDataGenerator.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\Config.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\Config.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\sound\ModSounds.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\sound\ModSounds.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\particle\ModParticleHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\particle\ModParticleHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\setup\ClientSetUp.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\setup\ClientSetUp.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\ModMessage.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\ModMessage.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin_helper\ShieldDashMixinHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin_helper\ShieldDashMixinHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin_helper\InjectHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin_helper\InjectHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin_helper\ElytraJumpMixinHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin_helper\ElytraJumpMixinHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin_helper\BowDashMixinHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin_helper\BowDashMixinHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\item\ModItemTags.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\item\ModItemTags.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\item\ModItems.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\item\ModItems.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\item\ModItemModelProperties.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\item\ModItemModelProperties.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\item\ModItemGroup.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\item\ModItemGroup.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\event\RandomEnchantEvent.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\event\RandomEnchantEvent.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\event\ModEvents.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\event\ModEvents.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\event\AttackKeyCheckHandler.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\event\AttackKeyCheckHandler.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\entity\ModEntities.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\entity\ModEntities.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\enchantment\ModEnchantmentTags.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\enchantment\ModEnchantmentTags.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\enchantment\ModEnchantments.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\enchantment\ModEnchantments.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\enchantment\ModEnchantHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\enchantment\ModEnchantHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\datagen\ModZHCNLangProvider.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\datagen\ModZHCNLangProvider.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\datagen\ModRecipesProvider.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\datagen\ModRecipesProvider.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\datagen\ModItemTagsProvider.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\datagen\ModItemTagsProvider.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\datagen\ModItemModelsProvider.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\datagen\ModItemModelsProvider.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\datagen\ModENUSLanProvider.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\datagen\ModENUSLanProvider.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\datagen\ModEnchantmentTagsProvider.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\datagen\ModEnchantmentTagsProvider.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\datagen\ModEnchantmentsProvider.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\datagen\ModEnchantmentsProvider.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\datagen\ModBlockTagsProvider.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\datagen\ModBlockTagsProvider.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\command\RandomEnchantCommand.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\command\RandomEnchantCommand.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\command\ModCommands.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\command\ModCommands.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\render\particle\ParticleRenderType.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\render\particle\ParticleRenderType.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\render\custom_entity\CustomWindChargeRenderer.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\render\custom_entity\CustomWindChargeRenderer.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\event\enchantment\UndyingTotem.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\event\enchantment\UndyingTotem.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\entity\custom\CustomWindChargeEntity.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\entity\custom\CustomWindChargeEntity.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\enchantment\enchantmentblock\BlockStateSaverAndLoader.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\enchantment\enchantmentblock\BlockStateSaverAndLoader.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\enchantment\enchantmentblock\BlockEnchantmentStorage.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\enchantment\enchantmentblock\BlockEnchantmentStorage.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\enchantment\custom\BadLuckOfTheSeaHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\enchantment\custom\BadLuckOfTheSeaHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\BadLuckOfSeaItemEntityMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\BadLuckOfSeaItemEntityMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\ArmorEnchantmentMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\ArmorEnchantmentMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\AnvilMenuMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\AnvilMenuMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\data\nbt\BrushNBTUtils.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\data\nbt\BrushNBTUtils.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\client\key\KeyInputHandler.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\client\key\KeyInputHandler.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\S2C\OneWithShadowS2CPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\S2C\OneWithShadowS2CPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\S2C\NeverGonnaS2CPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\S2C\NeverGonnaS2CPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\S2C\EntityVelocityUpdateS2CPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\S2C\EntityVelocityUpdateS2CPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\S2C\CustomWindChargeS2CPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\S2C\CustomWindChargeS2CPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\S2C\BellSoundS2CPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\S2C\BellSoundS2CPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\S2C\AddEnchantedBlockParticleS2CPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\S2C\AddEnchantedBlockParticleS2CPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\ThrowPowerC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\ThrowPowerC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\ShieldDashC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\ShieldDashC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\SheepBreedingC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\SheepBreedingC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\RedirectTridentC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\RedirectTridentC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\PlayerActionC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\PlayerActionC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\GameOptionsC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\GameOptionsC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\FuC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\FuC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\EntityVelocityUpdateC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\EntityVelocityUpdateC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\BrushStatusC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\BrushStatusC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\network\packet\C2S\BowDashC2SPacket.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\network\packet\C2S\BowDashC2SPacket.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\item\custom\tool\PearlSpear.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\item\custom\tool\PearlSpear.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\item\custom\tool\EnchantBrush.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\item\custom\tool\EnchantBrush.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\event\tool\brush\EnchantBrushHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\event\tool\brush\EnchantBrushHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\event\enchantment\trident_redirect\OnPlayerLeftClick.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\event\enchantment\trident_redirect\OnPlayerLeftClick.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\event\enchantment\badluckofthesea\EntityEvent.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\event\enchantment\badluckofthesea\EntityEvent.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfinityThrowablePotionMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfinityThrowablePotionMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfinityPotionItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfinityPotionItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfinityBucketMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfinityBucketMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfinityBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfinityBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfiniteFoodMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\InfiniteFoodMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\WorldMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\WorldMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\SilkTouchEnchantedBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\SilkTouchEnchantedBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\PlayerEntityMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\PlayerEntityMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\PistonBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\PistonBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\BlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\BlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\windcharge\WindChargeItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\windcharge\WindChargeItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\windcharge\PlayerMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\windcharge\PlayerMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\elytra\PlayerEntityMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\elytra\PlayerEntityMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\elytra\LivingEntityMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\elytra\LivingEntityMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\luoyangshovel\ShovelItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\luoyangshovel\ShovelItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\luoyangshovel\FallingBlockEntityMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\luoyangshovel\FallingBlockEntityMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\throwable_item\InfinitySnowBallItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\throwable_item\InfinitySnowBallItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\throwable_item\InfinityEnderPearlItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\throwable_item\InfinityEnderPearlItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\throwable_item\InfinityEnderEyeItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\throwable_item\InfinityEnderEyeItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\throwable_item\InfinityEggItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\infinity\throwable_item\InfinityEggItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_entity_mixin\custom\minecart\MinecartItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_entity_mixin\custom\minecart\MinecartItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_entity_mixin\custom\minecart\AbstractMinecartMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_entity_mixin\custom\minecart\AbstractMinecartMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\TripwireHookBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\TripwireHookBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\TallPlantBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\TallPlantBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\StructureBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\StructureBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\SmallDripleafBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\SmallDripleafBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\PitcherCropBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\PitcherCropBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\DoorBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\DoorBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\CrafterBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\CrafterBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\CommandBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\CommandBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\CobwebBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\CobwebBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\AbstractRedStoneGateBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\main\sigle_inject\AbstractRedStoneGateBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\waterbroken\FlowableFluidMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\waterbroken\FlowableFluidMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\thorns\BlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\thorns\BlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\thorns\AbstractBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\thorns\AbstractBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\tnt\TntBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\tnt\TntBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\targetblock\TargetBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\targetblock\TargetBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\respiration\FlowableFluidMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\respiration\FlowableFluidMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\TripwireBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\TripwireBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\NetherPortalBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\NetherPortalBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\LivingEntityMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\LivingEntityMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\ButtonBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\ButtonBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\BlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\BlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\AbstractPressurePlateBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\AbstractPressurePlateBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\AbstractBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\knockback\AbstractBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\punchtrapdoor\TrapdoorBlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\punchtrapdoor\TrapdoorBlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\fasthopper\HopperBlockEntityMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\fasthopper\HopperBlockEntityMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\fallprotection\BlockMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\fallprotection\BlockMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\badluckofthesea\FlowableFluidMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\badluckofthesea\FlowableFluidMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\badluckofthesea\FallingBlockEntityMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\badluckofthesea\FallingBlockEntityMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\badluckofthesea\BlockEntityReflectionHelper.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\badluckofthesea\BlockEntityReflectionHelper.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\blastprotection\ExplosionBehaviorMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_block_mixin\custom\blastprotection\ExplosionBehaviorMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\trident\redirect_trident\TridentItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\trident\redirect_trident\TridentItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\trident\redirect_trident\ThrownTridentMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\trident\redirect_trident\ThrownTridentMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
+
+src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\trident\multishot_trident\TridentItemMixin.java: Command failed: clang-format -i --style=file "src\main\java\com\random_enchant\mixin\enchantment_item_mixin\custom\trident\multishot_trident\TridentItemMixin.java"
+Configuration file(s) do(es) not support Java: D:\java-projects\Random Enchant-1.21.1-Neoforge\.clang-format
