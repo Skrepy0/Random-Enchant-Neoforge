@@ -5,21 +5,28 @@ import com.random_enchant.enchantment.ModEnchantments;
 import javax.annotation.Nullable;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AbstractArrow.class)
 public class AbstractArrowMixin {
+
     @Shadow @Nullable private ItemStack firedFromWeapon;
 
-    @ModifyVariable(method = "tick", at = @At(value = "STORE", ordinal = 0), argsOnly = false, name = "f")
-    public float modifyTickDeceleration(float original) {
-        if (ModEnchantHelper.getEnchantmentLevel(firedFromWeapon, ModEnchantments.NO_RESISTANCE) > 0) {
-            return 1.0f;
+    @Redirect(method = "tick",
+              at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/" +
+                                                  "AbstractArrow;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
+    public void
+    redirectSetDeltaMovement(AbstractArrow instance, Vec3 vec3) {
+        ItemStack stack = instance.getWeaponItem();
+        if (stack != null && ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.NO_RESISTANCE) > 0) {
+        } else if (firedFromWeapon != null &&
+                   ModEnchantHelper.getEnchantmentLevel(firedFromWeapon, ModEnchantments.NO_RESISTANCE) > 0) {
         } else {
-            return original;
+            instance.setDeltaMovement(vec3);
         }
     }
 }

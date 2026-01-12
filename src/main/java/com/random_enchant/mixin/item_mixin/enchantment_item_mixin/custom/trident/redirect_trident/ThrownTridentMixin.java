@@ -25,6 +25,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -46,6 +47,8 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     @Unique private static final String NBT_FIRE_ASPECT_LEVEL = "RandomEnchant_FireAspectLevel";
     @Unique private static final double GROUND_TELEPORT_DISTANCE = 0.5;
     @Shadow private boolean dealtDamage;
+
+    @Shadow @Final private static EntityDataAccessor<Byte> ID_LOYALTY;
 
     protected ThrownTridentMixin(EntityType<? extends AbstractArrow> entityType, Level level) {
         super(entityType, level);
@@ -266,4 +269,24 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
             PacketDistributor.sendToServer(new RedirectTridentC2SPacket(this.getId(), Vec3.ZERO, 1));
         }
     }
+    //    @Redirect(method = "tick", at = @At(value = "INVOKE", target =
+    //    "Lnet/minecraft/world/entity/projectile/ThrownTrident;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
+    //    private void randomEnchant$setDeltaMovement(ThrownTrident thrownTrident, Vec3 velocity) {
+    //        int i = this.entityData.get(ID_LOYALTY);
+    //        Entity entity = thrownTrident.getOwner();
+    //        Vec3 vec3 = null;
+    //        if (entity != null) {
+    //            vec3 = entity.getEyePosition().subtract(this.position());
+    //        }
+    //        if (ModEnchantHelper.getEnchantmentLevel(thrownTrident.getWeaponItem(), ModEnchantments.NO_RESISTANCE) >
+    //        0) {
+    //            if (vec3 != null) {
+    //                this.getDeltaMovement().scale(1.0).add(vec3.normalize().scale(0.05 * (double)i));
+    //            }
+    //        }else {
+    //            if (vec3 != null) {
+    //                this.getDeltaMovement().scale(0.95).add(vec3.normalize().scale(0.05 * (double)i));
+    //            }
+    //        }
+    //    }
 }

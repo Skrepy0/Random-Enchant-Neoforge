@@ -27,5 +27,8 @@ public abstract class TridentItemMixin {
                                             1.0F);
             throwntrident.setNoGravity(true);
         }
+        if (ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.NO_GRAVITY) > 0) {
+            throwntrident.setNoGravity(true);
+        }
     }
 }

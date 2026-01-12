@@ -19,6 +19,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> FLY = of("fly");
     public static final ResourceKey<Enchantment> NO_GRAVITY = of("no_gravity");
     public static final ResourceKey<Enchantment> NO_RESISTANCE = of("no_resistance");
+    public static final ResourceKey<Enchantment> NO_CURSE = of("no_curse");
     public static void bootstrap(BootstrapContext<Enchantment> registry) {
         HolderGetter<Enchantment> registryEntryLookup2 = registry.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> registryEntryLookup3 = registry.lookup(Registries.ITEM);
@@ -49,6 +50,11 @@ public class ModEnchantments {
                  Enchantment.enchantment(
                          Enchantment.definition(registryEntryLookup3.getOrThrow(ModItemTags.NO_RESISTANCE_AVAILABLE), 3,
                                                 1, Enchantment.constantCost(10), Enchantment.constantCost(20), 8)));
+
+        register(registry, NO_CURSE,
+                 Enchantment.enchantment(Enchantment.definition(
+                         registryEntryLookup3.getOrThrow(ModItemTags.NO_CURSE_AVAILABLE), 1, 1,
+                         Enchantment.constantCost(30), Enchantment.constantCost(50), 15, EquipmentSlotGroup.ANY)));
     }
 
     public static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key,

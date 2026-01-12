@@ -37,6 +37,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.fly", "§dFly§r");
         add("enchantment.random_enchant.no_gravity", "无重力");
         add("enchantment.random_enchant.no_resistance", "无阻力");
+        add("enchantment.random_enchant.no_curse", "§a无诅咒§r");
 
         add("message.random_enchant.enchant_added", "§6已附魔：§r");
         add("message.random_enchant.item.enchant_brush.selected_1", "§a已设置起始点，请点击第二个方块以确定区域。");

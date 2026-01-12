@@ -45,6 +45,7 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("enchantment.random_enchant.fly", "§dFly§r");
         add("enchantment.random_enchant.no_gravity", "No Gravity");
         add("enchantment.random_enchant.no_resistance", "No Resistance");
+        add("enchantment.random_enchant.no_curse", "§aNo Curse§r");
 
         add("message.random_enchant.enchant_added", "§6Enchanted:§r");
         add("message.random_enchant.item.enchant_brush.selected_1",

@@ -20,10 +20,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ProjectileWeaponItemMixin {
     @Inject(method = "shoot",
             at = @At(value = "INVOKE_ASSIGN",
-                     target = "Lnet/minecraft/world/item/ProjectileWeaponItem;createProjectile(Lnet/minecraft/world/" +
-                              "level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/" +
-                              "ItemStack;Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/world/entity/" +
-                              "projectile/Projectile;",
+                     target = "Lnet/minecraft/world/item/ProjectileWeaponItem;createProjectile(Lnet/minecraft/world/"
+                              + "level/Level;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/item/"
+                              + "ItemStack;Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/world/entity/"
+                              + "projectile/Projectile;",
                      shift = At.Shift.AFTER))
     private void
     afterCreateProjectile(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon,
