@@ -26,7 +26,9 @@ public class ModItemGroup {
     private static final List<ResourceKey<Enchantment>> ENCHANTMENT_BOOK_LIST =
             List.of(Enchantments.INFINITY, Enchantments.PROTECTION, Enchantments.BLAST_PROTECTION, Enchantments.POWER,
                     Enchantments.CHANNELING, Enchantments.UNBREAKING, ModEnchantments.FURY_OF_FLY,
-                    ModEnchantments.BAD_LUCK_OF_THE_SEA, ModEnchantments.REDIRECT_PROJECTILE, ModEnchantments.FLY);
+                    ModEnchantments.BAD_LUCK_OF_THE_SEA, ModEnchantments.REDIRECT_PROJECTILE, ModEnchantments.FLY,
+                    ModEnchantments.NO_GRAVITY, ModEnchantments.NO_RESISTANCE, Enchantments.QUICK_CHARGE,
+                    Enchantments.FEATHER_FALLING);
 
     public static final Supplier<CreativeModeTab> RANDOM_ENCHANT = CREATIVE_MODE_TAB.register(
             "random_enchant_tab",

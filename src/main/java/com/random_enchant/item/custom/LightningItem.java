@@ -1,5 +1,6 @@
 package com.random_enchant.item.custom;
 
+import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.entity.custom.LightningProjectileEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
 public class LightningItem extends SwordItem {
@@ -29,7 +31,9 @@ public class LightningItem extends SwordItem {
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
-        //        itemInHand.consume(1, player);
+        if (!player.isCreative() && ModEnchantHelper.getEnchantmentLevel(itemInHand, Enchantments.INFINITY) <= 0) {
+            itemInHand.consume(1, player);
+        }
         return super.use(level, player, usedHand);
     }
 }

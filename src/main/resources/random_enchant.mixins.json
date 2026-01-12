@@ -46,6 +46,8 @@
     "item_mixin.enchantment_item_mixin.custom.elytra.PlayerEntityMixin",
     "item_mixin.enchantment_item_mixin.custom.luoyangshovel.FallingBlockEntityMixin",
     "item_mixin.enchantment_item_mixin.custom.luoyangshovel.ShovelItemMixin",
+    "item_mixin.enchantment_item_mixin.custom.projectile_weapon.AbstractArrowMixin",
+    "item_mixin.enchantment_item_mixin.custom.projectile_weapon.ProjectileWeaponItemMixin",
     "item_mixin.enchantment_item_mixin.custom.trident.multishot_trident.TridentItemMixin",
     "item_mixin.enchantment_item_mixin.custom.trident.redirect_trident.ThrownTridentMixin",
     "item_mixin.enchantment_item_mixin.custom.trident.redirect_trident.TridentItemMixin",

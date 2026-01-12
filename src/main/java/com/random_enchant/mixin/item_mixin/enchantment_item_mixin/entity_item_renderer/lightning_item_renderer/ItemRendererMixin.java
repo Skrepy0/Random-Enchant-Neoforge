@@ -30,6 +30,7 @@ public class ItemRendererMixin {
                     .equals(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "lightning"))) {
             ci.cancel();
             LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, mc.level);
+            lightningBolt.setTicksFrozen(20);
             poseStack.pushPose();
 
             poseStack.scale(0.5f, 0.5f, 0.5f);

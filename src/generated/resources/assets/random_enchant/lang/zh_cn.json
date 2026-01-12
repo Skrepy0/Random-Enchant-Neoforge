@@ -6,6 +6,8 @@
   "enchantment.random_enchant.bad_luck_of_the_sea": "§c海之嫌弃§r",
   "enchantment.random_enchant.fly": "§dFly§r",
   "enchantment.random_enchant.fury_of_fly": "§aFly之怒",
+  "enchantment.random_enchant.no_gravity": "无重力",
+  "enchantment.random_enchant.no_resistance": "无阻力",
   "enchantment.random_enchant.redirect_projectile": "§6重定向§r",
   "item.random_enchant.enchant_brush": "附魔刷",
   "item.random_enchant.lightning": "雷电",

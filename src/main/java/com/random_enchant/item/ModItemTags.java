@@ -14,6 +14,8 @@ public class ModItemTags {
     public static final TagKey<Item> FROST_WALKER = of("frost_walker_available");
     public static final TagKey<Item> REDIRECT_PROJECTILE_AVAILABLE = of("redirect_projectile_available");
     public static final TagKey<Item> FLY_AVAILABLE = of("fly_available");
+    public static final TagKey<Item> NO_GRAVITY_AVAILABLE = of("no_gravity_available");
+    public static final TagKey<Item> NO_RESISTANCE_AVAILABLE = of("no_resistance_available");
 
     public static TagKey<Item> of(String id) {
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, id));

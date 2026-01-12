@@ -35,5 +35,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.SWORD_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ItemTags.WEAPON_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ModItemTags.FROST_WALKER).add(Items.ARROW).addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
+        tag(ModItemTags.NO_GRAVITY_AVAILABLE).add(Items.BOW).add(Items.CROSSBOW).add(Items.TRIDENT);
+        tag(ModItemTags.NO_RESISTANCE_AVAILABLE).add(Items.BOW).add(Items.CROSSBOW).add(Items.TRIDENT);
     }
 }
