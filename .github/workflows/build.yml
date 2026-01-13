@@ -21,7 +21,7 @@ jobs:
         run: echo "JAVA_TOOL_OPTIONS=-Djdk.tls.client.protocols=TLSv1.2,TLSv1.3" >> $GITHUB_ENV
 
       - name: 使用 Gradle 构建
-        run: ./gradlew build
+        run: ./gradlew build -Djdk.tls.client.protocols=TLSv1.2,TLSv1.3
 
       - name: 上传 Artifacts
         uses: actions/upload-artifact@v4
