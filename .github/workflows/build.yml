@@ -20,6 +20,9 @@ jobs:
       - name: 配置 Java 安全选项
         run: echo "JAVA_TOOL_OPTIONS=-Djdk.tls.client.protocols=TLSv1.2,TLSv1.3" >> $GITHUB_ENV
 
+      - name: 赋予 Gradle 执行权限
+        run: chmod +x ./gradlew
+
       - name: 使用 Gradle 构建
         run: ./gradlew build -Djdk.tls.client.protocols=TLSv1.2,TLSv1.3
 
