@@ -17,8 +17,9 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - name: 配置 Java 安全选项
-        run: echo "JAVA_TOOL_OPTIONS=-Djdk.tls.client.protocols=TLSv1.2,TLSv1.3" >> $GITHUB_ENV
+      - name: 配置 Java 信任库
+        run: |
+          echo "JAVA_TOOL_OPTIONS=-Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStorePassword=changeit" >> $GITHUB_ENV
 
       - name: 赋予 Gradle 执行权限
         run: chmod +x ./gradlew
