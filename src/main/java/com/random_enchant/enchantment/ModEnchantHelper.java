@@ -10,6 +10,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -85,5 +86,20 @@ public class ModEnchantHelper {
             return "enchantment.unknown";
         }
         return "enchantment." + id.getNamespace() + "." + id.getPath();
+    }
+
+    /**
+     * 获取当前使用物品的实体
+     * 这个方法用于在静态上下文中获取正在使用弓的实体
+     * @return 当前使用物品的实体，如果没有则返回null
+     */
+    public static LivingEntity getCurrentUsingEntity() {
+        // 尝试从客户端获取
+        if (Minecraft.getInstance().player != null) {
+            return Minecraft.getInstance().player;
+        }
+        // 注意：在服务端，这个方法可能无法正常工作
+        // 如果需要在服务端使用，可能需要通过其他方式传递实体引用
+        return null;
     }
 }

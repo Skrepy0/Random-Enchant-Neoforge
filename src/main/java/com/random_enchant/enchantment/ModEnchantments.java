@@ -20,6 +20,9 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> NO_GRAVITY = of("no_gravity");
     public static final ResourceKey<Enchantment> NO_RESISTANCE = of("no_resistance");
     public static final ResourceKey<Enchantment> NO_CURSE = of("no_curse");
+    public static final ResourceKey<Enchantment> STEADY = of("steady");
+    public static final ResourceKey<Enchantment> KINETIC = of("kinetic");
+
     public static void bootstrap(BootstrapContext<Enchantment> registry) {
         HolderGetter<Enchantment> registryEntryLookup2 = registry.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> registryEntryLookup3 = registry.lookup(Registries.ITEM);
@@ -55,6 +58,14 @@ public class ModEnchantments {
                  Enchantment.enchantment(Enchantment.definition(
                          registryEntryLookup3.getOrThrow(ModItemTags.NO_CURSE_AVAILABLE), 1, 1,
                          Enchantment.constantCost(30), Enchantment.constantCost(50), 15, EquipmentSlotGroup.ANY)));
+        register(registry, STEADY,
+                 Enchantment.enchantment(Enchantment.definition(
+                         registryEntryLookup3.getOrThrow(ModItemTags.STEADY_AVAILABLE), 5, 1,
+                         Enchantment.constantCost(20), Enchantment.constantCost(25), 8, EquipmentSlotGroup.ANY)));
+        register(registry, KINETIC,
+                Enchantment.enchantment(Enchantment.definition(
+                        registryEntryLookup3.getOrThrow(ModItemTags.KINETIC_AVAILABLE), 3, 5,
+                        Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)));
     }
 
     public static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key,

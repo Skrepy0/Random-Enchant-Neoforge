@@ -65,5 +65,7 @@ public class ModMessage {
         registrar.playBidirectional(AddEnchantedBlockParticleS2CPacket.TYPE,
                                     AddEnchantedBlockParticleS2CPacket.STREAM_CODEC,
                                     new DirectionalPayloadHandler<>(AddEnchantedBlockParticleS2CPacket::handle, null));
+        registrar.playBidirectional(UpdateProjectileVelocityPacket.TYPE, UpdateProjectileVelocityPacket.STREAM_CODEC,
+                                    new DirectionalPayloadHandler<>(UpdateProjectileVelocityPacket::handle, null));
     }
 }

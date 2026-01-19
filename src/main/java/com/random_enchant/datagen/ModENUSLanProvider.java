@@ -1,11 +1,11 @@
 package com.random_enchant.datagen;
 
-import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
-
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+
+import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
 
 public class ModENUSLanProvider extends LanguageProvider {
     public ModENUSLanProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "en_us"); }
@@ -46,6 +46,8 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("enchantment.random_enchant.no_gravity", "No Gravity");
         add("enchantment.random_enchant.no_resistance", "No Resistance");
         add("enchantment.random_enchant.no_curse", "§aNo Curse§r");
+        add("enchantment.random_enchant.steady", "§bSteady§r");
+        add("enchantment.random_enchant.kinetic", "§bKinetic§r");
 
         add("message.random_enchant.enchant_added", "§6Enchanted:§r");
         add("message.random_enchant.item.enchant_brush.selected_1",
