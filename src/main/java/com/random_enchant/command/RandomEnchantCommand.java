@@ -5,12 +5,13 @@ import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.random_enchant.Config;
 import com.random_enchant.RandomEnchant;
-import java.util.ArrayList;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+
+import java.util.ArrayList;
 
 public class RandomEnchantCommand {
 
@@ -192,6 +193,66 @@ public class RandomEnchantCommand {
                                                                           return 1;
                                                                       }
                                                                       Config.setInfinityUndyingTotem(enabled);
+                                                                      Component message =
+                                                                              Component
+                                                                                      .literal(
+                                                                                              "§a["
+                                                                                              +
+                                                                                              "infinityUndyingTotem]§r")
+                                                                                      .append(Component.translatable(
+                                                                                              "command.random_"
+                                                                                              +
+                                                                                              "enchant.config.changed"))
+                                                                                      .append(enabled ? "§a[true]§r"
+                                                                                                      : "§c[false]§r");
+                                                                      RandomEnchant.LOGGER.info(message.getString());
+                                                                      context.getSource().sendSuccess(
+                                                                              () -> message, false);
+                                                                      return 1;
+                                                                  })))
+                                      .then(Commands.literal("explodeDestroyBlock")
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
+                                                                  .executes(context -> {
+                                                                      boolean preStatus =
+                                                                              Config.getExplodeDestroyBlock();
+                                                                      boolean enabled = BoolArgumentType.getBool(
+                                                                              context, "enabled");
+                                                                      if (preStatus == enabled) {
+                                                                          Component message =
+                                                                                  Component
+                                                                                          .literal("§a[" +
+                                                                                                   "explodeDestroyBlo" +
+                                                                                                   "ck]§r")
+                                                                                          .append(Component
+                                                                                                          .translatable(
+                                                                                                                  "co"
+                                                                                                                  + "mm"
+                                                                                                                  + "an"
+                                                                                                                  + "d."
+                                                                                                                  + "ra"
+                                                                                                                  + "nd"
+                                                                                                                  + "om"
+                                                                                                                  + "_e"
+                                                                                                                  + "nc"
+                                                                                                                  + "ha"
+                                                                                                                  + "nt"
+                                                                                                                  + ".c"
+                                                                                                                  + "on"
+                                                                                                                  + "fi"
+                                                                                                                  + "g."
+                                                                                                                  + "un"
+                                                                                                                  + "ch"
+                                                                                                                  + "an"
+                                                                                                                  + "ge"
+                                                                                                                  +
+                                                                                                                  "d"));
+                                                                          RandomEnchant.LOGGER.info(
+                                                                                  message.getString());
+                                                                          context.getSource().sendSuccess(
+                                                                                  () -> message, false);
+                                                                          return 1;
+                                                                      }
+                                                                      Config.setExplodeDestroyBlock(enabled);
                                                                       Component message =
                                                                               Component
                                                                                       .literal(

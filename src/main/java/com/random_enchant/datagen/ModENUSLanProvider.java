@@ -1,11 +1,11 @@
 package com.random_enchant.datagen;
 
+import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
+
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-
-import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
 
 public class ModENUSLanProvider extends LanguageProvider {
     public ModENUSLanProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "en_us"); }
@@ -21,6 +21,7 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("random_enchant.configuration.infinityUndyingTotem", "Infinity Undying Totem");
         add("random_enchant.configuration.infinityBlock", "Infinity Block");
         add("random_enchant.configuration.infinityTnt", "Infinity TNT");
+        add("random_enchant.configuration.explodeDestroyBlock", "Explode Destroy Block");
         add("random_enchant.configuration.isEnchantedBlockGetatable", "§b[Silk Touch]§r Obtained enchanted block");
         add("random_enchant.configuration.InfinityPotion", "Infinity Potion");
         add("random_enchant.configuration.InfinityFood", "Infinity Food");
@@ -48,6 +49,7 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("enchantment.random_enchant.no_curse", "§aNo Curse§r");
         add("enchantment.random_enchant.steady", "§bSteady§r");
         add("enchantment.random_enchant.kinetic", "§bKinetic§r");
+        add("enchantment.random_enchant.explode", "§6Explode§r");
 
         add("message.random_enchant.enchant_added", "§6Enchanted:§r");
         add("message.random_enchant.item.enchant_brush.selected_1",

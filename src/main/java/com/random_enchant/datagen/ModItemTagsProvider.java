@@ -26,6 +26,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.FURY_OF_FLY_AVAILABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ModItemTags.REDIRECT_PROJECTILE_AVAILABLE).add(Items.TRIDENT);
         tag(ItemTags.SWORDS).add(ModItems.PEARL_SPEAR.get());
+        tag(ModItemTags.EXPLODE_AVAILABLE).addTag(ItemTags.CROSSBOW_ENCHANTABLE).addTag(ItemTags.BOW_ENCHANTABLE);
         tag(ItemTags.DURABILITY_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ModItemTags.WIND_BURST_AVAILABLE).addTag(ItemTags.MACE_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ModItemTags.QUICK_CHARGE_AVAILABLE).addTag(ItemTags.CROSSBOW_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());

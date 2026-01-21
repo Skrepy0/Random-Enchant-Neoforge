@@ -22,9 +22,11 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
 
 public class UndyingTotem {
-    private static void explode(int power, Level level, double x, double y, double z, Entity entity) {
+    private static void explode(float power, Level level, double x, double y, double z, Entity entity) {
         float f = 4.0F + (float) (power * 0.5);
-        level.explode(entity, x, y, z, f, Level.ExplosionInteraction.TNT);
+        Level.ExplosionInteraction interaction =
+                Config.getExplodeDestroyBlock() ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE;
+        level.explode(entity, x, y, z, f, interaction);
     }
 
     @SubscribeEvent

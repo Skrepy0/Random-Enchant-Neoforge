@@ -1,5 +1,7 @@
 package com.random_enchant.enchantment;
 
+import static net.minecraft.world.item.enchantment.EnchantmentHelper.runIterationOnItem;
+
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import java.util.Optional;
 import net.minecraft.client.Minecraft;
@@ -15,6 +17,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.mutable.MutableFloat;
 
 public class ModEnchantHelper {
     public static int getEnchantmentLevel(ItemStack stack, Level world, ResourceKey<Enchantment> enchantmentKey) {
@@ -101,5 +104,13 @@ public class ModEnchantHelper {
         // 注意：在服务端，这个方法可能无法正常工作
         // 如果需要在服务端使用，可能需要通过其他方式传递实体引用
         return null;
+    }
+    public static float modifyBowChargingTime(ItemStack stack, LivingEntity entity, float bowChargingTime) {
+        MutableFloat mutablefloat = new MutableFloat(bowChargingTime);
+        runIterationOnItem(stack,
+                           (p_352869_, p_352870_)
+                                   -> ((Enchantment) p_352869_.value())
+                                              .modifyCrossbowChargeTime(entity.getRandom(), p_352870_, mutablefloat));
+        return Math.max(0.0F, mutablefloat.floatValue());
     }
 }

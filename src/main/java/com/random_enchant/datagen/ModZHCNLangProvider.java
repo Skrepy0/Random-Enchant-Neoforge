@@ -17,6 +17,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         //        add("random_enchant.configuration.isAlwaysEnchantable.comment","§l所有物品§r可以通过§a铁砧§r附魔");
         add("random_enchant.configuration.infinityUndyingTotem", "§a[无限]§r附魔对不死图腾的兼容");
         add("random_enchant.configuration.infinityBlock", "§a[无限]§r附魔对可放置方块的兼容");
+        add("random_enchant.configuration.explodeDestroyBlock", "本模组中的爆炸效果可破坏方块");
         add("random_enchant.configuration.infinityTnt", "§a[无限]§r附魔对TNT的兼容");
         add("random_enchant.configuration.infinityPotion", "§a[无限]§r附魔对药水的兼容");
         add("random_enchant.configuration.infinityFood", "§a[无限]§r附魔对食物的兼容");
@@ -40,6 +41,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.no_curse", "§a无诅咒§r");
         add("enchantment.random_enchant.steady", "§b稳定§r");
         add("enchantment.random_enchant.kinetic", "§b动能§r");
+        add("enchantment.random_enchant.explode", "§6爆炸§r");
 
         add("message.random_enchant.enchant_added", "§6已附魔：§r");
         add("message.random_enchant.item.enchant_brush.selected_1", "§a已设置起始点，请点击第二个方块以确定区域。");

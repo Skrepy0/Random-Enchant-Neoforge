@@ -9,6 +9,7 @@ public class Config {
             BUILDER.comment("攻击生物时，为玩家主手上的物品§d随机附魔").define("randomEnchant", false);
     public static ModConfigSpec.BooleanValue isAlwaysEnchantable =
             BUILDER.comment("§l所有物品§r可以通过§a铁砧§r附魔").define("isAlwaysEnchantable", false);
+    public static ModConfigSpec.BooleanValue explodeDestroyBlock = BUILDER.define("explodeDestroyBlock", true);
     public static ModConfigSpec.BooleanValue infinityUndyingTotem = BUILDER.define("infinityUndyingTotem", false);
     public static ModConfigSpec.BooleanValue infinityBlock = BUILDER.define("infinityBlock", false);
     public static ModConfigSpec.BooleanValue infinityTnt = BUILDER.define("infinityTnt", true);
@@ -42,6 +43,7 @@ public class Config {
     public static int getRedirectTridentSetPointDistance() { return redirectTridentSetPointDistance.get(); }
 
     public static double getFlyEnchantmentLiftHeightPerTick() { return flyEnchantmentLiftHeightPerTick.get(); }
+    public static boolean getExplodeDestroyBlock() { return explodeDestroyBlock.get(); }
 
     public static void setRandomEnchant(boolean value) { randomEnchant.set(value); }
 
@@ -60,5 +62,6 @@ public class Config {
     public static void setIsEnchantedBlockGetatable(boolean value) { isEnchantedBlockGetatable.set(value); }
     public static void setInfinityFood(boolean value) { infinityFood.set(value); }
     public static void setInfinityThrowableItem(boolean value) { infinityThrowableItem.set(value); }
+    public static void setExplodeDestroyBlock(boolean value) { explodeDestroyBlock.set(value); }
     static final ModConfigSpec SPEC = BUILDER.build();
 }
