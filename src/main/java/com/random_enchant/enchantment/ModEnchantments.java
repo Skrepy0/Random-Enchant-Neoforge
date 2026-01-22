@@ -71,7 +71,7 @@ public class ModEnchantments {
         register(registry, EXPLODE,
                  Enchantment.enchantment(Enchantment.definition(
                          registryEntryLookup3.getOrThrow(ModItemTags.EXPLODE_AVAILABLE), 3, 2,
-                         Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)));
+                         Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)).exclusiveWith(registryEntryLookup2.getOrThrow(ModEnchantmentTags.EXPLODE_EXCLUSIVE)));
         register(registry, THROWABLE,
                  Enchantment.enchantment(Enchantment.definition(
                          registryEntryLookup3.getOrThrow(ModItemTags.THROWABLE_AVAILABLE), 3, 1,

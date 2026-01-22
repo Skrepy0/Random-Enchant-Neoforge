@@ -1,14 +1,13 @@
 {
   "anvil_cost": 8,
   "description": {
-    "translate": "enchantment.random_enchant.explode"
+    "translate": "enchantment.random_enchant.throwable"
   },
-  "exclusive_set": "#random_enchant:explode_exclusive",
   "max_cost": {
     "base": 30,
     "per_level_above_first": 0
   },
-  "max_level": 2,
+  "max_level": 1,
   "min_cost": {
     "base": 20,
     "per_level_above_first": 0
@@ -16,6 +15,6 @@
   "slots": [
     "any"
   ],
-  "supported_items": "#random_enchant:explode_available",
+  "supported_items": "#random_enchant:throwable_available",
   "weight": 3
 }

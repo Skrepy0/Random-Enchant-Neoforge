@@ -23,7 +23,7 @@ public class ArrowEvent {
             int explodeLevel = ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.EXPLODE);
             if (explodeLevel > 0) {
                 if (target != null) {
-                    explode(explodeLevel, arrow.level(), target.getX(), target.getY(), target.getZ(), arrow.getOwner());
+                    explode(explodeLevel, arrow.level(), arrow.getX(), arrow.getY(), arrow.getZ(), arrow.getOwner());
                 } else
                     explode(explodeLevel * 0.2f, arrow.level(), arrow.getX(), arrow.getY(), arrow.getZ(),
                             arrow.getOwner());

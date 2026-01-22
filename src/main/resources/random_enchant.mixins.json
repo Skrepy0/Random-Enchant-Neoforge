@@ -43,6 +43,7 @@
     "item_mixin.enchantment_item_mixin.ArmorEnchantmentMixin",
     "item_mixin.enchantment_item_mixin.BadLuckOfSeaItemEntityMixin",
     "item_mixin.enchantment_item_mixin.ItemEntityMixin",
+    "item_mixin.enchantment_item_mixin.custom.channeling.MaceItemMixin",
     "item_mixin.enchantment_item_mixin.custom.elytra.LivingEntityMixin",
     "item_mixin.enchantment_item_mixin.custom.elytra.PlayerEntityMixin",
     "item_mixin.enchantment_item_mixin.custom.luoyangshovel.FallingBlockEntityMixin",

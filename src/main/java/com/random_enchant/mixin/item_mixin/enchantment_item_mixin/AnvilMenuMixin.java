@@ -10,7 +10,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-
 @Mixin(AnvilMenu.class)
 public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     public AnvilMenuMixin(int containerId, net.minecraft.world.entity.player.Inventory playerInventory,
@@ -26,6 +25,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     redirectAreCompatible(net.minecraft.core.Holder<Enchantment> first, net.minecraft.core.Holder<Enchantment> second) {
         // 获取左边物品
         ItemStack leftItem = this.inputSlots.getItem(0);
+
 
         if (!leftItem.isEmpty() &&
             (leftItem.getItem() == ModItems.ENCHANT_BRUSH.get() || Config.isAlwaysEnchantable())) {
