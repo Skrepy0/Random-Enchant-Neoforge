@@ -35,8 +35,7 @@ public class KeyInputHandler {
     @SubscribeEvent
     public static void registerKeyInputs(ClientTickEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.screen != null)
-            return;
+        if (mc.player == null || mc.screen != null) return;
 
         // 获取当前按键状态
         boolean isKeyPressed = TOGGLE_BRUSH_STATUS.isDown();
@@ -44,8 +43,7 @@ public class KeyInputHandler {
         // 检查是否是从未按下到按下（按键按下瞬间）
         if (isKeyPressed && !wasKeyPressed) {
             Player player = mc.player;
-            if (!player.isCreative())
-                return;
+            if (!player.isCreative()) return;
 
             ItemStack mainHand = player.getMainHandItem();
             ItemStack offHand = player.getOffhandItem();

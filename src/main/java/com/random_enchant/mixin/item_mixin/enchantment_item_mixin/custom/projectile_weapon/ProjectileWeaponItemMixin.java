@@ -72,8 +72,8 @@ public class ProjectileWeaponItemMixin {
         return inaccuracy;
     }
     @Inject(method = "shoot", at = @At(value = "INVOKE",
-                                       target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/" +
-                                                "minecraft/world/entity/Entity;)Z",
+                                       target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/"
+                                                + "minecraft/world/entity/Entity;)Z",
                                        shift = At.Shift.AFTER))
     private void
     modifyProjectileVelocity(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon,

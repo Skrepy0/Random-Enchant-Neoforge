@@ -6,6 +6,7 @@ import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -16,13 +17,28 @@ public class StepOnBlockEvent {
     @SubscribeEvent
     public static void onStepOnBlockEvent(EntityTickEvent.Pre event) {
         Entity entity = event.getEntity();
+        Level level = entity.level();
         BlockPos pos = entity.getOnPos();
-        int level = BlockEnchantmentStorage.getLevel(ModEnchantments.EXPLODE, pos);
-        if (level > 0) {
-            explode(level * 0.3f, entity.level(), entity.getX(), entity.getY(), entity.getZ(), null);
+        if (level.isClientSide) return;
+        if (entity instanceof Player player) {
+            if (player.isCreative()) return;
+            if (player.isSpectator()) return;
+        }
+        int fireAspectLevel = BlockEnchantmentStorage.getLevel(Enchantments.FIRE_ASPECT, pos);
+        if (fireAspectLevel > 0) {
+            entity.setRemainingFireTicks(fireAspectLevel * 10);
+        }
+        int fireProtectionLevel = BlockEnchantmentStorage.getLevel(Enchantments.FIRE_PROTECTION, pos);
+        if (fireProtectionLevel > 0) {
+            entity.clearFire();
+        }
+
+        int explodeLevel = BlockEnchantmentStorage.getLevel(ModEnchantments.EXPLODE, pos);
+        if (explodeLevel > 0) {
+            explode(explodeLevel * 0.3f, level, entity.getX(), entity.getY(), entity.getZ(), null);
             if (!Config.getExplodeDestroyBlock() &&
                 !(BlockEnchantmentStorage.getLevel(Enchantments.INFINITY, pos) > 0)) {
-                entity.level().destroyBlock(pos, false);
+                level.destroyBlock(pos, false);
             }
         }
     }

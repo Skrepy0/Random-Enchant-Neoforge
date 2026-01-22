@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class BlockEntityReflectionHelper {
-
     // 带防护机制的调用，防止递归
     private static final ThreadLocal<Integer> RECURSION_DEPTH = ThreadLocal.withInitial(() -> 0);
     private static Method SAVE_ADDITIONAL_METHOD = null;
@@ -31,8 +30,7 @@ public class BlockEntityReflectionHelper {
     // 使用反射调用saveAdditional
     public static void invokeSaveAdditional(BlockEntity blockEntity, CompoundTag tag,
                                             HolderLookup.Provider registries) {
-        if (blockEntity == null)
-            return;
+        if (blockEntity == null) return;
 
         try {
             Method method = getSaveAdditionalMethod();

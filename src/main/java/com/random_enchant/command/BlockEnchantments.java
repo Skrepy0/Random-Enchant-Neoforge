@@ -2,6 +2,7 @@ package com.random_enchant.command;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -18,7 +19,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 public class BlockEnchantments {
-
     /**
      * 注册方块附魔命令
      */
@@ -69,12 +69,10 @@ public class BlockEnchantments {
      */
     private static int getBlockEnchantmentAtPos(CommandContext<CommandSourceStack> context, int x, int y, int z) {
         BlockPos pos = new BlockPos(x, y, z);
-
-        // 检查爆炸附魔
-
         ListTag listTag = BlockEnchantmentStorage.getEnchantmentsAtPosition(pos);
-        if (listTag != null) {
-            context.getSource().sendSuccess(() -> Component.literal("§6附魔标签：§r"), false);
+        if (!listTag.isEmpty()) {
+            context.getSource().sendSuccess(
+                    () -> Component.translatable("command.random_enchant.block_enchant.enchant_tag"), false);
             for (int i = 0; i < listTag.size(); i++) {
                 Tag tag = listTag.get(i);
                 Component message = Component.literal("§a" + tag.toString());
@@ -82,7 +80,7 @@ public class BlockEnchantments {
             }
             return 1;
         }
-        Component message = Component.literal("方块位置 " + pos + " 没有附魔");
+        Component message = Component.translatable("command.random_enchant.block_enchant.has_no_enchantment");
         context.getSource().sendSuccess(() -> message, false);
         return 0;
     }
@@ -108,12 +106,16 @@ public class BlockEnchantments {
         // 储存信息
         BlockEnchantmentStorage.addBlockEnchantment(pos, newEnchantments);
 
-        Component message =
-                Component.literal("已为方块位置 " + pos + " 添加附魔 " + enchantmentId + "，等级: " + level);
+        Component message = Component.translatable("command.random_enchant.block_enchant.add_1")
+                                    .append(pos.toString())
+                                    .append(Component.translatable("command.random_enchant.block_enchant.add_2"))
+                                    .append("§d" + enchantmentId.toString())
+                                    .append(" §alvl: §g" + ModEnchantHelper.toRoman(level));
         context.getSource().sendSuccess(() -> message, false);
 
         return 1;
     }
+
     private static ListTag mergeNbtLists(ListTag list1, ListTag list2) {
         ListTag mergedList = new ListTag();
         mergedList.addAll(list1);
@@ -131,7 +133,7 @@ public class BlockEnchantments {
         boolean hasEnchant = !BlockEnchantmentStorage.getEnchantmentsAtPosition(pos).isEmpty();
 
         if (!hasEnchant) {
-            Component message = Component.literal("方块位置 " + pos + " 没有附魔");
+            Component message = Component.translatable("command.random_enchant.block_enchant.has_no_enchantment");
             context.getSource().sendSuccess(() -> message, false);
             return 0;
         }
@@ -139,7 +141,7 @@ public class BlockEnchantments {
         // 移除附魔
         BlockEnchantmentStorage.removeBlockEnchantment(pos);
 
-        Component message = Component.literal("已移除方块位置 " + pos + " 的所有附魔");
+        Component message = Component.translatable("command.random_enchant.block_enchant.remove");
         context.getSource().sendSuccess(() -> message, false);
 
         return 1;

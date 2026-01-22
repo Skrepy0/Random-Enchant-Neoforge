@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 
 @Mod(RandomEnchant.MOD_ID)
 public class RandomEnchant {
-
     public static final String MOD_ID = "random_enchant";
 
     public static final Logger LOGGER = LogUtils.getLogger();

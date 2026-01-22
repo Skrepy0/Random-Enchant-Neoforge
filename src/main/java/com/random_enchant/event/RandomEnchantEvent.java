@@ -21,11 +21,9 @@ import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 
 @EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class RandomEnchantEvent {
-
     @SubscribeEvent
     public static void onPlayerAttack(AttackEntityEvent event) {
-        if (event.getEntity().level().isClientSide)
-            return;
+        if (event.getEntity().level().isClientSide) return;
 
         if (!Config.randomEnchant()) {
             return;
@@ -33,8 +31,7 @@ public class RandomEnchantEvent {
 
         Player player = event.getEntity();
         Entity target = event.getTarget();
-        if (!(target instanceof LivingEntity))
-            return;
+        if (!(target instanceof LivingEntity)) return;
         ItemStack mainHandItem = player.getMainHandItem();
         if (mainHandItem.isEmpty()) {
             return;

@@ -11,7 +11,6 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 @EventBusSubscriber(modid = RandomEnchant.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientSetUp {
-
     @SubscribeEvent
     public static void rendererRegister(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.CUSTOM_WIND_CHARGE.get(), CustomWindChargeRenderer::new);

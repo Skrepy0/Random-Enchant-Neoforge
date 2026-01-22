@@ -27,7 +27,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(FallingBlockEntity.class)
 public abstract class FallingBlockEntityMixin extends Entity {
-
     // 配置常量
     @Unique private static final int SEARCH_RADIUS = 20;
     @Unique private static final double UPWARD_VELOCITY = 0.3;
@@ -138,18 +137,15 @@ public abstract class FallingBlockEntityMixin extends Entity {
         Level level = this.level();
 
         // 只在服务器端处理
-        if (level.isClientSide)
-            return;
+        if (level.isClientSide) return;
 
         // 只在特殊条件下处理（fallDamageMax == -1 且在水里）
-        if (this.fallDamageMax != -1)
-            return;
+        if (this.fallDamageMax != -1) return;
 
         BlockPos blockPos = this.blockPosition();
         FluidState fluidState = level.getFluidState(blockPos);
 
-        if (!fluidState.is(FluidTags.WATER))
-            return;
+        if (!fluidState.is(FluidTags.WATER)) return;
 
         // 查找最近的非水方块
         BlockPos closestNonWaterPos = randomEnchant$findClosestNonWaterBlock(blockPos);
@@ -180,8 +176,7 @@ public abstract class FallingBlockEntityMixin extends Entity {
     public void
     onBlockLand(CallbackInfo info, @Local BlockPos blockPos) {
         // 只在服务器端处理
-        if (this.level().isClientSide)
-            return;
+        if (this.level().isClientSide) return;
 
         // 获取FallingBlockEntity的实体数据，尝试从中获取原始附魔
         CompoundTag entityData = this.getPersistentData();
@@ -231,8 +226,7 @@ public abstract class FallingBlockEntityMixin extends Entity {
     private void
     onInit(EntityType<?> entityType, Level level, CallbackInfo ci) {
         // 只在服务器端处理
-        if (level.isClientSide)
-            return;
+        if (level.isClientSide) return;
 
         // 注意：这个构造函数没有位置信息，所以无法直接获取原始位置的附魔
         // 附魔信息应该在创建FallingBlockEntity后通过其他方式设置

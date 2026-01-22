@@ -42,6 +42,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.steady", "§b稳定§r");
         add("enchantment.random_enchant.kinetic", "§b动能§r");
         add("enchantment.random_enchant.explode", "§6爆炸§r");
+        add("enchantment.random_enchant.throwable", "可投掷");
 
         add("message.random_enchant.enchant_added", "§6已附魔：§r");
         add("message.random_enchant.item.enchant_brush.selected_1", "§a已设置起始点，请点击第二个方块以确定区域。");
@@ -65,5 +66,10 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("command.random_enchant.randomEnchant.disable", "§6已禁用随机附魔");
         add("command.random_enchant.config.changed", "已被更改为");
         add("command.random_enchant.config.unchanged", "的状态§c未发生有效更改§r");
+        add("command.random_enchant.block_enchant.enchant_tag", "§6附魔标签：§r");
+        add("command.random_enchant.block_enchant.has_no_enchantment", "§c该方块没有附魔§r");
+        add("command.random_enchant.block_enchant.add_1", "§b已为方块位置§a");
+        add("command.random_enchant.block_enchant.add_2", "§b 添加附魔 §a");
+        add("command.random_enchant.block_enchant.remove", "§g已经移除此方块的所有附魔§a");
     }
 }

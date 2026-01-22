@@ -89,7 +89,6 @@ public abstract class WindChargeItemMixin {
         ItemStack itemstack = p_326042_.getItemInHand(p_326470_);
         if (itemstack.is(Items.WIND_CHARGE) // 风爆，合成大风弹
             && ModEnchantHelper.getEnchantmentLevel(p_326042_.getItemInHand(p_326470_), Enchantments.WIND_BURST) > 0) {
-
             int i = ModEnchantHelper.getEnchantmentLevel(p_326042_.getItemInHand(p_326470_), Enchantments.MULTISHOT);
             if (p_326042_.getItemInHand(p_326470_).is(Items.WIND_CHARGE) && i > 0) { // 是风弹并且有多重射击
                 for (int k = 0; k < i + 3; k++) { // 抛出i+3个风弹
@@ -126,7 +125,6 @@ public abstract class WindChargeItemMixin {
         ItemStack itemstack = p_326042_.getItemInHand(p_326470_);
         if (itemstack.is(Items.WIND_CHARGE) // 忠诚附魔，原地爆炸
             && ModEnchantHelper.getEnchantmentLevel(p_326042_.getItemInHand(p_326470_), Enchantments.LOYALTY) > 0) {
-
             Vec3 lookVec = Vec3.directionFromRotation(p_326042_.getRotationVector());
             double distance = 2d;
             // 将朝向向量乘以所需的距离，以确定爆炸生成的位置
@@ -173,7 +171,6 @@ public abstract class WindChargeItemMixin {
         if (itemstack.is(Items.WIND_CHARGE) // 绑定诅咒
             &&
             ModEnchantHelper.getEnchantmentLevel(p_326042_.getItemInHand(p_326470_), Enchantments.BINDING_CURSE) > 0) {
-
             int i = ModEnchantHelper.getEnchantmentLevel(p_326042_.getItemInHand(p_326470_), Enchantments.MULTISHOT);
             if (p_326042_.getItemInHand(p_326470_).is(Items.WIND_CHARGE) && i > 0) { // 是风弹并且有多重射击
                 for (int k = 0; k < i + 3; k++) { // 抛出i+3个风弹

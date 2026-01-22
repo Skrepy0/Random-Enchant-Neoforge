@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class BowDashC2SPacket implements CustomPacketPayload {
-
     public static final Type<BowDashC2SPacket> TYPE =
             new Type<BowDashC2SPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "bow_dash"));
     public static final StreamCodec<FriendlyByteBuf, BowDashC2SPacket> STREAM_CODEC =

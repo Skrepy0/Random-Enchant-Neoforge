@@ -35,8 +35,7 @@ public class UndyingTotem {
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
         DamageSource damageSource = event.getSource();
-        if (level.isClientSide)
-            return;
+        if (level.isClientSide) return;
         if (Config.infinityUndyingTotem() && getEnchantmentLevel(totem, Enchantments.INFINITY) > 0) {
             ItemStack itemStack = totem.copy();
             itemStack.setCount(1);

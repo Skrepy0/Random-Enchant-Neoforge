@@ -9,7 +9,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ModSounds {
-
     public static DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(net.minecraft.core.registries.Registries.SOUND_EVENT, RandomEnchant.MOD_ID);
     public static final DeferredHolder<SoundEvent, SoundEvent> METAL_DETECTOR_FOUND_ORE =

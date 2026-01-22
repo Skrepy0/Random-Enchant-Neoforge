@@ -7,6 +7,7 @@ import com.random_enchant.mixin_helper.InjectHelper;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
@@ -126,5 +127,9 @@ public class EnchantBrush extends BrushItem {
                                                  "item.tooltip.random_enchant.enchant_brush.status.single"));
 
         tooltipComponents.add(statusComponent);
+        if (BrushNBTUtils.hasStartPos(stack)) {
+            BlockPos startPos = BrushNBTUtils.getStartPos(stack);
+            tooltipComponents.add(Component.literal("§dStart Pos: §e{" + startPos.toShortString() + "}"));
+        }
     }
 }

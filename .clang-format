@@ -7,6 +7,12 @@ AlignConsecutiveDeclarations: false
 AlignOperands: true
 AlignTrailingComments: false
 AlwaysBreakTemplateDeclarations: Yes
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
+BinPackArguments: true
+BinPackParameters: true
+BreakStringLiterals: false
 BraceWrapping: 
   AfterCaseLabel: false
   AfterClass: false

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShieldDashMixinHelper {
-
     // 创建一个静态Map来存储实体ID和值
     private static final Map<Integer, Integer> entityValueMap = new HashMap<>();
     // 创建一个静态Map来存储实体ID和值

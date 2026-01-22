@@ -12,7 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class BrushStatusC2SPacket implements CustomPacketPayload {
-
     public static final Type<BrushStatusC2SPacket> TYPE =
             new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "brush_status_toggle"));
 

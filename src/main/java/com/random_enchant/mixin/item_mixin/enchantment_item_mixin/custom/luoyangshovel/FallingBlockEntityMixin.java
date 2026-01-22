@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FallingBlockEntity.class)
 public abstract class FallingBlockEntityMixin extends Entity {
-
     public FallingBlockEntityMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
     @Inject(at = @At("HEAD"), method = "tick")

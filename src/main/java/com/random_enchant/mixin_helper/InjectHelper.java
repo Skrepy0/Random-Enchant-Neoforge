@@ -22,8 +22,6 @@ import net.minecraft.world.level.Level;
  * @author Mafuyu33
  */
 public class InjectHelper {
-
-
     public static void onPlacedInject(Level world, ItemStack itemStack, BlockPos pos) {
         // 只在服务端运行
         if (!world.isClientSide) {

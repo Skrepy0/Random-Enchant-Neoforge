@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
-
     @Shadow @Nullable private ItemStack firedFromWeapon;
 
     @Redirect(method = "tick",

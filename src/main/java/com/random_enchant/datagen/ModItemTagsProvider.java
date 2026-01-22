@@ -14,7 +14,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
 public class ModItemTagsProvider extends ItemTagsProvider {
-
     public ModItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
                                CompletableFuture<TagLookup<Block>> blockTags,
                                @Nullable ExistingFileHelper existingFileHelper) {

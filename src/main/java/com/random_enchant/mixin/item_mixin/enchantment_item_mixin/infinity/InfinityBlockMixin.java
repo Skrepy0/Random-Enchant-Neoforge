@@ -24,8 +24,7 @@ public class InfinityBlockMixin {
     @Inject(method = "setPlacedBy", at = @At("RETURN"))
     private void onSetPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer,
                                ItemStack stack, CallbackInfo ci) {
-        if (!Config.infinityBlock())
-            return;
+        if (!Config.infinityBlock()) return;
         if (placer instanceof Player player && !level.isClientSide()) {
             // 检查创造模式
             if (player.isCreative()) {

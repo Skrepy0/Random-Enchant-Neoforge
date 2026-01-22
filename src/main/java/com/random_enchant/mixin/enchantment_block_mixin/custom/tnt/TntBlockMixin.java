@@ -31,7 +31,6 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(TntBlock.class)
 public abstract class TntBlockMixin extends Block {
-
     public TntBlockMixin(Properties properties) { super(properties); }
 
     @Shadow
@@ -123,8 +122,7 @@ public abstract class TntBlockMixin extends Block {
         int k = BlockEnchantmentStorage.getLevel(Enchantments.INFINITY, pos);
         if (level.hasNeighborSignal(pos)) {
             this.onCaughtFire(state, level, pos, null, null);
-            if (!Config.infinityTnt() || k == 0)
-                level.removeBlock(pos, false);
+            if (!Config.infinityTnt() || k == 0) level.removeBlock(pos, false);
         }
     }
 }

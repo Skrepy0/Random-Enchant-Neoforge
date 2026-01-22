@@ -18,14 +18,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class InfiniteFoodMixin {
     @Mixin(LivingEntity.class)
     public abstract static class InFiniteFoodMixin extends Entity implements Attackable {
-
         public InFiniteFoodMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
         @Inject(method = "eat*", at = @At("HEAD"))
         private void afterEatFood(Level level, ItemStack food, FoodProperties foodProperties,
                                   CallbackInfoReturnable<ItemStack> cir) {
-            if (!Config.infinityFood())
-                return;
+            if (!Config.infinityFood()) return;
             if (foodProperties != null) {
                 int k = ModEnchantHelper.getEnchantmentLevel(food, Enchantments.INFINITY);
                 if (k > 0) {

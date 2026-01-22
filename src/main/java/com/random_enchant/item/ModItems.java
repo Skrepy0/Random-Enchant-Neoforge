@@ -12,7 +12,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 
 public class ModItems {
-
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(RandomEnchant.MOD_ID);
     public static final DeferredItem<Item> ENCHANT_BRUSH =
             ITEMS.register("enchant_brush", () -> new EnchantBrush(new Item.Properties()));

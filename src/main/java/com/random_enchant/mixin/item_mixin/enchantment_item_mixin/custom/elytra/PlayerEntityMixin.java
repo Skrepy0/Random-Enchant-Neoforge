@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
-
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
@@ -27,12 +26,10 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void onTick(CallbackInfo ci) {
-        if (!this.isFallFlying())
-            return;
+        if (!this.isFallFlying()) return;
 
         ItemStack chestItem = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (ModEnchantHelper.getEnchantmentLevel(chestItem, ModEnchantments.FLY) <= 0)
-            return;
+        if (ModEnchantHelper.getEnchantmentLevel(chestItem, ModEnchantments.FLY) <= 0) return;
 
         if (ElytraJumpMixinHelper.isJumpKeyPressed()) {
             this.push(0, Config.getFlyEnchantmentLiftHeightPerTick(), 0);

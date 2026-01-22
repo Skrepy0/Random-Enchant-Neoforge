@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class TargetBlockMixin {
     @Inject(at = @At("HEAD"), method = "onProjectileHit", cancellable = true)
     private void init(Level level, BlockState state, BlockHitResult hit, Projectile projectile, CallbackInfo ci) {
-
         int k = BlockEnchantmentStorage.getLevel(Enchantments.PROJECTILE_PROTECTION, hit.getBlockPos());
         if (k > 0 && !level.isClientSide) {
             Entity entity = projectile.getOwner();

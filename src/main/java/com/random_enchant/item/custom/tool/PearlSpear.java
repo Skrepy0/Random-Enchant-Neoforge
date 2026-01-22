@@ -95,8 +95,7 @@ public class PearlSpear extends Item {
     }
 
     private static void spawnBee(Level world, Entity target, int count, LivingEntity livingEntity) {
-        if (target == null || world.isClientSide() || livingEntity == null)
-            return;
+        if (target == null || world.isClientSide() || livingEntity == null) return;
 
         for (int i = 0; i < Math.min(count, 20); i++) {
             // 修改点1：实体创建方式
@@ -186,10 +185,8 @@ public class PearlSpear extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand usedHand) {
         ItemStack stack = user.getItemInHand(usedHand);
-        if (level.isClientSide)
-            return InteractionResultHolder.pass(stack);
-        if (user.getCooldowns().isOnCooldown(this))
-            return InteractionResultHolder.pass(stack);
+        if (level.isClientSide) return InteractionResultHolder.pass(stack);
+        if (user.getCooldowns().isOnCooldown(this)) return InteractionResultHolder.pass(stack);
         // 闪现user(3D)
         teleportUser(stack, 10, user, level, false);
         // 损耗耐久
@@ -212,10 +209,8 @@ public class PearlSpear extends Item {
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Player user = (Player) attacker;
         Level world = user.level();
-        if (world.isClientSide)
-            return false;
-        if (user.getCooldowns().isOnCooldown(this))
-            return false;
+        if (world.isClientSide) return false;
+        if (user.getCooldowns().isOnCooldown(this)) return false;
         Vec3 playerVelocity = user.getDeltaMovement();
         Vec3 entityVelocity = target.getDeltaMovement();
         Vec3 playerPos = user.position();

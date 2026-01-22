@@ -63,8 +63,7 @@ public class CustomWindChargeEntity extends AbstractWindCharge {
             // 吸引每个实体到中心附近，并使其沿逆时针方向旋转
             for (Entity entity: nearbyEntities) {
                 // 排除自身
-                if (entity == this)
-                    continue;
+                if (entity == this) continue;
 
                 // 排除创造模式和观察者模式的玩家
                 if (entity instanceof Player player) {

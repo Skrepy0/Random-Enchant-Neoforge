@@ -26,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class ArmorEnchantmentMixin
         extends Entity implements Attackable, net.neoforged.neoforge.common.extensions.ILivingEntityExtension {
-
     @Unique private static Vec3 lastPos = new Vec3(0, 0, 0);
 
     public ArmorEnchantmentMixin(EntityType<?> entityType, Level level) { super(entityType, level); }

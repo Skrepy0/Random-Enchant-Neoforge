@@ -26,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Block.class)
 public abstract class SilkTouchEnchantedBlockMixin {
-
     /**
      * 当方块被破坏时，检查玩家是否使用精准采集工具挖掘附魔方块
      * 如果是，则掉落带有附魔的方块
@@ -44,8 +43,7 @@ public abstract class SilkTouchEnchantedBlockMixin {
             return;
         }
 
-        if (!Config.isEnchantedBlockGetatable())
-            return;
+        if (!Config.isEnchantedBlockGetatable()) return;
 
         // 检查方块是否有附魔
         ListTag enchantments = BlockEnchantmentStorage.getEnchantmentsAtPosition(pos);

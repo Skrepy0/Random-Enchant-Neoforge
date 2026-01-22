@@ -21,7 +21,6 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 @EventBusSubscriber
 public class EnchantBrushHelper {
-
     @SubscribeEvent
     public static void useOnBlock(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getLevel();
@@ -29,8 +28,7 @@ public class EnchantBrushHelper {
         BlockPos pos = event.getPos();
 
         // 只在服务端执行
-        if (level.isClientSide())
-            return;
+        if (level.isClientSide()) return;
 
         ItemStack mainHandItem = player.getMainHandItem();
         // 检查主手物品是否是刷子
@@ -38,13 +36,11 @@ public class EnchantBrushHelper {
             return;
         }
 
-        if (!player.isCreative())
-            return;
+        if (!player.isCreative()) return;
         // 获取刷子物品
         ItemStack brush = mainHandItem;
         boolean status = BrushNBTUtils.getStatus(brush);
-        if (!status)
-            return;
+        if (!status) return;
 
         if (brush.isEnchanted()) {
             // 有附魔的刷子：进行区域附魔操作

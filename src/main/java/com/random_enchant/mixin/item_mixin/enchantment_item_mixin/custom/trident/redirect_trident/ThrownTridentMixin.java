@@ -35,7 +35,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ThrownTrident.class)
 public abstract class ThrownTridentMixin extends AbstractArrow {
-
     // 常量定义
     @Unique
     private static final EntityDataAccessor<Byte> DATA_REDIRECT_LEVEL =
@@ -129,8 +128,7 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     private void onHitEntity(EntityHitResult result, CallbackInfo ci) {
         Entity hitEntity = result.getEntity();
         Level level = hitEntity.level();
-        if (level.isClientSide)
-            return;
+        if (level.isClientSide) return;
         if (hitEntity instanceof LivingEntity) {
             int fireAspectLevel = this.entityData.get(DATA_FIRE_ASPECT_LEVEL);
             if (fireAspectLevel > 0) {

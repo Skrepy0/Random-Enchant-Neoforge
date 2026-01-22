@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PistonBaseBlock.class)
 public abstract class PistonBlockMixin {
-
     @Inject(at = @At(value = "INVOKE",
                      target = "Lnet/minecraft/core/BlockPos;relative(Lnet/minecraft/core/Direction;)Lnet/minecraft/"
                               + "core/BlockPos;",

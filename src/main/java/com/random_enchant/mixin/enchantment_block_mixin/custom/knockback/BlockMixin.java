@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Block.class)
 public abstract class BlockMixin
         extends BlockBehaviour implements ItemLike, net.neoforged.neoforge.common.extensions.IBlockExtension {
-
     public BlockMixin(Properties properties) { super(properties); }
 
     @Inject(at = @At("HEAD"), method = "stepOn")

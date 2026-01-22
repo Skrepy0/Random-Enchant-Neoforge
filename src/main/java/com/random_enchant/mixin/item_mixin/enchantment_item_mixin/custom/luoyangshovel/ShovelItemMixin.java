@@ -31,7 +31,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ShovelItem.class)
 public abstract class ShovelItemMixin extends DiggerItem {
-
     public ShovelItemMixin(Tier tier, TagKey<Block> blocks, Properties properties) { super(tier, blocks, properties); }
 
     @Unique

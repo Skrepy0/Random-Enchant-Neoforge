@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.Slice;
 
 @Mixin(PotionItem.class)
 public class InfinityPotionItemMixin {
-
     @Unique private boolean flag = false;
 
     @Redirect(

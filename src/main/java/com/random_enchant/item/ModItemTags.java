@@ -20,6 +20,7 @@ public class ModItemTags {
     public static final TagKey<Item> STEADY_AVAILABLE = of("steady_available");
     public static final TagKey<Item> KINETIC_AVAILABLE = of("kinetic_available");
     public static final TagKey<Item> EXPLODE_AVAILABLE = of("explode_available");
+    public static final TagKey<Item> THROWABLE_AVAILABLE = of("throwable_available");
 
     public static TagKey<Item> of(String id) {
         return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, id));

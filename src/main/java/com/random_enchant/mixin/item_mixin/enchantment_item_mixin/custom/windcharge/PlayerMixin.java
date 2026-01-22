@@ -22,7 +22,6 @@ public abstract class PlayerMixin extends LivingEntity {
     @Unique int randomEnchant$particleCooldown = 0;
     @Inject(method = "tick", at = @At("HEAD"))
     private void init(CallbackInfo ci) {
-
         // 每 tick 增加计时器
         if (this.randomEnchant$particleCooldown > 0) {
             this.randomEnchant$particleCooldown--;

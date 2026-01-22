@@ -22,7 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
 public abstract class BadLuckOfSeaItemEntityMixin extends Entity implements TraceableEntity {
-
     public BadLuckOfSeaItemEntityMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
     @Shadow public abstract ItemStack getItem();

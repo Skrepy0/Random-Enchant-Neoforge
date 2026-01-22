@@ -5,16 +5,14 @@ import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.random_enchant.Config;
 import com.random_enchant.RandomEnchant;
+import java.util.ArrayList;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
-import java.util.ArrayList;
-
 public class RandomEnchantCommand {
-
     public static void register(RegisterCommandsEvent event) {
         event.getDispatcher().register(
                 Commands.literal("random_enchant")
@@ -70,535 +68,227 @@ public class RandomEnchantCommand {
                         .then(Commands.literal("config")
                                       .requires(source -> source.hasPermission(2))
                                       .then(Commands.literal("doRandomEnchant")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      Config.setRandomEnchant(enabled);
-                                                                      Component message =
-                                                                              enabled ? Component.translatable(
-                                                                                                "command.random_"
-                                                                                                + "enchant."
-                                                                                                +
-                                                                                                "randomEnchant.enable")
-                                                                                      : Component.translatable(
-                                                                                                "command.random_"
-                                                                                                + "enchant."
-                                                                                                + "randomEnchant."
-                                                                                                + "disable");
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        Config.setRandomEnchant(enabled);
+                                                        Component message =
+                                                                enabled ? Component.translatable(
+                                                                                  "command.random_enchant.randomEnchant.enable")
+                                                                        : Component.translatable(
+                                                                                  "command.random_enchant.randomEnchant.disable");
 
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
 
-                                                                      return 1;
-                                                                  })))
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("alwaysEnchantable")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus = Config.isAlwaysEnchantable();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component
-                                                                                          .literal("§a["
-                                                                                                   + "isAlwaysEnchantab"
-                                                                                                   + "le]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setIsAlwaysEnchantable(enabled);
-                                                                      Component message =
-                                                                              Component
-                                                                                      .literal("§a["
-                                                                                               +
-                                                                                               "isAlwaysEnchantable]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.isAlwaysEnchantable();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[isAlwaysEnchantable]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setIsAlwaysEnchantable(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[isAlwaysEnchantable]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("infinityUndyingTotem")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus = Config.infinityUndyingTotem();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component
-                                                                                          .literal("§a["
-                                                                                                   + "infinityUndyingTo"
-                                                                                                   + "tem]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setInfinityUndyingTotem(enabled);
-                                                                      Component message =
-                                                                              Component
-                                                                                      .literal(
-                                                                                              "§a["
-                                                                                              +
-                                                                                              "infinityUndyingTotem]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.infinityUndyingTotem();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[infinityUndyingTotem]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setInfinityUndyingTotem(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[infinityUndyingTotem]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("explodeDestroyBlock")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus =
-                                                                              Config.getExplodeDestroyBlock();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component
-                                                                                          .literal("§a[" +
-                                                                                                   "explodeDestroyBlo" +
-                                                                                                   "ck]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setExplodeDestroyBlock(enabled);
-                                                                      Component message =
-                                                                              Component
-                                                                                      .literal(
-                                                                                              "§a["
-                                                                                              +
-                                                                                              "infinityUndyingTotem]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.getExplodeDestroyBlock();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[explodeDestroyBlock]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setExplodeDestroyBlock(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[infinityUndyingTotem]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("infinityBlock")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus = Config.infinityBlock();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component
-                                                                                          .literal(
-                                                                                                  "§a[infinityBlock]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setInfinityBlock(enabled);
-                                                                      Component message =
-                                                                              Component.literal("§a[infinityBlock]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.infinityBlock();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[infinityBlock]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setInfinityBlock(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[infinityBlock]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("infinityTnt")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus = Config.infinityTnt();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component.literal("§a[infinityTnt]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setInfinityTnt(enabled);
-                                                                      Component message =
-                                                                              Component.literal("§a[infinityTnt]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.infinityTnt();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[infinityTnt]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setInfinityTnt(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[infinityTnt]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("infinityFood")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus = Config.infinityFood();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component
-                                                                                          .literal("§a[infinityFood]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setInfinityFood(enabled);
-                                                                      Component message =
-                                                                              Component.literal("§a[infinityFood]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.infinityFood();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[infinityFood]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setInfinityFood(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[infinityFood]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("infinityThrowableItem")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus =
-                                                                              Config.infinityThrowableItem();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component
-                                                                                          .literal("§a["
-                                                                                                   + "infinityThrowable"
-                                                                                                   + "Item]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setInfinityThrowableItem(enabled);
-                                                                      Component message =
-                                                                              Component.literal("§a[infinityFood]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.infinityThrowableItem();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[infinityThrowableItem]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setInfinityThrowableItem(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[infinityFood]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("isEnchantedBlockGetatable")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus =
-                                                                              Config.isEnchantedBlockGetatable();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component
-                                                                                          .literal("§a["
-                                                                                                   + "isEnchantedBlockG"
-                                                                                                   + "etatable]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setIsEnchantedBlockGetatable(enabled);
-                                                                      Component message =
-                                                                              Component
-                                                                                      .literal("§a["
-                                                                                               + "isEnchantedBlockGetat"
-                                                                                               + "able]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.isEnchantedBlockGetatable();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[isEnchantedBlockGetatable]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setIsEnchantedBlockGetatable(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[isEnchantedBlockGetatable]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("infinityPotion")
-                                                    .then(Commands.argument("enabled", BoolArgumentType.bool())
-                                                                  .executes(context -> {
-                                                                      boolean preStatus = Config.infinityPotion();
-                                                                      boolean enabled = BoolArgumentType.getBool(
-                                                                              context, "enabled");
-                                                                      if (preStatus == enabled) {
-                                                                          Component message =
-                                                                                  Component
-                                                                                          .literal("§a["
-                                                                                                   +
-                                                                                                   "infinityPotion]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
-                                                                          RandomEnchant.LOGGER.info(
-                                                                                  message.getString());
-                                                                          context.getSource().sendSuccess(
-                                                                                  () -> message, false);
-                                                                          return 1;
-                                                                      }
-                                                                      Config.setInfinityPotion(enabled);
-                                                                      Component message =
-                                                                              Component.literal("§a[infinityPotion]§r")
-                                                                                      .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
-                                                                                      .append(enabled ? "§a[true]§r"
-                                                                                                      : "§c[false]§r");
-                                                                      RandomEnchant.LOGGER.info(message.getString());
-                                                                      context.getSource().sendSuccess(
-                                                                              () -> message, false);
-                                                                      return 1;
-                                                                  })))
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.infinityPotion();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[infinityPotion]§r")
+                                                                            .append(Component.translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setInfinityPotion(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[infinityPotion]§r")
+                                                                        .append(Component.translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
                                       .then(Commands.literal("redirectTridentSetPointDistance")
                                                     .then(Commands.argument("value", IntegerArgumentType.integer(
                                                                                              1, Integer.MAX_VALUE))
@@ -610,33 +300,10 @@ public class RandomEnchantCommand {
                                                                       if (preValue == value) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a["
-                                                                                                   + "redirectTridentSe"
-                                                                                                   +
-                                                                                                   "tPointDistance]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
+                                                                                          .literal(
+                                                                                                  "§a[redirectTridentSetPointDistance]§r")
+                                                                                          .append(Component.translatable(
+                                                                                                  "command.random_enchant.config.unchanged"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
                                                                           context.getSource().sendSuccess(
@@ -646,13 +313,10 @@ public class RandomEnchantCommand {
                                                                       Config.setRedirectTridentSetPointDistance(value);
                                                                       Component message =
                                                                               Component
-                                                                                      .literal("§a["
-                                                                                               + "redirectTridentSetPoi"
-                                                                                               + "ntDistance]§r")
+                                                                                      .literal(
+                                                                                              "§a[redirectTridentSetPointDistance]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
+                                                                                              "command.random_enchant.config.changed"))
                                                                                       .append(" §6" + value);
                                                                       RandomEnchant.LOGGER.info(message.getString());
                                                                       context.getSource().sendSuccess(
@@ -670,33 +334,10 @@ public class RandomEnchantCommand {
                                                                       if (preValue == value) {
                                                                           Component message =
                                                                                   Component
-                                                                                          .literal("§a["
-                                                                                                   + "flyEnchantmentLif"
-                                                                                                   +
-                                                                                                   "tHeightPerTick]§r")
-                                                                                          .append(Component
-                                                                                                          .translatable(
-                                                                                                                  "co"
-                                                                                                                  + "mm"
-                                                                                                                  + "an"
-                                                                                                                  + "d."
-                                                                                                                  + "ra"
-                                                                                                                  + "nd"
-                                                                                                                  + "om"
-                                                                                                                  + "_e"
-                                                                                                                  + "nc"
-                                                                                                                  + "ha"
-                                                                                                                  + "nt"
-                                                                                                                  + ".c"
-                                                                                                                  + "on"
-                                                                                                                  + "fi"
-                                                                                                                  + "g."
-                                                                                                                  + "un"
-                                                                                                                  + "ch"
-                                                                                                                  + "an"
-                                                                                                                  + "ge"
-                                                                                                                  +
-                                                                                                                  "d"));
+                                                                                          .literal(
+                                                                                                  "§a[flyEnchantmentLiftHeightPerTick]§r")
+                                                                                          .append(Component.translatable(
+                                                                                                  "command.random_enchant.config.unchanged"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
                                                                           context.getSource().sendSuccess(
@@ -706,13 +347,10 @@ public class RandomEnchantCommand {
                                                                       Config.setFlyEnchantmentLiftHeightPerTick(value);
                                                                       Component message =
                                                                               Component
-                                                                                      .literal("§a["
-                                                                                               + "flyEnchantmentLiftHei"
-                                                                                               + "ghtPerTick]§r")
+                                                                                      .literal(
+                                                                                              "§a[flyEnchantmentLiftHeightPerTick]§r")
                                                                                       .append(Component.translatable(
-                                                                                              "command.random_"
-                                                                                              +
-                                                                                              "enchant.config.changed"))
+                                                                                              "command.random_enchant.config.changed"))
                                                                                       .append(" §6" + value);
                                                                       RandomEnchant.LOGGER.info(message.getString());
                                                                       context.getSource().sendSuccess(

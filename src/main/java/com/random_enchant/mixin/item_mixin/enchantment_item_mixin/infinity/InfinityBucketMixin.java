@@ -10,7 +10,6 @@ import org.spongepowered.asm.mixin.Overwrite;
 public class InfinityBucketMixin {
     @Mixin(BucketItem.class)
     public abstract static class InFiniteBucketMixin extends Item implements DispensibleContainerItem {
-
         public InFiniteBucketMixin(Properties properties) { super(properties); }
 
         /**

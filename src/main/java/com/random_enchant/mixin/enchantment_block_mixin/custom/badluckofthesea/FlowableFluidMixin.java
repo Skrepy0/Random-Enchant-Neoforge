@@ -23,11 +23,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FlowingFluid.class)
 public abstract class FlowableFluidMixin {
-
     @Inject(at = @At("HEAD"), method = "canPassThroughWall", cancellable = true)
     private void init1(Direction face, BlockGetter world, BlockPos pos, BlockState state, BlockPos fromPos,
                        BlockState fromState, CallbackInfoReturnable<Boolean> cir) {
-
         int k = BlockEnchantmentStorage.getLevel(ModEnchantments.BAD_LUCK_OF_THE_SEA, pos);
         if (k > 0) {
             // 获取当前方块的世界对象，必须确保world是World类型

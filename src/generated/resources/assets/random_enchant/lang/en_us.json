@@ -1,4 +1,9 @@
 {
+  "command.random_enchant.block_enchant.add_1": "§bEnchantment added to block at position §a",
+  "command.random_enchant.block_enchant.add_2": "§b added enchantment §a",
+  "command.random_enchant.block_enchant.enchant_tag": "§6Enchantment Tag: §r",
+  "command.random_enchant.block_enchant.has_no_enchantment": "§cThis block has no enchantments§r",
+  "command.random_enchant.block_enchant.remove": "§gAll enchantments have been removed from this block§a",
   "command.random_enchant.config.changed": "has changed to ",
   "command.random_enchant.config.unchanged": "'s status §chas not undergone a valid change§r",
   "command.random_enchant.randomEnchant.disable": "§6Disabled Random Enchant",
@@ -258,6 +263,7 @@
   "enchantment.random_enchant.no_resistance": "No Resistance",
   "enchantment.random_enchant.redirect_projectile": "§6Redirect Projectile§r",
   "enchantment.random_enchant.steady": "§bSteady§r",
+  "enchantment.random_enchant.throwable": "Throwable",
   "entity.minecraft.bee.random_enchant.spawn_name": "§aFly",
   "item.random_enchant.enchant_brush": "Enchant Brush",
   "item.random_enchant.lightning": "Lightning",
