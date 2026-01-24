@@ -76,6 +76,7 @@ public class ModEnchantments {
                  Enchantment.enchantment(Enchantment.definition(
                          registryEntryLookup3.getOrThrow(ModItemTags.THROWABLE_AVAILABLE), 3, 1,
                          Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)));
+
     }
 
     public static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key,

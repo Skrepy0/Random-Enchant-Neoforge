@@ -3,6 +3,7 @@ package com.random_enchant.entity;
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.entity.custom.CustomWindChargeEntity;
 import com.random_enchant.entity.custom.LightningProjectileEntity;
+import com.random_enchant.entity.custom.ThrownMace;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -23,6 +24,15 @@ public class ModEntities {
                                        .sized(0.3125F, 0.3125F)
                                        .eyeHeight(0.0F)
                                        .build("custom_wind_charge"));
+    public static final DeferredHolder<EntityType<?>, EntityType<ThrownMace>> THROWN_ITEM =
+            ENTITY_TYPES.register(
+                    "thrown_item_entity",
+                    ()
+                            -> EntityType.Builder
+                            .<ThrownMace>of(ThrownMace::new, MobCategory.MISC)
+                            .sized(0.5F, 0.5F)
+                            .eyeHeight(0.0F)
+                            .build("thrown_item_entity"));
     public static final DeferredHolder<EntityType<?>, EntityType<LightningProjectileEntity>> LIGHTNING_PROJECTILE =
             ENTITY_TYPES.register(
                     "lightning_projectile",

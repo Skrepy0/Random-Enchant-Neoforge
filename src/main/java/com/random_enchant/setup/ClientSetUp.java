@@ -3,6 +3,7 @@ package com.random_enchant.setup;
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.entity.ModEntities;
 import com.random_enchant.render.custom_entity.CustomWindChargeRenderer;
+import com.random_enchant.render.custom_entity.ThrownItemEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,6 +14,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 public class ClientSetUp {
     @SubscribeEvent
     public static void rendererRegister(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.THROWN_ITEM.get(), ThrownItemEntityRenderer::new);
         event.registerEntityRenderer(ModEntities.CUSTOM_WIND_CHARGE.get(), CustomWindChargeRenderer::new);
         event.registerEntityRenderer(ModEntities.LIGHTNING_PROJECTILE.get(), ThrownItemRenderer::new);
     }
