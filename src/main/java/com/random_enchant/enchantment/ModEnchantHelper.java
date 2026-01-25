@@ -1,6 +1,9 @@
 package com.random_enchant.enchantment;
 
+import static net.minecraft.world.item.enchantment.EnchantmentHelper.runIterationOnItem;
+
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import java.util.Optional;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -15,10 +18,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.mutable.MutableFloat;
-
-import java.util.Optional;
-
-import static net.minecraft.world.item.enchantment.EnchantmentHelper.runIterationOnItem;
 
 public class ModEnchantHelper {
     public static int getEnchantmentLevel(ItemStack stack, Level world, ResourceKey<Enchantment> enchantmentKey) {
@@ -57,7 +56,7 @@ public class ModEnchantHelper {
         return levelOptional.map(Object2IntMap.Entry::getIntValue).orElse(-1);
     }
 
-    public static int getEnchantmentLevel(ResourceKey<Enchantment> enchantmentResourceKey,ItemStack item) {
+    public static int getEnchantmentLevel(ResourceKey<Enchantment> enchantmentResourceKey, ItemStack item) {
         return getEnchantmentLevel(item, enchantmentResourceKey);
     }
 

@@ -12,7 +12,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 @EventBusSubscriber
-public class ThrowableItemEvent {
+public class ThrowableMaceEvent {
 
     @SubscribeEvent
     public static void useItem(PlayerInteractEvent.RightClickItem event) {
@@ -21,7 +21,7 @@ public class ThrowableItemEvent {
 
         // 只处理服务器端
         if (level.isClientSide()) return;
-        if (stack.getItem() != Items.MACE)return;
+        if (stack.getItem() != Items.MACE) return;
         int throwableLevel = ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.THROWABLE);
         if (throwableLevel > 0) {
             event.setCanceled(true); // 取消原事件，防止重复处理
@@ -31,21 +31,16 @@ public class ThrowableItemEvent {
             thrownStack.setCount(1); // 只投掷一个
             Player player = event.getEntity();
             // 创建投掷物品实体
-            ThrownMace thrownItem = new ThrownMace(
-                    level,
-                    player,
-                    thrownStack
-            );
-
+            ThrownMace thrownItem = new ThrownMace(level, player, thrownStack);
+            int kineticLevel = Math.max(ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.KINETIC), 0);
+            if (ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.NO_GRAVITY) > 0) {
+                thrownItem.setNoGravity(true);
+            }
             // 设置投掷物品的速度和方向
-            thrownItem.shootFromRotation(
-                    event.getEntity(),
-                    event.getEntity().getXRot(),
-                    event.getEntity().getYRot(),
-                    0.0F,
-                    1.5F * (1.0f + (throwableLevel - 1) * 0.2f), // 根据附魔等级调整速度
-                    1.0F
-            );
+            thrownItem.shootFromRotation(event.getEntity(), event.getEntity().getXRot(), event.getEntity().getYRot(),
+                                         0.0F,
+                                         1.4F * (1.0f + (kineticLevel - 1) * 0.2f), // 根据附魔等级调整速度
+                                         1.0F);
 
             // 将投掷物品实体添加到世界中
             level.addFreshEntity(thrownItem);

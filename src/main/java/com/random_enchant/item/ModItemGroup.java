@@ -29,7 +29,7 @@ public class ModItemGroup {
                     ModEnchantments.BAD_LUCK_OF_THE_SEA, ModEnchantments.REDIRECT_PROJECTILE, ModEnchantments.FLY,
                     ModEnchantments.NO_GRAVITY, ModEnchantments.NO_RESISTANCE, ModEnchantments.EXPLODE,
                     Enchantments.QUICK_CHARGE, Enchantments.FEATHER_FALLING, ModEnchantments.NO_CURSE,
-                    ModEnchantments.STEADY, ModEnchantments.KINETIC);
+                    ModEnchantments.STEADY, ModEnchantments.KINETIC, ModEnchantments.THROWABLE);
     public static final Supplier<CreativeModeTab> RANDOM_ENCHANT = CREATIVE_MODE_TAB.register(
             "random_enchant_tab",
             ()

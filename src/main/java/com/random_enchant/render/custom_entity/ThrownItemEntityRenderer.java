@@ -28,7 +28,8 @@ public class ThrownItemEntityRenderer extends EntityRenderer<ThrownMace> {
     }
 
     @Override
-    public void render(ThrownMace entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+    public void render(ThrownMace entity, float entityYaw, float partialTicks, PoseStack poseStack,
+                       MultiBufferSource buffer, int packedLight) {
 
         // 获取实体携带的物品
         ItemStack itemStack = entity.getDefaultItem().getDefaultInstance();
@@ -52,16 +53,8 @@ public class ThrownItemEntityRenderer extends EntityRenderer<ThrownMace> {
         poseStack.translate(0.0D, -0.1D, 0.0D);
 
         // 渲染物品
-        this.itemRenderer.renderStatic(
-                itemStack,
-                ItemDisplayContext.FIXED,
-                packedLight,
-                OverlayTexture.NO_OVERLAY,
-                poseStack,
-                buffer,
-                entity.level(),
-                entity.getId()
-        );
+        this.itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, packedLight, OverlayTexture.NO_OVERLAY,
+                                       poseStack, buffer, entity.level(), entity.getId());
 
         poseStack.popPose();
 
@@ -74,7 +67,8 @@ public class ThrownItemEntityRenderer extends EntityRenderer<ThrownMace> {
     /**
      * 渲染投掷物品的轨迹效果（可选）
      */
-    private void renderTrail(ThrownMace entity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+    private void renderTrail(ThrownMace entity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer,
+                             int packedLight) {
         // 这里可以添加轨迹粒子效果
         // 例如：根据速度渲染拖尾效果
         if (entity.getDeltaMovement().length() > 0.5F && entity.tickCount % 2 == 0) {
@@ -87,6 +81,7 @@ public class ThrownItemEntityRenderer extends EntityRenderer<ThrownMace> {
     public boolean shouldShowName(ThrownMace entity) {
         // 根据情况决定是否显示名称
         return super.shouldShowName(entity) &&
-                (entity.shouldShowName() || entity.hasCustomName() && entity == this.entityRenderDispatcher.crosshairPickEntity);
+                (entity.shouldShowName() ||
+                 entity.hasCustomName() && entity == this.entityRenderDispatcher.crosshairPickEntity);
     }
 }

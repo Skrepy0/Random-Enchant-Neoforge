@@ -1,7 +1,10 @@
 package com.random_enchant.entity.custom;
 
+import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantHelper;
+import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.entity.ModEntities;
+import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -30,8 +33,8 @@ import net.minecraft.world.phys.Vec3;
 public class ThrownMace extends ThrowableItemProjectile {
 
     // 定义不同状态的尺寸（调大尺寸）
-    private static final float FLYING_WIDTH = 0.8F;   // 飞行时宽度：原0.5F -> 0.8F
-    private static final float FLYING_HEIGHT = 0.8F;  // 飞行时高度：原0.5F -> 0.8F
+    private static final float FLYING_WIDTH = 0.8F; // 飞行时宽度：原0.5F -> 0.8F
+    private static final float FLYING_HEIGHT = 0.8F; // 飞行时高度：原0.5F -> 0.8F
     private static final float GROUNDED_WIDTH = 1.0F; // 落地后宽度：原0.7F -> 1.0F
     private static final float GROUNDED_HEIGHT = 0.3F; // 落地后高度：原0.2F -> 0.3F
     // 当前状态
@@ -88,7 +91,7 @@ public class ThrownMace extends ThrowableItemProjectile {
 
         // 如果有忠诚附魔且没有击中过目标，检查是否应该开始返回
         if (!isReturning && !hasHit && loyaltyLevel > 0) {
-            // 如果链锤飞行距离太远或时间太长，开始返回
+            // 如果重锤飞行距离太远或时间太长，开始返回
             if (this.tickCount > 100) { // 飞行5秒后自动返回
                 startReturning();
             }
@@ -135,7 +138,7 @@ public class ThrownMace extends ThrowableItemProjectile {
     }
 
     /**
-     * 开始返回链锤到主人手中
+     * 开始返回重锤到主人手中
      */
     private void startReturning() {
         if (this.getOwner() == null || this.isReturning) return;
@@ -148,16 +151,10 @@ public class ThrownMace extends ThrowableItemProjectile {
 
         // 修复音效播放问题 - 使用正确的播放方式
         if (!this.level().isClientSide) {
-            this.level().playSound(
-                    null,  // 第一个参数为null，表示对所有玩家播放
-                    this.getOwner().getX(), this.getOwner().getY(), this.getOwner().getZ(),
-                    SoundEvents.TRIDENT_RETURN,
-                    SoundSource.PLAYERS,
-                    1.0F,
-                    0.5F
-            );
+            this.level().playSound(null, // 第一个参数为null，表示对所有玩家播放
+                                   this.getOwner().getX(), this.getOwner().getY(), this.getOwner().getZ(),
+                                   SoundEvents.TRIDENT_RETURN, SoundSource.PLAYERS, 1.0F, 0.5F);
         }
-
     }
 
     /**
@@ -193,32 +190,22 @@ public class ThrownMace extends ThrowableItemProjectile {
         // 添加返回粒子效果
         if (this.level().isClientSide && this.tickCount % 2 == 0) {
             // 根据忠诚等级显示不同颜色的粒子
-            net.minecraft.core.particles.ParticleOptions particleType =
-                    loyaltyLevel >= 3 ? ParticleTypes.ELECTRIC_SPARK :
-                            loyaltyLevel >= 2 ? ParticleTypes.FIREWORK :
-                                    ParticleTypes.ENCHANTED_HIT;
+            net.minecraft.core.particles.ParticleOptions particleType = loyaltyLevel >= 3 ? ParticleTypes.ELECTRIC_SPARK
+                                                                        : loyaltyLevel >= 2
+                                                                                ? ParticleTypes.FIREWORK
+                                                                                : ParticleTypes.ENCHANTED_HIT;
 
             for (int i = 0; i < 2; i++) {
-                this.level().addParticle(
-                        particleType,
-                        this.getX() + (this.random.nextDouble() - 0.5) * 0.5,
-                        this.getY() + 0.5 + (this.random.nextDouble() - 0.5) * 0.3,
-                        this.getZ() + (this.random.nextDouble() - 0.5) * 0.5,
-                        0.0D, 0.0D, 0.0D
-                );
+                this.level().addParticle(particleType, this.getX() + (this.random.nextDouble() - 0.5) * 0.5,
+                                         this.getY() + 0.5 + (this.random.nextDouble() - 0.5) * 0.3,
+                                         this.getZ() + (this.random.nextDouble() - 0.5) * 0.5, 0.0D, 0.0D, 0.0D);
             }
         }
 
         // 在返回过程中，每20tick播放一次飞行音效
         if (this.tickCount % 20 == 0 && !this.level().isClientSide) {
-            this.level().playSound(
-                    null,
-                    this.getX(), this.getY(), this.getZ(),
-                    SoundEvents.TRIDENT_THROW,
-                    SoundSource.PLAYERS,
-                    0.3F,
-                    1.2F + (this.random.nextFloat() * 0.2F)
-            );
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.TRIDENT_THROW,
+                                   SoundSource.PLAYERS, 0.3F, 1.2F + (this.random.nextFloat() * 0.2F));
         }
 
         // 检查是否到达主人身边（距离小于1.5格）
@@ -226,14 +213,8 @@ public class ThrownMace extends ThrowableItemProjectile {
         if (distanceToOwner < 1.5) {
             // 播放返回完成的音效
             if (!this.level().isClientSide) {
-                this.level().playSound(
-                        null,
-                        owner.getX(), owner.getY(), owner.getZ(),
-                        SoundEvents.ITEM_PICKUP,
-                        SoundSource.PLAYERS,
-                        0.6F,
-                        1.5F
-                );
+                this.level().playSound(null, owner.getX(), owner.getY(), owner.getZ(), SoundEvents.ITEM_PICKUP,
+                                       SoundSource.PLAYERS, 0.6F, 1.5F);
             }
 
             // 直接尝试拾取
@@ -264,7 +245,7 @@ public class ThrownMace extends ThrowableItemProjectile {
         AABB boundingBox = this.getBoundingBox().inflate(0.3); // 稍微扩大一点碰撞箱
 
         // 查找所有可能碰撞的实体
-        for (Entity entity : this.level().getEntities(this, boundingBox)) {
+        for (Entity entity: this.level().getEntities(this, boundingBox)) {
             // 排除自己、主人、以及已经击中过的实体
             if (entity == this || entity == this.getOwner() || !(entity instanceof LivingEntity)) {
                 continue;
@@ -285,14 +266,8 @@ public class ThrownMace extends ThrowableItemProjectile {
 
             // 播放击中音效
             if (!this.level().isClientSide) {
-                this.level().playSound(
-                        null,
-                        target.getX(), target.getY(), target.getZ(),
-                        SoundEvents.METAL_HIT,
-                        SoundSource.NEUTRAL,
-                        0.6F,
-                        0.9F + (this.random.nextFloat() * 0.2F)
-                );
+                this.level().playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.METAL_HIT,
+                                       SoundSource.NEUTRAL, 0.6F, 0.9F + (this.random.nextFloat() * 0.2F));
 
                 // 击中粒子效果
                 this.level().broadcastEntityEvent(this, (byte) 3);
@@ -310,13 +285,9 @@ public class ThrownMace extends ThrowableItemProjectile {
     private void spawnLoyaltyParticles() {
         if (this.level().isClientSide) {
             for (int i = 0; i < 2; i++) {
-                this.level().addParticle(
-                        ParticleTypes.ENCHANT,
-                        this.getX() + (this.random.nextDouble() - 0.5) * 0.3,
-                        this.getY() + this.random.nextDouble() * 0.5,
-                        this.getZ() + (this.random.nextDouble() - 0.5) * 0.3,
-                        0.0D, 0.0D, 0.0D
-                );
+                this.level().addParticle(ParticleTypes.ENCHANT, this.getX() + (this.random.nextDouble() - 0.5) * 0.3,
+                                         this.getY() + this.random.nextDouble() * 0.5,
+                                         this.getZ() + (this.random.nextDouble() - 0.5) * 0.3, 0.0D, 0.0D, 0.0D);
             }
         }
     }
@@ -325,6 +296,10 @@ public class ThrownMace extends ThrowableItemProjectile {
      * 尝试拾取物品
      */
     private void tryPickupItem(Player owner) {
+        if (owner.isCreative()) {
+            this.discard();
+            return;
+        }
         // 尝试将物品添加到主人背包
         ItemStack itemToReturn = this.getItem().copy();
 
@@ -333,14 +308,8 @@ public class ThrownMace extends ThrowableItemProjectile {
 
         if (success) {
             // 播放成功拾取音效
-            this.level().playSound(
-                    null,
-                    owner.getX(), owner.getY(), owner.getZ(),
-                    SoundEvents.ITEM_PICKUP,
-                    SoundSource.PLAYERS,
-                    0.4F,
-                    1.2F
-            );
+            this.level().playSound(null, owner.getX(), owner.getY(), owner.getZ(), SoundEvents.ITEM_PICKUP,
+                                   SoundSource.PLAYERS, 0.4F, 1.2F);
 
             // 添加成功，销毁实体
             this.discard();
@@ -348,20 +317,15 @@ public class ThrownMace extends ThrowableItemProjectile {
             // 背包已满，掉落物品
             if (!this.level().isClientSide) {
                 // 播放掉落音效
-                this.level().playSound(
-                        null,
-                        owner.getX(), owner.getY(), owner.getZ(),
-                        SoundEvents.ITEM_FRAME_REMOVE_ITEM,
-                        SoundSource.PLAYERS,
-                        0.5F,
-                        0.8F
-                );
+                this.level().playSound(null, owner.getX(), owner.getY(), owner.getZ(),
+                                       SoundEvents.ITEM_FRAME_REMOVE_ITEM, SoundSource.PLAYERS, 0.5F, 0.8F);
 
                 // 掉落物品
                 owner.spawnAtLocation(itemToReturn, 0.5F);
                 this.discard();
             }
         }
+        owner.getCooldowns().addCooldown(Items.MACE, 20);
     }
 
     /**
@@ -380,13 +344,9 @@ public class ThrownMace extends ThrowableItemProjectile {
                     double dy = (this.random.nextDouble() - 0.5) * 0.2;
                     double dz = (this.random.nextDouble() - 0.5) * 0.2;
 
-                    this.level().addParticle(
-                            ParticleTypes.CLOUD,
-                            this.getX() + dx,
-                            this.getY() + this.getBbHeight() / 2 + dy,
-                            this.getZ() + dz,
-                            0.0D, 0.0D, 0.0D
-                    );
+                    this.level().addParticle(ParticleTypes.CLOUD, this.getX() + dx,
+                                             this.getY() + this.getBbHeight() / 2 + dy, this.getZ() + dz, 0.0D, 0.0D,
+                                             0.0D);
                 }
             }
         }
@@ -395,6 +355,12 @@ public class ThrownMace extends ThrowableItemProjectile {
     @Override
     public Item getDefaultItem() {
         return Items.MACE;
+    }
+
+    private float getEntityDamage(ItemStack mace) {
+        int densityLevel = Math.max(ModEnchantHelper.getEnchantmentLevel(mace, Enchantments.DENSITY), 0);
+        int breachLevel = Math.max(ModEnchantHelper.getEnchantmentLevel(mace, Enchantments.BREACH), 0);
+        return 6.0f + densityLevel + breachLevel;
     }
 
     @Override
@@ -416,7 +382,7 @@ public class ThrownMace extends ThrowableItemProjectile {
             this.hasHit = true;
 
             // 增加击退效果
-            float damage = 5.0F;
+            float damage = getEntityDamage(this.getItem());
             float knockback = 1.0F; // 击退强度
 
             // 造成伤害
@@ -424,9 +390,7 @@ public class ThrownMace extends ThrowableItemProjectile {
 
             // 添加击退效果
             if (knockback > 0.0F) {
-                Vec3 knockbackVector = this.getDeltaMovement()
-                        .normalize()
-                        .scale(knockback);
+                Vec3 knockbackVector = this.getDeltaMovement().normalize().scale(knockback);
                 entity.push(knockbackVector.x, knockbackVector.y * 0.1, knockbackVector.z);
             }
 
@@ -435,35 +399,26 @@ public class ThrownMace extends ThrowableItemProjectile {
                 this.level().broadcastEntityEvent(this, (byte) 3); // 伤害粒子效果
 
                 // 播放击中音效
-                this.level().playSound(
-                        null,
-                        entity.getX(), entity.getY(), entity.getZ(),
-                        SoundEvents.METAL_HIT,
-                        SoundSource.NEUTRAL,
-                        0.8F,
-                        0.9F + (this.random.nextFloat() * 0.2F)
-                );
-
-                // 如果有忠诚附魔，立即开始返回
-                if (loyaltyLevel > 0) {
-                    startReturning();
-                }
+                this.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.METAL_HIT,
+                                       SoundSource.AMBIENT, 0.8F, 0.9F + (this.random.nextFloat() * 0.2F));
             }
-            if (!hasEntityChanneling){
+            tryExplode();
+            if (!hasEntityChanneling) {
                 hasEntityChanneling = true;
                 int channelingLevel = ModEnchantHelper.getEnchantmentLevel(Enchantments.CHANNELING, this.getItem());
                 if (channelingLevel > 0) {
-                    Player attacker = (Player)this.getOwner();
+                    Player attacker = (Player) this.getOwner();
                     Level level = attacker.level();
                     attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3, 5));
                     LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level);
                     MinecraftServer server = level.getServer();
                     DamageSource damageSource = null;
                     if (server != null) {
-                        damageSource = new DamageSource(
-                                server.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK),
-                                attacker, // 造成伤害的实体
-                                attacker  // 直接造成伤害的实体（如射出的箭）
+                        damageSource = new DamageSource(server.registryAccess()
+                                                                .registryOrThrow(Registries.DAMAGE_TYPE)
+                                                                .getHolderOrThrow(DamageTypes.PLAYER_ATTACK),
+                                                        attacker, // 造成伤害的实体
+                                                        attacker // 直接造成伤害的实体（如射出的箭）
                         );
                     }
                     BlockPos blockPos = result.getEntity().getOnPos();
@@ -471,8 +426,8 @@ public class ThrownMace extends ThrowableItemProjectile {
                         lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
                         if (damageSource != null) {
                             lightningBolt.setCause(damageSource.getDirectEntity() instanceof ServerPlayer
-                                    ? (ServerPlayer) damageSource.getDirectEntity()
-                                    : null);
+                                                           ? (ServerPlayer) damageSource.getDirectEntity()
+                                                           : null);
                         }
                         level.addFreshEntity(lightningBolt);
                         SoundEvent soundEvent = SoundEvents.LIGHTNING_BOLT_THUNDER;
@@ -482,6 +437,38 @@ public class ThrownMace extends ThrowableItemProjectile {
                 }
             }
         }
+        discardEndure();
+        // 如果有忠诚附魔，立即开始返回
+        if (loyaltyLevel > 0) {
+            startReturning();
+        }
+    }
+
+    private static int getItemDamage(int unbreakingLevel) {
+        Random random = new Random();
+        int rand = random.nextInt(100);
+        if (unbreakingLevel == 0) {
+            if (rand <= 20) {
+                return 0;
+            }
+            return 1;
+        } else if (unbreakingLevel == 1) {
+            if (rand <= 40) {
+                return 0;
+            }
+            return 1;
+        } else if (unbreakingLevel == 2) {
+            if (rand <= 60) {
+                return 0;
+            }
+            return 1;
+        } else if (unbreakingLevel > 2) {
+            if (rand <= 80) {
+                return 0;
+            }
+            return 1;
+        }
+        return 1;
     }
 
     @Override
@@ -497,22 +484,23 @@ public class ThrownMace extends ThrowableItemProjectile {
 
         // 标记已击中目标
         this.hasHit = true;
-
-        if (!hasBlockChanneling){
+        tryExplode();
+        if (!hasBlockChanneling) {
             hasBlockChanneling = true;
             int channelingLevel = ModEnchantHelper.getEnchantmentLevel(Enchantments.CHANNELING, this.getItem());
             if (channelingLevel > 0) {
-                Player attacker = (Player)this.getOwner();
+                Player attacker = (Player) this.getOwner();
                 Level level = attacker.level();
                 attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3, 5));
                 LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level);
                 MinecraftServer server = level.getServer();
                 DamageSource damageSource = null;
                 if (server != null) {
-                    damageSource = new DamageSource(
-                            server.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK),
-                            attacker, // 造成伤害的实体
-                            attacker  // 直接造成伤害的实体（如射出的箭）
+                    damageSource = new DamageSource(server.registryAccess()
+                                                            .registryOrThrow(Registries.DAMAGE_TYPE)
+                                                            .getHolderOrThrow(DamageTypes.PLAYER_ATTACK),
+                                                    attacker, // 造成伤害的实体
+                                                    attacker // 直接造成伤害的实体（如射出的箭）
                     );
                 }
                 BlockPos blockPos = result.getBlockPos();
@@ -520,20 +508,47 @@ public class ThrownMace extends ThrowableItemProjectile {
                     lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
                     if (damageSource != null) {
                         lightningBolt.setCause(damageSource.getDirectEntity() instanceof ServerPlayer
-                                ? (ServerPlayer) damageSource.getDirectEntity()
-                                : null);
+                                                       ? (ServerPlayer) damageSource.getDirectEntity()
+                                                       : null);
                     }
                     level.addFreshEntity(lightningBolt);
                     SoundEvent soundEvent = SoundEvents.LIGHTNING_BOLT_THUNDER;
-                    level.playSound(null,blockPos, soundEvent, SoundSource.AMBIENT, 1.0F, 1.0F);
+                    level.playSound(null, blockPos, soundEvent, SoundSource.AMBIENT, 1.0F, 1.0F);
                     this.clearFire();
                 }
             }
+            discardEndure();
         }
 
         // 如果有忠诚附魔，立即开始返回
         if (loyaltyLevel > 0) {
             startReturning();
+        }
+    }
+
+    private void discardEndure() {
+        ItemStack mace = this.getItem();
+        if (mace.getDamageValue() == mace.getMaxDamage()) {
+            this.playSound(SoundEvents.ITEM_BREAK, 1.0F, 1.0F);
+            this.discard();
+        } else {
+            mace.setDamageValue(mace.getDamageValue() +
+                                getItemDamage(ModEnchantHelper.getEnchantmentLevel(mace, Enchantments.UNBREAKING)));
+        }
+    }
+
+    private void explode(float power, Level level, double x, double y, double z, Entity entity) {
+        float f = 4.0F + (float) (power * 0.5);
+        Level.ExplosionInteraction interaction =
+                Config.getExplodeDestroyBlock() ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE;
+        level.explode(entity, x, y, z, f, interaction);
+    }
+    private void tryExplode() {
+        ItemStack mace = this.getItem();
+        int explosionLevel = ModEnchantHelper.getEnchantmentLevel(mace, ModEnchantments.EXPLODE);
+        if (explosionLevel > 0) {
+            explode(explosionLevel, this.level(), getX(), getY(), getZ(), this);
+            discardEndure();
         }
     }
 
@@ -544,7 +559,7 @@ public class ThrownMace extends ThrowableItemProjectile {
     public net.minecraft.network.chat.Component getDisplayName() {
         if (this.level().isClientSide) {
             if (isReturning) {
-                return net.minecraft.network.chat.Component.literal("链锤 (返回中)");
+                return net.minecraft.network.chat.Component.literal("重锤 (返回中)");
             }
 
             int ticksSinceCreation = this.tickCount - createTick;
@@ -552,15 +567,12 @@ public class ThrownMace extends ThrowableItemProjectile {
                 // 显示剩余时间
                 float secondsLeft = (PICKUP_COOLDOWN - ticksSinceCreation) / 20.0F;
                 return net.minecraft.network.chat.Component.literal(
-                        String.format("链锤 (%.1f秒后可拾取)", secondsLeft)
-                );
+                        String.format("重锤 (%.1f秒后可拾取)", secondsLeft));
             }
 
             // 如果有忠诚附魔，显示忠诚等级
             if (loyaltyLevel > 0) {
-                return net.minecraft.network.chat.Component.literal(
-                        String.format("链锤 [忠诚 %d]", loyaltyLevel)
-                );
+                return net.minecraft.network.chat.Component.literal(String.format("重锤 [忠诚 %d]", loyaltyLevel));
             }
         }
         return super.getDisplayName();
@@ -569,14 +581,10 @@ public class ThrownMace extends ThrowableItemProjectile {
     /**
      * 获取忠诚等级（用于其他用途）
      */
-    public int getLoyaltyLevel() {
-        return this.loyaltyLevel;
-    }
+    public int getLoyaltyLevel() { return this.loyaltyLevel; }
 
     /**
      * 是否正在返回
      */
-    public boolean isReturning() {
-        return this.isReturning;
-    }
+    public boolean isReturning() { return this.isReturning; }
 }

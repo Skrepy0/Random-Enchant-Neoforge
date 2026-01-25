@@ -69,14 +69,15 @@ public class ModEnchantments {
                          registryEntryLookup3.getOrThrow(ModItemTags.KINETIC_AVAILABLE), 3, 5,
                          Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)));
         register(registry, EXPLODE,
-                 Enchantment.enchantment(Enchantment.definition(
-                         registryEntryLookup3.getOrThrow(ModItemTags.EXPLODE_AVAILABLE), 3, 2,
-                         Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)).exclusiveWith(registryEntryLookup2.getOrThrow(ModEnchantmentTags.EXPLODE_EXCLUSIVE)));
+                 Enchantment
+                         .enchantment(Enchantment.definition(
+                                 registryEntryLookup3.getOrThrow(ModItemTags.EXPLODE_AVAILABLE), 3, 2,
+                                 Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY))
+                         .exclusiveWith(registryEntryLookup2.getOrThrow(ModEnchantmentTags.EXPLODE_EXCLUSIVE)));
         register(registry, THROWABLE,
                  Enchantment.enchantment(Enchantment.definition(
                          registryEntryLookup3.getOrThrow(ModItemTags.THROWABLE_AVAILABLE), 3, 1,
                          Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)));
-
     }
 
     public static void register(BootstrapContext<Enchantment> registry, ResourceKey<Enchantment> key,

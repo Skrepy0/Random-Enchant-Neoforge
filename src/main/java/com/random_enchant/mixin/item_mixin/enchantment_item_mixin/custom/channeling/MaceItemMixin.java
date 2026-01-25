@@ -30,8 +30,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MaceItem.class)
 public class MaceItemMixin {
-    @Inject(method = "hurtEnemy", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V", ordinal = 0, shift = At.Shift.AFTER))
-    private void injectHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "hurtEnemy",
+            at = @At(
+                    value = "INVOKE",
+                    target =
+                            "Lnet/minecraft/server/level/ServerLevel;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V",
+                    ordinal = 0, shift = At.Shift.AFTER))
+    private void
+    injectHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> cir) {
         int channelingLevel = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.CHANNELING);
         int explosionLevel = ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.EXPLODE);
         Level level = attacker.level();
@@ -41,10 +47,11 @@ public class MaceItemMixin {
             MinecraftServer server = level.getServer();
             DamageSource damageSource = null;
             if (server != null) {
-                damageSource = new DamageSource(
-                        server.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageTypes.PLAYER_ATTACK),
-                        attacker, // 造成伤害的实体
-                        attacker  // 直接造成伤害的实体（如射出的箭）
+                damageSource = new DamageSource(server.registryAccess()
+                                                        .registryOrThrow(Registries.DAMAGE_TYPE)
+                                                        .getHolderOrThrow(DamageTypes.PLAYER_ATTACK),
+                                                attacker, // 造成伤害的实体
+                                                attacker // 直接造成伤害的实体（如射出的箭）
                 );
             }
             BlockPos blockPos = target.blockPosition();
@@ -52,17 +59,17 @@ public class MaceItemMixin {
                 lightningBolt.moveTo(Vec3.atBottomCenterOf(blockPos));
                 if (damageSource != null) {
                     lightningBolt.setCause(damageSource.getDirectEntity() instanceof ServerPlayer
-                            ? (ServerPlayer) damageSource.getDirectEntity()
-                            : null);
+                                                   ? (ServerPlayer) damageSource.getDirectEntity()
+                                                   : null);
                 }
                 level.addFreshEntity(lightningBolt);
                 SoundEvent soundEvent = SoundEvents.LIGHTNING_BOLT_THUNDER;
                 target.playSound(soundEvent, 5, 1.0F);
             }
         }
-        if (explosionLevel>0&&target.isAlive()){
+        if (explosionLevel > 0 && target.isAlive()) {
             attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3, 5));
-            randomEnchant$explode(explosionLevel*0.8f, level,target.getX(), target.getY(), target.getZ(), target);
+            randomEnchant$explode(explosionLevel * 0.8f, level, target.getX(), target.getY(), target.getZ(), target);
         }
     }
     @Unique
