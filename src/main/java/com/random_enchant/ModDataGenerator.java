@@ -22,7 +22,7 @@ public class ModDataGenerator {
         BlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(packOutput, lookUpProvider, existingFileHelper);
         generator.addProvider(event.includeServer(), new ModRecipesProvider(packOutput, lookUpProvider));
         generator.addProvider(event.includeClient(), new ModItemModelsProvider(packOutput, existingFileHelper));
-        generator.addProvider(event.includeClient(), new ModENUSLanProvider(packOutput));
+        generator.addProvider(event.includeClient(), new ModENUSLangProvider(packOutput));
         generator.addProvider(event.includeClient(), new ModZHCNLangProvider(packOutput));
         generator.addProvider(event.includeClient(), blockTagsProvider);
         generator.addProvider(event.includeClient(),

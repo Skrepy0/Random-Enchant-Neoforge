@@ -1,9 +1,9 @@
-// 1.21.1	2026-01-22T23:29:42.9067454	Tags for minecraft:enchantment mod id random_enchant
+// 1.21.1	2026-01-31T16:13:01.2377506	Tags for minecraft:enchantment mod id random_enchant
 85175b28953eadc4f01e2b4204ed3a7e8e273207 data/minecraft/tags/enchantment/curse.json
 8df7ae602ca75578c8851d101f3f595dbe63f6e5 data/minecraft/tags/enchantment/on_mob_spawn_equipment.json
 a88e3a457a630ed0305368f9f07a077c4fcc8766 data/minecraft/tags/enchantment/on_random_loot.json
-20413da5e1587021c28d9ed0cfa6aa072eaf5ecf data/minecraft/tags/enchantment/tradeable.json
-0036c292d9332030c4590080bd175859dfa8a2b6 data/minecraft/tags/enchantment/treasure.json
+84b0e33250d550f91c254ad5d39dcd435f77b195 data/minecraft/tags/enchantment/tradeable.json
+bfce8b60e8e0b7903bd27415dfe16ef9414562d0 data/minecraft/tags/enchantment/treasure.json
 30ef0357865acd98c4c74e1954aea4581ece8d05 data/random_enchant/tags/enchantment/explode_exclusive.json
 d15316a1ff8b785ee31b96707b1d3b7847f2d0c3 data/random_enchant/tags/enchantment/fury_of_fly_exclusive.json
 208a35f1a35cf9b8cb656522624c0546f9c5767f data/random_enchant/tags/enchantment/redirect_projectile_exclusive.json

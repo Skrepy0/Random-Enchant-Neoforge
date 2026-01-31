@@ -7,6 +7,42 @@
     {
       "id": "random_enchant:redirect_projectile",
       "required": false
+    },
+    {
+      "id": "random_enchant:fly",
+      "required": false
+    },
+    {
+      "id": "random_enchant:no_gravity",
+      "required": false
+    },
+    {
+      "id": "random_enchant:no_resistance",
+      "required": false
+    },
+    {
+      "id": "random_enchant:no_curse",
+      "required": false
+    },
+    {
+      "id": "random_enchant:steady",
+      "required": false
+    },
+    {
+      "id": "random_enchant:kinetic",
+      "required": false
+    },
+    {
+      "id": "random_enchant:explode",
+      "required": false
+    },
+    {
+      "id": "random_enchant:throwable",
+      "required": false
+    },
+    {
+      "id": "random_enchant:bad_luck_of_the_sea",
+      "required": false
     }
   ]
 }

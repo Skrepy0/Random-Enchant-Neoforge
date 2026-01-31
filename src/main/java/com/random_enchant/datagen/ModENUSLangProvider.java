@@ -7,8 +7,8 @@ import com.random_enchant.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
-public class ModENUSLanProvider extends LanguageProvider {
-    public ModENUSLanProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "en_us"); }
+public class ModENUSLangProvider extends LanguageProvider {
+    public ModENUSLangProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "en_us"); }
 
     @Override
     protected void addTranslations() {
@@ -51,6 +51,7 @@ public class ModENUSLanProvider extends LanguageProvider {
         add("enchantment.random_enchant.kinetic", "§bKinetic§r");
         add("enchantment.random_enchant.explode", "§6Explode§r");
         add("enchantment.random_enchant.throwable", "Throwable");
+        add("enchantment.random_enchant.tracking", "§aTracking§r");
 
         add("message.random_enchant.enchant_added", "§6Enchanted:§r");
         add("message.random_enchant.item.enchant_brush.selected_1",

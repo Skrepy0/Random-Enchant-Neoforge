@@ -24,7 +24,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> KINETIC = of("kinetic");
     public static final ResourceKey<Enchantment> EXPLODE = of("explode");
     public static final ResourceKey<Enchantment> THROWABLE = of("throwable");
-
+    public static final ResourceKey<Enchantment> TRACKING = of("tracking");
     public static void bootstrap(BootstrapContext<Enchantment> registry) {
         HolderGetter<Enchantment> registryEntryLookup2 = registry.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> registryEntryLookup3 = registry.lookup(Registries.ITEM);
@@ -77,6 +77,10 @@ public class ModEnchantments {
         register(registry, THROWABLE,
                  Enchantment.enchantment(Enchantment.definition(
                          registryEntryLookup3.getOrThrow(ModItemTags.THROWABLE_AVAILABLE), 3, 1,
+                         Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)));
+        register(registry, TRACKING,
+                 Enchantment.enchantment(Enchantment.definition(
+                         registryEntryLookup3.getOrThrow(ModItemTags.TRACKING_AVAILABLE), 3, 1,
                          Enchantment.constantCost(20), Enchantment.constantCost(30), 8, EquipmentSlotGroup.ANY)));
     }
 

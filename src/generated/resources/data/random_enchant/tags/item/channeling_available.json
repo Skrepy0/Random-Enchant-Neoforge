@@ -1,6 +1,7 @@
 {
   "values": [
     "random_enchant:pearl_spear",
-    "#minecraft:enchantable/trident"
+    "#minecraft:enchantable/trident",
+    "minecraft:mace"
   ]
 }

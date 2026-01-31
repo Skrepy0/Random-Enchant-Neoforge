@@ -7,6 +7,26 @@
     {
       "id": "random_enchant:bad_luck_of_the_sea",
       "required": false
+    },
+    {
+      "id": "random_enchant:steady",
+      "required": false
+    },
+    {
+      "id": "random_enchant:kinetic",
+      "required": false
+    },
+    {
+      "id": "random_enchant:explode",
+      "required": false
+    },
+    {
+      "id": "random_enchant:throwable",
+      "required": false
+    },
+    {
+      "id": "random_enchant:fly",
+      "required": false
     }
   ]
 }

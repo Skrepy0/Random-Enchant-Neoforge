@@ -23,13 +23,13 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class ModItemGroup {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RandomEnchant.MOD_ID);
-    private static final List<ResourceKey<Enchantment>> ENCHANTMENT_BOOK_LIST =
-            List.of(Enchantments.INFINITY, Enchantments.PROTECTION, Enchantments.BLAST_PROTECTION, Enchantments.POWER,
-                    Enchantments.CHANNELING, Enchantments.UNBREAKING, ModEnchantments.FURY_OF_FLY,
-                    ModEnchantments.BAD_LUCK_OF_THE_SEA, ModEnchantments.REDIRECT_PROJECTILE, ModEnchantments.FLY,
-                    ModEnchantments.NO_GRAVITY, ModEnchantments.NO_RESISTANCE, ModEnchantments.EXPLODE,
-                    Enchantments.QUICK_CHARGE, Enchantments.FEATHER_FALLING, ModEnchantments.NO_CURSE,
-                    ModEnchantments.STEADY, ModEnchantments.KINETIC, ModEnchantments.THROWABLE);
+    private static final List<ResourceKey<Enchantment>> ENCHANTMENT_BOOK_LIST = List.of(
+            Enchantments.INFINITY, Enchantments.PROTECTION, Enchantments.BLAST_PROTECTION, Enchantments.POWER,
+            Enchantments.CHANNELING, Enchantments.UNBREAKING, ModEnchantments.FURY_OF_FLY,
+            ModEnchantments.BAD_LUCK_OF_THE_SEA, ModEnchantments.REDIRECT_PROJECTILE, ModEnchantments.FLY,
+            ModEnchantments.NO_GRAVITY, ModEnchantments.NO_RESISTANCE, ModEnchantments.EXPLODE,
+            Enchantments.QUICK_CHARGE, Enchantments.FEATHER_FALLING, ModEnchantments.NO_CURSE, ModEnchantments.STEADY,
+            ModEnchantments.KINETIC, ModEnchantments.THROWABLE, ModEnchantments.TRACKING);
     public static final Supplier<CreativeModeTab> RANDOM_ENCHANT = CREATIVE_MODE_TAB.register(
             "random_enchant_tab",
             ()

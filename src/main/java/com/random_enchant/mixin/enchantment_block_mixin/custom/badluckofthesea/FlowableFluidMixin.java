@@ -2,7 +2,6 @@ package com.random_enchant.mixin.enchantment_block_mixin.custom.badluckofthesea;
 
 import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
-import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +19,8 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Objects;
 
 @Mixin(FlowingFluid.class)
 public abstract class FlowableFluidMixin {
@@ -42,7 +43,7 @@ public abstract class FlowableFluidMixin {
     private void randomEnchant$generateFallingBlock(BlockPos targetPos, BlockState blockState, Level world) {
         if (!world.isClientSide()) {
             BlockEntity blockEntity = world.getBlockEntity(targetPos);
-
+            if (blockEntity != null)return;
             // 获取原始位置的附魔信息
             ListTag enchantments = BlockEnchantmentStorage.getEnchantmentsAtPosition(targetPos);
 
@@ -71,14 +72,6 @@ public abstract class FlowableFluidMixin {
             if (enchantments != null && !enchantments.isEmpty()) {
                 CompoundTag entityData = fallingBlockEntity.getPersistentData();
                 entityData.put("BlockEnchantments", enchantments);
-            }
-
-            // 如果方块有附加的 BlockEntity 数据，可以设置 blockEntityData 字段
-            if (blockEntity != null) {
-                CompoundTag blockEntityData = new CompoundTag();
-                BlockEntityReflectionHelper.invokeSaveAdditionalSafe(blockEntity, blockEntityData,
-                                                                     world.registryAccess());
-                fallingBlockEntity.blockData = blockEntityData;
             }
 
             world.setBlock(targetPos, Blocks.AIR.defaultBlockState(), 3);
