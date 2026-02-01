@@ -1,5 +1,6 @@
 package com.random_enchant.item.custom;
 
+import com.random_enchant.enchantment.ModEnchantHelper;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -10,12 +11,17 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.EffectCures;
 
 public class MilkBottleItem extends Item {
     private static final int DRINK_DURATION = 30;
-    public MilkBottleItem(Properties properties) { super(properties); }
+
+    public MilkBottleItem(Properties properties) {
+        super(properties);
+    }
+
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
         super.finishUsingItem(stack, level, entityLiving);
@@ -32,19 +38,22 @@ public class MilkBottleItem extends Item {
             return new ItemStack(Items.GLASS_BOTTLE);
         } else {
             if (entityLiving instanceof Player player && !player.hasInfiniteMaterials()) {
-                ItemStack itemstack = new ItemStack(Items.GLASS_BOTTLE);
-                if (!player.getInventory().add(itemstack)) {
-                    player.drop(itemstack, false);
+                if (ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.INFINITY) <= 0) {
+                    ItemStack itemstack = new ItemStack(Items.GLASS_BOTTLE);
+                    if (!player.getInventory().add(itemstack)) {
+                        player.drop(itemstack, false);
+                    }
                 }
             }
-
             return stack;
         }
     }
+
     @Override
     public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 30;
     }
+
     @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
