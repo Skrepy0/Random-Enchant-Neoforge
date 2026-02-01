@@ -31,6 +31,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add(ModItems.PEARL_SPEAR.get(), "珍珠矛");
         add(ModItems.ENCHANT_BRUSH.get(), "附魔刷");
         add(ModItems.LIGHTNING_ITEM.get(), "雷电");
+        add(ModItems.MILK_BOTTLE.get(), "牛奶瓶");
 
         add("enchantment.random_enchant.fury_of_fly", "§aFly之怒");
         add("enchantment.random_enchant.bad_luck_of_the_sea", "§c海之嫌弃§r");

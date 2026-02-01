@@ -2,6 +2,8 @@ package com.random_enchant.mixin.item_mixin.enchantment_item_mixin.custom.tracki
 
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
+import java.util.List;
+import javax.annotation.Nullable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -13,9 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
@@ -44,8 +43,7 @@ public abstract class AbstractArrowMixin {
 
                 if (this.randomEnchantTracking$trackingLevel > 0) {
                     this.randomEnchantTracking$ticksInAir = 0;
-                    this.randomEnchantTracking$previousHorizontalSpeed =
-                            Math.sqrt(x * x + z * z) * velocity;
+                    this.randomEnchantTracking$previousHorizontalSpeed = Math.sqrt(x * x + z * z) * velocity;
                     this.randomEnchantTracking$isActivelyTracking = false;
 
                     // 立即寻找初始目标
@@ -89,8 +87,7 @@ public abstract class AbstractArrowMixin {
             }
 
             // 执行追踪
-            if (this.randomEnchantTracking$isActivelyTracking &&
-                    this.randomEnchantTracking$trackedTarget != null) {
+            if (this.randomEnchantTracking$isActivelyTracking && this.randomEnchantTracking$trackedTarget != null) {
                 this.randomEnchantTracking$steerTowardsTarget(arrow);
 
                 // 强制更新位置以确保平滑移动
@@ -106,7 +103,8 @@ public abstract class AbstractArrowMixin {
     private void randomEnchantTracking$updateTrackingTarget(AbstractArrow arrow, LivingEntity owner) {
         // 检查当前目标是否有效
         if (this.randomEnchantTracking$trackedTarget != null) {
-            boolean targetValid = this.randomEnchantTracking$trackedTarget.isAlive() &&
+            boolean targetValid =
+                    this.randomEnchantTracking$trackedTarget.isAlive() &&
                     !this.randomEnchantTracking$trackedTarget.isRemoved() &&
                     this.randomEnchantTracking$isInTrackingRange(arrow, this.randomEnchantTracking$trackedTarget);
 
@@ -121,16 +119,13 @@ public abstract class AbstractArrowMixin {
                     // 如果目标不在视野内，尝试寻找新目标
                     this.randomEnchantTracking$trackedTarget =
                             this.randomEnchantTracking$findOptimalTarget(arrow, owner);
-                    this.randomEnchantTracking$isActivelyTracking =
-                            this.randomEnchantTracking$trackedTarget != null;
+                    this.randomEnchantTracking$isActivelyTracking = this.randomEnchantTracking$trackedTarget != null;
                 }
             }
         } else {
             // 寻找新目标
-            this.randomEnchantTracking$trackedTarget =
-                    this.randomEnchantTracking$findOptimalTarget(arrow, owner);
-            this.randomEnchantTracking$isActivelyTracking =
-                    this.randomEnchantTracking$trackedTarget != null;
+            this.randomEnchantTracking$trackedTarget = this.randomEnchantTracking$findOptimalTarget(arrow, owner);
+            this.randomEnchantTracking$isActivelyTracking = this.randomEnchantTracking$trackedTarget != null;
         }
     }
 
@@ -143,15 +138,12 @@ public abstract class AbstractArrowMixin {
         Vec3 arrowPos = arrow.position();
         Vec3 arrowDirection = arrow.getDeltaMovement().normalize();
 
-        AABB searchArea = new AABB(
-                arrowPos.x - range, arrowPos.y - range, arrowPos.z - range,
-                arrowPos.x + range, arrowPos.y + range, arrowPos.z + range
-        );
+        AABB searchArea = new AABB(arrowPos.x - range, arrowPos.y - range, arrowPos.z - range, arrowPos.x + range,
+                                   arrowPos.y + range, arrowPos.z + range);
 
         List<LivingEntity> entities = owner.level().getEntitiesOfClass(
                 LivingEntity.class, searchArea,
-                entity -> this.randomEnchantTracking$isValidTarget(owner, entity, arrowPos, arrowDirection)
-        );
+                entity -> this.randomEnchantTracking$isValidTarget(owner, entity, arrowPos, arrowDirection));
 
         if (entities.isEmpty()) return null;
 
@@ -159,7 +151,7 @@ public abstract class AbstractArrowMixin {
         LivingEntity bestTarget = null;
         double bestScore = Double.NEGATIVE_INFINITY;
 
-        for (LivingEntity entity : entities) {
+        for (LivingEntity entity: entities) {
             double score = this.randomEnchantTracking$calculateTargetScore(arrow, entity, arrowDirection);
             if (score > bestScore) {
                 bestScore = score;
@@ -171,7 +163,8 @@ public abstract class AbstractArrowMixin {
     }
 
     @Unique
-    private double randomEnchantTracking$calculateTargetScore(AbstractArrow arrow, LivingEntity target, Vec3 arrowDirection) {
+    private double randomEnchantTracking$calculateTargetScore(AbstractArrow arrow, LivingEntity target,
+                                                              Vec3 arrowDirection) {
         Vec3 arrowPos = arrow.position();
         Vec3 targetPos = target.getBoundingBox().getCenter();
         Vec3 toTarget = targetPos.subtract(arrowPos);
@@ -193,7 +186,8 @@ public abstract class AbstractArrowMixin {
     }
 
     @Unique
-    private boolean randomEnchantTracking$isValidTarget(LivingEntity owner, LivingEntity entity, Vec3 arrowPos, Vec3 arrowDirection) {
+    private boolean randomEnchantTracking$isValidTarget(LivingEntity owner, LivingEntity entity, Vec3 arrowPos,
+                                                        Vec3 arrowDirection) {
         // 基础检查
         if (entity == owner) return false;
         if (!entity.isAlive() || entity.isRemoved()) return false;
@@ -228,8 +222,8 @@ public abstract class AbstractArrowMixin {
 
     @Unique
     private void randomEnchantTracking$steerTowardsTarget(AbstractArrow arrow) {
-        if (this.randomEnchantTracking$trackedTarget == null ||
-                !this.randomEnchantTracking$trackedTarget.isAlive()) return;
+        if (this.randomEnchantTracking$trackedTarget == null || !this.randomEnchantTracking$trackedTarget.isAlive())
+            return;
 
         Vec3 arrowPos = arrow.position();
         Vec3 targetPos = this.randomEnchantTracking$trackedTarget.getBoundingBox().getCenter();

@@ -37,6 +37,7 @@ public class ModENUSLangProvider extends LanguageProvider {
         add(ModItems.PEARL_SPEAR.get(), "Pearl Spear");
         add(ModItems.ENCHANT_BRUSH.get(), "Enchant Brush");
         add(ModItems.LIGHTNING_ITEM.get(), "Lightning");
+        add(ModItems.MILK_BOTTLE.get(), "Milk Bottle");
 
         add("enchantment.random_enchant.fury_of_fly", "§aFury Of Fly");
 

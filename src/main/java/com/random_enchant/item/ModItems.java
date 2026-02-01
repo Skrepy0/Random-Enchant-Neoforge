@@ -2,9 +2,12 @@ package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.custom.LightningItem;
+import com.random_enchant.item.custom.MilkBottleItem;
 import com.random_enchant.item.custom.tool.EnchantBrush;
 import com.random_enchant.item.custom.tool.PearlSpear;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Tiers;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -19,6 +22,13 @@ public class ModItems {
             ITEMS.register("pearl_spear", () -> new PearlSpear(new Item.Properties()));
     public static final DeferredItem<Item> LIGHTNING_ITEM = ITEMS.register(
             "lightning", () -> new LightningItem(Tiers.NETHERITE, new Item.Properties().fireResistant().stacksTo(1)));
-
+    public static final DeferredItem<Item> MILK_BOTTLE = ITEMS.register(
+            "milk_bottle",
+            ()
+                    -> new MilkBottleItem(
+                            new Item.Properties()
+                                    .craftRemainder(Items.GLASS_BOTTLE)
+                                    .food((new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).build())
+                                    .stacksTo(16)));
     public static void registerModItems(IEventBus bus) { ITEMS.register(bus); }
 }

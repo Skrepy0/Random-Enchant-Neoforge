@@ -22,6 +22,7 @@
   "enchantment.random_enchant.tracking": "§a追踪§r",
   "item.random_enchant.enchant_brush": "附魔刷",
   "item.random_enchant.lightning": "雷电",
+  "item.random_enchant.milk_bottle": "牛奶瓶",
   "item.random_enchant.pearl_spear": "珍珠矛",
   "item.tooltip.random_enchant.enchant_brush.status": "状态：",
   "item.tooltip.random_enchant.enchant_brush.status.regional": "§a区域模式§r",

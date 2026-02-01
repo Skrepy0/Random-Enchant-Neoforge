@@ -66,5 +66,10 @@ public class ModRecipesProvider extends RecipeProvider implements IConditionBuil
                 .define('B', Items.STICK)
                 .unlockedBy(getHasName(ModItems.ENCHANT_BRUSH), has(Items.STICK))
                 .save(recipeOutput);
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, ModItems.MILK_BOTTLE)
+                .requires(Items.GLASS_BOTTLE)
+                .requires(Items.MILK_BUCKET)
+                .unlockedBy(getHasName(ModItems.MILK_BOTTLE), has(Items.MILK_BUCKET))
+                .save(recipeOutput);
     }
 }

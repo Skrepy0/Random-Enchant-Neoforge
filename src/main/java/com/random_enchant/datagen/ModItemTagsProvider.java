@@ -3,6 +3,7 @@ package com.random_enchant.datagen;
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.ModItemTags;
 import com.random_enchant.item.ModItems;
+import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -11,8 +12,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.concurrent.CompletableFuture;
 
 public class ModItemTagsProvider extends ItemTagsProvider {
     public ModItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider,
@@ -31,7 +30,10 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.WIND_BURST_AVAILABLE).addTag(ItemTags.MACE_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ModItemTags.QUICK_CHARGE_AVAILABLE).addTag(ItemTags.CROSSBOW_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ModItemTags.FLY_AVAILABLE).add(Items.ELYTRA);
-        tag(ModItemTags.CHANNELING).add(ModItems.PEARL_SPEAR.get()).addTag(ItemTags.TRIDENT_ENCHANTABLE).add(Items.MACE);
+        tag(ModItemTags.CHANNELING)
+                .add(ModItems.PEARL_SPEAR.get())
+                .addTag(ItemTags.TRIDENT_ENCHANTABLE)
+                .add(Items.MACE);
         tag(ItemTags.SWORD_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ItemTags.WEAPON_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ModItemTags.FROST_WALKER).add(Items.ARROW).addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
@@ -40,6 +42,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.THROWABLE_AVAILABLE).add(Items.MACE);
         tag(ModItemTags.KINETIC_AVAILABLE).add(Items.CROSSBOW).add(Items.BOW);
         tag(ModItemTags.STEADY_AVAILABLE).add(Items.CROSSBOW).add(Items.BOW);
-        tag(ModItemTags.NO_CURSE_AVAILABLE).addTag(ItemTags.DURABILITY_ENCHANTABLE).addTag(ItemTags.WEAPON_ENCHANTABLE).addTag(ItemTags.ARMOR_ENCHANTABLE);
+        tag(ModItemTags.NO_CURSE_AVAILABLE)
+                .addTag(ItemTags.DURABILITY_ENCHANTABLE)
+                .addTag(ItemTags.WEAPON_ENCHANTABLE)
+                .addTag(ItemTags.ARMOR_ENCHANTABLE);
     }
 }

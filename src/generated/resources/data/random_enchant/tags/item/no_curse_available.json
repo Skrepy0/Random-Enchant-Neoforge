@@ -1,0 +1,7 @@
+{
+  "values": [
+    "#minecraft:enchantable/durability",
+    "#minecraft:enchantable/weapon",
+    "#minecraft:enchantable/armor"
+  ]
+}

@@ -14,5 +14,6 @@ public class ModItemModelsProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         handheldItem(ModItems.ENCHANT_BRUSH.asItem());
+        basicItem(ModItems.MILK_BOTTLE.asItem());
     }
 }
