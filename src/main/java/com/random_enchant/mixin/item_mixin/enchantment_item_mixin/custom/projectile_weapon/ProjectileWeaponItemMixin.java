@@ -80,7 +80,7 @@ public class ProjectileWeaponItemMixin {
                              LivingEntity target, CallbackInfo ci, @Local Projectile projectile) {
         if (weapon == null||weapon.isEmpty())return;
         randomEnchant$KineticFlag = Math.max(ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.KINETIC), 0);
-        projectile.setDeltaMovement(projectile.getDeltaMovement().scale(1 + randomEnchant$KineticFlag * 2.0f));
+        projectile.setDeltaMovement(projectile.getDeltaMovement().scale(1 + randomEnchant$KineticFlag * 0.2f));
         PacketDistributor.sendToAllPlayers(
                 new UpdateProjectileVelocityPacket(projectile.getId(), projectile.getDeltaMovement()));
     }
