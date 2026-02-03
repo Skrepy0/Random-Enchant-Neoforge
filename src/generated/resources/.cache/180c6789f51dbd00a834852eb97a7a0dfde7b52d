@@ -1,7 +1,8 @@
-// 1.21.1	2026-01-31T16:13:01.2377506	Tags for minecraft:enchantment mod id random_enchant
+// 1.21.1	2026-02-03T20:38:23.0863488	Tags for minecraft:enchantment mod id random_enchant
 85175b28953eadc4f01e2b4204ed3a7e8e273207 data/minecraft/tags/enchantment/curse.json
-8df7ae602ca75578c8851d101f3f595dbe63f6e5 data/minecraft/tags/enchantment/on_mob_spawn_equipment.json
-a88e3a457a630ed0305368f9f07a077c4fcc8766 data/minecraft/tags/enchantment/on_random_loot.json
+55a4ba3762c45d92ed77f2dab84fc39ba69b0baf data/minecraft/tags/enchantment/in_enchanting_table.json
+7963eeb266979c6a92c7a40f186c15c64d57c395 data/minecraft/tags/enchantment/on_mob_spawn_equipment.json
+15d042bb36a2139bcc24207bf3a275c6708193a5 data/minecraft/tags/enchantment/on_random_loot.json
 84b0e33250d550f91c254ad5d39dcd435f77b195 data/minecraft/tags/enchantment/tradeable.json
 bfce8b60e8e0b7903bd27415dfe16ef9414562d0 data/minecraft/tags/enchantment/treasure.json
 30ef0357865acd98c4c74e1954aea4581ece8d05 data/random_enchant/tags/enchantment/explode_exclusive.json

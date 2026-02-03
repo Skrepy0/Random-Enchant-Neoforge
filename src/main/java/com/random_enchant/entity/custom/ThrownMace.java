@@ -4,7 +4,6 @@ import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.entity.ModEntities;
-import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -30,6 +29,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.Random;
+
 public class ThrownMace extends ThrowableItemProjectile {
 
     // 定义不同状态的尺寸（调大尺寸）
@@ -43,6 +44,7 @@ public class ThrownMace extends ThrowableItemProjectile {
     private boolean hasHit = false; // 是否已经击中过目标
     private boolean hasBlockChanneling = false;
     private boolean hasEntityChanneling = false;
+    private boolean explodeFlag = true;
     // 创建时间和拾取冷却时间（20 ticks = 1秒）
     private int createTick = 0;
     private static final int PICKUP_COOLDOWN = 5;
@@ -120,7 +122,7 @@ public class ThrownMace extends ThrowableItemProjectile {
         if (!isReturning && isGrounded && canPickup && this.getOwner() instanceof Player) {
             Player owner = (Player) this.getOwner();
 
-            // 增加拾取范围（5格）
+            // 增加拾取范围（1.5格）
             double pickupRange = 1.5;
             if (this.distanceToSqr(owner) <= (pickupRange * pickupRange)) {
                 tryPickupItem(owner);
@@ -544,11 +546,13 @@ public class ThrownMace extends ThrowableItemProjectile {
         level.explode(entity, x, y, z, f, interaction);
     }
     private void tryExplode() {
+        if (this.level().isClientSide())return;
         ItemStack mace = this.getItem();
         int explosionLevel = ModEnchantHelper.getEnchantmentLevel(mace, ModEnchantments.EXPLODE);
-        if (explosionLevel > 0) {
+        if (explosionLevel > 0&&explodeFlag) {
             explode(explosionLevel, this.level(), getX(), getY(), getZ(), this);
             discardEndure();
+            explodeFlag = false;
         }
     }
 

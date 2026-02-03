@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "random_enchant:kinetic",
+      "required": false
+    },
+    {
+      "id": "random_enchant:steady",
+      "required": false
+    }
+  ]
+}

@@ -4,8 +4,6 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.network.packet.S2C.UpdateProjectileVelocityPacket;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +18,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 @Mixin(ProjectileWeaponItem.class)
 public class ProjectileWeaponItemMixin {
     @Unique private boolean randomEnchant$InaccuracyFlag = false;
@@ -31,10 +32,10 @@ public class ProjectileWeaponItemMixin {
                               + "ItemStack;Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/world/entity/"
                               + "projectile/Projectile;",
                      shift = At.Shift.AFTER))
-    private void
-    afterCreateProjectile(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon,
+    private void afterCreateProjectile(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon,
                           List<ItemStack> projectileItems, float velocity, float inaccuracy, boolean isCrit,
                           @Nullable LivingEntity target, CallbackInfo ci, @Local Projectile projectile) {
+        if (weapon == null||weapon.isEmpty())return;
         if (ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.NO_GRAVITY) > 0) {
             projectile.setNoGravity(true);
         } else if (ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.NO_RESISTANCE) > 0) {
@@ -49,10 +50,10 @@ public class ProjectileWeaponItemMixin {
                               + "ItemStack;Lnet/minecraft/world/item/ItemStack;Z)Lnet/minecraft/world/entity/"
                               + "projectile/Projectile;",
                      shift = At.Shift.AFTER))
-    private void
-    solveInaccuracy(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon,
+    private void solveInaccuracy(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon,
                     List<ItemStack> projectileItems, float velocity, float inaccuracy, boolean isCrit,
                     LivingEntity target, CallbackInfo ci) {
+        if (weapon == null||weapon.isEmpty())return;
         if (ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.STEADY) > 0) {
             randomEnchant$InaccuracyFlag = true;
         }
@@ -63,8 +64,7 @@ public class ProjectileWeaponItemMixin {
                                  + "world/entity/LivingEntity;Lnet/minecraft/world/entity/projectile/"
                                  + "Projectile;IFFFLnet/minecraft/world/entity/LivingEntity;)V"),
                index = 4)
-    private float
-    modifyInaccuracy(float inaccuracy) {
+    private float modifyInaccuracy(float inaccuracy) {
         if (randomEnchant$InaccuracyFlag) {
             randomEnchant$InaccuracyFlag = false;
             return 0;
@@ -75,10 +75,10 @@ public class ProjectileWeaponItemMixin {
                                        target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/"
                                                 + "minecraft/world/entity/Entity;)Z",
                                        shift = At.Shift.AFTER))
-    private void
-    modifyProjectileVelocity(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon,
+    private void modifyProjectileVelocity(ServerLevel level, LivingEntity shooter, InteractionHand hand, ItemStack weapon,
                              List<ItemStack> projectileItems, float velocity, float inaccuracy, boolean isCrit,
                              LivingEntity target, CallbackInfo ci, @Local Projectile projectile) {
+        if (weapon == null||weapon.isEmpty())return;
         randomEnchant$KineticFlag = Math.max(ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.KINETIC), 0);
         projectile.setDeltaMovement(projectile.getDeltaMovement().scale(1 + randomEnchant$KineticFlag * 2.0f));
         PacketDistributor.sendToAllPlayers(

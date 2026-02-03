@@ -45,6 +45,8 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.explode", "§6爆炸§r");
         add("enchantment.random_enchant.throwable", "可投掷");
         add("enchantment.random_enchant.tracking", "§a追踪§r");
+        add("enchantment.random_enchant.parry", "格挡");
+
 
         add("message.random_enchant.enchant_added", "§6已附魔：§r");
         add("message.random_enchant.item.enchant_brush.selected_1", "§a已设置起始点，请点击第二个方块以确定区域。");

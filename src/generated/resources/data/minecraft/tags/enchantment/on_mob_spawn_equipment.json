@@ -7,6 +7,14 @@
     {
       "id": "random_enchant:redirect_projectile",
       "required": false
+    },
+    {
+      "id": "random_enchant:steady",
+      "required": false
+    },
+    {
+      "id": "random_enchant:kinetic",
+      "required": false
     }
   ]
 }

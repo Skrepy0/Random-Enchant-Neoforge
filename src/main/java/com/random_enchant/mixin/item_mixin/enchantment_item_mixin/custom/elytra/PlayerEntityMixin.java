@@ -4,6 +4,7 @@ import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.mixin_helper.ElytraJumpMixinHelper;
+import com.random_enchant.mixin_helper.RandomHelper;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,6 +34,9 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         if (ElytraJumpMixinHelper.isJumpKeyPressed()) {
             this.push(0, Config.getFlyEnchantmentLiftHeightPerTick(), 0);
+            if (RandomHelper.random(0.08f)){
+                chestItem.setDamageValue(chestItem.getDamageValue() + 1);
+            }
         }
     }
 }
