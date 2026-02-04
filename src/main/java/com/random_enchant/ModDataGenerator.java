@@ -31,5 +31,10 @@ public class ModDataGenerator {
         generator.addProvider(event.includeClient(),
                               new ModEnchantmentTagsProvider(packOutput, lookUpProvider, existingFileHelper));
         generator.addProvider(event.includeClient(), new ModEnchantmentsProvider(packOutput, lookUpProvider));
+        //        generator.addProvider(
+        //                event.includeServer(),
+        //                new ModChestLootTableProvider(event.getGenerator().getPackOutput(),
+        //                        event.getLookupProvider())
+        //        );
     }
 }

@@ -32,6 +32,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add(ModItems.ENCHANT_BRUSH.get(), "附魔刷");
         add(ModItems.LIGHTNING_ITEM.get(), "雷电");
         add(ModItems.MILK_BOTTLE.get(), "牛奶瓶");
+        add(ModItems.MEMORY_POTION.get(), "§b回忆药水");
 
         add("enchantment.random_enchant.fury_of_fly", "§aFly之怒");
         add("enchantment.random_enchant.bad_luck_of_the_sea", "§c海之嫌弃§r");
@@ -45,7 +46,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.explode", "§6爆炸§r");
         add("enchantment.random_enchant.throwable", "可投掷");
         add("enchantment.random_enchant.tracking", "§a追踪§r");
-        add("enchantment.random_enchant.parry", "格挡");
+        add("enchantment.random_enchant.double_jump", "二段跳");
 
 
         add("message.random_enchant.enchant_added", "§6已附魔：§r");

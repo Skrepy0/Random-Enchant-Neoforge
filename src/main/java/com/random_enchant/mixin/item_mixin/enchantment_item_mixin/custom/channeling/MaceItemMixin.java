@@ -36,8 +36,9 @@ public class MaceItemMixin {
                     target =
                             "Lnet/minecraft/server/level/ServerLevel;playSound(Lnet/minecraft/world/entity/player/Player;DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FF)V",
                     ordinal = 0, shift = At.Shift.AFTER))
-    private void injectHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> cir) {
-        if(target.level().isClientSide())return;
+    private void
+    injectHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker, CallbackInfoReturnable<Boolean> cir) {
+        if (target.level().isClientSide()) return;
         int channelingLevel = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.CHANNELING);
         int explosionLevel = ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.EXPLODE);
         Level level = attacker.level();

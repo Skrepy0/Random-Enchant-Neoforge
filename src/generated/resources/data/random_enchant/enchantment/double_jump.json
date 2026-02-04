@@ -1,7 +1,7 @@
 {
   "anvil_cost": 5,
   "description": {
-    "translate": "enchantment.random_enchant.parry"
+    "translate": "enchantment.random_enchant.double_jump"
   },
   "max_cost": {
     "base": 20,
@@ -13,8 +13,8 @@
     "per_level_above_first": 0
   },
   "slots": [
-    "any"
+    "feet"
   ],
-  "supported_items": "#random_enchant:parry_available",
+  "supported_items": "#random_enchant:double_jump_available",
   "weight": 5
 }

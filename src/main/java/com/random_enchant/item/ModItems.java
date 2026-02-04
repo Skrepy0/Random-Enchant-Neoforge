@@ -2,6 +2,7 @@ package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.custom.LightningItem;
+import com.random_enchant.item.custom.MemoryPotion;
 import com.random_enchant.item.custom.MilkBottleItem;
 import com.random_enchant.item.custom.tool.EnchantBrush;
 import com.random_enchant.item.custom.tool.PearlSpear;
@@ -26,6 +27,14 @@ public class ModItems {
             "milk_bottle",
             ()
                     -> new MilkBottleItem(
+                            new Item.Properties()
+                                    .craftRemainder(Items.GLASS_BOTTLE)
+                                    .food((new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).build())
+                                    .stacksTo(16)));
+    public static final DeferredItem<Item> MEMORY_POTION = ITEMS.register(
+            "memory_potion",
+            ()
+                    -> new MemoryPotion(
                             new Item.Properties()
                                     .craftRemainder(Items.GLASS_BOTTLE)
                                     .food((new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).build())

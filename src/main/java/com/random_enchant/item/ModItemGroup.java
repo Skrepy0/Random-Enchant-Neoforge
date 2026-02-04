@@ -2,6 +2,8 @@ package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantments;
+import java.util.List;
+import java.util.function.Supplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -18,9 +20,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.List;
-import java.util.function.Supplier;
-
 public class ModItemGroup {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, RandomEnchant.MOD_ID);
@@ -30,7 +29,7 @@ public class ModItemGroup {
             ModEnchantments.BAD_LUCK_OF_THE_SEA, ModEnchantments.REDIRECT_PROJECTILE, ModEnchantments.FLY,
             ModEnchantments.NO_GRAVITY, ModEnchantments.NO_RESISTANCE, ModEnchantments.EXPLODE,
             Enchantments.QUICK_CHARGE, Enchantments.FEATHER_FALLING, ModEnchantments.NO_CURSE, ModEnchantments.STEADY,
-            ModEnchantments.KINETIC, ModEnchantments.THROWABLE, ModEnchantments.TRACKING, ModEnchantments.PARRY);
+            ModEnchantments.KINETIC, ModEnchantments.THROWABLE, ModEnchantments.TRACKING, ModEnchantments.DOUBLE_JUMP);
     public static final Supplier<CreativeModeTab> RANDOM_ENCHANT = CREATIVE_MODE_TAB.register(
             "random_enchant_tab",
             ()
@@ -57,6 +56,7 @@ public class ModItemGroup {
                                    output.accept(ModItems.ENCHANT_BRUSH.get());
                                    output.accept(ModItems.LIGHTNING_ITEM);
                                    output.accept(ModItems.MILK_BOTTLE.get());
+                                   output.accept(ModItems.MEMORY_POTION.get());
                                })
                                .build());
 

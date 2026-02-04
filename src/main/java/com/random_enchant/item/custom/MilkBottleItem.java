@@ -18,9 +18,7 @@ import net.neoforged.neoforge.common.EffectCures;
 public class MilkBottleItem extends Item {
     private static final int DRINK_DURATION = 30;
 
-    public MilkBottleItem(Properties properties) {
-        super(properties);
-    }
+    public MilkBottleItem(Properties properties) { super(properties); }
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {

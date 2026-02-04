@@ -1,9 +1,10 @@
-// 1.21.1	2026-02-02T19:30:00.6181568	Tags for minecraft:item mod id random_enchant
+// 1.21.1	2026-02-04T09:53:06.855158	Tags for minecraft:item mod id random_enchant
 d7542543cbd9db648a5753c2955f7105b7b94df2 data/minecraft/tags/item/enchantable/durability.json
 d7542543cbd9db648a5753c2955f7105b7b94df2 data/minecraft/tags/item/enchantable/sword.json
 d7542543cbd9db648a5753c2955f7105b7b94df2 data/minecraft/tags/item/enchantable/weapon.json
 d7542543cbd9db648a5753c2955f7105b7b94df2 data/minecraft/tags/item/swords.json
 32b349f7b382927ce151fab331040c8d7e23e571 data/random_enchant/tags/item/channeling_available.json
+718fa8e73ff2d5e88554e8903849cbc31e29b9aa data/random_enchant/tags/item/double_jump_available.json
 916f39963ce4f94b1a3bcdd9dc620598ef28b1f7 data/random_enchant/tags/item/explode_available.json
 e6a557e0f0c7023bf91eaaf1ba66fadae53fd806 data/random_enchant/tags/item/fly_available.json
 9e72b72073f5d0536dd2a5abc4b2c56a9182eec5 data/random_enchant/tags/item/frost_walker_available.json
@@ -12,7 +13,6 @@ d7542543cbd9db648a5753c2955f7105b7b94df2 data/random_enchant/tags/item/fury_of_f
 c1ba3af84b1d42e253b6dd90f52368b5dd41e669 data/random_enchant/tags/item/no_curse_available.json
 961c7e993724ebbddfcd984a6b9ef1030e54b62d data/random_enchant/tags/item/no_gravity_available.json
 961c7e993724ebbddfcd984a6b9ef1030e54b62d data/random_enchant/tags/item/no_resistance_available.json
-6c13071b28cffd16efe3749222d1cff2c381dec7 data/random_enchant/tags/item/parry_available.json
 ff19342fac47c60f1876ed1067d7ff899b5c2352 data/random_enchant/tags/item/quick_charge_available.json
 2bf3a7eafd69c022433bc4f2776944d90e7c7cbf data/random_enchant/tags/item/redirect_projectile_available.json
 3586a12f698cc4f5bf1e60c00db83e6fdb395f4d data/random_enchant/tags/item/steady_available.json

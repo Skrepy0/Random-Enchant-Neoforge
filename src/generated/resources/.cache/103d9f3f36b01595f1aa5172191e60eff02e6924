@@ -1,5 +1,6 @@
-// 1.21.1	2026-02-02T19:30:00.6490771	Registries
+// 1.21.1	2026-02-04T09:53:06.8571562	Registries
 706cb8b853b881c977ac3bffa1c3bda87fa6f185 data/random_enchant/enchantment/bad_luck_of_the_sea.json
+fc4d625e8973f36d9712d9c7fa2cdb2dd1769520 data/random_enchant/enchantment/double_jump.json
 91ac88d0da7fae03f04cdac97700a3e082693f4c data/random_enchant/enchantment/explode.json
 1a24cd37766c156bed6da5e27f74f212d4a2e9fe data/random_enchant/enchantment/fly.json
 9e10cf4ac06112fd422e5089ff6176df54057335 data/random_enchant/enchantment/fury_of_fly.json
@@ -7,7 +8,6 @@
 0bdc822d35cf046141b15963eab4243dbd7d2580 data/random_enchant/enchantment/no_curse.json
 ccfdd2ebf425f0b0b229d2d8abe9fa3f047d1d6c data/random_enchant/enchantment/no_gravity.json
 0ee1ffe171939a7a2f5adec6d90f96d68f07679a data/random_enchant/enchantment/no_resistance.json
-75164b2c1ce729bda44499ba932c27934d528699 data/random_enchant/enchantment/parry.json
 6d3f3f542d01944dee736ca2eac1cd9dbf5b1b02 data/random_enchant/enchantment/redirect_projectile.json
 4cac719e244b0295fba86c6691d354dc86ce5e25 data/random_enchant/enchantment/steady.json
 b8c7a3bd7332689434d13b120f4aec637214225c data/random_enchant/enchantment/throwable.json

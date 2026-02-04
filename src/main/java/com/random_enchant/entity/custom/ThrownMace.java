@@ -4,6 +4,7 @@ import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.entity.ModEntities;
+import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
@@ -28,8 +29,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Random;
 
 public class ThrownMace extends ThrowableItemProjectile {
 
@@ -546,10 +545,10 @@ public class ThrownMace extends ThrowableItemProjectile {
         level.explode(entity, x, y, z, f, interaction);
     }
     private void tryExplode() {
-        if (this.level().isClientSide())return;
+        if (this.level().isClientSide()) return;
         ItemStack mace = this.getItem();
         int explosionLevel = ModEnchantHelper.getEnchantmentLevel(mace, ModEnchantments.EXPLODE);
-        if (explosionLevel > 0&&explodeFlag) {
+        if (explosionLevel > 0 && explodeFlag) {
             explode(explosionLevel, this.level(), getX(), getY(), getZ(), this);
             discardEndure();
             explodeFlag = false;

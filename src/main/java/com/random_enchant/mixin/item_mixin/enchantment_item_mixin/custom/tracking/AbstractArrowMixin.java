@@ -2,6 +2,8 @@ package com.random_enchant.mixin.item_mixin.enchantment_item_mixin.custom.tracki
 
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
+import java.util.List;
+import javax.annotation.Nullable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -13,9 +15,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
@@ -38,7 +37,7 @@ public abstract class AbstractArrowMixin {
         AbstractArrow arrow = (AbstractArrow) (Object) this;
         if (!arrow.level().isClientSide) {
             ItemStack weapon = arrow.getWeaponItem();
-            if (weapon!=null&&!weapon.isEmpty()) {
+            if (weapon != null && !weapon.isEmpty()) {
                 this.randomEnchantTracking$trackingLevel =
                         ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.TRACKING);
 

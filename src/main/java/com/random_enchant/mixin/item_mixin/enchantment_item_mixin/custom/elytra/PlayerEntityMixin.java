@@ -34,7 +34,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         if (ElytraJumpMixinHelper.isJumpKeyPressed()) {
             this.push(0, Config.getFlyEnchantmentLiftHeightPerTick(), 0);
-            if (RandomHelper.random(0.08f)){
+            if (RandomHelper.random(0.08f)) {
                 chestItem.setDamageValue(chestItem.getDamageValue() + 1);
             }
         }

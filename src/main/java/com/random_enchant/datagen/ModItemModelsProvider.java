@@ -15,5 +15,6 @@ public class ModItemModelsProvider extends ItemModelProvider {
     protected void registerModels() {
         handheldItem(ModItems.ENCHANT_BRUSH.asItem());
         basicItem(ModItems.MILK_BOTTLE.asItem());
+        basicItem(ModItems.MEMORY_POTION.asItem());
     }
 }

@@ -17,6 +17,10 @@
       "required": false
     },
     {
+      "id": "random_enchant:double_jump",
+      "required": false
+    },
+    {
       "id": "random_enchant:explode",
       "required": false
     },
