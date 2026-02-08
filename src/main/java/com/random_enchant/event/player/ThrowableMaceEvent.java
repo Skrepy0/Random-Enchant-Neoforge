@@ -1,4 +1,4 @@
-package com.random_enchant.event;
+package com.random_enchant.event.player;
 
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;

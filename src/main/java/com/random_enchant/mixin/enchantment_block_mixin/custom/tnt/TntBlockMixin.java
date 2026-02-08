@@ -2,13 +2,13 @@ package com.random_enchant.mixin.enchantment_block_mixin.custom.tnt;
 
 import com.random_enchant.Config;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
-import java.util.Objects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
@@ -38,8 +38,8 @@ public abstract class TntBlockMixin extends Block {
     protected static void explode(Level level, BlockPos pos, @Nullable LivingEntity entity) {}
 
     /**
-     * @author Mafuyu33
-     * @reason infinite explosion
+     * @author Mafuyu33, Skrepy2233
+     * @reason infinite explosion , fix crush bug
      */
     @Overwrite
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
@@ -56,10 +56,9 @@ public abstract class TntBlockMixin extends Block {
             Item item = itemStack.getItem();
             if (!player.isCreative()) {
                 if (itemStack.is(Items.FLINT_AND_STEEL)) {
-                    //					itemStack.hurtAndBreak(1, player, (playerx) -> {
-                    //						playerx.sendToolBreakStatus(hand);
-                    //					});
-                    itemStack.hurtAndBreak(1, player, Objects.requireNonNull(itemStack.getEquipmentSlot()));
+                    EquipmentSlot slot = hand == InteractionHand.MAIN_HAND ?
+                            EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                    itemStack.hurtAndBreak(1, player, slot);
                 } else {
                     itemStack.shrink(1);
                 }

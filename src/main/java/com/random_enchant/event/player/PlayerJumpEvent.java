@@ -1,4 +1,4 @@
-package com.random_enchant.event;
+package com.random_enchant.event.player;
 
 import com.random_enchant.data.nbt.DoubleJumpData;
 import com.random_enchant.enchantment.ModEnchantHelper;
@@ -73,7 +73,7 @@ public class PlayerJumpEvent {
                     protectionStartPositions.put(player.getUUID(), player.position());
                 }
                 // 执行二段跳
-                player.addDeltaMovement(new Vec3(0, jumpLevel * 0.6f, 0));
+                player.addDeltaMovement(new Vec3(0, jumpLevel * 0.45f, 0));
                 state.setUsedDoubleJump(true);
                 player.resetFallDistance();
                 flag = true;

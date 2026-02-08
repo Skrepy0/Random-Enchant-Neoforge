@@ -1,7 +1,9 @@
-// 1.21.1	2026-02-01T10:05:13.9169111	Recipes
+// 1.21.1	2026-02-04T23:26:53.194556	Recipes
+0b3ff45c1911feafe25d6f60780e51ec2e3dfbc6 data/random_enchant/advancement/recipes/food/memory_potion.json
 8357f93b233e0d562ab1dff445db77474233ea92 data/random_enchant/advancement/recipes/food/milk_bottle.json
 c4859415009bd0979ea9d5702e76d0a41004b7fd data/random_enchant/advancement/recipes/tools/enchant_brush.json
 d192f5200a502d21e73e86a323e8d4d7f9ee0e82 data/random_enchant/advancement/recipes/tools/pearl_spear.json
 539c542c13b4fe026dfe7297742f386d30863a24 data/random_enchant/recipe/enchant_brush.json
+8ee3d8c547c69c91e5ee2b79b1025c17facb1643 data/random_enchant/recipe/memory_potion.json
 4fdabfa6c1f3093fbaf17ebcdf01b901f2ed1ac8 data/random_enchant/recipe/milk_bottle.json
 4087748f9522fb44db348df4bf01ec89353825d2 data/random_enchant/recipe/pearl_spear.json
