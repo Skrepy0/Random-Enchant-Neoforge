@@ -10,9 +10,11 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -34,8 +36,36 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         if (ElytraJumpMixinHelper.isJumpKeyPressed()) {
             this.push(0, Config.getFlyEnchantmentLiftHeightPerTick(), 0);
-            if (RandomHelper.random(0.08f)) {
+            if (RandomHelper.random(
+                        getProbability(ModEnchantHelper.getEnchantmentLevel(chestItem, Enchantments.UNBREAKING)))) {
                 chestItem.setDamageValue(chestItem.getDamageValue() + 1);
+            }
+        }
+    }
+    @Unique
+    private static float getProbability(int unbreaking) {
+        if (unbreaking <= 0) return 0.08f;
+        switch (unbreaking) {
+            case 1 -> {
+                return 0.072f;
+            }
+            case 2 -> {
+                return 0.056f;
+            }
+            case 3 -> {
+                return 0.04f;
+            }
+            case 4 -> {
+                return 0.028f;
+            }
+            case 5 -> {
+                return 0.016f;
+            }
+            case 6 -> {
+                return 0.008f;
+            }
+            default -> {
+                return 0.004f;
             }
         }
     }

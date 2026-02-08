@@ -23,7 +23,9 @@ import net.minecraft.world.item.enchantment.Enchantments;
 
 
 public class EnchantBrush extends BrushItem {
-    public EnchantBrush(Properties properties) { super(properties.durability(64).rarity(Rarity.UNCOMMON).stacksTo(1)); }
+    public EnchantBrush(Properties properties) {
+        super(properties.durability(128).rarity(Rarity.UNCOMMON).stacksTo(1));
+    }
 
     private static int getItemDamage(int unbreakingLevel) {
         Random random = new Random();
@@ -68,6 +70,8 @@ public class EnchantBrush extends BrushItem {
     public InteractionResult useOn(UseOnContext context) {
         Player user = context.getPlayer();
         ItemStack stack = context.getItemInHand();
+        boolean status = BrushNBTUtils.getStatus(stack);
+        if (status) return super.useOn(context);
         if (!context.getLevel().isClientSide) {
             if (context.getItemInHand().isEnchanted()) {
                 // 如果Pos位置方块没有附魔
@@ -93,9 +97,10 @@ public class EnchantBrush extends BrushItem {
                 // 删除信息
                 BlockEnchantmentStorage.removeBlockEnchantment(context.getClickedPos().immutable());
             }
+            // 创造模式不消耗耐久
             if (!user.isCreative()) {
                 int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.UNBREAKING);
-                stack.setDamageValue(stack.getDamageValue() + getItemDamage(unbreakingLevel));
+                stack.hurtAndBreak(getItemDamage(unbreakingLevel), user, user.getEquipmentSlotForItem(stack));
             }
         }
         return super.useOn(context);

@@ -43,7 +43,7 @@ public class KeyInputHandler {
         // 检查是否是从未按下到按下（按键按下瞬间）
         if (isKeyPressed && !wasKeyPressed) {
             Player player = mc.player;
-            if (!player.isCreative()) return;
+            if (player.isSpectator()) return;
 
             ItemStack mainHand = player.getMainHandItem();
             ItemStack offHand = player.getOffhandItem();

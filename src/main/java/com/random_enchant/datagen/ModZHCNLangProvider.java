@@ -54,6 +54,8 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("message.random_enchant.item.enchant_brush.selected_2", "§a区域附魔操作完成。");
         add("message.random_enchant.item.enchant_brush.clear_area", "§a已清除区域内的所有附魔。");
         add("message.random_enchant.item.enchant_brush.status.changed", "§a转换至：");
+        add("message.random_enchant.item.enchant_brush.durability_insufficient",
+            "§c耐久不足，执行失败，选中区域大小为%s");
 
         add("item.tooltip.random_enchant.for_shift_tooltip", "按下§6[SHIFT]§r查看详细信息");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1", "§b左键攻击实体并瞬移，右键瞬移§r");
@@ -65,7 +67,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("item.tooltip.random_enchant.enchant_brush.status.regional", "§a区域模式§r");
         add("item.tooltip.random_enchant.enchant_brush.status.single", "§a单方块模式§r");
 
-        add("key.random_enchant.toggle_brush_status", "更改附魔刷模式（仅创造）");
+        add("key.random_enchant.toggle_brush_status", "更改附魔刷模式");
         add("key.categories.random_enchant", "随机附魔");
         add("command.random_enchant.randomEnchant.enable", "§a已启用随机附魔");
         add("command.random_enchant.randomEnchant.disable", "§6已禁用随机附魔");

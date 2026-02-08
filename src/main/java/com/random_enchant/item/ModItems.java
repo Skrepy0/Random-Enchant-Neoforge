@@ -1,11 +1,11 @@
 package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
-import com.random_enchant.item.custom.LightningItem;
-import com.random_enchant.item.custom.MemoryPotion;
-import com.random_enchant.item.custom.MilkBottleItem;
+import com.random_enchant.item.custom.misc.LightningItem;
+import com.random_enchant.item.custom.misc.MemoryPotion;
+import com.random_enchant.item.custom.misc.MilkBottleItem;
 import com.random_enchant.item.custom.tool.EnchantBrush;
-import com.random_enchant.item.custom.tool.PearlSpear;
+import com.random_enchant.item.custom.weapon.PearlSpear;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;

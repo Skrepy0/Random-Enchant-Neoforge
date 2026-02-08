@@ -1,4 +1,4 @@
-package com.random_enchant.item.custom.tool;
+package com.random_enchant.item.custom.weapon;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantHelper;
@@ -41,7 +41,7 @@ public class PearlSpear extends Item {
     private final int COOL_DOWN_TIME = 200;
 
     public PearlSpear(Properties properties) {
-        super(properties.durability(128)
+        super(properties.durability(512)
                       .rarity(Rarity.EPIC)
                       .stacksTo(1)
                       .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
@@ -192,7 +192,7 @@ public class PearlSpear extends Item {
         // 损耗耐久
         if (!user.isCreative()) {
             int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(stack, level, Enchantments.UNBREAKING);
-            stack.setDamageValue(stack.getDamageValue() + getItemDamage(unbreakingLevel));
+            stack.hurtAndBreak(getItemDamage(unbreakingLevel), user, user.getEquipmentSlotForItem(stack));
         }
         // 播放音效
         level.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.TOTEM_USE, SoundSource.AMBIENT, 0.2F,
@@ -226,7 +226,7 @@ public class PearlSpear extends Item {
             dV = playerVeLength - entityVeLength > 0 ? playerVeLength - entityVeLength : 0;
 
         float damage = (float) (dV * 10 + 9);
-        stack.setDamageValue(1);
+        stack.hurtAndBreak(1, user, EquipmentSlot.MAINHAND);
         teleportUser(stack, 10, user, world, true);
         // 引雷附魔
         int channelingLevel = ModEnchantHelper.getEnchantmentLevel(stack, world, Enchantments.CHANNELING);
@@ -242,7 +242,7 @@ public class PearlSpear extends Item {
         // 物品损耗
         if (!user.isCreative()) {
             int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(stack, world, Enchantments.UNBREAKING);
-            stack.setDamageValue(stack.getDamageValue() + getItemDamage(unbreakingLevel));
+            stack.hurtAndBreak(getItemDamage(unbreakingLevel), user, user.getEquipmentSlotForItem(stack));
         }
         // 粒子效果
         showParticleEffect(world, user);

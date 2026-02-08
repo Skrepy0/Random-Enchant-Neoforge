@@ -62,6 +62,8 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("message.random_enchant.item.enchant_brush.clear_area",
             "§aAll enchantments in the area have been cleared.");
         add("message.random_enchant.item.enchant_brush.status.changed", "Status has Changed to:");
+        add("message.random_enchant.item.enchant_brush.durability_insufficient",
+            "Insufficient durability, execute failed. Selected area size: %s");
 
 
         add("item.tooltip.random_enchant.for_shift_tooltip", "Press §6[SHIFT]§r show detail information");
@@ -76,7 +78,7 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("item.tooltip.random_enchant.enchant_brush.status.regional", "§aRegional§r");
         add("item.tooltip.random_enchant.enchant_brush.status.single", "§aSingle§r");
 
-        add("key.random_enchant.toggle_brush_status", "Change enchant brush's status(Creative Mode Only)");
+        add("key.random_enchant.toggle_brush_status", "Change enchant brush's status");
         add("key.categories.random_enchant", "Random Enchant");
         add("command.random_enchant.randomEnchant.enable", "§aEnabled Random Enchant");
         add("command.random_enchant.randomEnchant.disable", "§6Disabled Random Enchant");

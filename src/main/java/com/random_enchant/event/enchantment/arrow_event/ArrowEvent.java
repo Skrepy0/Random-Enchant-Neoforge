@@ -24,19 +24,19 @@ public class ArrowEvent {
             if (explodeLevel > 0) {
                 if (target != null) {
                     explode(explodeLevel, arrow.level(), arrow.getX(), arrow.getY(), arrow.getZ(), arrow.getOwner());
-                } else{
+                } else {
                     explode(explodeLevel * 0.2f, arrow.level(), arrow.getX(), arrow.getY(), arrow.getZ(),
                             arrow.getOwner());
                 }
                 arrow.kill();
             }
-
         }
     }
     private static void explode(float power, Level level, double x, double y, double z, Entity entity) {
         float f = 4.0F + (float) (power * 0.5);
-        Level.ExplosionInteraction interaction =
-                Config.getExplodeDestroyBlock() ? Level.ExplosionInteraction.TNT : net.minecraft.world.level.Level.ExplosionInteraction.NONE;
+        Level.ExplosionInteraction interaction = Config.getExplodeDestroyBlock()
+                                                         ? Level.ExplosionInteraction.TNT
+                                                         : net.minecraft.world.level.Level.ExplosionInteraction.NONE;
         level.explode(entity, x, y, z, f, interaction);
     }
 }

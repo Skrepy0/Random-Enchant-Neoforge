@@ -56,8 +56,8 @@ public abstract class TntBlockMixin extends Block {
             Item item = itemStack.getItem();
             if (!player.isCreative()) {
                 if (itemStack.is(Items.FLINT_AND_STEEL)) {
-                    EquipmentSlot slot = hand == InteractionHand.MAIN_HAND ?
-                            EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
+                    EquipmentSlot slot =
+                            hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
                     itemStack.hurtAndBreak(1, player, slot);
                 } else {
                     itemStack.shrink(1);

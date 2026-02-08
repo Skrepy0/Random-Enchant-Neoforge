@@ -1,7 +1,12 @@
 package com.random_enchant.event.player;
 
+import static com.random_enchant.enchantment.ModEnchantHelper.getDescriptionId;
+import static net.minecraft.network.chat.Component.translatable;
+
 import com.random_enchant.Config;
 import com.random_enchant.RandomEnchant;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
@@ -13,12 +18,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.random_enchant.enchantment.ModEnchantHelper.getDescriptionId;
-import static net.minecraft.network.chat.Component.translatable;
 
 @EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class RandomEnchantEvent {

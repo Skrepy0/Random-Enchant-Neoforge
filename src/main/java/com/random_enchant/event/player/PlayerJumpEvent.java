@@ -3,6 +3,10 @@ package com.random_enchant.event.player;
 import com.random_enchant.data.nbt.DoubleJumpData;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -14,11 +18,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
 
 @EventBusSubscriber
 public class PlayerJumpEvent {

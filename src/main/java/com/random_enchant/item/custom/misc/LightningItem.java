@@ -1,4 +1,4 @@
-package com.random_enchant.item.custom;
+package com.random_enchant.item.custom.misc;
 
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.entity.custom.LightningProjectileEntity;
