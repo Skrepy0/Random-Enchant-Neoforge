@@ -2,8 +2,9 @@ package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.custom.misc.LightningItem;
-import com.random_enchant.item.custom.misc.MemoryPotion;
 import com.random_enchant.item.custom.misc.MilkBottleItem;
+import com.random_enchant.item.custom.potion.MemoryPotion;
+import com.random_enchant.item.custom.potion.SoultrancePotion;
 import com.random_enchant.item.custom.tool.EnchantBrush;
 import com.random_enchant.item.custom.weapon.PearlSpear;
 import net.minecraft.world.food.FoodProperties;
@@ -35,6 +36,14 @@ public class ModItems {
             "memory_potion",
             ()
                     -> new MemoryPotion(
+                            new Item.Properties()
+                                    .craftRemainder(Items.GLASS_BOTTLE)
+                                    .food((new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).build())
+                                    .stacksTo(16)));
+    public static final DeferredItem<Item> SOULTRANCE_POTION = ITEMS.register(
+            "soultrance_potion",
+            ()
+                    -> new SoultrancePotion(
                             new Item.Properties()
                                     .craftRemainder(Items.GLASS_BOTTLE)
                                     .food((new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).build())

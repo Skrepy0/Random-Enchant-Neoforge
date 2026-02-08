@@ -24,6 +24,7 @@ public class ModEnchantmentTagsProvider extends EnchantmentTagsProvider {
         tag(ModEnchantmentTags.REDIRECT_PROJECTILE_EXCLUSIVE).add(Enchantments.LOOTING);
         tag(ModEnchantmentTags.EXPLODE_EXCLUSIVE)
                 .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "steady"));
+        tag(ModEnchantmentTags.KINETIC_EXCLUSIVE).add(Enchantments.FLAME);
         tag(EnchantmentTags.CURSE)
                 .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "bad_luck_of_the_sea"));
         tag(EnchantmentTags.TRADEABLE)

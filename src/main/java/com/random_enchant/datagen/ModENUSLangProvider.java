@@ -39,6 +39,7 @@ public class ModENUSLangProvider extends LanguageProvider {
         add(ModItems.LIGHTNING_ITEM.get(), "Lightning");
         add(ModItems.MILK_BOTTLE.get(), "Milk Bottle");
         add(ModItems.MEMORY_POTION.get(), "§bMemory Potion");
+        add(ModItems.SOULTRANCE_POTION.get(), "§aSoultrance Potion");
 
         add("enchantment.random_enchant.fury_of_fly", "§aFury Of Fly");
 
@@ -64,6 +65,8 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("message.random_enchant.item.enchant_brush.status.changed", "Status has Changed to:");
         add("message.random_enchant.item.enchant_brush.durability_insufficient",
             "Insufficient durability, execute failed. Selected area size: %s");
+        add("message.random_enchant.item.soultrance_potion.teleport_failed",
+            "§cCannot teleport - you haven't died yet in this world!");
 
 
         add("item.tooltip.random_enchant.for_shift_tooltip", "Press §6[SHIFT]§r show detail information");

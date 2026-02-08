@@ -413,6 +413,22 @@
           ],
           "name": "minecraft:coal",
           "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5.0,
+                "min": 2.0
+              },
+              "function": "random_enchant:soultrance_potion"
+            }
+          ],
+          "name": "minecraft:coal",
+          "weight": 8
         }
       ],
       "rolls": {

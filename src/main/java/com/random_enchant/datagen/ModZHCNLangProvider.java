@@ -33,6 +33,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add(ModItems.LIGHTNING_ITEM.get(), "雷电");
         add(ModItems.MILK_BOTTLE.get(), "牛奶瓶");
         add(ModItems.MEMORY_POTION.get(), "§b回忆药水");
+        add(ModItems.SOULTRANCE_POTION.get(), "§a魂溯药水");
 
         add("enchantment.random_enchant.fury_of_fly", "§aFly之怒");
         add("enchantment.random_enchant.bad_luck_of_the_sea", "§c海之嫌弃§r");
@@ -56,6 +57,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("message.random_enchant.item.enchant_brush.status.changed", "§a转换至：");
         add("message.random_enchant.item.enchant_brush.durability_insufficient",
             "§c耐久不足，执行失败，选中区域大小为%s");
+        add("message.random_enchant.item.soultrance_potion.teleport_failed", "§c传送失败，当前玩家没有死亡记录");
 
         add("item.tooltip.random_enchant.for_shift_tooltip", "按下§6[SHIFT]§r查看详细信息");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1", "§b左键攻击实体并瞬移，右键瞬移§r");

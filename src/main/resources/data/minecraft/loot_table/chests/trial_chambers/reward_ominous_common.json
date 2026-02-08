@@ -33,6 +33,22 @@
               "function": "minecraft:set_count"
             }
           ],
+          "name": "random_enchant:soultrance_potion",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "add": false,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
           "name": "random_enchant:memory_potion",
           "weight": 4
         },

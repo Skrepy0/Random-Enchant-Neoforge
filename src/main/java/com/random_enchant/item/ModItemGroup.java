@@ -57,6 +57,7 @@ public class ModItemGroup {
                                    output.accept(ModItems.LIGHTNING_ITEM);
                                    output.accept(ModItems.MILK_BOTTLE.get());
                                    output.accept(ModItems.MEMORY_POTION.get());
+                                   output.accept(ModItems.SOULTRANCE_POTION.get());
                                })
                                .build());
 

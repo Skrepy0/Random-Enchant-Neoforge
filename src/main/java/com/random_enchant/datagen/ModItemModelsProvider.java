@@ -16,5 +16,6 @@ public class ModItemModelsProvider extends ItemModelProvider {
         handheldItem(ModItems.ENCHANT_BRUSH.asItem());
         basicItem(ModItems.MILK_BOTTLE.asItem());
         basicItem(ModItems.MEMORY_POTION.asItem());
+        basicItem(ModItems.SOULTRANCE_POTION.asItem());
     }
 }

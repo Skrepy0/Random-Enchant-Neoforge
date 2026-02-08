@@ -1,4 +1,4 @@
-package com.random_enchant.item.custom.misc;
+package com.random_enchant.item.custom.potion;
 
 import com.random_enchant.enchantment.ModEnchantHelper;
 import java.util.Random;
@@ -66,7 +66,7 @@ public class MemoryPotion extends Item {
         if (flag) {
             if (entityLiving instanceof ServerPlayer serverPlayer) playSoundAndShowParticle(serverPlayer);
             level.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(),
-                            SoundEvents.TRIAL_SPAWNER_OMINOUS_ACTIVATE, SoundSource.BLOCKS, 20.0F, 1.0F);
+                            SoundEvents.TRIAL_SPAWNER_OMINOUS_ACTIVATE, SoundSource.PLAYERS, 20.0F, 1.0F);
         }
 
         if (stack.isEmpty()) {
