@@ -37,15 +37,26 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.SWORD_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ItemTags.WEAPON_ENCHANTABLE).add(ModItems.PEARL_SPEAR.get());
         tag(ModItemTags.FROST_WALKER).add(Items.ARROW).addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
-        tag(ModItemTags.NO_GRAVITY_AVAILABLE).add(Items.BOW).add(Items.CROSSBOW).add(Items.TRIDENT).add(Items.MACE);
-        tag(ModItemTags.NO_RESISTANCE_AVAILABLE).add(Items.BOW).add(Items.CROSSBOW).add(Items.TRIDENT).add(Items.MACE);
+        tag(ModItemTags.NO_GRAVITY_AVAILABLE)
+                .add(Items.BOW)
+                .add(Items.CROSSBOW)
+                .add(Items.TRIDENT)
+                .add(Items.MACE)
+                .add(Items.FISHING_ROD);
+        tag(ModItemTags.NO_RESISTANCE_AVAILABLE)
+                .add(Items.BOW)
+                .add(Items.CROSSBOW)
+                .add(Items.TRIDENT)
+                .add(Items.MACE)
+                .add(Items.FISHING_ROD);
         tag(ModItemTags.THROWABLE_AVAILABLE).add(Items.MACE);
-        tag(ModItemTags.KINETIC_AVAILABLE).add(Items.CROSSBOW).add(Items.BOW);
+        tag(ModItemTags.KINETIC_AVAILABLE).add(Items.CROSSBOW).add(Items.BOW).add(Items.FISHING_ROD);
         tag(ModItemTags.STEADY_AVAILABLE).add(Items.CROSSBOW).add(Items.BOW);
         tag(ModItemTags.DOUBLE_JUMP_AVAILABLE).addTag(ItemTags.FOOT_ARMOR_ENCHANTABLE);
         tag(ModItemTags.NO_CURSE_AVAILABLE)
                 .addTag(ItemTags.DURABILITY_ENCHANTABLE)
                 .addTag(ItemTags.WEAPON_ENCHANTABLE)
                 .addTag(ItemTags.ARMOR_ENCHANTABLE);
+        tag(ModItemTags.TRACKING_AVAILABLE).add(Items.BOW).add(Items.CROSSBOW);
     }
 }

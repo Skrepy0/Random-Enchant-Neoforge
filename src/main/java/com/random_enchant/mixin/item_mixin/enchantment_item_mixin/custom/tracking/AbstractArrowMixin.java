@@ -7,8 +7,12 @@ import javax.annotation.Nullable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -20,39 +24,45 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AbstractArrowMixin {
 
     @Unique @Nullable private LivingEntity randomEnchantTracking$trackedTarget;
-    @Unique private int randomEnchantTracking$trackingLevel = 0;
-    @Unique private int randomEnchantTracking$ticksInAir = 0;
-    @Unique private double randomEnchantTracking$previousHorizontalSpeed = 0.0;
+    @Unique private int randomEnchantTracking$trackingLevel = 1;
+    @Unique private int randomEnchantTracking$ticksSinceLastSearch = 0;
     @Unique private boolean randomEnchantTracking$isActivelyTracking = false;
 
-    @Unique private static final double TRACKING_STRENGTH = 0.2; // 增加追踪强度
-    @Unique private static final double TRACKING_RANGE = 30.0;
-    @Unique private static final double MAX_TRACKING_ANGLE = Math.PI / 3; // 最大追踪角度 60度
-    @Unique private static final int TRACKING_START_DELAY = 3; // 追踪开始延迟（ticks）
-    @Unique private static final double MIN_SPEED_FOR_TRACKING = 0.2; // 追踪所需最小速度
-    @Unique private static final double MAX_TURN_RATE = 0.3; // 最大转弯速率
+    @Unique private static final double TRACKING_RANGE = 30.0; // 最大追踪距离（方块）
+    @Unique private static final double MAX_TRACKING_ANGLE = Math.PI / 2; // 最大追踪角度（90度），超出则目标可能丢失
+    @Unique private static final double MIN_SPEED_FOR_TRACKING = 0.2; // 启用追踪所需的最小箭矢速度（米/刻）
+    @Unique private static final double BASE_TURN_RATE = 0.8; // 基础转向速率（弧度/刻），受等级和角度动态调整
+    @Unique private static final double MAX_TURN_RATE = 0.8; // 最大转向速率限制（弧度/刻），防止瞬间转向
+    @Unique private static final int SEARCH_COOLDOWN = 5; // 目标搜索的冷却间隔（刻），避免每刻都进行昂贵的范围查询
+    @Unique private static final double PREDICTION_FACTOR_BASE = 0.3; // 目标位置预测的基础系数，影响预测偏移量
+    @Unique private static final double PREDICTION_FACTOR_PER_LEVEL = 0.1; // 每级附魔增加的预测系数，高等级预判更准
 
     @Inject(method = "shoot(DDDFF)V", at = @At("RETURN"))
     private void onShoot(double x, double y, double z, float velocity, float inaccuracy, CallbackInfo ci) {
         AbstractArrow arrow = (AbstractArrow) (Object) this;
         if (!arrow.level().isClientSide) {
+            // 重置状态
+            this.randomEnchantTracking$trackedTarget = null;
+            this.randomEnchantTracking$isActivelyTracking = false;
+
             ItemStack weapon = arrow.getWeaponItem();
             if (weapon != null && !weapon.isEmpty()) {
-                this.randomEnchantTracking$trackingLevel =
-                        ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.TRACKING);
+                int level = ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.TRACKING);
+                this.randomEnchantTracking$trackingLevel = level;
 
-                if (this.randomEnchantTracking$trackingLevel > 0) {
-                    this.randomEnchantTracking$ticksInAir = 0;
-                    this.randomEnchantTracking$previousHorizontalSpeed = Math.sqrt(x * x + z * z) * velocity;
-                    this.randomEnchantTracking$isActivelyTracking = false;
-
-                    // 立即寻找初始目标
+                if (level > 0) {
+                    // 可以选择立即搜索目标，或延迟到第一个 tick 再搜索
                     Entity owner = arrow.getOwner();
                     if (owner instanceof LivingEntity livingOwner) {
                         this.randomEnchantTracking$trackedTarget =
                                 this.randomEnchantTracking$findOptimalTarget(arrow, livingOwner);
+                        this.randomEnchantTracking$isActivelyTracking =
+                                (this.randomEnchantTracking$trackedTarget != null);
                     }
                 }
+            } else {
+                // 如果没有武器，等级设为0
+                this.randomEnchantTracking$trackingLevel = 0;
             }
         }
     }
@@ -60,131 +70,132 @@ public abstract class AbstractArrowMixin {
     @Inject(method = "tick", at = @At("HEAD"))
     public void onTick(CallbackInfo ci) {
         AbstractArrow arrow = (AbstractArrow) (Object) this;
+        if (randomEnchantTracking$trackingLevel <= 0 || arrow.onGround() || !arrow.isAlive()) return;
 
-        if (this.randomEnchantTracking$trackingLevel <= 0) return;
-        if (arrow.onGround() || !arrow.isAlive() || arrow.isNoPhysics()) return;
+        randomEnchantTracking$ticksSinceLastSearch++;
 
-        this.randomEnchantTracking$ticksInAir++;
-
-        // 只在服务端执行追踪逻辑
         if (!arrow.level().isClientSide) {
-            // 延迟开始追踪，让箭矢先稳定飞行
-            if (this.randomEnchantTracking$ticksInAir < TRACKING_START_DELAY) {
-                return;
-            }
-
-            // 检查当前速度是否足够
             double currentSpeed = arrow.getDeltaMovement().length();
             if (currentSpeed < MIN_SPEED_FOR_TRACKING) {
-                this.randomEnchantTracking$isActivelyTracking = false;
+                randomEnchantTracking$isActivelyTracking = false;
                 return;
             }
 
-            // 更新或寻找目标
             Entity owner = arrow.getOwner();
             if (owner instanceof LivingEntity livingOwner) {
-                this.randomEnchantTracking$updateTrackingTarget(arrow, livingOwner);
+                randomEnchantTracking$updateTrackingTarget(arrow, livingOwner);
             }
 
-            // 执行追踪
-            if (this.randomEnchantTracking$isActivelyTracking && this.randomEnchantTracking$trackedTarget != null) {
-                this.randomEnchantTracking$steerTowardsTarget(arrow);
-
-                // 强制更新位置以确保平滑移动
-                this.randomEnchantTracking$updateArrowPosition(arrow);
+            if (randomEnchantTracking$isActivelyTracking && randomEnchantTracking$trackedTarget != null) {
+                randomEnchantTracking$steerTowardsTarget(arrow);
             }
         }
 
-        // 客户端更新旋转
-        this.randomEnchantTracking$updateArrowRotation(arrow);
+        randomEnchantTracking$updateArrowRotation(arrow);
     }
 
     @Unique
     private void randomEnchantTracking$updateTrackingTarget(AbstractArrow arrow, LivingEntity owner) {
-        // 检查当前目标是否有效
-        if (this.randomEnchantTracking$trackedTarget != null) {
-            boolean targetValid =
-                    this.randomEnchantTracking$trackedTarget.isAlive() &&
-                    !this.randomEnchantTracking$trackedTarget.isRemoved() &&
-                    this.randomEnchantTracking$isInTrackingRange(arrow, this.randomEnchantTracking$trackedTarget);
+        // 仅在冷却期满或目标无效时重新搜索
+        boolean needSearch = randomEnchantTracking$ticksSinceLastSearch >= SEARCH_COOLDOWN ||
+                             randomEnchantTracking$trackedTarget == null ||
+                             !randomEnchantTracking$trackedTarget.isAlive() ||
+                             !randomEnchantTracking$isInTrackingRange(arrow, randomEnchantTracking$trackedTarget);
 
-            if (!targetValid) {
-                this.randomEnchantTracking$trackedTarget = null;
-                this.randomEnchantTracking$isActivelyTracking = false;
-            } else {
-                // 检查目标是否在视野范围内
-                if (this.randomEnchantTracking$isTargetInSight(arrow, this.randomEnchantTracking$trackedTarget)) {
-                    this.randomEnchantTracking$isActivelyTracking = true;
-                } else {
-                    // 如果目标不在视野内，尝试寻找新目标
-                    this.randomEnchantTracking$trackedTarget =
-                            this.randomEnchantTracking$findOptimalTarget(arrow, owner);
-                    this.randomEnchantTracking$isActivelyTracking = this.randomEnchantTracking$trackedTarget != null;
-                }
-            }
-        } else {
-            // 寻找新目标
-            this.randomEnchantTracking$trackedTarget = this.randomEnchantTracking$findOptimalTarget(arrow, owner);
-            this.randomEnchantTracking$isActivelyTracking = this.randomEnchantTracking$trackedTarget != null;
+        if (needSearch) {
+            randomEnchantTracking$ticksSinceLastSearch = 0;
+            randomEnchantTracking$trackedTarget = randomEnchantTracking$findOptimalTarget(arrow, owner);
+            randomEnchantTracking$isActivelyTracking = randomEnchantTracking$trackedTarget != null;
+        } else if (randomEnchantTracking$trackedTarget != null) {
+            // 检查目标是否仍在视野内，否则暂停追踪
+            randomEnchantTracking$isActivelyTracking =
+                    randomEnchantTracking$isTargetInSight(arrow, randomEnchantTracking$trackedTarget);
         }
     }
-
-    @Unique
     @Nullable
     private LivingEntity randomEnchantTracking$findOptimalTarget(AbstractArrow arrow, LivingEntity owner) {
         if (owner.level() != arrow.level()) return null;
 
-        double range = TRACKING_RANGE + (this.randomEnchantTracking$trackingLevel * 8.0);
-        Vec3 arrowPos = arrow.position();
-        Vec3 arrowDirection = arrow.getDeltaMovement().normalize();
-
-        AABB searchArea = new AABB(arrowPos.x - range, arrowPos.y - range, arrowPos.z - range, arrowPos.x + range,
-                                   arrowPos.y + range, arrowPos.z + range);
-
-        List<LivingEntity> entities = owner.level().getEntitiesOfClass(
-                LivingEntity.class, searchArea,
-                entity -> this.randomEnchantTracking$isValidTarget(owner, entity, arrowPos, arrowDirection));
-
-        if (entities.isEmpty()) return null;
-
-        // 使用加权评分系统选择最佳目标
-        LivingEntity bestTarget = null;
-        double bestScore = Double.NEGATIVE_INFINITY;
-
-        for (LivingEntity entity: entities) {
-            double score = this.randomEnchantTracking$calculateTargetScore(arrow, entity, arrowDirection);
-            if (score > bestScore) {
-                bestScore = score;
-                bestTarget = entity;
-            }
+        // 1. 射线直接击中（考虑方块阻挡）
+        HitResult hitResult = ProjectileUtil.getHitResultOnViewVector(
+                owner, entity -> entity instanceof LivingEntity && entity != owner && entity.isAlive(), TRACKING_RANGE);
+        if (hitResult.getType() == HitResult.Type.ENTITY) {
+            return (LivingEntity) ((EntityHitResult) hitResult).getEntity();
         }
 
-        return bestTarget;
-    }
+        double range = TRACKING_RANGE + randomEnchantTracking$trackingLevel * 8.0;
+        Vec3 eyePos = owner.getEyePosition();
+        Vec3 lookVec = owner.getLookAngle();
 
+        // 获取所有可能的候选实体（排除自己）
+        AABB searchArea = owner.getBoundingBox().inflate(range);
+        List<LivingEntity> candidates =
+                owner.level().getEntitiesOfClass(LivingEntity.class, searchArea, e -> e != owner && e.isAlive());
+
+        // 2. 距离视线射线最近的实体（忽略阻挡）
+        LivingEntity closestToRay = null;
+        double minDistToRay = Double.MAX_VALUE;
+        for (LivingEntity e: candidates) {
+            Vec3 toEntity = e.position().subtract(eyePos);
+            double dot = toEntity.dot(lookVec);
+            if (dot <= 0) continue; // 在身后
+
+            double distToRay = toEntity.cross(lookVec).length();
+            if (distToRay < minDistToRay) {
+                minDistToRay = distToRay;
+                closestToRay = e;
+            }
+        }
+        if (closestToRay != null) return closestToRay;
+
+        // 3. 加权评分（基于距离、方向、可见性）
+        Vec3 arrowPos = arrow.position();
+        Vec3 arrowDir = arrow.getDeltaMovement().normalize();
+
+        LivingEntity best = null;
+        double bestScore = Double.NEGATIVE_INFINITY;
+        for (LivingEntity e: candidates) {
+            // 快速过滤：距离必须在范围内
+            double distSq = arrowPos.distanceToSqr(e.position());
+            if (distSq > range * range) continue;
+
+            double score = randomEnchantTracking$calculateTargetScore(arrow, e, arrowDir);
+            if (score > bestScore) {
+                bestScore = score;
+                best = e;
+            }
+        }
+        return best;
+    }
     @Unique
-    private double randomEnchantTracking$calculateTargetScore(AbstractArrow arrow, LivingEntity target,
-                                                              Vec3 arrowDirection) {
+    private double randomEnchantTracking$calculateTargetScore(AbstractArrow arrow, LivingEntity target, Vec3 arrowDir) {
         Vec3 arrowPos = arrow.position();
         Vec3 targetPos = target.getBoundingBox().getCenter();
         Vec3 toTarget = targetPos.subtract(arrowPos);
+        double distance = toTarget.length();
+        toTarget = toTarget.normalize();
 
         // 距离分数（越近越好）
-        double distance = toTarget.length();
         double distanceScore = 1.0 / (distance + 1.0);
 
-        // 方向分数（越正前方越好）
-        double dotProduct = arrowDirection.dot(toTarget.normalize());
-        double directionScore = (dotProduct + 1.0) / 2.0; // 归一化到 0-1
+        // 方向分数（越正对越好）
+        double dot = arrowDir.dot(toTarget);
+        double directionScore = (dot + 1.0) / 2.0; // [0,1]
 
-        // 视线清晰度分数（检查是否有障碍物）
+        // 可见性分数（简单射线检测，检查是否有方块阻挡）
         double visibilityScore = 1.0;
-        // 这里可以添加视线检测逻辑
+        if (!arrow.level().isClientSide) {
+            HitResult blockHit = arrow.level().clip(
+                    new ClipContext(arrowPos, targetPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, arrow));
+            if (blockHit.getType() == HitResult.Type.BLOCK &&
+                blockHit.getLocation().distanceToSqr(arrowPos) < targetPos.distanceToSqr(arrowPos) - 0.5) {
+                visibilityScore = 0.5; // 被阻挡则减分
+            }
+        }
 
-        // 最终加权分数
-        return distanceScore * 0.4 + directionScore * 0.5 + visibilityScore * 0.1;
+        // 加权求和（方向为主，距离次之，可见性辅助）
+        return directionScore * 0.7 + distanceScore * 0.2 + visibilityScore * 0.1;
     }
-
     @Unique
     private boolean randomEnchantTracking$isValidTarget(LivingEntity owner, LivingEntity entity, Vec3 arrowPos,
                                                         Vec3 arrowDirection) {
@@ -205,66 +216,69 @@ public abstract class AbstractArrowMixin {
 
     @Unique
     private boolean randomEnchantTracking$isInTrackingRange(AbstractArrow arrow, LivingEntity target) {
-        double range = TRACKING_RANGE + (this.randomEnchantTracking$trackingLevel * 8.0);
-        double distance = arrow.position().distanceToSqr(target.position());
-        return distance <= range * range;
+        double range = TRACKING_RANGE + randomEnchantTracking$trackingLevel * 8.0;
+        return arrow.position().distanceToSqr(target.position()) <= range * range;
     }
 
     @Unique
     private boolean randomEnchantTracking$isTargetInSight(AbstractArrow arrow, LivingEntity target) {
-        Vec3 arrowPos = arrow.position();
-        Vec3 arrowDirection = arrow.getDeltaMovement().normalize();
-        Vec3 toTarget = target.getBoundingBox().getCenter().subtract(arrowPos).normalize();
-
-        double angle = Math.acos(arrowDirection.dot(toTarget));
-        return angle <= MAX_TRACKING_ANGLE;
+        Vec3 toTarget = target.getBoundingBox().getCenter().subtract(arrow.position()).normalize();
+        double dot = arrow.getDeltaMovement().normalize().dot(toTarget);
+        return dot > Math.cos(MAX_TRACKING_ANGLE); // 角度检查
     }
 
     @Unique
     private void randomEnchantTracking$steerTowardsTarget(AbstractArrow arrow) {
-        if (this.randomEnchantTracking$trackedTarget == null || !this.randomEnchantTracking$trackedTarget.isAlive())
-            return;
+        if (randomEnchantTracking$trackedTarget == null) return;
 
         Vec3 arrowPos = arrow.position();
-        Vec3 targetPos = this.randomEnchantTracking$trackedTarget.getBoundingBox().getCenter();
+        Vec3 targetPos = randomEnchantTracking$trackedTarget.getBoundingBox().getCenter();
 
-        // 预测目标位置（根据目标速度和箭矢速度）
-        Vec3 targetMotion = this.randomEnchantTracking$trackedTarget.getDeltaMovement();
+        // 预测目标位置
+        Vec3 targetMotion = randomEnchantTracking$trackedTarget.getDeltaMovement();
         double distance = arrowPos.distanceTo(targetPos);
         double arrowSpeed = arrow.getDeltaMovement().length();
-        double timeToImpact = distance / (arrowSpeed + 0.1); // 防止除以零
+        double timeToImpact = distance / (arrowSpeed + 0.1);
+        double predictionFactor =
+                PREDICTION_FACTOR_BASE + randomEnchantTracking$trackingLevel * PREDICTION_FACTOR_PER_LEVEL;
+        Vec3 predictedPos = targetPos.add(targetMotion.scale(timeToImpact * predictionFactor));
 
-        // 简单预测：假设目标保持当前速度移动
-        Vec3 predictedPos = targetPos.add(targetMotion.scale(timeToImpact * 0.5));
-
-        // 计算转向向量
         Vec3 toTarget = predictedPos.subtract(arrowPos);
-        double distanceToTarget = toTarget.length();
+        double distToTarget = toTarget.length();
+        if (distToTarget < 1.0) return;
 
-        if (distanceToTarget < 1.0) return; // 非常接近时停止调整
+        Vec3 desiredDir = toTarget.normalize();
+        Vec3 currentDir = arrow.getDeltaMovement().normalize();
 
-        Vec3 desiredDirection = toTarget.normalize();
-        Vec3 currentDirection = arrow.getDeltaMovement().normalize();
+        double dot = Math.max(-1.0, Math.min(1.0, currentDir.dot(desiredDir)));
+        double angleRad = Math.acos(dot);
 
-        // 计算转向角度
-        double angle = Math.acos(Math.min(1.0, Math.max(-1.0, currentDirection.dot(desiredDirection))));
+        // 动态转向速率：等级越高、角度越大，转向越快
+        double levelFactor = 0.5 + randomEnchantTracking$trackingLevel * 0.25;
+        double angleFactor = (angleRad / Math.PI) * 2.0; // 角度越大转向越猛
+        double turnRate = Math.min(MAX_TURN_RATE, BASE_TURN_RATE * angleFactor * levelFactor);
 
-        // 根据附魔等级和距离计算转向强度
-        double baseStrength = TRACKING_STRENGTH * this.randomEnchantTracking$trackingLevel;
-        double distanceFactor = Math.min(1.0, 15.0 / distanceToTarget);
-        double angleFactor = 1.0 - (angle / Math.PI); // 角度越大，转向越强
+        Vec3 newDir;
+        if (angleRad <= turnRate) {
+            newDir = desiredDir;
+        } else {
+            // 计算旋转轴
+            Vec3 axis = currentDir.cross(desiredDir).normalize();
+            if (axis.lengthSqr() < 1e-6) {
+                axis = new Vec3(0, 1, 0).cross(currentDir).normalize();
+                if (axis.lengthSqr() < 1e-6) axis = new Vec3(1, 0, 0);
+            }
+            // 罗德里格斯旋转
+            double cos = Math.cos(turnRate);
+            double sin = Math.sin(turnRate);
+            Vec3 rotated = currentDir.scale(cos).add(axis.cross(currentDir).scale(sin));
+            newDir = rotated.normalize();
+        }
 
-        double trackingStrength = baseStrength * distanceFactor * angleFactor;
-        trackingStrength = Math.min(trackingStrength, MAX_TURN_RATE);
-
-        // 应用转向
-        Vec3 newDirection = currentDirection.lerp(desiredDirection, trackingStrength).normalize();
+        // 保持速度大小
         double currentSpeed = arrow.getDeltaMovement().length();
-        Vec3 newMotion = newDirection.scale(currentSpeed);
-
-        arrow.setDeltaMovement(newMotion);
+        arrow.setDeltaMovement(newDir.scale(currentSpeed));
     }
-
     @Unique
     private void randomEnchantTracking$updateArrowPosition(AbstractArrow arrow) {
         // 获取当前速度和位置

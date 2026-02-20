@@ -60,7 +60,8 @@ public class ModEnchantmentTagsProvider extends EnchantmentTagsProvider {
                 .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "explode"))
                 .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "throwable"))
                 .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "double_jump"))
-                .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "bad_luck_of_the_sea"));
+                .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "bad_luck_of_the_sea"))
+                .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "tracking"));
         tag(EnchantmentTags.ON_MOB_SPAWN_EQUIPMENT)
                 .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "bad_luck_of_the_sea"))
                 .addOptional(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "redirect_projectile"))

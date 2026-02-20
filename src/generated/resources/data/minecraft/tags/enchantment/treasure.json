@@ -47,6 +47,10 @@
     {
       "id": "random_enchant:bad_luck_of_the_sea",
       "required": false
+    },
+    {
+      "id": "random_enchant:tracking",
+      "required": false
     }
   ]
 }

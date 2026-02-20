@@ -1,15 +1,18 @@
 package com.random_enchant.command;
 
+import static net.minecraft.network.chat.Component.translatable;
+
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.random_enchant.Config;
 import com.random_enchant.RandomEnchant;
+import com.random_enchant.util.CustomBookBuilder;
 import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 public class RandomEnchantCommand {
@@ -17,52 +20,14 @@ public class RandomEnchantCommand {
         event.getDispatcher().register(
                 Commands.literal("random_enchant")
                         .then(Commands.literal("description").executes(context -> {
-                            Component modName =
-                                    Component.literal("§6[§nRandom Enchant§r§6]§r")
-                                            .withStyle(
-                                                    style
-                                                    -> style.withUnderlined(true)
-                                                               .withClickEvent(new ClickEvent(
-                                                                       ClickEvent.Action.OPEN_URL,
-                                                                       "https://github.com/Skrepy0/"
-                                                                               + "Random-Enchant-Neoforge"))
-                                                               .withHoverEvent(new HoverEvent(
-                                                                       HoverEvent.Action.SHOW_TEXT,
-                                                                       Component.literal("点击打开§6Random Enchant§r "
-                                                                                         + "的Github仓库"))));
-                            Component description_1 = Component.literal("  本mod").append(modName).append(
-                                    "由§bSkrepy2233§r制作，以下是几点说明");
-                            Component description_2 = Component.literal("1.可以使用/§arandom_enchant doRandomEnchant "
-                                                                        + "§b<true/false>§r 进行配置，默认是关闭");
-                            Component description_3 = Component.literal(
-                                    "2.§adoRandomEnchant§r开启后,"
-                                    + "玩家击打有生命实体后会对玩家主手物品进行随机附魔（等级也是随机）");
-                            Component description_4 =
-                                    Component.literal("3.已经启用本mod自带的材质包（修复§b附魔等级的罗马数字显示§r）");
-                            Component description_5 = Component.literal("4.附魔随机的范围是§d所有已附魔§r");
-                            Component description_6 =
-                                    Component.literal("5.本mod对原版附魔添加了一些效果，如附魔有§a[无限]"
-                                                      + "§r的食物使用后数量不会减少，方块、不死图腾亦同");
-                            Component description_7 = Component.literal(
-                                    "最后，添加的附魔与对应的物品：\n "
-                                    + "§a[无限]§r投掷类物品，如鸡蛋、末影珍珠、药水（饮用除外）、食物（蛋糕除外）等;"
-                                    + "各种方块、不死图腾\n §a[力量]§r 火焰弹、铲子、粘液球");
-                            Component description = Component.literal("§c最后§r:按§d[T]§r查看全部");
-                            ArrayList<Component> messageList = new ArrayList<>();
-                            messageList.add(description_1);
-                            messageList.add(description_2);
-                            messageList.add(description_3);
-                            messageList.add(description_4);
-                            messageList.add(description_5);
-                            messageList.add(description_6);
-                            messageList.add(description_7);
-                            messageList.add(description);
-                            for (int i = 0; i < 8; i++) {
-                                RandomEnchant.LOGGER.info(messageList.get(i).getString());
-                                // 反馈给玩家
-                                int finalI = i;
-                                context.getSource().sendSuccess(() -> messageList.get(finalI), true);
+                            List<String> pages = new ArrayList<>();
+                            for (int i = 1; i < 33; i++) {
+                                pages.add(translatable("item.random_enchant.guide.page." + i).getString());
                             }
+                            ItemStack book = CustomBookBuilder.createBook(
+                                    translatable("item.random_enchant.guide.title").getString(), "§kuniverse itself",
+                                    pages, true);
+                            context.getSource().getPlayer().getInventory().add(book);
                             return 1;
                         }))
                         .then(Commands.literal("config")
@@ -72,9 +37,9 @@ public class RandomEnchantCommand {
                                                         boolean enabled = BoolArgumentType.getBool(context, "enabled");
                                                         Config.setRandomEnchant(enabled);
                                                         Component message =
-                                                                enabled ? Component.translatable(
+                                                                enabled ? translatable(
                                                                                   "command.random_enchant.randomEnchant.enable")
-                                                                        : Component.translatable(
+                                                                        : translatable(
                                                                                   "command.random_enchant.randomEnchant.disable");
 
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -89,7 +54,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[isAlwaysEnchantable]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -98,7 +63,7 @@ public class RandomEnchantCommand {
                                                         Config.setIsAlwaysEnchantable(enabled);
                                                         Component message =
                                                                 Component.literal("§a[isAlwaysEnchantable]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -112,7 +77,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[infinityUndyingTotem]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -121,7 +86,7 @@ public class RandomEnchantCommand {
                                                         Config.setInfinityUndyingTotem(enabled);
                                                         Component message =
                                                                 Component.literal("§a[infinityUndyingTotem]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -135,7 +100,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[explodeDestroyBlock]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -144,7 +109,7 @@ public class RandomEnchantCommand {
                                                         Config.setExplodeDestroyBlock(enabled);
                                                         Component message =
                                                                 Component.literal("§a[infinityUndyingTotem]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -158,7 +123,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[infinityBlock]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -167,7 +132,7 @@ public class RandomEnchantCommand {
                                                         Config.setInfinityBlock(enabled);
                                                         Component message =
                                                                 Component.literal("§a[infinityBlock]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -181,7 +146,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[infinityTnt]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -190,7 +155,7 @@ public class RandomEnchantCommand {
                                                         Config.setInfinityTnt(enabled);
                                                         Component message =
                                                                 Component.literal("§a[infinityTnt]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -204,7 +169,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[infinityFood]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -213,7 +178,7 @@ public class RandomEnchantCommand {
                                                         Config.setInfinityFood(enabled);
                                                         Component message =
                                                                 Component.literal("§a[infinityFood]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -227,7 +192,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[infinityThrowableItem]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -236,7 +201,7 @@ public class RandomEnchantCommand {
                                                         Config.setInfinityThrowableItem(enabled);
                                                         Component message =
                                                                 Component.literal("§a[infinityFood]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -250,7 +215,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[isEnchantedBlockGetatable]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -259,7 +224,7 @@ public class RandomEnchantCommand {
                                                         Config.setIsEnchantedBlockGetatable(enabled);
                                                         Component message =
                                                                 Component.literal("§a[isEnchantedBlockGetatable]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -273,7 +238,7 @@ public class RandomEnchantCommand {
                                                         if (preStatus == enabled) {
                                                             Component message =
                                                                     Component.literal("§a[infinityPotion]§r")
-                                                                            .append(Component.translatable(
+                                                                            .append(translatable(
                                                                                     "command.random_enchant.config.unchanged"));
                                                             RandomEnchant.LOGGER.info(message.getString());
                                                             context.getSource().sendSuccess(() -> message, false);
@@ -282,7 +247,7 @@ public class RandomEnchantCommand {
                                                         Config.setInfinityPotion(enabled);
                                                         Component message =
                                                                 Component.literal("§a[infinityPotion]§r")
-                                                                        .append(Component.translatable(
+                                                                        .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");
                                                         RandomEnchant.LOGGER.info(message.getString());
@@ -302,7 +267,7 @@ public class RandomEnchantCommand {
                                                                                   Component
                                                                                           .literal(
                                                                                                   "§a[redirectTridentSetPointDistance]§r")
-                                                                                          .append(Component.translatable(
+                                                                                          .append(translatable(
                                                                                                   "command.random_enchant.config.unchanged"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -315,7 +280,7 @@ public class RandomEnchantCommand {
                                                                               Component
                                                                                       .literal(
                                                                                               "§a[redirectTridentSetPointDistance]§r")
-                                                                                      .append(Component.translatable(
+                                                                                      .append(translatable(
                                                                                               "command.random_enchant.config.changed"))
                                                                                       .append(" §6" + value);
                                                                       RandomEnchant.LOGGER.info(message.getString());
@@ -336,7 +301,7 @@ public class RandomEnchantCommand {
                                                                                   Component
                                                                                           .literal(
                                                                                                   "§a[flyEnchantmentLiftHeightPerTick]§r")
-                                                                                          .append(Component.translatable(
+                                                                                          .append(translatable(
                                                                                                   "command.random_enchant.config.unchanged"));
                                                                           RandomEnchant.LOGGER.info(
                                                                                   message.getString());
@@ -349,7 +314,7 @@ public class RandomEnchantCommand {
                                                                               Component
                                                                                       .literal(
                                                                                               "§a[flyEnchantmentLiftHeightPerTick]§r")
-                                                                                      .append(Component.translatable(
+                                                                                      .append(translatable(
                                                                                               "command.random_enchant.config.changed"))
                                                                                       .append(" §6" + value);
                                                                       RandomEnchant.LOGGER.info(message.getString());

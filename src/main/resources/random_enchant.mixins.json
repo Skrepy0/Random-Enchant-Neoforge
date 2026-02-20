@@ -47,6 +47,8 @@
     "item_mixin.enchantment_item_mixin.custom.channeling.ThrowableProjectileMixin",
     "item_mixin.enchantment_item_mixin.custom.elytra.LivingEntityMixin",
     "item_mixin.enchantment_item_mixin.custom.elytra.PlayerEntityMixin",
+    "item_mixin.enchantment_item_mixin.custom.fishing_rod.FishingHookMixin",
+    "item_mixin.enchantment_item_mixin.custom.fishing_rod.FishingRodItemMixin",
     "item_mixin.enchantment_item_mixin.custom.luoyangshovel.FallingBlockEntityMixin",
     "item_mixin.enchantment_item_mixin.custom.luoyangshovel.ShovelItemMixin",
     "item_mixin.enchantment_item_mixin.custom.projectile_weapon.AbstractArrowMixin",

@@ -10,6 +10,7 @@ import com.random_enchant.render.particle.ParticleRenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -24,6 +25,24 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 @EventBusSubscriber
 public class EnchantBrushHelper {
+    @SubscribeEvent
+    public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getEntity();
+        Level level = player.level();
+        if (level.isClientSide()) return;
+        InteractionHand hand = event.getHand();
+        ItemStack brush = player.getItemInHand(hand);
+        if (brush.getItem() != ModItems.ENCHANT_BRUSH.asItem()) return;
+        // 检查是否按住 Shift
+        if (player.isShiftKeyDown()) {
+            if (BrushNBTUtils.hasStartPos(brush)) {
+                BrushNBTUtils.clearSelection(brush);
+                player.displayClientMessage(
+                        Component.translatable("message.random_enchant.item.enchant_brush.clear_data"), true);
+            }
+        }
+    }
+
     @SubscribeEvent
     public static void useOnBlock(PlayerInteractEvent.RightClickBlock event) {
         Level level = event.getLevel();

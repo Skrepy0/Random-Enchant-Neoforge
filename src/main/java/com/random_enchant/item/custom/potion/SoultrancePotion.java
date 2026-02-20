@@ -1,6 +1,9 @@
 package com.random_enchant.item.custom.potion;
 
 import com.random_enchant.enchantment.ModEnchantHelper;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Random;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,10 +22,6 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
 
 public class SoultrancePotion extends Item {
     private static final int DRINK_DURATION = 40;

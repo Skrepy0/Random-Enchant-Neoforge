@@ -3,6 +3,7 @@ package com.random_enchant;
 import com.mojang.logging.LogUtils;
 import com.random_enchant.command.ModCommands;
 import com.random_enchant.data.nbt.DoubleJumpData;
+import com.random_enchant.data.nbt.FishingHookData;
 import com.random_enchant.enchantment.ModEnchantmentTags;
 import com.random_enchant.entity.ModEntities;
 import com.random_enchant.item.ModItemGroup;
@@ -39,6 +40,8 @@ public class RandomEnchant {
         ModEntities.register(modEventBus);
 
         DoubleJumpData.ATTACHMENT_TYPES.register(modEventBus);
+
+        FishingHookData.ATTACHMENT_TYPES.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 

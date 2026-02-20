@@ -1,4 +1,4 @@
-// 1.21.1	2026-02-04T09:53:06.855158	Tags for minecraft:item mod id random_enchant
+// 1.21.1	2026-02-19T13:18:29.9553696	Tags for minecraft:item mod id random_enchant
 d7542543cbd9db648a5753c2955f7105b7b94df2 data/minecraft/tags/item/enchantable/durability.json
 d7542543cbd9db648a5753c2955f7105b7b94df2 data/minecraft/tags/item/enchantable/sword.json
 d7542543cbd9db648a5753c2955f7105b7b94df2 data/minecraft/tags/item/enchantable/weapon.json
@@ -9,12 +9,13 @@ d7542543cbd9db648a5753c2955f7105b7b94df2 data/minecraft/tags/item/swords.json
 e6a557e0f0c7023bf91eaaf1ba66fadae53fd806 data/random_enchant/tags/item/fly_available.json
 9e72b72073f5d0536dd2a5abc4b2c56a9182eec5 data/random_enchant/tags/item/frost_walker_available.json
 d7542543cbd9db648a5753c2955f7105b7b94df2 data/random_enchant/tags/item/fury_of_fly_available.json
-3586a12f698cc4f5bf1e60c00db83e6fdb395f4d data/random_enchant/tags/item/kinetic_available.json
+18fef7a6c476fddf582cdb6e9332f1d2014e9a28 data/random_enchant/tags/item/kinetic_available.json
 c1ba3af84b1d42e253b6dd90f52368b5dd41e669 data/random_enchant/tags/item/no_curse_available.json
-961c7e993724ebbddfcd984a6b9ef1030e54b62d data/random_enchant/tags/item/no_gravity_available.json
-961c7e993724ebbddfcd984a6b9ef1030e54b62d data/random_enchant/tags/item/no_resistance_available.json
+322ada98dd1a8b0efd2b0c9fd95dbba1af824c55 data/random_enchant/tags/item/no_gravity_available.json
+322ada98dd1a8b0efd2b0c9fd95dbba1af824c55 data/random_enchant/tags/item/no_resistance_available.json
 ff19342fac47c60f1876ed1067d7ff899b5c2352 data/random_enchant/tags/item/quick_charge_available.json
 2bf3a7eafd69c022433bc4f2776944d90e7c7cbf data/random_enchant/tags/item/redirect_projectile_available.json
 3586a12f698cc4f5bf1e60c00db83e6fdb395f4d data/random_enchant/tags/item/steady_available.json
 ba1949056acc66b717086648b77871601c4cd73c data/random_enchant/tags/item/throwable_available.json
+d5819c82fddfaf937dbe9ed568e87f1206349f8d data/random_enchant/tags/item/tracking_available.json
 8be60943ad56be5a0c6aa3a0317eedece7613524 data/random_enchant/tags/item/wind_burst_available.json
