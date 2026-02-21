@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "random_enchant:milk_bottle"
+    },
+    "title": {
+      "translate": "advancements.enchant.cleanse_curse.title"
+    },
+    "description": {
+      "translate": "advancements.enchant.cleanse_curse.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "random_enchant:enchant/root",
+  "criteria": {
+    "cleansed": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 150
+  }
+}

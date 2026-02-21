@@ -33,6 +33,12 @@ public class RandomEnchantCommand {
                         .then(Commands.literal("config")
                                       .requires(source -> source.hasPermission(2))
                                       .then(Commands.literal("doRandomEnchant")
+                                                    .executes(context -> {
+                                                        Component message = Component.literal("doRandomEnchant: " +
+                                                                                              Config.randomEnchant());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })
                                                     .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
                                                         boolean enabled = BoolArgumentType.getBool(context, "enabled");
                                                         Config.setRandomEnchant(enabled);
@@ -247,6 +253,29 @@ public class RandomEnchantCommand {
                                                         Config.setInfinityPotion(enabled);
                                                         Component message =
                                                                 Component.literal("§a[infinityPotion]§r")
+                                                                        .append(translatable(
+                                                                                "command.random_enchant.config.changed"))
+                                                                        .append(enabled ? "§a[true]§r" : "§c[false]§r");
+                                                        RandomEnchant.LOGGER.info(message.getString());
+                                                        context.getSource().sendSuccess(() -> message, false);
+                                                        return 1;
+                                                    })))
+                                      .then(Commands.literal("bedrockViolable")
+                                                    .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                                        boolean preStatus = Config.getBedrockViolable();
+                                                        boolean enabled = BoolArgumentType.getBool(context, "enabled");
+                                                        if (preStatus == enabled) {
+                                                            Component message =
+                                                                    Component.literal("§a[bedrockViolable]§r")
+                                                                            .append(translatable(
+                                                                                    "command.random_enchant.config.unchanged"));
+                                                            RandomEnchant.LOGGER.info(message.getString());
+                                                            context.getSource().sendSuccess(() -> message, false);
+                                                            return 1;
+                                                        }
+                                                        Config.setBedrockViolable(enabled);
+                                                        Component message =
+                                                                Component.literal("§a[bedrockViolable]§r")
                                                                         .append(translatable(
                                                                                 "command.random_enchant.config.changed"))
                                                                         .append(enabled ? "§a[true]§r" : "§c[false]§r");

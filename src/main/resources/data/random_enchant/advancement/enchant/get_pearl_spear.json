@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "id": "random_enchant:pearl_spear"
+    },
+    "title": {
+        "translate": "advancements.enchant.get_pearl_spear.title"
+    },
+    "description": {
+      "translate": "advancements.enchant.get_pearl_spear.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "random_enchant:enchant/root",
+  "criteria": {
+    "has_spear": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": ["random_enchant:pearl_spear"]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 package com.random_enchant.mixin.enchantment_block_mixin.custom.badluckofthesea;
 
+import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import java.util.Objects;
@@ -31,6 +32,9 @@ public abstract class FlowableFluidMixin {
             // 获取当前方块的世界对象，必须确保world是World类型
             if (world instanceof Level mutableWorld) {
                 // 破坏方块
+                if (!Config.getBedrockViolable()) {
+                    if (state.is(Blocks.BEDROCK)) return;
+                }
                 randomEnchant$generateFallingBlock(pos, state, mutableWorld);
             }
             cir.setReturnValue(true);

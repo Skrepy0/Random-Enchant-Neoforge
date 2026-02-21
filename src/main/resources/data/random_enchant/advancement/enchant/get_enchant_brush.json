@@ -1,0 +1,35 @@
+{
+  "parent": "random_enchant:enchant/root",
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "random_enchant:enchant_brush",
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.enchant.get_enchant_brush.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "random_enchant:enchant_brush"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.enchant.get_enchant_brush.title"
+    }
+  },
+  "requirements": [["inventory_changed"]],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}

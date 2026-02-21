@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:structure_void"
+    },
+    "title": {
+        "translate": "advancements.enchant.use_region_mode.title"
+    },
+    "description": {
+      "translate": "advancements.enchant.use_region_mode.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "random_enchant:enchant/get_enchant_brush",
+  "criteria": {
+    "select_region": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

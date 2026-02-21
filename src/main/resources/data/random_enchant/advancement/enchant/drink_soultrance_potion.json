@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "id": "random_enchant:soultrance_potion"
+    },
+    "title": {
+        "translate": "advancements.enchant.drink_soultrance_potion.title"
+    },
+    "description": {
+      "translate": "advancements.enchant.drink_soultrance_potion.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "random_enchant:enchant/root",
+  "criteria": {
+    "consumed": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["random_enchant:soultrance_potion"]
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 100
+  }
+}

@@ -3,9 +3,12 @@ package com.random_enchant.event.player;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.entity.custom.ThrownMace;
+import com.random_enchant.util.AdvancementHelper;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -48,6 +51,11 @@ public class ThrowableMaceEvent {
             // 减少原物品数量
             if (!event.getEntity().getAbilities().instabuild) {
                 stack.shrink(1);
+            }
+            if (ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.CHANNELING) > 0) {
+                if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+                    AdvancementHelper.grantAdvancement(serverPlayer, "enchant/thor_hammer", "throw_thor_hammer");
+                }
             }
         }
     }

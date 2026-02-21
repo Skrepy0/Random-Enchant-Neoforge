@@ -1,5 +1,6 @@
 package com.random_enchant.mixin.item_mixin.enchantment_item_mixin.custom.luoyangshovel;
 
+import com.random_enchant.Config;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import com.random_enchant.mixin.enchantment_block_mixin.custom.badluckofthesea.BlockEntityReflectionHelper;
@@ -66,10 +67,21 @@ public abstract class ShovelItemMixin extends DiggerItem {
         }
     }
 
+    /**
+     * 生成一个掉落方块实体，并处理附魔信息
+     * @param targetPos 目标方块位置
+     * @param blockState 方块状态
+     * @param world 世界对象
+     * @param power 附魔力量值
+     * @param user 使用者玩家对象
+     */
     @Unique
     private void randomEnchant$generateFallingBlock(BlockPos targetPos, BlockState blockState, Level world, int power,
-                                                    Player user) {
+                                                    Player user) { // 确保在服务器端执行
         if (!world.isClientSide()) {
+            if (!Config.getBedrockViolable()) {
+                if (blockState.is(Blocks.BEDROCK)) return;
+            }
             BlockEntity blockEntity = world.getBlockEntity(targetPos);
 
             // 获取原始位置的附魔信息
@@ -101,7 +113,8 @@ public abstract class ShovelItemMixin extends DiggerItem {
                 fallingBlockEntity.setHurtsEntities(0, -1);
                 BlockEnchantmentStorage.removeBlockEnchantment(targetPos.immutable()); // 删除信息
             } else {
-                fallingBlockEntity.setHurtsEntities(50, power * 2);
+                fallingBlockEntity.setHurtsEntities(
+                        50, (int) (power * 0.5 + blockState.getBlock().defaultDestroyTime() * 0.5));
             }
 
             // 如果方块有附加的 BlockEntity 数据，可以设置 blockEntityData 字段

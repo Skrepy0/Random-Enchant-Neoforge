@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:tropical_fish"
+    },
+    "title": {
+        "translate": "advancements.enchant.bad_luck_of_the_sea.title"
+    },
+    "description": {
+      "translate": "advancements.enchant.bad_luck_of_the_sea.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "random_enchant:enchant/hyper_transfer",
+  "criteria": {
+    "bad_luck_of_the_sea": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 150
+  }
+}

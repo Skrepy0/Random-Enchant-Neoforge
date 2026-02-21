@@ -1,11 +1,13 @@
 package com.random_enchant.mixin.enchantment_block_mixin.custom.waterbroken;
 
+import com.random_enchant.Config;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
@@ -31,7 +33,9 @@ public abstract class FlowableFluidMixin {
     private void init1(Direction direction, BlockGetter level, BlockPos pos, BlockState state, BlockPos spreadPos,
                        BlockState spreadState, CallbackInfoReturnable<Boolean> cir) {
         if (BlockEnchantmentStorage.getLevel(Enchantments.AQUA_AFFINITY, pos) > 0) {
-            System.out.println("receivesFlow");
+            if (!Config.getBedrockViolable()) {
+                if (state.is(Blocks.BEDROCK)) return;
+            }
             // 获取当前方块的世界对象，必须确保world是World类型
             if (level instanceof Level mutableWorld) {
                 // 破坏方块

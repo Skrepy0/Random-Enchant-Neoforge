@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "id": "random_enchant:memory_potion"
+    },
+    "title": {
+        "translate": "advancements.enchant.drink_memory_potion.title"
+    },
+    "description": {
+      "translate": "advancements.enchant.drink_memory_potion.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "random_enchant:enchant/root",
+  "criteria": {
+    "consumed": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": ["random_enchant:memory_potion"]
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

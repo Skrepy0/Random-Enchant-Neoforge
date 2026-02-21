@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
 public class GetGuideEvent {
 
     // 你要监听的进度ID - 附魔师对应的进度
-    private static final String TARGET_ADVANCEMENT_ID = "minecraft:story/enchant_item";
+    private static final String TARGET_ADVANCEMENT_ID = "random_enchant:enchant/root";
 
     @SubscribeEvent
     public static void onAdvancementDone(AdvancementEvent.AdvancementEarnEvent event) {

@@ -3,6 +3,7 @@ package com.random_enchant.item.custom.weapon;
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
+import com.random_enchant.util.AdvancementHelper;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
@@ -252,6 +253,8 @@ public class PearlSpear extends Item {
         int furyOfFlyLevel = ModEnchantHelper.getEnchantmentLevel(stack, world, ModEnchantments.FURY_OF_FLY);
         if (furyOfFlyLevel > 0) {
             spawnBee(world, target, furyOfFlyLevel, user);
+            if (user instanceof ServerPlayer serverPlayer)
+                AdvancementHelper.grantAdvancement(serverPlayer, "enchant/trigger_fly_of_fury", "trigger_fly_of_fury");
         }
 
         ServerLevel serverLevel = (ServerLevel) world;

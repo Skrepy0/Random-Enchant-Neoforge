@@ -2,14 +2,17 @@ package com.random_enchant.event.tool;
 
 import com.random_enchant.data.nbt.BrushNBTUtils;
 import com.random_enchant.enchantment.ModEnchantHelper;
+import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import com.random_enchant.item.ModItems;
 import com.random_enchant.mixin_helper.InjectHelper;
 import com.random_enchant.network.packet.S2C.AddEnchantedBlockParticleS2CPacket;
 import com.random_enchant.render.particle.ParticleRenderType;
+import com.random_enchant.util.AdvancementHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -25,6 +28,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 
 @EventBusSubscriber
 public class EnchantBrushHelper {
+    private static boolean haveHopper = false;
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();
@@ -103,6 +107,20 @@ public class EnchantBrushHelper {
                     BrushNBTUtils.clearSelection(brush);
                     player.displayClientMessage(
                             Component.translatable("message.random_enchant.item.enchant_brush.selected_2"), true);
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        AdvancementHelper.grantAdvancement(serverPlayer, "enchant/use_region_mode", "select_region");
+                        if (ModEnchantHelper.getEnchantmentLevel(brush, ModEnchantments.BAD_LUCK_OF_THE_SEA) > 0) {
+                            AdvancementHelper.grantAdvancement(serverPlayer, "enchant/bad_luck_of_the_sea",
+                                                               "bad_luck_of_the_sea");
+                        }
+                        if (ModEnchantHelper.getEnchantmentLevel(brush, ModEnchantments.EXPLODE) > 0) {
+                            AdvancementHelper.grantAdvancement(serverPlayer, "enchant/explode", "explode");
+                        }
+                        if (ModEnchantHelper.getEnchantmentLevel(brush, Enchantments.QUICK_CHARGE) > 0 && haveHopper) {
+                            AdvancementHelper.grantAdvancement(serverPlayer, "enchant/hyper_transfer",
+                                                               "hyper_transfer");
+                        }
+                    }
                 }
             }
         } else {
@@ -212,6 +230,9 @@ public class EnchantBrushHelper {
                 for (int z = minZ; z <= maxZ; z++) {
                     BlockPos currentPos = new BlockPos(x, y, z);
                     BlockState blockState = world.getBlockState(currentPos);
+                    if (!haveHopper) {
+                        haveHopper = blockState.is(Blocks.HOPPER);
+                    }
 
                     // 排除空气、水、岩浆等特定方块
                     if (blockState.is(Blocks.AIR) || blockState.is(Blocks.WATER) || blockState.is(Blocks.LAVA)) {

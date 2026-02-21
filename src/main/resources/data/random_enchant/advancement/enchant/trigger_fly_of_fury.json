@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:honeycomb"
+    },
+    "title": {
+        "translate": "advancements.enchant.trigger_fly_of_fury.title"
+    },
+    "description": {
+      "translate": "advancements.enchant.trigger_fly_of_fury.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "random_enchant:enchant/get_pearl_spear",
+  "criteria": {
+    "trigger_fly_of_fury": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 80
+  }
+}

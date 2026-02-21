@@ -1,0 +1,35 @@
+{
+  "criteria": {
+    "inventory_changed": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_book",
+            "count": 1
+          }
+        ]
+      }
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "translate": "advancements.enchant.root.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:enchanted_book"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.enchant.root.title"
+    }
+  },
+  "requirements": [["inventory_changed"]],
+  "rewards": {
+    "experience": 5
+  },
+  "sends_telemetry_event": true
+}
