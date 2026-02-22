@@ -2,17 +2,13 @@ package com.random_enchant.mixin.item_mixin.enchantment_item_mixin.custom.tracki
 
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
-import java.util.List;
-import javax.annotation.Nullable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -20,22 +16,38 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
 
-    @Unique @Nullable private LivingEntity randomEnchantTracking$trackedTarget;
-    @Unique private int randomEnchantTracking$trackingLevel = 1;
-    @Unique private int randomEnchantTracking$ticksSinceLastSearch = 0;
-    @Unique private boolean randomEnchantTracking$isActivelyTracking = false;
+    @Unique
+    @Nullable
+    private LivingEntity randomEnchantTracking$trackedTarget;
+    @Unique
+    private int randomEnchantTracking$trackingLevel = 1;
+    @Unique
+    private int randomEnchantTracking$ticksSinceLastSearch = 0;
+    @Unique
+    private boolean randomEnchantTracking$isActivelyTracking = false;
 
-    @Unique private static final double TRACKING_RANGE = 30.0; // 最大追踪距离（方块）
-    @Unique private static final double MAX_TRACKING_ANGLE = Math.PI / 2; // 最大追踪角度（90度），超出则目标可能丢失
-    @Unique private static final double MIN_SPEED_FOR_TRACKING = 0.2; // 启用追踪所需的最小箭矢速度（米/刻）
-    @Unique private static final double BASE_TURN_RATE = 0.8; // 基础转向速率（弧度/刻），受等级和角度动态调整
-    @Unique private static final double MAX_TURN_RATE = 0.8; // 最大转向速率限制（弧度/刻），防止瞬间转向
-    @Unique private static final int SEARCH_COOLDOWN = 5; // 目标搜索的冷却间隔（刻），避免每刻都进行昂贵的范围查询
-    @Unique private static final double PREDICTION_FACTOR_BASE = 0.3; // 目标位置预测的基础系数，影响预测偏移量
-    @Unique private static final double PREDICTION_FACTOR_PER_LEVEL = 0.1; // 每级附魔增加的预测系数，高等级预判更准
+    @Unique
+    private static final double TRACKING_RANGE = 30.0; // 最大追踪距离（方块）
+    @Unique
+    private static final double MAX_TRACKING_ANGLE = Math.PI / 2; // 最大追踪角度（90度），超出则目标可能丢失
+    @Unique
+    private static final double MIN_SPEED_FOR_TRACKING = 0.2; // 启用追踪所需的最小箭矢速度（米/刻）
+    @Unique
+    private static final double BASE_TURN_RATE = 0.8; // 基础转向速率（弧度/刻），受等级和角度动态调整
+    @Unique
+    private static final double MAX_TURN_RATE = 0.8; // 最大转向速率限制（弧度/刻），防止瞬间转向
+    @Unique
+    private static final int SEARCH_COOLDOWN = 5; // 目标搜索的冷却间隔（刻），避免每刻都进行昂贵的范围查询
+    @Unique
+    private static final double PREDICTION_FACTOR_BASE = 0.3; // 目标位置预测的基础系数，影响预测偏移量
+    @Unique
+    private static final double PREDICTION_FACTOR_PER_LEVEL = 0.1; // 每级附魔增加的预测系数，高等级预判更准
 
     @Inject(method = "shoot(DDDFF)V", at = @At("RETURN"))
     private void onShoot(double x, double y, double z, float velocity, float inaccuracy, CallbackInfo ci) {
@@ -51,7 +63,6 @@ public abstract class AbstractArrowMixin {
                 this.randomEnchantTracking$trackingLevel = level;
 
                 if (level > 0) {
-                    // 可以选择立即搜索目标，或延迟到第一个 tick 再搜索
                     Entity owner = arrow.getOwner();
                     if (owner instanceof LivingEntity livingOwner) {
                         this.randomEnchantTracking$trackedTarget =
@@ -61,7 +72,6 @@ public abstract class AbstractArrowMixin {
                     }
                 }
             } else {
-                // 如果没有武器，等级设为0
                 this.randomEnchantTracking$trackingLevel = 0;
             }
         }
@@ -98,9 +108,9 @@ public abstract class AbstractArrowMixin {
     private void randomEnchantTracking$updateTrackingTarget(AbstractArrow arrow, LivingEntity owner) {
         // 仅在冷却期满或目标无效时重新搜索
         boolean needSearch = randomEnchantTracking$ticksSinceLastSearch >= SEARCH_COOLDOWN ||
-                             randomEnchantTracking$trackedTarget == null ||
-                             !randomEnchantTracking$trackedTarget.isAlive() ||
-                             !randomEnchantTracking$isInTrackingRange(arrow, randomEnchantTracking$trackedTarget);
+                randomEnchantTracking$trackedTarget == null ||
+                !randomEnchantTracking$trackedTarget.isAlive() ||
+                !randomEnchantTracking$isInTrackingRange(arrow, randomEnchantTracking$trackedTarget);
 
         if (needSearch) {
             randomEnchantTracking$ticksSinceLastSearch = 0;
@@ -112,106 +122,50 @@ public abstract class AbstractArrowMixin {
                     randomEnchantTracking$isTargetInSight(arrow, randomEnchantTracking$trackedTarget);
         }
     }
+
     @Nullable
     private LivingEntity randomEnchantTracking$findOptimalTarget(AbstractArrow arrow, LivingEntity owner) {
         if (owner.level() != arrow.level()) return null;
 
-        // 1. 射线直接击中（考虑方块阻挡）
-        HitResult hitResult = ProjectileUtil.getHitResultOnViewVector(
-                owner, entity -> entity instanceof LivingEntity && entity != owner && entity.isAlive(), TRACKING_RANGE);
-        if (hitResult.getType() == HitResult.Type.ENTITY) {
-            return (LivingEntity) ((EntityHitResult) hitResult).getEntity();
-        }
-
         double range = TRACKING_RANGE + randomEnchantTracking$trackingLevel * 8.0;
-        Vec3 eyePos = owner.getEyePosition();
-        Vec3 lookVec = owner.getLookAngle();
+        AABB searchArea = arrow.getBoundingBox().inflate(range);
+        List<LivingEntity> candidates = owner.level().getEntitiesOfClass(LivingEntity.class, searchArea,
+                e -> e != owner && e.isAlive() && !e.is(arrow));
 
-        // 获取所有可能的候选实体（排除自己）
-        AABB searchArea = owner.getBoundingBox().inflate(range);
-        List<LivingEntity> candidates =
-                owner.level().getEntitiesOfClass(LivingEntity.class, searchArea, e -> e != owner && e.isAlive());
-
-        // 2. 距离视线射线最近的实体（忽略阻挡）
-        LivingEntity closestToRay = null;
-        double minDistToRay = Double.MAX_VALUE;
-        for (LivingEntity e: candidates) {
-            Vec3 toEntity = e.position().subtract(eyePos);
-            double dot = toEntity.dot(lookVec);
-            if (dot <= 0) continue; // 在身后
-
-            double distToRay = toEntity.cross(lookVec).length();
-            if (distToRay < minDistToRay) {
-                minDistToRay = distToRay;
-                closestToRay = e;
+        // 第一步：寻找正在攻击射手的怪物
+        for (LivingEntity e : candidates) {
+            if (e instanceof Monster monster && monster.getTarget() == owner) {
+                return monster;
             }
         }
-        if (closestToRay != null) return closestToRay;
 
-        // 3. 加权评分（基于距离、方向、可见性）
+        // 第二步：寻找有视线的怪物（跳过中立生物）
+        for (LivingEntity e : candidates) {
+            if (e instanceof Monster monster && e.hasLineOfSight(arrow)) {
+                return monster;
+            }
+        }
+
+        // 第三步：在所有LivingEntity中（排除自身、主人、主人的宠物）选择方向点积最大且超过阈值0.5的
         Vec3 arrowPos = arrow.position();
         Vec3 arrowDir = arrow.getDeltaMovement().normalize();
+        double bestDot = 0.5; // SeekerArrow中的阈值
+        LivingEntity bestTarget = null;
 
-        LivingEntity best = null;
-        double bestScore = Double.NEGATIVE_INFINITY;
-        for (LivingEntity e: candidates) {
-            // 快速过滤：距离必须在范围内
-            double distSq = arrowPos.distanceToSqr(e.position());
-            if (distSq > range * range) continue;
+        for (LivingEntity e : candidates) {
+            if (e == owner) continue;
+            if (e instanceof TamableAnimal tame && tame.getOwner() == owner) continue; // 跳过主人的宠物
+            if (!e.hasLineOfSight(arrow)) continue; // 必须有视线
 
-            double score = randomEnchantTracking$calculateTargetScore(arrow, e, arrowDir);
-            if (score > bestScore) {
-                bestScore = score;
-                best = e;
-            }
-        }
-        return best;
-    }
-    @Unique
-    private double randomEnchantTracking$calculateTargetScore(AbstractArrow arrow, LivingEntity target, Vec3 arrowDir) {
-        Vec3 arrowPos = arrow.position();
-        Vec3 targetPos = target.getBoundingBox().getCenter();
-        Vec3 toTarget = targetPos.subtract(arrowPos);
-        double distance = toTarget.length();
-        toTarget = toTarget.normalize();
-
-        // 距离分数（越近越好）
-        double distanceScore = 1.0 / (distance + 1.0);
-
-        // 方向分数（越正对越好）
-        double dot = arrowDir.dot(toTarget);
-        double directionScore = (dot + 1.0) / 2.0; // [0,1]
-
-        // 可见性分数（简单射线检测，检查是否有方块阻挡）
-        double visibilityScore = 1.0;
-        if (!arrow.level().isClientSide) {
-            HitResult blockHit = arrow.level().clip(
-                    new ClipContext(arrowPos, targetPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, arrow));
-            if (blockHit.getType() == HitResult.Type.BLOCK &&
-                blockHit.getLocation().distanceToSqr(arrowPos) < targetPos.distanceToSqr(arrowPos) - 0.5) {
-                visibilityScore = 0.5; // 被阻挡则减分
+            Vec3 toTarget = e.getBoundingBox().getCenter().subtract(arrowPos).normalize();
+            double dot = arrowDir.dot(toTarget);
+            if (dot > bestDot) {
+                bestDot = dot;
+                bestTarget = e;
             }
         }
 
-        // 加权求和（方向为主，距离次之，可见性辅助）
-        return directionScore * 0.7 + distanceScore * 0.2 + visibilityScore * 0.1;
-    }
-    @Unique
-    private boolean randomEnchantTracking$isValidTarget(LivingEntity owner, LivingEntity entity, Vec3 arrowPos,
-                                                        Vec3 arrowDirection) {
-        // 基础检查
-        if (entity == owner) return false;
-        if (!entity.isAlive() || entity.isRemoved()) return false;
-
-        // 距离检查
-        double range = TRACKING_RANGE + (this.randomEnchantTracking$trackingLevel * 8.0);
-        double distance = arrowPos.distanceToSqr(entity.position());
-        if (distance > range * range) return false;
-
-        // 方向检查（必须在追踪角度内）
-        Vec3 toTarget = entity.getBoundingBox().getCenter().subtract(arrowPos).normalize();
-        double angle = Math.acos(arrowDirection.dot(toTarget));
-        return angle <= MAX_TRACKING_ANGLE;
+        return bestTarget;
     }
 
     @Unique
@@ -234,7 +188,7 @@ public abstract class AbstractArrowMixin {
         Vec3 arrowPos = arrow.position();
         Vec3 targetPos = randomEnchantTracking$trackedTarget.getBoundingBox().getCenter();
 
-        // 预测目标位置
+        // 预测目标位置（参考SeekerArrow，但保留原Mixin的预测逻辑）
         Vec3 targetMotion = randomEnchantTracking$trackedTarget.getDeltaMovement();
         double distance = arrowPos.distanceTo(targetPos);
         double arrowSpeed = arrow.getDeltaMovement().length();
@@ -255,7 +209,7 @@ public abstract class AbstractArrowMixin {
 
         // 动态转向速率：等级越高、角度越大，转向越快
         double levelFactor = 0.5 + randomEnchantTracking$trackingLevel * 0.25;
-        double angleFactor = (angleRad / Math.PI) * 2.0; // 角度越大转向越猛
+        double angleFactor = (angleRad / Math.PI) * 2.0;
         double turnRate = Math.min(MAX_TURN_RATE, BASE_TURN_RATE * angleFactor * levelFactor);
 
         Vec3 newDir;
@@ -275,24 +229,10 @@ public abstract class AbstractArrowMixin {
             newDir = rotated.normalize();
         }
 
-        // 保持速度大小
+        // 保持速度大小，并添加SeekerArrow中的Y轴偏移（0.045）
         double currentSpeed = arrow.getDeltaMovement().length();
-        arrow.setDeltaMovement(newDir.scale(currentSpeed));
-    }
-    @Unique
-    private void randomEnchantTracking$updateArrowPosition(AbstractArrow arrow) {
-        // 获取当前速度和位置
-        Vec3 motion = arrow.getDeltaMovement();
-        Vec3 position = arrow.position();
-
-        // 计算新位置
-        Vec3 newPosition = position.add(motion);
-
-        // 更新箭头位置
-        arrow.setPos(newPosition.x, newPosition.y, newPosition.z);
-
-        // 更新边界框
-        arrow.setBoundingBox(arrow.getBoundingBox().move(motion));
+        Vec3 newMotion = newDir.scale(currentSpeed).add(0, 0.045, 0);
+        arrow.setDeltaMovement(newMotion);
     }
 
     @Unique
@@ -300,26 +240,20 @@ public abstract class AbstractArrowMixin {
         Vec3 motion = arrow.getDeltaMovement();
         if (motion.lengthSqr() < 0.0001) return;
 
-        // 计算偏航角 (yaw)
         double horizontalDistance = Math.sqrt(motion.x * motion.x + motion.z * motion.z);
         float yaw = (float) (Math.atan2(motion.x, motion.z) * (180.0 / Math.PI));
-
-        // 计算俯仰角 (pitch)
         float pitch = (float) (Math.atan2(motion.y, horizontalDistance) * (180.0 / Math.PI));
 
-        // 平滑更新旋转
         float prevYaw = arrow.getYRot();
         float prevPitch = arrow.getXRot();
+        float lerpFactor = 0.3f;
 
-        // 使用插值平滑旋转变化
-        float lerpFactor = 0.3f; // 插值因子
         float smoothedYaw = prevYaw + (yaw - prevYaw) * lerpFactor;
         float smoothedPitch = prevPitch + (pitch - prevPitch) * lerpFactor;
 
         arrow.setYRot(smoothedYaw);
         arrow.setXRot(smoothedPitch);
 
-        // 保存上一帧的旋转
         arrow.yRotO = smoothedYaw;
         arrow.xRotO = smoothedPitch;
     }
@@ -338,7 +272,6 @@ public abstract class AbstractArrowMixin {
 
     @Inject(method = "tickDespawn", at = @At("HEAD"))
     private void onTickDespawn(CallbackInfo ci) {
-        // 箭矢即将消失时清理状态
         this.randomEnchantTracking$trackedTarget = null;
         this.randomEnchantTracking$isActivelyTracking = false;
     }

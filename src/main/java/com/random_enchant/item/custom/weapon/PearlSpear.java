@@ -3,10 +3,8 @@ package com.random_enchant.item.custom.weapon;
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
+import com.random_enchant.mixin_helper.RandomHelper;
 import com.random_enchant.util.AdvancementHelper;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -38,61 +36,43 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
+
 public class PearlSpear extends Item {
     private final int COOL_DOWN_TIME = 200;
 
     public PearlSpear(Properties properties) {
         super(properties.durability(512)
-                      .rarity(Rarity.EPIC)
-                      .stacksTo(1)
-                      .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
-                      .attributes(createAttributeModifiers()));
+                .rarity(Rarity.EPIC)
+                .stacksTo(1)
+                .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
+                .attributes(createAttributeModifiers()));
     }
 
     private static ItemAttributeModifiers createAttributeModifiers() {
         return ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE,
-                     new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, Tiers.DIAMOND.getAttackDamageBonus() + 1,
-                                           AttributeModifier.Operation.ADD_VALUE
+                        new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, Tiers.DIAMOND.getAttackDamageBonus() + 1,
+                                AttributeModifier.Operation.ADD_VALUE
 
-                                           ),
-                     EquipmentSlotGroup.MAINHAND)
+                        ),
+                        EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.ATTACK_SPEED,
-                     new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, -2.4F, AttributeModifier.Operation.ADD_VALUE),
-                     EquipmentSlotGroup.MAINHAND)
+                        new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, -2.4F, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.MOVEMENT_SPEED,
-                     new AttributeModifier(
-                             ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "pearl_spear_speed_boot"),
-                             1.14514, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
-                     EquipmentSlotGroup.HAND)
+                        new AttributeModifier(
+                                ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "pearl_spear_speed_boot"),
+                                1.14514, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+                        EquipmentSlotGroup.HAND)
                 .build();
     }
 
     private static int getItemDamage(int unbreakingLevel) {
-        Random random = new Random();
-        int rand = random.nextInt(100);
-        if (unbreakingLevel == 0) {
-            if (rand <= 20) {
-                return 0;
-            }
-            return 1;
-        } else if (unbreakingLevel == 1) {
-            if (rand <= 40) {
-                return 0;
-            }
-            return 1;
-        } else if (unbreakingLevel == 2) {
-            if (rand <= 60) {
-                return 0;
-            }
-            return 1;
-        } else if (unbreakingLevel > 2) {
-            if (rand <= 80) {
-                return 0;
-            }
-            return 1;
-        }
-        return 1;
+        float p = (float) (7.054 / (1 + 5.948 * Math.pow(Math.E, 0.314996 * unbreakingLevel)));
+        return RandomHelper.random(p) ? 1 : 0;
     }
 
     private static void spawnBee(Level world, Entity target, int count, LivingEntity livingEntity) {
@@ -157,11 +137,11 @@ public class PearlSpear extends Item {
 
                 // 使用 sendParticles 方法，通过速度参数设置粒子运动方向
                 serverWorld.sendParticles(ParticleTypes.FLASH, x, y + 0.3, z, // 粒子位置
-                                          10, // 粒子数量
-                                          direction1.x * speed, // X方向速度
-                                          direction1.y * speed, // Y方向速度
-                                          direction1.z * speed, // Z方向速度
-                                          0.01 // 基础速度（会被方向向量缩放）
+                        10, // 粒子数量
+                        direction1.x * speed, // X方向速度
+                        direction1.y * speed, // Y方向速度
+                        direction1.z * speed, // Z方向速度
+                        0.01 // 基础速度（会被方向向量缩放）
                 );
                 serverWorld.sendParticles( // spawnParticles -> sendParticles
                         ParticleTypes.ENCHANTED_HIT, x, y + 0.3, z, // 粒子位置
@@ -197,7 +177,7 @@ public class PearlSpear extends Item {
         }
         // 播放音效
         level.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.TOTEM_USE, SoundSource.AMBIENT, 0.2F,
-                        1.4F);
+                1.4F);
         // 快速装填附魔等级
         int quickCharge = ModEnchantHelper.getEnchantmentLevel(stack, level, Enchantments.QUICK_CHARGE);
         user.getCooldowns().addCooldown(this, getRealCoolDownTime(quickCharge));
@@ -236,7 +216,7 @@ public class PearlSpear extends Item {
         }
         // 播放声音
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.TOTEM_USE, SoundSource.AMBIENT, 0.2F,
-                        1.0F);
+                1.0F);
         // 快速装填附魔等级
         int quickCharge = ModEnchantHelper.getEnchantmentLevel(stack, world, Enchantments.QUICK_CHARGE);
         user.getCooldowns().addCooldown(this, getRealCoolDownTime(quickCharge));
@@ -259,11 +239,11 @@ public class PearlSpear extends Item {
 
         ServerLevel serverLevel = (ServerLevel) world;
         serverLevel.sendParticles(ParticleTypes.DAMAGE_INDICATOR, target.getX(), target.getY() + 0.5, target.getZ(),
-                                  10, // 粒子数量
-                                  0.5, // X方向速度
-                                  0.5, // Y方向速度
-                                  0.5, // Z方向速度
-                                  0.03 // 基础速度（会被方向向量缩放）
+                10, // 粒子数量
+                0.5, // X方向速度
+                0.5, // Y方向速度
+                0.5, // Z方向速度
+                0.03 // 基础速度（会被方向向量缩放）
         );
         return true;
     }
@@ -271,7 +251,7 @@ public class PearlSpear extends Item {
     private int getRealCoolDownTime(int quickCharge) {
         double realCoolDownTime = COOL_DOWN_TIME;
         if (quickCharge > 0) {
-            realCoolDownTime = ((double) 11451 / (quickCharge + 4.6) - 20) * 0.08;
+            realCoolDownTime = (-39.1606) / (1 - 1.193 * Math.pow(Math.E, 0.06727 * quickCharge));
         }
         return (int) realCoolDownTime;
     }
@@ -317,7 +297,7 @@ public class PearlSpear extends Item {
 
                 // 传送玩家
                 player.teleportTo((ServerLevel) level, tpX, tpY, tpZ, EnumSet.noneOf(RelativeMovement.class),
-                                  Mth.wrapDegrees(player.getYRot()), Mth.wrapDegrees(player.getXRot()));
+                        Mth.wrapDegrees(player.getYRot()), Mth.wrapDegrees(player.getXRot()));
 
                 // 恢复动量
                 player.setDeltaMovement(originalVelocity);
@@ -355,25 +335,25 @@ public class PearlSpear extends Item {
 
                 // 使用 sendParticles 方法，通过速度参数设置粒子运动方向
                 serverWorld.sendParticles(ParticleTypes.END_ROD, x, y + 0.3, z, // 粒子位置
-                                          10, // 粒子数量
-                                          direction1.x * speed, // X方向速度
-                                          direction1.y * speed, // Y方向速度
-                                          direction1.z * speed, // Z方向速度
-                                          0.01 // 基础速度（会被方向向量缩放）
+                        10, // 粒子数量
+                        direction1.x * speed, // X方向速度
+                        direction1.y * speed, // Y方向速度
+                        direction1.z * speed, // Z方向速度
+                        0.01 // 基础速度（会被方向向量缩放）
                 );
                 serverWorld.sendParticles(ParticleTypes.FLASH, x, y + 0.3, z, // 粒子位置
-                                          10, // 粒子数量
-                                          direction1.x * speed, // X方向速度
-                                          direction1.y * speed, // Y方向速度
-                                          direction1.z * speed, // Z方向速度
-                                          0.01 // 基础速度（会被方向向量缩放）
+                        10, // 粒子数量
+                        direction1.x * speed, // X方向速度
+                        direction1.y * speed, // Y方向速度
+                        direction1.z * speed, // Z方向速度
+                        0.01 // 基础速度（会被方向向量缩放）
                 );
                 serverWorld.sendParticles(ParticleTypes.DRAGON_BREATH, x, y + 0.3, z, // 粒子位置
-                                          10, // 粒子数量
-                                          direction1.x * speed * 1.1, // X方向速度
-                                          direction1.y * speed * 1.1, // Y方向速度
-                                          direction1.z * speed * 1.1, // Z方向速度
-                                          0.03 // 基础速度（会被方向向量缩放）
+                        10, // 粒子数量
+                        direction1.x * speed * 1.1, // X方向速度
+                        direction1.y * speed * 1.1, // Y方向速度
+                        direction1.z * speed * 1.1, // Z方向速度
+                        0.03 // 基础速度（会被方向向量缩放）
                 );
             }
         }
@@ -419,13 +399,13 @@ public class PearlSpear extends Item {
         final float DAMAGE_AMOUNT = 8.0f + sweepingEdgeLevel; // 调整伤害值
         AABB searchBox =
                 new AABB(player.getX() - SEARCH_RADIUS, player.getY() - SEARCH_RADIUS, player.getZ() - SEARCH_RADIUS,
-                         player.getX() + SEARCH_RADIUS, player.getY() + SEARCH_RADIUS, player.getZ() + SEARCH_RADIUS);
+                        player.getX() + SEARCH_RADIUS, player.getY() + SEARCH_RADIUS, player.getZ() + SEARCH_RADIUS);
         List<LivingEntity> nearbyEntities =
                 world.getEntitiesOfClass(LivingEntity.class, searchBox,
-                                         entity -> entity != player && entity.isAlive() // 排除玩家自己和死亡的生物
+                        entity -> entity != player && entity.isAlive() // 排除玩家自己和死亡的生物
                 );
 
-        for (LivingEntity entity: nearbyEntities) {
+        for (LivingEntity entity : nearbyEntities) {
             if (isEntityNearTrack(entity, startPos, endPos, DAMAGE_RADIUS)) {
                 DamageSource damageSource = world.damageSources().playerAttack(player);
                 boolean damageSuccess = entity.hurt(damageSource, DAMAGE_AMOUNT);
@@ -434,11 +414,11 @@ public class PearlSpear extends Item {
                     // 在服务端生成粒子并发送给附近客户端
                     ClientboundLevelParticlesPacket particlesPacket =
                             new ClientboundLevelParticlesPacket(ParticleTypes.DAMAGE_INDICATOR, // 粒子类型
-                                                                false, // 是否远距离渲染
-                                                                entity.getX(), entity.getY(0.5), entity.getZ(), // 位置
-                                                                0.3f, 0.3f, 0.3f, // 偏移量 (deltaX/Y/Z)
-                                                                0.02f, // 速度
-                                                                5 // 粒子数量
+                                    false, // 是否远距离渲染
+                                    entity.getX(), entity.getY(0.5), entity.getZ(), // 位置
+                                    0.3f, 0.3f, 0.3f, // 偏移量 (deltaX/Y/Z)
+                                    0.02f, // 速度
+                                    5 // 粒子数量
                             );
 
                     // 向追踪此实体的所有玩家发送粒子数据包
@@ -521,10 +501,10 @@ public class PearlSpear extends Item {
 
                 // 添加音效和粒子效果
                 world.playSound(null, // 玩家
-                                groundPos.getX(), groundPos.getY(), groundPos.getZ(), // 位置坐标分开
-                                SoundEvents.LIGHTNING_BOLT_THUNDER,
-                                SoundSource.WEATHER, // 常量名改变
-                                5.0F, 1.0F);
+                        groundPos.getX(), groundPos.getY(), groundPos.getZ(), // 位置坐标分开
+                        SoundEvents.LIGHTNING_BOLT_THUNDER,
+                        SoundSource.WEATHER, // 常量名改变
+                        5.0F, 1.0F);
             }
         }
     }
