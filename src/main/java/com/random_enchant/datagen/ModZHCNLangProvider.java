@@ -2,9 +2,10 @@ package com.random_enchant.datagen;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.ModItems;
-import java.util.List;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+
+import java.util.List;
 
 public class ModZHCNLangProvider extends LanguageProvider {
     public ModZHCNLangProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "zh_cn"); }
@@ -82,7 +83,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.double_jump.desc",
             "给予玩家二段跳技能，等级达到II及以上时二段跳后落地不受衰落伤害");
 
-        add("message.random_enchant.backup_warning", "§6Random Enchant是beta版本，请做好存档备份");
+        add("message.random_enchant.backup_warning", "§6Random Enchant是alpha版本，请做好存档备份");
         add("message.random_enchant.enchant_added", "§6已附魔：§r");
         add("message.random_enchant.item.enchant_brush.selected_1", "§a已设置起始点，请点击第二个方块以确定区域。");
         add("message.random_enchant.item.enchant_brush.selected_2", "§a区域附魔操作完成。");

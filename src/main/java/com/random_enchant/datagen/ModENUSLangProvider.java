@@ -1,12 +1,13 @@
 package com.random_enchant.datagen;
 
-import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
-
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.ModItems;
-import java.util.List;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
+
+import java.util.List;
+
+import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
 
 public class ModENUSLangProvider extends LanguageProvider {
     public ModENUSLangProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "en_us"); }
@@ -94,7 +95,7 @@ public class ModENUSLangProvider extends LanguageProvider {
             "Grants the player a double jump ability. At level II and above, landing after a double jump negates fall damage.");
 
         // Messages
-        add("message.random_enchant.backup_warning", "§6Random Enchant is beta, please back up your world often.");
+        add("message.random_enchant.backup_warning", "§6Random Enchant is in alpha, please back up your world often.");
         add("message.random_enchant.enchant_added", "§6Enchanted:§r");
         add("message.random_enchant.item.enchant_brush.selected_1",
             "§aStarting point set. Please click the second block to define the area.");

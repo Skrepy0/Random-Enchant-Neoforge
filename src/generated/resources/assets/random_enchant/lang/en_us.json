@@ -357,7 +357,7 @@
   "itemGroup.random_enchant.title": "Random Enchant",
   "key.categories.random_enchant": "Random Enchant",
   "key.random_enchant.toggle_brush_status": "Toggle Enchant Brush Mode",
-  "message.random_enchant.backup_warning": "§6Random Enchant is beta, please back up your world often.",
+  "message.random_enchant.backup_warning": "§6Random Enchant is in alpha, please back up your world often.",
   "message.random_enchant.enchant_added": "§6Enchanted:§r",
   "message.random_enchant.item.enchant_brush.clear_area": "§aAll enchantments in the area have been cleared.",
   "message.random_enchant.item.enchant_brush.clear_data": "Enchant brush data cleared",
