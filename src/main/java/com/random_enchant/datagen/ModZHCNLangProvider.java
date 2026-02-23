@@ -106,6 +106,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
 
         add("key.random_enchant.toggle_brush_status", "更改附魔刷模式");
         add("key.categories.random_enchant", "随机附魔");
+        add("command.random_enchant.value","配置§d[%s]§r的值目前为：");
         add("command.random_enchant.randomEnchant.enable", "§a已启用随机附魔");
         add("command.random_enchant.randomEnchant.disable", "§6已禁用随机附魔");
         add("command.random_enchant.config.changed", "已被更改为");

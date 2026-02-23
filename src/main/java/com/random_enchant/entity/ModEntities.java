@@ -25,12 +25,12 @@ public class ModEntities {
                                        .eyeHeight(0.0F)
                                        .build("custom_wind_charge"));
     public static final DeferredHolder<EntityType<?>, EntityType<ThrownMace>> THROWN_ITEM =
-            ENTITY_TYPES.register("thrown_item_entity",
+            ENTITY_TYPES.register("thrown_mace_entity",
                                   ()
                                           -> EntityType.Builder.<ThrownMace>of(ThrownMace::new, MobCategory.MISC)
                                                      .sized(0.5F, 0.5F)
                                                      .eyeHeight(0.0F)
-                                                     .build("thrown_item_entity"));
+                                                     .build("thrown_mace_entity"));
     public static final DeferredHolder<EntityType<?>, EntityType<LightningProjectileEntity>> LIGHTNING_PROJECTILE =
             ENTITY_TYPES.register(
                     "lightning_projectile",

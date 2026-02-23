@@ -126,6 +126,7 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("key.categories.random_enchant", "Random Enchant");
 
         // Commands
+        add("command.random_enchant.value","Config §d[%s]§r is currently set to:");
         add("command.random_enchant.randomEnchant.enable", "§aRandom Enchant enabled");
         add("command.random_enchant.randomEnchant.disable", "§6Random Enchant disabled");
         add("command.random_enchant.config.changed", "has been changed to");

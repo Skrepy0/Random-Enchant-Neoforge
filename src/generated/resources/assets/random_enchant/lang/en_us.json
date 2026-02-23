@@ -32,6 +32,7 @@
   "command.random_enchant.config.unchanged": "'s status §cwas not effectively changed§r",
   "command.random_enchant.randomEnchant.disable": "§6Random Enchant disabled",
   "command.random_enchant.randomEnchant.enable": "§aRandom Enchant enabled",
+  "command.random_enchant.value": "Config §d[%s]§r is currently set to:",
   "enchantment.level.100": "C",
   "enchantment.level.101": "CI",
   "enchantment.level.102": "CII",
