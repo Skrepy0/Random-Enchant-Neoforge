@@ -43,6 +43,10 @@
     {
       "id": "random_enchant:explode",
       "required": false
+    },
+    {
+      "id": "random_enchant:tracking",
+      "required": false
     }
   ]
 }
