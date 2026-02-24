@@ -1,16 +1,11 @@
 package com.random_enchant.event;
 
-import static net.minecraft.network.chat.Component.translatable;
-
 import com.random_enchant.RandomEnchant;
-import com.random_enchant.util.CustomBookBuilder;
-import java.util.ArrayList;
-import java.util.List;
+import com.random_enchant.item.ModItems;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.AdvancementEvent;
@@ -43,25 +38,17 @@ public class GetGuideEvent {
             return;
         }
 
-        // 5. 给予金苹果奖励
         giveGuide(player);
     }
 
     private static void giveGuide(ServerPlayer player) {
-        List<String> pages = new ArrayList<>();
-        for (int i = 1; i < 33; i++) {
-            pages.add(translatable("item.random_enchant.guide.page." + i).getString());
-        }
-        ItemStack book = CustomBookBuilder.createBook(translatable("item.random_enchant.guide.title").getString(),
-                                                      "§kuniverse itself", pages, true);
-
 
         // 尝试添加到玩家背包
-        boolean added = player.getInventory().add(book);
+        boolean added = player.getInventory().add(ModItems.GUIDE.toStack());
 
         if (!added) {
             // 背包满了，掉落在玩家位置
-            ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), book);
+            ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ModItems.GUIDE.toStack());
             player.level().addFreshEntity(itemEntity);
         } else {
             // 更新玩家背包（可选，但推荐）

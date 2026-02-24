@@ -10,7 +10,9 @@ import java.util.List;
 import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
 
 public class ModENUSLangProvider extends LanguageProvider {
-    public ModENUSLangProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "en_us"); }
+    public ModENUSLangProvider(PackOutput output) {
+        super(output, RandomEnchant.MOD_ID, "en_us");
+    }
 
     @Override
     protected void addTranslations() {
@@ -28,32 +30,32 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("random_enchant.configuration.infinityThrowableItem", "§a[Infinity]§r Compatibility with Throwable Items");
         add("random_enchant.configuration.isEnchantedBlockGetatable", "§b[Silk Touch]§r Obtain Enchanted Blocks");
         add("random_enchant.configuration.bedrockViolable",
-            "§7[Bedrock]§r Can be destroyed or removed by this mod's features");
+                "§7[Bedrock]§r Can be destroyed or removed by this mod's features");
         add("random_enchant.configuration.redirectTridentSetPointDistance", "§6[Redirect]§r Maximum Raycast Distance");
         add("random_enchant.configuration.flyEnchantmentLiftHeightPerTick",
-            "Height gained per tick when using elytra with §d[Fly]§r enchantment");
+                "Height gained per tick when using elytra with §d[Fly]§r enchantment");
 
         // Tooltips for configuration
         add("random_enchant.configuration.randomEnchant.tooltip",
-            "When enabled, attacking mobs will §drandomly enchant§r the item in the player's main hand");
+                "When enabled, attacking mobs will §drandomly enchant§r the item in the player's main hand");
         add("random_enchant.configuration.isAlwaysEnchantable.tooltip",
-            "When enabled, §lall items§r can be enchanted via §aanvil§r");
+                "When enabled, §lall items§r can be enchanted via §aanvil§r");
         add("random_enchant.configuration.infinityBlock.tooltip",
-            "When enabled, placing a block with §a[Infinity]§r enchantment does not consume the block from your hand");
+                "When enabled, placing a block with §a[Infinity]§r enchantment does not consume the block from your hand");
         add("random_enchant.configuration.infinityUndyingTotem.tooltip",
-            "When enabled, using a §dTotem of Undying§r with §a[Infinity]§r enchantment will return an identical totem. For compatibility reasons, the returned item may end up in a different slot than before use.");
+                "When enabled, using a §dTotem of Undying§r with §a[Infinity]§r enchantment will return an identical totem. For compatibility reasons, the returned item may end up in a different slot than before use.");
         add("random_enchant.configuration.infinityTnt.tooltip",
-            "When enabled, TNT ignited by flint & steel, redstone, or explosions will spawn an entity but the original block remains.");
+                "When enabled, TNT ignited by flint & steel, redstone, or explosions will spawn an entity but the original block remains.");
         add("random_enchant.configuration.infinityThrowableItem.tooltip",
-            "When enabled, throwable items with §a[Infinity]§r enchantment (e.g., Ender Pearls, eggs) are not consumed upon use");
+                "When enabled, throwable items with §a[Infinity]§r enchantment (e.g., Ender Pearls, eggs) are not consumed upon use");
         add("random_enchant.configuration.bedrockViolable.tooltip",
-            "When enabled, bedrock can be destroyed through this mod's features");
+                "When enabled, bedrock can be destroyed through this mod's features");
         add("random_enchant.configuration.isEnchantedBlockGetatable.tooltip",
-            "When enabled, players using a tool with §b[Silk Touch]§r enchantment can mine enchanted blocks and obtain them with their enchantments intact");
+                "When enabled, players using a tool with §b[Silk Touch]§r enchantment can mine enchanted blocks and obtain them with their enchantments intact");
         add("random_enchant.configuration.redirectTridentSetPointDistance.tooltip",
-            "Maximum distance between the player and the landing point when right-clicking with a trident enchanted with §6[Redirect]§r");
+                "Maximum distance between the player and the landing point when right-clicking with a trident enchanted with §6[Redirect]§r");
         add("random_enchant.configuration.flyEnchantmentLiftHeightPerTick.tooltip",
-            "Height gained per tick when pressing the jump key while using an elytra enchanted with §d[Fly]§r");
+                "Height gained per tick when pressing the jump key while using an elytra enchanted with §d[Fly]§r");
 
         // Items
         add(ModItems.PEARL_SPEAR.get(), "Pearl Spear");
@@ -76,7 +78,7 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.no_gravity.desc", "Arrows or tridents shot ignore gravity");
         add("enchantment.random_enchant.no_resistance", "No Resistance");
         add("enchantment.random_enchant.no_resistance.desc",
-            "Shot arrows, fishing line, or tridents ignore water and air resistance");
+                "Shot arrows, fishing line, or tridents ignore water and air resistance");
         add("enchantment.random_enchant.no_curse", "§aNo Curse§r");
         add("enchantment.random_enchant.no_curse.desc", "When you pick up an item, all curse enchantments are removed");
         add("enchantment.random_enchant.steady", "§bSteady§r");
@@ -85,38 +87,38 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.kinetic.desc", "Arrows or fishing line are shot with higher initial velocity");
         add("enchantment.random_enchant.explode", "§6Explode§r");
         add("enchantment.random_enchant.explode.desc",
-            "When applied to a bow or crossbow, shoots explosive arrows. When applied to a block, the block explodes when an entity touches its top surface.");
+                "When applied to a bow or crossbow, shoots explosive arrows. When applied to a block, the block explodes when an entity touches its top surface.");
         add("enchantment.random_enchant.throwable", "Throwable");
         add("enchantment.random_enchant.throwable.desc", "Allows the mace to be thrown");
         add("enchantment.random_enchant.tracking", "§aTracking§r");
         add("enchantment.random_enchant.tracking.desc", "Arrows track their target");
         add("enchantment.random_enchant.double_jump", "Double Jump");
         add("enchantment.random_enchant.double_jump.desc",
-            "Grants the player a double jump ability. At level II and above, landing after a double jump negates fall damage.");
+                "Grants the player a double jump ability. At level II and above, landing after a double jump negates fall damage.");
 
         // Messages
         add("message.random_enchant.backup_warning", "§6Random Enchant is in alpha, please back up your world often.");
         add("message.random_enchant.enchant_added", "§6Enchanted:§r");
         add("message.random_enchant.item.enchant_brush.selected_1",
-            "§aStarting point set. Please click the second block to define the area.");
+                "§aStarting point set. Please click the second block to define the area.");
         add("message.random_enchant.item.enchant_brush.selected_2", "§aArea enchantment operation completed.");
         add("message.random_enchant.item.enchant_brush.clear_area",
-            "§aAll enchantments in the area have been cleared.");
+                "§aAll enchantments in the area have been cleared.");
         add("message.random_enchant.item.enchant_brush.status.changed", "§aSwitched to: ");
         add("message.random_enchant.item.enchant_brush.durability_insufficient",
-            "§cInsufficient durability. Operation failed. Selected area size: %s");
+                "§cInsufficient durability. Operation failed. Selected area size: %s");
         add("message.random_enchant.item.enchant_brush.clear_data", "Enchant brush data cleared");
         add("message.random_enchant.item.soultrance_potion.teleport_failed",
-            "§cTeleport failed. You have no death records.");
+                "§cTeleport failed. You have no death records.");
 
         // Item tooltips
         add("item.tooltip.random_enchant.for_shift_tooltip", "Press §6[SHIFT]§r for more details");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1",
-            "§bLeft-click to attack an entity and teleport; right-click to teleport§r");
+                "§bLeft-click to attack an entity and teleport; right-click to teleport§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_2",
-            "§bEntities in the teleportation path take 8 base damage (actual damage scales with §a[Sharpness]§b level)§r");
+                "§bEntities in the teleportation path take 8 base damage (actual damage scales with §a[Sharpness]§b level)§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_3",
-            "§bLeft-click attack damage increases with relative velocity to the target§r");
+                "§bLeft-click attack damage increases with relative velocity to the target§r");
         add("item.tooltip.random_enchant.enchant_brush.status", "Mode: ");
         add("item.tooltip.random_enchant.enchant_brush.status.regional", "§aRegional Mode§r");
         add("item.tooltip.random_enchant.enchant_brush.status.single", "§aSingle Block Mode§r");
@@ -126,7 +128,7 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("key.categories.random_enchant", "Random Enchant");
 
         // Commands
-        add("command.random_enchant.value","Config §d[%s]§r is currently set to:");
+        add("command.random_enchant.value", "Config §d[%s]§r is currently set to:");
         add("command.random_enchant.randomEnchant.enable", "§aRandom Enchant enabled");
         add("command.random_enchant.randomEnchant.disable", "§6Random Enchant disabled");
         add("command.random_enchant.config.changed", "has been changed to");
@@ -139,40 +141,40 @@ public class ModENUSLangProvider extends LanguageProvider {
 
         // JEI info pages
         add("item.jei_info.random_enchant.pearl_spear",
-            "§l§6Pearl Spear§r\n"
-                    + "\n"
-                    +
-                    "§7Base Stats:§f Attack Damage 8, Attack Speed 1.6, Durability 512, greatly increased movement speed while held.\n"
-                    + "\n"
-                    + "§lRight-click Ability: Blink Strike§r\n"
-                    + "• Teleports in the direction you're looking, up to 10 blocks\n"
-                    + "• Entities in the path take §e8 + Sweeping Edge level§r damage\n"
-                    + "• Cooldown §c200 ticks§r, can be greatly reduced by §bQuick Charge§r\n"
-                    + "\n"
-                    + "§lLeft-click Ability: Kinetic Strike§r\n"
-                    + "• Deals bonus damage based on relative velocity to the target\n"
-                    + "  - On ground: Damage = (target velocity projection - player velocity projection) × 10 + 9\n"
-                    + "  - In air: Damage = (player velocity projection - target velocity projection) × 10 + 9\n"
-                    + "• After attack, teleports horizontally, dealing same damage to entities in the path\n"
-                    + "• If enchanted with §6Channeling§r, summons multiple lightning bolts\n"
-                    + "• If enchanted with §aFury of Fly§r, summons empowered bees (number = level)\n"
-                    + "\n"
-                    + "§lExclusive Enchantment: §aFury of Fly§r\n"
-                    + "• Levels I~III, summons bees after left-click attack\n"
-                    + "• Bees have extra health, fire resistance, strength, etc.\n"
-                    + "• Mutually exclusive with §6Channeling§r\n"
-                    + "\n"
-                    +
-                    "§lCompatible Enchantments:§f Sword enchantments (Sharpness, Knockback, Fire Aspect, Looting, Sweeping Edge), Unbreaking, Quick Charge, Channeling, Wind Burst, Fury of Fly\n"
-                    + "\n"
-                    +
-                    "§lTip:§7 Combine with elytra for high-speed burst damage; right-click blink to close in or escape.");
+                "§l§6Pearl Spear§r\n"
+                        + "\n"
+                        +
+                        "§7Base Stats:§f Attack Damage 8, Attack Speed 1.6, Durability 512, greatly increased movement speed while held.\n"
+                        + "\n"
+                        + "§lRight-click Ability: Blink Strike§r\n"
+                        + "• Teleports in the direction you're looking, up to 10 blocks\n"
+                        + "• Entities in the path take §e8 + Sweeping Edge level§r damage\n"
+                        + "• Cooldown §c200 ticks§r, can be greatly reduced by §bQuick Charge§r\n"
+                        + "\n"
+                        + "§lLeft-click Ability: Kinetic Strike§r\n"
+                        + "• Deals bonus damage based on relative velocity to the target\n"
+                        + "  - On ground: Damage = (target velocity projection - player velocity projection) × 10 + 9\n"
+                        + "  - In air: Damage = (player velocity projection - target velocity projection) × 10 + 9\n"
+                        + "• After attack, teleports horizontally, dealing same damage to entities in the path\n"
+                        + "• If enchanted with §6Channeling§r, summons multiple lightning bolts\n"
+                        + "• If enchanted with §aFury of Fly§r, summons empowered bees (number = level)\n"
+                        + "\n"
+                        + "§lExclusive Enchantment: §aFury of Fly§r\n"
+                        + "• Levels I~III, summons bees after left-click attack\n"
+                        + "• Bees have extra health, fire resistance, strength, etc.\n"
+                        + "• Mutually exclusive with §6Channeling§r\n"
+                        + "\n"
+                        +
+                        "§lCompatible Enchantments:§f Sword enchantments (Sharpness, Knockback, Fire Aspect, Looting, Sweeping Edge), Unbreaking, Quick Charge, Channeling, Wind Burst, Fury of Fly\n"
+                        + "\n"
+                        +
+                        "§lTip:§7 Combine with elytra for high-speed burst damage; right-click blink to close in or escape.");
         add("item.jei_info.random_enchant.memory_potion",
-            "§d§lMemory Potion§r\\n§lEffect§r:\\nDrink to instantly teleport to your respawn point in the current dimension (i.e., your bed location). Even if the bed is destroyed, you'll return to where you last set your spawn. If you've never set a spawn, you'll teleport to the world spawn.\\n\\n§lUsage§r:\\nQuickly return to your base or shelter, ideal for exploration.\\n\\n§lNote§r:\\nConsumed upon use in Survival mode. Teleportation does not affect your equipped items or armor.");
+                "§d§lMemory Potion§r\\n§lEffect§r:\\nDrink to instantly teleport to your respawn point in the current dimension (i.e., your bed location). Even if the bed is destroyed, you'll return to where you last set your spawn. If you've never set a spawn, you'll teleport to the world spawn.\\n\\n§lUsage§r:\\nQuickly return to your base or shelter, ideal for exploration.\\n\\n§lNote§r:\\nConsumed upon use in Survival mode. Teleportation does not affect your equipped items or armor.");
         add("item.jei_info.random_enchant.soultrance_potion",
-            "§a§lSoultrance Potion§r\\n§lEffect§r:\\nDrink to attempt teleportation to your last death location. If you have no death record (e.g., new player or death counter cleared), teleportation fails, the potion is consumed, and a message appears: \"§cTeleport failed. You have no death records.§r\"\\n\\n§lUsage§r:\\nQuickly return to your death point to retrieve items or explore where you died.\\n\\n§lNote§r:\\nThe destination may still be dangerous (e.g., in lava or near mobs), so prepare accordingly.");
+                "§a§lSoultrance Potion§r\\n§lEffect§r:\\nDrink to attempt teleportation to your last death location. If you have no death record (e.g., new player or death counter cleared), teleportation fails, the potion is consumed, and a message appears: \"§cTeleport failed. You have no death records.§r\"\\n\\n§lUsage§r:\\nQuickly return to your death point to retrieve items or explore where you died.\\n\\n§lNote§r:\\nThe destination may still be dangerous (e.g., in lava or near mobs), so prepare accordingly.");
         add("item.jei_info.random_enchant.enchant_brush",
-            "§l§6Enchant Brush§r\\n\\n§lBase Stats§r:\\n• Durability: §a387§r\\n• Cannot be enchanted in an enchanting table; can be enhanced with enchanted books on an anvil\\n\\n§lDurability Consumption§r:\\nActual consumption = number of blocks processed × durability factor, where durability factor depends on Unbreaking level:\\n• No Unbreaking: factor 1.0\\n• Unbreaking I: factor 0.9\\n• Unbreaking II: factor 0.7\\n• Unbreaking III: factor 0.5\\n• Unbreaking IV: factor 0.35\\n• Unbreaking V: factor 0.2\\n• Unbreaking VI: factor 0.1\\n• Unbreaking VII: factor 0.08\\n• Unbreaking ≥VIII: factor 0.05\\n\\n§lMode Switching§r: Press §eTAB§r\\n\\n§7■ Single Block Mode§r:\\n• Right-click a single block to apply all enchantments from the brush to that block. If the brush has no enchantments, it will remove enchantments from the block (no durability cost).\\n\\n§7■ Regional Mode§r:\\n• First right-click selects the starting point, indicated by §agreen particles§r.\\n• Second right-click selects the end point, applying a batch operation to all §bnon-air/non-water/non-lava§r blocks in the region:\\n  - Brush has enchantments: Adds all brush enchantments to the blocks. Durability cost = number of blocks processed × durability factor. If durability is insufficient, operation fails with a message.\\n  - Brush has no enchantments: Removes enchantments from all blocks in the region. Durability cost = number of blocks processed × durability factor.\\n• If a start point is selected but no end point, hold §eShift+Right-click§r to clear the start point and select anew.\\n\\n§lVisual Indicators§r:\\n• While holding the Enchant Brush, enchanted blocks continuously emit §agreen particles§r.\\n• In Regional Mode, start and end points briefly display particle effects when selected.\\n\\n§lSilk Touch Compatibility§r:\\n• Mining an enchanted block with a Silk Touch tool will drop the block with its enchantments intact (controlled by config §eisEnchantedBlockGetatable§r, enabled by default).\\n\\n§lNotes§r:\\n• Durability consumption in Regional Mode depends on the actual number of blocks processed and is reduced by Unbreaking.\\n• If the brush lacks durability, the operation is canceled and the start point is cleared.\\n• An Enchant Brush with no enchantments can be used to quickly clear enchantments from a region.");
+                "§l§6Enchant Brush§r\\n\\n§lBase Stats§r:\\n• Durability: §a387§r\\n• Cannot be enchanted in an enchanting table; can be enhanced with enchanted books on an anvil\\n\\n§lDurability Consumption§r:\\nActual consumption = number of blocks processed × durability factor, where durability factor depends on Unbreaking level:\\n• No Unbreaking: factor 1.0\\n• Unbreaking I: factor 0.9\\n• Unbreaking II: factor 0.7\\n• Unbreaking III: factor 0.5\\n• Unbreaking IV: factor 0.35\\n• Unbreaking V: factor 0.2\\n• Unbreaking VI: factor 0.1\\n• Unbreaking VII: factor 0.08\\n• Unbreaking ≥VIII: factor 0.05\\n\\n§lMode Switching§r: Press §eTAB§r\\n\\n§7■ Single Block Mode§r:\\n• Right-click a single block to apply all enchantments from the brush to that block. If the brush has no enchantments, it will remove enchantments from the block (no durability cost).\\n\\n§7■ Regional Mode§r:\\n• First right-click selects the starting point, indicated by §agreen particles§r.\\n• Second right-click selects the end point, applying a batch operation to all §bnon-air/non-water/non-lava§r blocks in the region:\\n  - Brush has enchantments: Adds all brush enchantments to the blocks. Durability cost = number of blocks processed × durability factor. If durability is insufficient, operation fails with a message.\\n  - Brush has no enchantments: Removes enchantments from all blocks in the region. Durability cost = number of blocks processed × durability factor.\\n• If a start point is selected but no end point, hold §eShift+Right-click§r to clear the start point and select anew.\\n\\n§lVisual Indicators§r:\\n• While holding the Enchant Brush, enchanted blocks continuously emit §agreen particles§r.\\n• In Regional Mode, start and end points briefly display particle effects when selected.\\n\\n§lSilk Touch Compatibility§r:\\n• Mining an enchanted block with a Silk Touch tool will drop the block with its enchantments intact (controlled by config §eisEnchantedBlockGetatable§r, enabled by default).\\n\\n§lNotes§r:\\n• Durability consumption in Regional Mode depends on the actual number of blocks processed and is reduced by Unbreaking.\\n• If the brush lacks durability, the operation is canceled and the start point is cleared.\\n• An Enchant Brush with no enchantments can be used to quickly clear enchantments from a region.");
 
         // Advancements
         add("advancements.enchant.root.title", "Random Enchant");
@@ -185,10 +187,10 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("advancements.enchant.use_region_mode.description", "Use Regional Mode to enchant blocks");
         add("advancements.enchant.trigger_fly_of_fury.title", "Swarm Assault");
         add("advancements.enchant.trigger_fly_of_fury.description",
-            "Left-click with a Pearl Spear enchanted with Fury of Fly to summon bees");
+                "Left-click with a Pearl Spear enchanted with Fury of Fly to summon bees");
         add("advancements.enchant.drink_memory_potion.title", "Homecoming");
         add("advancements.enchant.drink_memory_potion.description",
-            "Drink a Memory Potion to return to your respawn point");
+                "Drink a Memory Potion to return to your respawn point");
         add("advancements.enchant.drink_soultrance_potion.title", "Soul Trace");
         add("advancements.enchant.drink_soultrance_potion.description", "Drink a Soultrance Potion");
         add("advancements.enchant.bad_luck_of_the_sea.title", "Bad Luck of the Sea");
@@ -197,117 +199,247 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("advancements.enchant.thor_hammer.description", "Throw a mace enchanted with Channeling");
         add("advancements.enchant.cleanse_curse.title", "Better Without Curses");
         add("advancements.enchant.cleanse_curse.description",
-            "Use the No Curse enchantment to remove all curses from an item");
+                "Use the No Curse enchantment to remove all curses from an item");
         add("advancements.enchant.explode.title", "Explosion is Art");
         add("advancements.enchant.explode.description", "Enchant a block with §6Explode§r");
         add("advancements.enchant.hyper_transfer.title", "Hyper Transfer");
         add("advancements.enchant.hyper_transfer.description",
-            "Enchant a hopper with §dQuick Charge§r using an Enchant Brush");
+                "Enchant a hopper with §dQuick Charge§r using an Enchant Brush");
 
         // Event messages
         add("event.random_enchant.get_guide", "Achievement unlocked! You've been rewarded with a §6§lGuide§r");
 
         // Guide book
         add("item.random_enchant.guide.title", "§6§lGuide§r");
+        add("gui.random_enchant.guide.title","§dRandom Enchant§r Guide");
+        add("gui.random_enchant.guide.no_results", "§cNo results found");
         var book_path = "item.random_enchant.guide.page.";
-        List<
-                String> pages = List
-                                        .of(
-                                                // 1. 目录
-                                                "§l§nTable of Contents§r\n\n§61. Overview§r\n§62. Random Enchant Event§r\n§63. Block Enchanting & Enchant Brush§r\n§64. Block Enchant Effects§r\n§65. Pearl Spear§r\n§66. New Potions§r\n§67. Other Enchantments§r\n§68. Commands§r\n§69. Config Options§r",
+        List<String> pages = List.of(
+                // Page 1: Cover, Table of Contents, Core Mechanics
+                "§l§6Random Enchant Guide§r\n\n§oObtain this book by completing the root advancement§r\n\n§l§nTable of Contents§r\n§61. Core Mechanics§r\n§62. Block Enchantment Encyclopedia§r\n§63. Pearl Spear & Potions§r\n§64. Item Enchantment Encyclopedia§r\n§65. Command Guide§r\n§66. Default Configurations§r\n§67. Tips & Conclusion§r\n\n§l§n1. Core Mechanics§r\n\n✔ When attacking mobs, the item in your main hand has a §a80%§r chance to gain a random enchantment.\n• §eEnchantment Pool§r: All registered enchantments (including those from other mods), equal probability.\n• §eLevels§r: 60% chance for levels 0–2, 40% chance for levels 6–10.\n• §eStacking§r: New level = current level + 1 + random value.\nExample: Unbreaking II + Unbreaking 6 = Unbreaking 9.\n\n✔ Use the §6Enchant Brush§r to enchant blocks. Press §6TAB§r to switch modes.\n• §eSingle-Block Mode§r: Right-click a block to add/remove enchantments.\n• §eArea Mode§r: Select two points to enchant/clear blocks in bulk. Durability consumption is affected by the §6Unbreaking§r enchantment and the number of blocks.\n• §eClear Start Point§r: §6Shift+Right-Click§r.\n\nEnchanted blocks display §agreen particles§r when holding the brush. Enchanted blocks can be obtained with Silk Touch (configurable).",
 
-                                                // 2. 概述
-                                                "§l§n1. Overview§r\n\n✔ Attacking mobs may randomly enchant held item (toggleable)\n✔ Use §6Enchant Brush§r on blocks\n✔ New §dPearl Spear§r, enchants, potions\n✔ Commands: §b/block_enchant§r and §b/random_enchant§r",
+                // Page 2: Block Enchantment Encyclopedia (Detailed)
+                "§l§n2. Block Enchantment Encyclopedia§r\n\n" +
+                        "§6Bad Luck of the Sea (Curse)§r (bad_luck_of_the_sea)\n" +
+                        "• Effect: When water flows over the block, it breaks into a falling block entity that is pushed toward the nearest shore in water. Upon landing, it reverts to its original block and retains enchantments.\n" +
+                        "• Trigger: Water flows through or toward the block.\n" +
+                        "• Applicable to: Any solid block (bedrock is configurable).\n\n" +
+                        "§6Blast Protection§r (blast_protection)\n" +
+                        "• Effect: The block is immune to explosion damage.\n" +
+                        "• Trigger: Any explosion occurs.\n\n" +
+                        "§6Feather Falling§r (feather_falling)\n" +
+                        "• Effect: Reduces fall damage when an entity lands on the block. Damage reduction factor = (-0.25×level + 1).\n" +
+                        "• Trigger: Entity lands on the block.\n\n" +
+                        "§6Quick Charge§r (quick_charge) — Hopper exclusive\n" +
+                        "• Effect: The hopper's cooldown is forced to 0, enabling instant item transfer.\n" +
+                        "• Trigger: After the hopper attempts to move items.\n\n" +
+                        "§6Binding Curse§r (binding_curse) — Hopper exclusive\n" +
+                        "• Effect: The hopper cannot output items (locked).\n" +
+                        "• Trigger: Hopper attempts to eject items.\n\n" +
+                        "§6Knockback§r (knockback)\n" +
+                        "• Effect: Entities touching the block are knocked back. Force = level × 0.5.\n" +
+                        "  - Normal blocks / pressure plates: Vertical upward.\n" +
+                        "  - Buttons: Horizontal in the button's facing direction.\n" +
+                        "  - Nether portals / tripwire: Pushed outward from the center.\n" +
+                        "• Trigger: Entity enters the block's collision box or steps on it.\n\n" +
+                        "§6Punch§r (punch) — Trapdoor exclusive\n" +
+                        "• Effect: When the trapdoor opens, entities on top are flung at a 45° upward angle. Force = level.\n" +
+                        "• Trigger: Trapdoor opens.\n\n" +
+                        "§6Respiration§r (respiration)\n" +
+                        "• Effect: The block is not washed away by water.\n" +
+                        "• Trigger: Water attempts to destroy the block.\n\n" +
+                        "§6Projectile Protection§r (projectile_protection) — Target block exclusive\n" +
+                        "• Effect: When hit by a projectile, it fires an arrow back at the attacker.\n" +
+                        "• Trigger: Projectile hits the target block.\n\n" +
+                        "§6Thorns§r (thorns)\n" +
+                        "• Effect: Entities standing on the block take damage equal to the level (damage source: cactus).\n" +
+                        "• Trigger: Entity enters the block's collision box or steps on it.\n\n" +
+                        "§6Infinity§r (infinity) — TNT exclusive\n" +
+                        "• Effect: When TNT is ignited, a primed TNT entity is spawned, but the original block remains (configurable).\n" +
+                        "• Trigger: Flint and steel, redstone signal, explosion, or flaming projectile ignites TNT.\n\n" +
+                        "§6Aqua Affinity§r (aqua_affinity)\n" +
+                        "• Effect: Allows water to flow through the block, and water destroys the block on contact (drops as item).\n" +
+                        "• Trigger: Water spreads or flows through.\n\n" +
+                        "§lGeneral Mechanics§r\n" +
+                        "• Enchantment data is stored independently; enchanted blocks can be obtained with Silk Touch (configurable).\n" +
+                        "• Area mode with the Enchant Brush consumes durability, reduced by the Unbreaking enchantment.\n" +
+                        "• Some behaviors are controlled by configs: bedrockViolable, infinityTnt, etc.",
 
-                                                // 3. 随机附魔事件 (第一部分)
-                                                "§l§n2. Random Enchant Event§r\n\n§a80%§r chance on attack.\n•§4Pool§r: All registered enchants (equal chance)\n•§2Level§r: §a60%§r: §50-2§r, §640%§r: §56-10§r\n•§2Stacking§r: §7New = current + 1 + random§r",
+                // Page 3: Pearl Spear & New Potions
+                "§l§n3. Pearl Spear & New Potions§r\n\n" +
+                        "§lPearl Spear§r\nCrafting:\n[ ] [Ender Pearl] [Echo Shard]\n[Popped Chorus Fruit] [Heavy Core] [Echo Shard]\n[Breeze Rod] [Popped Chorus Fruit] [ ]\n" +
+                        "Base stats: Attack 8, Attack Speed 1.6, Durability 512, significantly increased movement speed while held.\n" +
+                        "§lRight-Click§r: Dash up to 10 blocks, damaging entities in the path (damage = 8 + Sweeping Edge level). Cooldown: 200 ticks (10s); Quick Charge reduces cooldown.\n" +
+                        "§lLeft-Click§r: Deals bonus damage based on relative velocity, then dashes horizontally, damaging entities in the path similarly.\n" +
+                        "Enchantments: Channeling (summons lightning), §aFury of Fly§r (summons bees, triggers the \"Swarm Assault\" advancement). These two are mutually exclusive. Supports sword enchantments, Unbreaking, Quick Charge, Wind Burst, etc.\n\n" +
+                        "§lNew Potions§r\n" +
+                        "§6Milk Bottle§r: Glass Bottle + Milk Bucket, clears effects.\n" +
+                        "§bMemory Potion§r: Milk Bottle + Ender Pearl + Sugar + Glowstone Dust. Teleports you to your spawn point (even if the bed is missing).\n" +
+                        "§aSoultrance Potion§r: Not craftable. Teleports you to your last death location (no effect if no record).",
 
-                                                // 4. 随机附魔事件 (第二部分)
-                                                "Success shows screen message.\nExample: Unbreaking II + Unbreaking 6 = Unbreaking 9.\nCan be disabled in config.",
+                // Page 4: Item Enchantment Encyclopedia (Detailed)
+                "§l§n4. Item Enchantment Encyclopedia§r\n\n" +
+                        "§6Channeling§r\n" +
+                        "• Effect: When attacking an entity with a mace, lightning strikes the target, and the user gains Resistance V for 3 ticks.\n" +
+                        "• Trigger: Left-click attack hits an entity.\n" +
+                        "• Applicable to: Mace, Pearl Spear, Trident (mutually exclusive with Fury of Fly on Pearl Spear).\n" +
+                        "• Level scaling: Number of lightning bolts = level (max 8).\n\n" +
+                        "§6Explode§r\n" +
+                        "• Effect: Projectiles (arrows, thrown mace) explode on impact. Power = level × 0.8 (mace), level (arrow hitting entity), or level × 0.2 (arrow hitting ground).\n" +
+                        "• Trigger: Arrow hits target or ground; thrown mace hits entity or block.\n" +
+                        "• Applicable to: Bow, Crossbow, Mace (requires Throwable).\n" +
+                        "• Config: explodeDestroyBlock controls whether terrain is destroyed.\n" +
+                        "• Mutually exclusive with Steady.\n\n" +
+                        "§6No Gravity§r\n" +
+                        "• Effect: Projectiles are unaffected by gravity, flying in a straight line.\n" +
+                        "• Applicable to: Bow, Crossbow, Trident, Mace, Fishing Rod.\n\n" +
+                        "§6No Resistance§r\n" +
+                        "• Effect: Projectiles ignore air and water resistance, maintaining constant velocity.\n" +
+                        "• Applicable to: Same as above.\n\n" +
+                        "§6Kinetic§r\n" +
+                        "• Effect: Increases projectile velocity by +20% per level (arrows, fishing bobbers).\n" +
+                        "• Applicable to: Bow, Crossbow, Fishing Rod.\n" +
+                        "• Mutually exclusive with Flame.\n\n" +
+                        "§6Steady§r\n" +
+                        "• Effect: Eliminates arrow random spread, greatly improving accuracy.\n" +
+                        "• Applicable to: Bow, Crossbow.\n" +
+                        "• Mutually exclusive with Explode.\n\n" +
+                        "§6Tracking§r\n" +
+                        "• Effect: Arrows automatically home toward nearby targets.\n" +
+                        "  - Priority: monsters targeting the owner, then monsters with line of sight, then by directional alignment.\n" +
+                        "  - Searches every 3 ticks; tracking range = 15 + level × 2.\n" +
+                        "  - Emits glowing particles during flight.\n" +
+                        "• Applicable to: Bow, Crossbow.\n\n" +
+                        "§6Loyalty§r\n" +
+                        "• Effect: A thrown mace returns to the owner after hitting a target or flying for 5 seconds. Return speed increases with level.\n" +
+                        "• Trigger: Mace hits entity/block, or after 5 seconds of flight.\n" +
+                        "• Applicable to: Mace (requires Throwable).\n" +
+                        "• Deals damage to entities in its path on return: 3 + level × 1.\n" +
+                        "• Level scaling: Return speed = 0.5 + level × 0.3, accelerated at long distances.\n\n" +
+                        "§6Multishot§r\n" +
+                        "• Effect: Launches multiple projectiles.\n" +
+                        "  - Wind Charge: Fires level+2 additional wind charges.\n" +
+                        "  - Trident: When combined with Redirect, spawns multiple tridents in a spiral pattern; otherwise, random offsets.\n" +
+                        "• Applicable to: Wind Charge, Trident.\n\n" +
+                        "§6Quick Charge§r\n" +
+                        "• Effect: Removes the cooldown for using Wind Charges.\n" +
+                        "• Applicable to: Wind Charge.\n\n" +
+                        "§6Infinity§r\n" +
+                        "• Effect: Items are not consumed when used (requires corresponding configs).\n" +
+                        "  - Throwables (eggs, snowballs, ender pearls, eyes of ender): Not consumed.\n" +
+                        "  - Food: Returns the item after eating.\n" +
+                        "  - Buckets: Returns itself (not an empty bucket).\n" +
+                        "  - Placeable blocks: Not consumed when placed (requires infinityBlock config).\n" +
+                        "  - TNT: Block remains after ignition (requires infinityTnt config).\n" +
+                        "  - Elytra: Flight ignores air resistance (stacks with Fly).\n" +
+                        "• Configs: infinityThrowableItem, infinityFood, infinityBlock, infinityTnt control these.\n\n" +
+                        "§6Fly§r (Elytra exclusive)\n" +
+                        "• Effect: While gliding with an elytra, holding the jump key causes continuous ascent. Ascent height per tick is configurable.\n" +
+                        "• Trigger: Pressing jump while gliding.\n" +
+                        "• Durability cost: Each ascent has a chance to consume 1 durability, probability reduced by Unbreaking (no Unbreaking: 8%, Unbreaking I: 7.2%, II: 5.6%, III: 4%, IV: 2.8%, V: 1.6%, VI: 0.8%, ≥VII: 0.4%).\n" +
+                        "• Applicable to: Elytra (supports Curios back slots).\n" +
+                        "• Config: flyEnchantmentLiftHeightPerTick controls ascent speed.\n\n" +
+                        "§6Double Jump§r\n" +
+                        "• Effect: Allows an extra mid-air jump. Jump power = level × 0.45. At level ≥2, provides fall protection (no fall damage).\n" +
+                        "• Trigger: Pressing jump in mid-air (once, resets on ground).\n" +
+                        "• Particles: Flame and cloud particles under feet.\n" +
+                        "• Applicable to: Boots.\n\n" +
+                        "§6Bad Luck of the Sea§r (Curse)\n" +
+                        "• Effect (boots): Wearer is repelled from water, pushed toward the nearest shore. Repulsion force increases with level.\n" +
+                        "• Effect (items): Item entities are repelled when in water.\n" +
+                        "• Applicable to: Boots, any item (as a cursed book).\n" +
+                        "• Level scaling: Repulsion speed = 0.34 × level (horizontal), 0.3 × level (vertical).\n\n" +
+                        "§6No Curse§r\n" +
+                        "• Effect: When an item has both No Curse and any curses, dropping and picking it up removes all curses (including No Curse itself).\n" +
+                        "• Trigger: Picking up the item.\n" +
+                        "• Applicable to: Any enchantable item.\n" +
+                        "• Advancement: Successfully removing a curse triggers the \"Purifier\" advancement.\n\n" +
+                        "§6Redirect Projectile§r\n" +
+                        "• Effect: A thrown trident has very low initial velocity (0.03) and is unaffected by gravity. Left-clicking a location makes the trident fly rapidly toward that point, speed = level.\n" +
+                        "• Trigger: Left-click within 0.1 seconds after throwing.\n" +
+                        "• Applicable to: Trident.\n" +
+                        "• Special: Can be combined with Fire Aspect; ignites target on hit (duration = level × 80 ticks). Mutually exclusive with Looting.\n" +
+                        "• Config: redirectTridentSetPointDistance controls max flight distance (default 15).\n\n" +
+                        "§6Throwable§r\n" +
+                        "• Effect: Right-click to throw a mace. The thrown entity's speed is affected by Kinetic. Supports Channeling, Loyalty, Explode.\n" +
+                        "• Applicable to: Mace.\n\n" +
+                        "§6Wind Burst§r\n" +
+                        "• Effect: Wind charge entities can merge to form larger ones. When radius exceeds 4, they begin attracting nearby entities, making them orbit and gradually approach the center.\n" +
+                        "• Applicable to: Wind Charge, Pearl Spear (via tag).\n\n" +
+                        "§6Fury of Fly§r\n" +
+                        "• Effect: When attacking with a Pearl Spear, if the target survives, summons empowered bees to assist. Number of bees = level. Bees have Health Boost, Fire Resistance, Strength, Regeneration, Speed, and disappear after attacking.\n" +
+                        "• Applicable to: Pearl Spear.\n" +
+                        "• Mutually exclusive with Channeling.\n" +
+                        "• Advancement: Triggers \"Swarm Assault\" when used.\n\n" +
+                        "§6Power§r\n" +
+                        "• Effect: Right-click a block with a shovel to launch it as a falling block. Launch speed scales with level. When it lands, it damages entities (damage = block hardness × level × 0.5 + 50).\n" +
+                        "• Applicable to: Shovel.\n\n" +
+                        "§6Binding Curse§r — See Block Enchantment section (hopper exclusive)\n" +
+                        "• Effect: Locks a hopper, preventing item output.\n\n" +
+                        "§lMutually Exclusive Relationships§r:\n" +
+                        "• Fury of Fly ↔ Channeling (Pearl Spear)\n" +
+                        "• Redirect Projectile ↔ Looting (Trident)\n" +
+                        "• Explode ↔ Steady (Bow/Crossbow)\n" +
+                        "• Kinetic ↔ Flame (Bow/Crossbow)\n\n" +
+                        "§lTreasure Enchantments§r (obtainable only from loot/trading):\n" +
+                        "§aFury of Fly§r, §6Redirect Projectile§r, §dFly§r, No Gravity, No Resistance, §aNo Curse§r, §bSteady§r, §bKinetic§r, §6Explode§r, Throwable, Double Jump, §aTracking§r, §cBad Luck of the Sea§r.",
 
-                                                // 5. 方块附魔与附魔刷 (合成)
-                                                "§l§n3. Block Enchanting & §dEnchant Brush§r\n\nCraft (workbench):\nTop: [Empty] [String] [Ench. Book]\nMid: [Empty] [Copper] [String]\nBot: [Stick] [Empty] [Empty]\nDurability 387, anvil-enchantable only.",
+                // Page 5: Command Guide (Detailed)
+                "§l§n5. Command Guide§r\n\n" +
+                        "§6/block_enchant §r — Manage block enchantments (requires permission level 2)\n" +
+                        "• §eget <x y z>§r: Displays the enchantments of the block at the specified coordinates.\n" +
+                        "• §eadd <x y z> <enchantment ID> <level>§r: Adds the specified enchantment to the block (merges with existing enchantments).\n" +
+                        "• §eremove <x y z>§r: Removes all enchantments from the block.\n" +
+                        "Examples:\n" +
+                        "  §7/block_enchant add ~ ~ ~ minecraft:sharpness 3§r\n" +
+                        "  §7/block_enchant get 100 64 100§r\n" +
+                        "  §7/block_enchant remove ~ ~ ~§r\n\n" +
+                        "§6/random_enchant §r — Mod information and configuration (requires permission level 2)\n" +
+                        "• §edescription§r: Gives you this guide book.\n" +
+                        "• §econfig <option> [value]§r: Views or modifies configuration.\n" +
+                        "  Without arguments, displays the current value; with an argument, sets it.\n" +
+                        "  Available options:\n" +
+                        "  §7doRandomEnchant§r, §7alwaysEnchantable§r, §7infinityUndyingTotem§r, §7explodeDestroyBlock§r,\n" +
+                        "  §7infinityBlock§r, §7infinityTnt§r, §7infinityFood§r, §7infinityThrowableItem§r,\n" +
+                        "  §7isEnchantedBlockGetatable§r, §7infinityPotion§r, §7bedrockViolable§r,\n" +
+                        "  §7redirectTridentSetPointDistance <integer>§r, §7flyEnchantmentLiftHeightPerTick <decimal>§r\n" +
+                        "Examples:\n" +
+                        "  §7/random_enchant config doRandomEnchant true§r\n" +
+                        "  §7/random_enchant config redirectTridentSetPointDistance§r  (queries current value)",
 
-                                                // 6. 模式切换
-                                                "Press §6TAB§r to switch modes:\n\n§7■Single§r: Apply/clear block enchant.\n§7■Regional§r: Select two corners to apply/clear area. Durability cost based on §6Unbreaking§r & block count.",
+                // Page 6: Default Configurations (Full List) & Enchant Brush Durability
+                "§l§n6. Default Configurations§r\n\n" +
+                        "§6doRandomEnchant§r: §cfalse§r  §7Random enchantment on attack§r\n" +
+                        "§6alwaysEnchantable§r: §cfalse§r  §7All items can be enchanted on an anvil§r\n" +
+                        "§6explodeDestroyBlock§r: §atrue§r  §7Whether explosion enchantments destroy terrain§r\n" +
+                        "§6infinityUndyingTotem§r: §cfalse§r  §7Infinity works on totems of undying§r\n" +
+                        "§6infinityBlock§r: §cfalse§r  §7Infinity works on placeable blocks§r\n" +
+                        "§6infinityTnt§r: §atrue§r  §7Infinity works on TNT (block remains after ignition)§r\n" +
+                        "§6bedrockViolable§r: §cfalse§r  §7Whether bedrock can be affected by mod features§r\n" +
+                        "§6infinityPotion§r: §atrue§r  §7Infinity works on potions§r\n" +
+                        "§6infinityFood§r: §atrue§r  §7Infinity works on food§r\n" +
+                        "§6infinityThrowableItem§r: §atrue§r  §7Infinity works on throwables§r\n" +
+                        "§6isEnchantedBlockGetatable§r: §atrue§r  §7Silk Touch can obtain enchanted blocks§r\n" +
+                        "§6redirectTridentSetPointDistance§r: §b15§r  §7Maximum flight distance for Redirect Projectile§r\n" +
+                        "§6flyEnchantmentLiftHeightPerTick§r: §b0.05§r  §7Ascent height per tick for the Fly enchantment§r\n\n" +
+                        "§lEnchant Brush Durability Consumption§r (affected by Unbreaking):\n" +
+                        "• No Unbreaking: §a20%§r chance to not consume durability\n" +
+                        "• Unbreaking I: §a40%§r chance to not consume durability\n" +
+                        "• Unbreaking II: §a60%§r chance to not consume durability\n" +
+                        "• Unbreaking ≥III: §a80%§r chance to not consume durability",
 
-                                                // 7. 区域模式和精准采集
-                                                "Regional: §6Shift+Right-click§r clears start point.\nHolding brush shows enchanted blocks with §agreen particles§r.\nSilk Touch can obtain enchanted blocks (config).",
-
-                                                // 8. 方块附魔效果表 (第一部分)
-                                                "§l§n4. Block Enchant Effects§r\n\n§6Bad Luck (Water)§r: Pushes entities ashore. §cNo effect on chests§r.\n§6Aqua Affinity§r: Auto-breaks underwater, chance per level.\n§6Respiration§r: Protects water-sensitive blocks.",
-
-                                                // 9. 方块附魔效果表 (第二部分)
-                                                "§6Quick Charge§r (Hopper): No cooldown, double transfer.\n§6Curse of Binding§r (Hopper): Locks hopper.\n§6Explode§r: Entity steps on → explodes (power = level×0.3). Config terrain damage; Infinity keeps block.\n§6Knockback§r: Vertical launch (force = level×0.5).",
-
-                                                // 10. 方块附魔效果表 (第三部分)
-                                                "§6Feather Falling§r: No fall damage on block.\n§6Blast Protection§r: Block immune to explosions.\n§6Thorns§r: Damages stepper (level).\n§6Punch§r (Trapdoor): Launches entities (force = level).\n§6Fire Aspect§r: Sets on fire (duration = level×10 ticks).\n§6Fire Protection§r: Extinguishes fire.",
-
-                                                // 11. 方块附魔效果表 (第四部分)
-                                                "§6Aqua Affinity (Advanced)§r: Block lets water through, breaks in flowing water.\n§6Infinity§r (TNT): Ignited TNT spawns entity, block remains (config).",
-
-                                                // 12. 新武器: 珍珠矛 (合成和基础属性)
-                                                "§l§n5. Pearl Spear§r\n\nRecipe:\n[Empty] [Ender Pearl] [Echo Shard]\n[Popped Chorus] [Mace] [Echo Shard]\n[Breeze Rod] [Popped Chorus] [Empty]\n§2Dmg 8, Spd 1.6, Dur 512, +movespeed§r",
-
-                                                // 13. 珍珠矛 (右键/左键能力)
-                                                "§lRight-click§r: Teleport up to 10 blocks, damage path (8 + Sweeping Edge). Cooldown 200 ticks, reduced by §aQuick Charge§r.\n§lLeft-click§r: Bonus velocity damage, teleport horizontally, same path damage.",
-
-                                                // 14. 珍珠矛 (附魔和互斥)
-                                                "With §6Channeling§r: Summons lightning. With §aFury of Fly§r: Summons empowered bees (count = level). Mutually exclusive.\nSupports sword enchants, Unbreaking, Quick Charge, Wind Burst.",
-
-                                                // 15. 新药水
-                                                "§l§n6. New Potions§r\n\n§6Milk Bottle§r: Glass + Milk bucket, clears effects.\n§bMemory Potion§r: Milk + Ender Pearl + Sugar + Glowstone. Teleports to spawn (even if bed gone).\n§aSoultrance Potion§r: Uncraftable. Teleports to last death.",
-
-                                                // 16. 其他附魔详解 (Fly, Double Jump, Bad Luck boots)
-                                                "§l§n7. Other Enchantments§r\n\n§dFly§r (Elytra): Jump to ascend (configurable).\n§6Double Jump§r (Boots): Mid-air jump. Lv2+ negates fall damage, particles.\n§cBad Luck (Boots)§r: In water, pushes to shore.",
-
-                                                // 17. 其他附魔 (Throwable, No Gravity, No Resistance, Kinetic, Steady)
-                                                "§6Throwable§r (Mace): Right-click throw, speed scales with Kinetic. Compat: §7Channeling, Loyalty, Explode§r.\n§6No Gravity§r: Ignores gravity.\n§6No Resistance§r: No air/water drag.\n§bKinetic§r: Boosts projectile speed.\n§bSteady§r: No arrow spread.",
-
-                                                // 18. 其他附魔 (Explode bow, Strength shovel)
-                                                "§6Explode§r (Bow/Crossbow): Arrows explode on hit (entity: power = level; ground: level×0.2). §cArrow destroyed§r.\n§2Strength§r (Shovel): Right-click launches block, damage based on hardness.",
-
-                                                // 19. 其他附魔 (Redirect, Multishot)
-                                                "§6Redirect§r (Trident): Hovers slowly, left-click to direct. Works with Fire Aspect, excludes §aLooting§r.\n§6Multishot+Redirect§r: Spiral throws, each redirectable.",
-
-                                                // 20. 其他附魔 (Tracking, No Curse, Bad Luck curse)
-                                                "§aTracking§r (Bow/Crossbow): Arrows home on targets.\n§aNo Curse§r: Drop/pickup removes all curses (including itself).\n§cBad Luck (Curse)§r: Items in water are repelled; affects throwables.",
-
-                                                // 21. 其他附魔 (Totem enchantments)
-                                                "§6Totem Enchants§r:\n•§6Infinity§r: Returns totem after use (§cslot may change§r).\n•§6Blast Protection§r: Explodes on use (power = level-1).\n•§6Channeling§r: Lightning strikes attacker.",
-
-                                                // 22. 其他附魔 (Infinity other uses)
-                                                "§6Infinity§r Other Uses:\n•§dBucket§r: Not consumed.\n•§bFood§r: Not consumed.\n•§dBlocks§r: Placing doesn't consume (config).\n•§cTNT§r: Ignited TNT block remains (config).\n•§dElytra§r: Flight ignores air resistance.",
-
-                                                // 23. 互斥关系 (拆分自原页23)
-                                                "§lExclusions§r:\n•Fury of Fly ↔ Channeling\n•Redirect ↔ Looting\n•Explode ↔ Steady\n•Kinetic ↔ Flame",
-
-                                                // 24. 宝藏附魔 (拆分自原页23)
-                                                "§lTreasure Enchants§r (loot/trade only):\n§aFury of Fly§r, §6Redirect§r, §dFly§r, No Gravity, No Resistance, §aNo Curse§r, §bSteady§r, §bKinetic§r, §6Explode§r, Throwable, Double Jump, §aTracking§r, §cBad Luck§r.",
-
-                                                // 25. 命令指南 (block_enchant)
-                                                "§l§n8. Commands§r\n\n§6/block_enchant <get|add|remove> <xyz> [id level]\n•get: Show block enchants\n•add: Add enchant\n•remove: Clear all\nExample: §b/block_enchant add ~ ~ ~ minecraft:sharpness 3§r",
-
-                                                // 26. 命令指南 (random_enchant desc 和部分config)
-                                                "§6/random_enchant <desc|config> [args]§r\n•§ddesc§r: Get this book\n•§dconfig§r: Toggle settings (perm 2)\n  doRandomEnchant <bool>\n  alwaysEnchantable <bool>",
-
-                                                // 27. 命令指南 (config 子命令 第一部分)
-                                                "  infinityUndyingTotem <bool>\n  explodeDestroyBlock <bool>\n  infinityBlock <bool>\n  infinityTnt <bool>\n  infinityFood <bool>\n  infinityThrowableItem <bool>\n  isEnchantedBlockGetatable <bool>",
-
-                                                // 28. 命令指南 (config 子命令 第二部分)
-                                                "  infinityPotion <bool>\n  redirectTridentSetPointDistance <int>\n  flyEnchantmentLiftHeightPerTick <double>\n  bedrockViolable <bool>",
-
-                                                // 29. 配置默认值 第一部分
-                                                "§l§n9. Config Defaults§r\n\n§6randomEnchant§r: false (attack)\n§6alwaysEnchantable§r: false (anvil all)\n§6explodeDestroyBlock§r: true (terrain damage)",
-
-                                                // 30. 配置默认值 第二部分
-                                                "§6infinityUndyingTotem§r: false\n§6infinityBlock§r: false\n§6infinityTnt§r: true\n§6bedrockViolable§r: false\n§6infinityPotion§r: true\n§6infinityFood§r: true\n§6infinityThrowableItem§r: true\n§6isEnchantedBlockGetatable§r: true",
-
-                                                // 31. 配置默认值 第三部分 (redirect 和 fly)
-                                                "§6redirectTridentSetPointDistance§r: 15\n§6flyEnchantmentLiftHeightPerTick§r: 0.05",
-
-                                                // 32. 附魔刷耐久和小贴士
-                                                "§l§dEnchant Brush§r Durability (Unbreaking):\n•None: 20% save\n•I: 40% save\n•II: 60% save\n•≥III: 80% save\n\n§lTips§r:\n• Ensure enough durability for Regional Mode.\n• Empty brush clears area enchants.");
+                // Page 7: Tips & Conclusion
+                "§l§n7. Tips & Conclusion§r\n\n" +
+                        "• Ensure the Enchant Brush has enough durability before area enchanting; otherwise, the operation fails and no durability is consumed.\n" +
+                        "• An unenchanted Enchant Brush can quickly clear block enchantments.\n" +
+                        "• Using certain enchantments (e.g., Explode, Bad Luck of the Sea, Quick Charge on a hopper) triggers corresponding advancements.\n" +
+                        "• For Redirect Projectile on a trident, left-click within 0.1 seconds after throwing to redirect.\n" +
+                        "• The Infinity enchantment on a totem of undying may not return to the original inventory slot; keep an eye on your inventory space.\n" +
+                        "• Silk Touch is your best friend for moving enchanted blocks.\n\n" +
+                        "§l§oThank you for reading!§r\n\n" +
+                        "We hope you enjoy the randomness of Random Enchant. For feedback, please visit the project page.\n\n" +
+                        "§7—— End of Guide ——§r"
+        );
         for (int i = 1; i <= pages.size(); ++i) {
             add(book_path + i, pages.get(i - 1));
         }

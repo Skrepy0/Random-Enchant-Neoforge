@@ -5,10 +5,13 @@ import com.random_enchant.item.ModItems;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
-import java.util.List;
+import static com.random_enchant.datagen.GuidePages.pages;
+
 
 public class ModZHCNLangProvider extends LanguageProvider {
-    public ModZHCNLangProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "zh_cn"); }
+    public ModZHCNLangProvider(PackOutput output) {
+        super(output, RandomEnchant.MOD_ID, "zh_cn");
+    }
 
     @Override
     protected void addTranslations() {
@@ -31,20 +34,20 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("random_enchant.configuration.randomEnchant.tooltip", "启用后，攻击生物时，为玩家主手上的物品§d随机附魔§r");
         add("random_enchant.configuration.isAlwaysEnchantable.tooltip", "启用后，§l所有物品§r可以通过§a铁砧§r附魔");
         add("random_enchant.configuration.infinityBlock.tooltip",
-            "启用后，放置带有§a[无限]§r附魔的方块时，手中方块不会被消耗");
+                "启用后，放置带有§a[无限]§r附魔的方块时，手中方块不会被消耗");
         add("random_enchant.configuration.infinityUndyingTotem.tooltip",
-            "启用后，使用§a[无限]§r附魔的§d不死图腾§r时，返还一个一样的图腾，处于兼容性考虑，返还的物品槽位可能会与使用前不同");
+                "启用后，使用§a[无限]§r附魔的§d不死图腾§r时，返还一个一样的图腾，处于兼容性考虑，返还的物品槽位可能会与使用前不同");
         add("random_enchant.configuration.infinityTnt.tooltip",
-            "启用后，TNT点燃后生成实体但原方块保留。打火石、红石、爆炸均有效。");
+                "启用后，TNT点燃后生成实体但原方块保留。打火石、红石、爆炸均有效。");
         add("random_enchant.configuration.infinityThrowableItem.tooltip",
-            "启用后，§a[无限]§r附魔的可投掷物品，如末影珍珠、鸡蛋等使用时不会消失");
+                "启用后，§a[无限]§r附魔的可投掷物品，如末影珍珠、鸡蛋等使用时不会消失");
         add("random_enchant.configuration.bedrockViolable.tooltip", "启用后，可以通过本模组的特性破坏基岩");
         add("random_enchant.configuration.isEnchantedBlockGetatable.tooltip",
-            "启用后，玩家使用带有§b[精准采集]§r附魔的工具破坏被附魔的方块时，可以掉落该带有附魔的方块");
+                "启用后，玩家使用带有§b[精准采集]§r附魔的工具破坏被附魔的方块时，可以掉落该带有附魔的方块");
         add("random_enchant.configuration.redirectTridentSetPointDistance.tooltip",
-            "含有§6[重定向]§r附魔的三叉戟在使用时右键，落点与玩家的最大距离");
+                "含有§6[重定向]§r附魔的三叉戟在使用时右键，落点与玩家的最大距离");
         add("random_enchant.configuration.flyEnchantmentLiftHeightPerTick.tooltip",
-            "玩家使用附魔有§d[Fly]§r的鞘翅，并按下跳远键时，每tick提升的高度");
+                "玩家使用附魔有§d[Fly]§r的鞘翅，并按下跳远键时，每tick提升的高度");
 
 
         add(ModItems.PEARL_SPEAR.get(), "珍珠矛");
@@ -53,6 +56,7 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add(ModItems.MILK_BOTTLE.get(), "牛奶瓶");
         add(ModItems.MEMORY_POTION.get(), "§b回忆药水");
         add(ModItems.SOULTRANCE_POTION.get(), "§a魂溯药水");
+        add(ModItems.GUIDE.get(), "指南");
 
         add("enchantment.random_enchant.fury_of_fly", "§aFly之怒");
         add("enchantment.random_enchant.fury_of_fly.desc", "召唤出蜜蜂助攻");
@@ -74,14 +78,14 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("enchantment.random_enchant.kinetic.desc", "射出的箭矢,鱼漂具有更高的初速度");
         add("enchantment.random_enchant.explode", "§6爆炸§r");
         add("enchantment.random_enchant.explode.desc",
-            "附魔在弓或弩时射出爆炸剑，附魔在方块上时，有实体接触方块顶部时，方块爆炸");
+                "附魔在弓或弩时射出爆炸剑，附魔在方块上时，有实体接触方块顶部时，方块爆炸");
         add("enchantment.random_enchant.throwable", "可投掷");
         add("enchantment.random_enchant.throwable.desc", "使重锤可以被投掷");
         add("enchantment.random_enchant.tracking", "§a追踪§r");
         add("enchantment.random_enchant.tracking.desc", "使箭矢追踪目标");
         add("enchantment.random_enchant.double_jump", "二段跳");
         add("enchantment.random_enchant.double_jump.desc",
-            "给予玩家二段跳技能，等级达到II及以上时二段跳后落地不受衰落伤害");
+                "给予玩家二段跳技能，等级达到II及以上时二段跳后落地不受衰落伤害");
 
         add("message.random_enchant.backup_warning", "§6Random Enchant是alpha版本，请做好存档备份");
         add("message.random_enchant.enchant_added", "§6已附魔：§r");
@@ -90,23 +94,23 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("message.random_enchant.item.enchant_brush.clear_area", "§a已清除区域内的所有附魔。");
         add("message.random_enchant.item.enchant_brush.status.changed", "§a转换至：");
         add("message.random_enchant.item.enchant_brush.durability_insufficient",
-            "§c耐久不足，执行失败，选中区域大小为%s");
+                "§c耐久不足，执行失败，选中区域大小为%s");
         add("message.random_enchant.item.enchant_brush.clear_data", "已清除附魔刷数据");
         add("message.random_enchant.item.soultrance_potion.teleport_failed", "§c传送失败，当前玩家没有死亡记录");
 
         add("item.tooltip.random_enchant.for_shift_tooltip", "按下§6[SHIFT]§r查看详细信息");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_1", "§b左键攻击实体并瞬移，右键瞬移§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_2",
-            "§b瞬移路径上的实体会受到8点基础伤害(实际伤害与§a[横扫之刃]§b等级有关)§r");
+                "§b瞬移路径上的实体会受到8点基础伤害(实际伤害与§a[横扫之刃]§b等级有关)§r");
         add("item.tooltip.random_enchant.pearl_spear.detail_description_3",
-            "§b左键攻击时与目标的相对速度越大，伤害越高§r");
+                "§b左键攻击时与目标的相对速度越大，伤害越高§r");
         add("item.tooltip.random_enchant.enchant_brush.status", "状态：");
         add("item.tooltip.random_enchant.enchant_brush.status.regional", "§a区域模式§r");
         add("item.tooltip.random_enchant.enchant_brush.status.single", "§a单方块模式§r");
 
         add("key.random_enchant.toggle_brush_status", "更改附魔刷模式");
         add("key.categories.random_enchant", "随机附魔");
-        add("command.random_enchant.value","配置§d[%s]§r的值目前为：");
+        add("command.random_enchant.value", "配置§d[%s]§r的值目前为：");
         add("command.random_enchant.randomEnchant.enable", "§a已启用随机附魔");
         add("command.random_enchant.randomEnchant.disable", "§6已禁用随机附魔");
         add("command.random_enchant.config.changed", "已被更改为");
@@ -118,38 +122,38 @@ public class ModZHCNLangProvider extends LanguageProvider {
         add("command.random_enchant.block_enchant.remove", "§g已经移除此方块的所有附魔§a");
 
         add("item.jei_info.random_enchant.pearl_spear",
-            "§l§6珍珠矛§r\n"
-                    + "\n"
-                    + "§7基础属性：§f攻击伤害 8，攻速 1.6，耐久 512，手持时移动速度大幅提升。\n"
-                    + "\n"
-                    + "§l右键能力：闪现突刺§r\n"
-                    + "• 向视线方向闪现，最大距离 10 格\n"
-                    + "• 路径上的实体受到 §e8 + 横扫之刃等级§r 伤害\n"
-                    + "• 冷却 §c200 tick§r，附魔 §b快速装填§r 可大幅减少冷却\n"
-                    + "\n"
-                    + "§l左键能力：动能打击§r\n"
-                    + "• 根据与目标的相对速度造成额外伤害\n"
-                    + "  - 地面：伤害 = (目标速度投影 - 玩家速度投影) × 10 + 9\n"
-                    + "  - 空中：伤害 = (玩家速度投影 - 目标速度投影) × 10 + 9\n"
-                    + "• 攻击后水平闪现，对路径实体造成相同伤害\n"
-                    + "• 若附有 §6引雷§r，召唤多道闪电\n"
-                    + "• 若附有 §aFly之怒§r，召唤强化蜜蜂助攻（数量 = 等级）\n"
-                    + "\n"
-                    + "§l专属附魔：§aFly之怒§r\n"
-                    + "• 等级 I~III，左键攻击后召唤蜜蜂\n"
-                    + "• 蜜蜂具有生命提升、抗火、力量等效果\n"
-                    + "• 与 §6引雷§r 互斥\n"
-                    + "\n"
-                    +
-                    "§l可附魔：§f剑类附魔（锋利、击退、火焰附加、抢夺、横扫之刃）、耐久、快速装填、引雷、风暴、Fly之怒\n"
-                    + "\n"
-                    + "§l提示：§7配合鞘翅高速飞行可打出爆发伤害，右键闪现可快速接近或逃离。");
+                "§l§6珍珠矛§r\n"
+                        + "\n"
+                        + "§7基础属性：§f攻击伤害 8，攻速 1.6，耐久 512，手持时移动速度大幅提升。\n"
+                        + "\n"
+                        + "§l右键能力：闪现突刺§r\n"
+                        + "• 向视线方向闪现，最大距离 10 格\n"
+                        + "• 路径上的实体受到 §e8 + 横扫之刃等级§r 伤害\n"
+                        + "• 冷却 §c200 tick§r，附魔 §b快速装填§r 可大幅减少冷却\n"
+                        + "\n"
+                        + "§l左键能力：动能打击§r\n"
+                        + "• 根据与目标的相对速度造成额外伤害\n"
+                        + "  - 地面：伤害 = (目标速度投影 - 玩家速度投影) × 10 + 9\n"
+                        + "  - 空中：伤害 = (玩家速度投影 - 目标速度投影) × 10 + 9\n"
+                        + "• 攻击后水平闪现，对路径实体造成相同伤害\n"
+                        + "• 若附有 §6引雷§r，召唤多道闪电\n"
+                        + "• 若附有 §aFly之怒§r，召唤强化蜜蜂助攻（数量 = 等级）\n"
+                        + "\n"
+                        + "§l专属附魔：§aFly之怒§r\n"
+                        + "• 等级 I~III，左键攻击后召唤蜜蜂\n"
+                        + "• 蜜蜂具有生命提升、抗火、力量等效果\n"
+                        + "• 与 §6引雷§r 互斥\n"
+                        + "\n"
+                        +
+                        "§l可附魔：§f剑类附魔（锋利、击退、火焰附加、抢夺、横扫之刃）、耐久、快速装填、引雷、风暴、Fly之怒\n"
+                        + "\n"
+                        + "§l提示：§7配合鞘翅高速飞行可打出爆发伤害，右键闪现可快速接近或逃离。");
         add("item.jei_info.random_enchant.memory_potion",
-            "§d§l回忆药水§r\\n§l效果§r：\\n饮用后立即传送至当前世界的重生点（即床的位置）。即使床被破坏，也会回到上次设置床的位置；若从未设置床，则传送到世界出生点。\\n\\n§l用途§r：\\n快速返回基地或庇护所，适合探险时使用。\\n\\n§l提示§r：\\n生存模式下可用，药水消耗后消失。传送时不会破坏身上的装备或物品。");
+                "§d§l回忆药水§r\\n§l效果§r：\\n饮用后立即传送至当前世界的重生点（即床的位置）。即使床被破坏，也会回到上次设置床的位置；若从未设置床，则传送到世界出生点。\\n\\n§l用途§r：\\n快速返回基地或庇护所，适合探险时使用。\\n\\n§l提示§r：\\n生存模式下可用，药水消耗后消失。传送时不会破坏身上的装备或物品。");
         add("item.jei_info.random_enchant.soultrance_potion",
-            "§a§l魂溯药水§r\\n§l效果§r：\\n饮用后尝试传送至玩家上一次死亡的位置。如果玩家没有死亡记录（例如新玩家或死亡次数已被清除），则传送失败，药水消耗但无效果，并提示“§c传送失败，当前玩家没有死亡记录§r”。\\n\\n§l用途§r：\\n在死亡后快速返回死亡地点拾取掉落物，或探索上次死亡的地方。\\n\\n§l提示§r：\\n传送位置可能存在危险（如仍在岩浆中或怪物旁），建议提前做好准备。");
+                "§a§l魂溯药水§r\\n§l效果§r：\\n饮用后尝试传送至玩家上一次死亡的位置。如果玩家没有死亡记录（例如新玩家或死亡次数已被清除），则传送失败，药水消耗但无效果，并提示“§c传送失败，当前玩家没有死亡记录§r”。\\n\\n§l用途§r：\\n在死亡后快速返回死亡地点拾取掉落物，或探索上次死亡的地方。\\n\\n§l提示§r：\\n传送位置可能存在危险（如仍在岩浆中或怪物旁），建议提前做好准备。");
         add("item.jei_info.random_enchant.enchant_brush",
-            "§l§6附魔刷§r\\n\\n§l基础属性§r：\\n• 耐久度：§a387§r\\n• 无法在附魔台附魔，可在铁砧上用附魔书增强\\n\\n§l耐久损耗机制§r：\\n实际损耗 = 处理的方块数 × 耐久系数，耐久系数由附魔等级决定：\\n• 无耐久：系数 1.0\\n• 耐久 I：系数 0.9\\n• 耐久 II：系数 0.7\\n• 耐久 III：系数 0.5\\n• 耐久 IV：系数 0.35\\n• 耐久 V：系数 0.2\\n• 耐久 VI：系数 0.1\\n• 耐久 VII：系数 0.08\\n• 耐久 ≥VIII：系数 0.05\\n\\n§l模式切换§r：按 §eTAB§r 切换\\n\\n§7■ 单方块模式§r：\\n• 右键单个方块，为方块添加刷子上的所有附魔；若刷子无附魔，则清除该方块的魔咒（不消耗耐久）。\\n\\n§7■ 区域模式§r：\\n• 第一次右键选择起点，起点位置会显示 §a绿色粒子§r 提示。\\n• 第二次右键选择终点，为区域内所有 §b非空气/非水/非岩浆§r 的方块进行批量操作：\\n  - 刷子有附魔：为方块添加刷子上的所有附魔。消耗耐久 = 处理的方块数 × 耐久系数。若耐久不足，操作失败并提示“耐久不足”。\\n  - 刷子无附魔：清除区域内所有方块的魔咒。消耗耐久 = 处理的方块数 × 耐久系数。\\n• 若已选择起点但未选终点，按住 §eShift+右键§r 可清除起点坐标，重新选择。\\n\\n§l可视化提示§r：\\n• 手持附魔刷时，被附魔的方块表面持续显示 §a绿色粒子§r。\\n• 区域模式选择起点/终点时，对应位置会短暂显示粒子特效。\\n\\n§l精准采集兼容§r：\\n• 使用带精准采集的工具挖掘附魔方块，挖下的方块会保留所有魔咒（由配置 §eisEnchantedBlockGetatable§r 控制，默认开启）。\\n\\n§l注意事项§r：\\n• 区域操作时，消耗的耐久由实际处理的方块数计算，受耐久附魔减免。\\n• 若刷子耐久不足，操作将被取消，已选择的起点也会被清除。\\n• 附魔刷本身无附魔时，可用于快速清除区域内的所有方块附魔。");
+                "§l§6附魔刷§r\\n\\n§l基础属性§r：\\n• 耐久度：§a387§r\\n• 无法在附魔台附魔，可在铁砧上用附魔书增强\\n\\n§l耐久损耗机制§r：\\n实际损耗 = 处理的方块数 × 耐久系数，耐久系数由附魔等级决定：\\n• 无耐久：系数 1.0\\n• 耐久 I：系数 0.9\\n• 耐久 II：系数 0.7\\n• 耐久 III：系数 0.5\\n• 耐久 IV：系数 0.35\\n• 耐久 V：系数 0.2\\n• 耐久 VI：系数 0.1\\n• 耐久 VII：系数 0.08\\n• 耐久 ≥VIII：系数 0.05\\n\\n§l模式切换§r：按 §eTAB§r 切换\\n\\n§7■ 单方块模式§r：\\n• 右键单个方块，为方块添加刷子上的所有附魔；若刷子无附魔，则清除该方块的魔咒（不消耗耐久）。\\n\\n§7■ 区域模式§r：\\n• 第一次右键选择起点，起点位置会显示 §a绿色粒子§r 提示。\\n• 第二次右键选择终点，为区域内所有 §b非空气/非水/非岩浆§r 的方块进行批量操作：\\n  - 刷子有附魔：为方块添加刷子上的所有附魔。消耗耐久 = 处理的方块数 × 耐久系数。若耐久不足，操作失败并提示“耐久不足”。\\n  - 刷子无附魔：清除区域内所有方块的魔咒。消耗耐久 = 处理的方块数 × 耐久系数。\\n• 若已选择起点但未选终点，按住 §eShift+右键§r 可清除起点坐标，重新选择。\\n\\n§l可视化提示§r：\\n• 手持附魔刷时，被附魔的方块表面持续显示 §a绿色粒子§r。\\n• 区域模式选择起点/终点时，对应位置会短暂显示粒子特效。\\n\\n§l精准采集兼容§r：\\n• 使用带精准采集的工具挖掘附魔方块，挖下的方块会保留所有魔咒（由配置 §eisEnchantedBlockGetatable§r 控制，默认开启）。\\n\\n§l注意事项§r：\\n• 区域操作时，消耗的耐久由实际处理的方块数计算，受耐久附魔减免。\\n• 若刷子耐久不足，操作将被取消，已选择的起点也会被清除。\\n• 附魔刷本身无附魔时，可用于快速清除区域内的所有方块附魔。");
 
         add("advancements.enchant.root.title", "随机附魔");
         add("advancements.enchant.root.description", "开启附魔之旅");
@@ -178,73 +182,10 @@ public class ModZHCNLangProvider extends LanguageProvider {
 
         add("event.random_enchant.get_guide", "成就已达成，奖励§6§l指南§rx1");
         add("item.random_enchant.guide.title", "§6§l指南§r");
+        add("gui.random_enchant.guide.title","§d随机附魔§r指南");
+        add("gui.random_enchant.guide.no_results","§c没有找到结果");
         var book_path = "item.random_enchant.guide.page.";
-        List<String> pages = List
-                                     .of(
 
-                                             "§l§n目录§r\n\n§61. 概述§r\n§62. 随机附魔事件§r\n§63. 方块附魔与附魔刷§r\n§64. 方块附魔效果详表§r\n§65. 新武器：珍珠矛§r\n§66. 新药水§r\n§67. 其他附魔详解§r\n§68. 命令指南§r\n§69. 配置选项§r",
-
-                                             "§l§n1. 概述§r\n\n✔攻击生物时，主手物品有几率获得随机附魔（可开关）\n✔使用“§6附魔刷§r”可为方块附魔。\n✔新增武器“§d珍珠矛§r”及多种附魔、药水。\n✔两条命令：§b/block_enchant§r和§b/random_enchant§r",
-
-                                             "§l§n2. 随机附魔事件§r\n\n攻击生物时，主手物品有 §a80%§r 概率获得随机附魔。\n\n•§4附魔池§r：包含所有已注册附魔（包括其他模组），§9概率均等§r。\n•§2等级§r：§a60%§r 概率 §50~2§r 级，§640%§r 概率 §56~10§r 级。\n•§2叠加§r：§7新等级=当前等级 + 1 + 随机值§r。",
-
-                                             "成功后屏幕中央会显示提示\n\n示例：耐久 II 的剑随机到耐久6，最终变成耐久 2+1+6=9 级。\n\n可在配置中关闭此事件。",
-
-                                             "§l§n3. 方块附魔与§d附魔刷§r\n\n合成§d附魔刷§r（工作台）：\n\n第一行：[空] [线] [附魔书]\n第二行：[空] [铜锭] [线]\n第三行：[木棍] [空]  [空]\n\n耐久387，§c无法附魔台附魔§r，可用铁砧附魔任意附魔。",
-
-                                             "按 §6TAB§r 切换模式：\n\n§7■单方块模式§r：右键单个方块，添加刷子附魔；无附魔则清除。\n\n§7■区域模式§r：第一次右键选起点，第二次选终点，批量附魔/清除。消耗耐久具体会受§6耐久附魔和被成功附魔的方块数量§r影响，不足则失败。",
-
-                                             "区域模式下，若已选起点但未选终点，按 §6Shift+右键§r 清除起点。\n\n手持§d附魔刷§r时，被附魔方块表面显示 §a绿色粒子（COMPOSTER）§r。\n\n用精准采集工具挖掘可以获取带有附魔的方块（可开关）。",
-
-                                             "§l§n4. 方块附魔效果详表§r\n\n§6海之嫌弃（方块）§r：接触水的生物被弹向岸边。等级越高弹力越强。§c对箱子等方块实体无效§r。\n§6水下速掘§r：被水淹没时自动破坏并掉落。等级越高概率越大。\n§6水下呼吸§r：红石线等受水影响的方块不会被水冲毁。",
-
-                                             "§6快速装填§r（漏斗）：取消漏斗冷却，传输翻倍。\n§6绑定诅咒§r（漏斗）：锁定漏斗。\n§6爆炸§r：有实体站在上方时自爆，§7威力=等级×0.3§r。是否破坏地形可配置；若有无限则方块保留\n§6击退§r：接触时垂直弹飞，§7力度=等级×0.5§r。部分方块（按钮、传送门、绊线）沿特定方向。",
-
-                                             "§6摔落保护§r：落在方块上不受摔落伤害。\n§6爆炸保护§r：方块免疫爆炸。\n§6荆棘§r：踩到方块受到的伤害与等级相等。\n§6冲击§r（活板门）：打开时弹飞上方实体，§7力度=等级§r。\n§6火焰附加§r：站在方块上被点燃，§7燃烧时长=等级×10§rtick。\n§6火焰保护§r：站在方块上清除火焰。",
-
-                                             "§6水下速掘（进阶）§r：方块允许水流穿过，且水流接触时会破坏方块。\n§6无限§r（TNT专用）：TNT点燃后生成实体但原方块保留（需配置启用）。打火石、红石、爆炸均有效。",
-
-                                             "§l§n5. 新武器：珍珠矛§r\n\n合成配方：\n1.[空] [末影珍珠] [回响碎片]\n2.[爆裂紫颂果][沉重核心][回响碎片]\n3.[旋风棒] [爆裂紫颂果] [空]\n\n基础属性：§2攻击伤害 8，攻速 1.6，耐久 512，手持时移速大增§r",
-
-                                             "§l右键§r：向视线闪现，最远10格，对路径上实体造成伤害§7（基础8+横扫之刃等级）§r。冷却200tick§7(10s)§r，§a快速装填§r可减冷却时间。\n\n§l左键§r：攻击时根据相对速度额外伤害，并水平闪现，同样伤害路径实体。",
-
-                                             "若武器附有§6引雷§r，左键后召唤多道闪电。若附有§aFly之怒§r，召唤强化蜜蜂（§7数量=等级§r）。两者互斥\n\n珍珠矛支持剑类附魔、耐久,还有快速装填、风暴等。",
-
-                                             "§l§n6. 新药水§r\n\n§6牛奶瓶§r：玻璃瓶+奶桶。饮用后清空buff\n§b回忆药水§r：牛奶瓶+末影珍珠+糖+荧石粉。饮用后传送到重生点（即使床被毁）。\n§a魂溯药水§r：不可合成。饮用后传送到上次死亡位置（§c若无死亡记录则无效§r）。",
-
-                                             "§l§n7. 其他附魔详解§r\n\n§dFly§r（鞘翅）：飞行时按跳跃键上升，抬升高度可配置。\n§6二段跳§r（靴子）：空中再跳一次，等级越高跳越高。大于2级（包含）时提供摔落保护，产生粒子。\n§c海之嫌弃§r（靴子）：接触水时将穿戴者弹向岸边。",
-
-                                             "§6可投掷§r（重锤）：右键投出，速度受动能影响，支持§7引雷、忠诚、爆炸§r。§r下落攻击也会触发。\n§6无重力§r：使投射物不受重力\n§6无阻力§r：使投射物不受空气/水阻力。\n§b动能§r：附魔到弓，弩，钓鱼竿，增加投射物初速度。\n§b稳定§r：消除箭矢的随机偏差，与§6爆炸§r互斥。",
-
-                                             "§6爆炸§r（弓/弩）：箭击中目标或地面时爆炸。§7命中实体威力=等级，地面威力=等级×0.2§r。§c箭矢销毁§r。\n\n方块爆炸详见第9页，每tick检测，威力较小但可连续。\n\n§2力量§r（锹类工具）：右键方块将方块击飞，被击飞的方块可以对生物造成伤害，硬度越高伤害越高",
-
-                                             "§6重定向§r（三叉戟）：投出后低速悬停，左键点击位置后飞去。可附火焰附加。与§a抢夺§r互斥。\n§6多重射击+重定向§r：投出螺旋多把，均可被重定向。",
-
-                                             "§a追踪§r（弓/弩）：箭矢自动修正，瞄向适合的实体。\n§a无诅咒§r：物品同时有无诅咒和诅咒时，扔出再捡起移除所有诅咒（和其自身）。\n§c海之嫌弃§r（诅咒）：物品掉入水中被排斥，某些投掷物如末影珍珠，鸡蛋，雪球等也会被水排斥。",
-
-                                             "§6不死图腾附魔§r：\n•§6无限§r：使用后返还一个相同图腾（§c可能不在原槽位§r）。\n•§6爆炸保护§r：使用后在自身位置爆炸，§7威力=等级-1§r，源为伤害来源\n•§6引雷§r：使用后在攻击者位置召闪电。",
-
-                                             "§6无限§r其他应用：\n•§d桶§r：使用后不消耗。\n•§b食物§r：使用后不消耗。\n•§d方块§r：放置时方块不被消耗（需配置）。\n•§cTNT§r：点燃后原方块不消失（需配置）。\n•§d鞘翅§r：飞行无视空气阻力。",
-
-                                             "§l互斥关系§r：\n•Fly之怒↔引雷（珍珠矛）\n•重定向↔抢夺（三叉戟）\n•爆炸↔稳定（弓/弩）\n•动能↔火矢（弓/弩）\n\n§l宝藏附魔§r（只能战利品/交易）：\n§aFly之怒§r、§6重定向§r、§dFly§r、无重力、无阻力、§a无诅咒§r、§b稳定§r、§b动能§r、§6爆炸§r、可投掷、二段跳、§a追踪§r、§c海之嫌弃§r。",
-
-                                             "§l§n8. 命令指南§r\n\n§6/block_enchant §r<get|add|remove> <xyz> [附魔ID 等级]\n\n•get：显示方块附魔。\n•add：添加附魔（需ID和等级）。\n•remove：清除所有附魔。\n示例：\n§b/block_enchant add ~ ~ ~ minecraft:sharpness 3§r",
-
-                                             "§6/random_enchant <description/config> [参数]§r\n\n•§ddescription§r：获取本书。\n•§dconfig§r：修改配置（需权限2）。子命令：\n  doRandomEnchant <bool>\n  alwaysEnchantable <bool>\n",
-
-                                             "  infinityUndyingTotem <bool>\n  explodeDestroyBlock <bool>\n  infinityBlock <bool>\n  infinityTnt <bool>\n  infinityFood <bool>\n  infinityThrowableItem <bool>\n  isEnchantedBlockGetatable <bool>\n",
-
-                                             "  infinityPotion <bool>\n  redirectTridentSetPointDistance <int>\n  flyEnchantmentLiftHeightPerTick <double>\n bedrockViolable <bool>",
-
-                                             "§l§n9. 配置选项（默认值）§r\n\n§6randomEnchant§r: false  §7攻击随机附魔§r\n§6alwaysEnchantable§r: false  §7所有物品可通过铁砧附魔§r\n§6explodeDestroyBlock§r: true  §7本mod爆炸破坏地形§r\n",
-
-                                             "§6infinityUndyingTotem§r: false  §7无限不死图腾§r\n§6infinityBlock§r: false  §7无限可放置方块§r\n§6infinityTnt§r: true \n §7无限 TNT§r\n§6bedrockViolable: false \n §7基岩可以被本模组的特性破坏或移除§r",
-
-                                             "§6infinityPotion§r: true  §7无限药水§r\n§6infinityFood§r: true  §7无限食物§r\n§6infinityThrowableItem§r: true  §7无限投掷物§r\n§6isEnchantedBlockGetatable§r:§rtrue  §7精准采集获取附魔方块§r\n",
-
-                                             "§6redirectTridentSetPointDistance§r:§r15  §7重定向最大距离§r\n§6flyEnchantmentLiftHeightPerTick§r:§r0.05  §7使用§dFly§7附魔的鞘翅飞行每tick提升高度§r",
-
-                                             "§l§d附魔刷§r耐久损耗§r（受耐久影响）：\n\n•无耐久：§220%§r 不损耗\n•耐久 I：§240%§r 不损耗\n•耐久 II：§260%§r 不损耗\n•耐久 ≥III：§280%§r 不损耗\n\n§l小贴士§r\n•区域附魔时，确保刷子耐久足够。\n•无附魔§d附魔刷§r可清除方块的魔咒。");
         for (int i = 1; i <= pages.size(); ++i) {
             add(book_path + i, pages.get(i - 1));
         }

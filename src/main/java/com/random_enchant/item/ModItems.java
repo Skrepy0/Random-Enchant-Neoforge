@@ -1,6 +1,7 @@
 package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
+import com.random_enchant.item.custom.misc.GuideItem;
 import com.random_enchant.item.custom.misc.LightningItem;
 import com.random_enchant.item.custom.misc.MilkBottleItem;
 import com.random_enchant.item.custom.potion.MemoryPotion;
@@ -48,5 +49,6 @@ public class ModItems {
                                     .craftRemainder(Items.GLASS_BOTTLE)
                                     .food((new FoodProperties.Builder()).nutrition(0).saturationModifier(0F).build())
                                     .stacksTo(16)));
+    public static final DeferredItem<Item> GUIDE = ITEMS.register("guide",()->new GuideItem(new Item.Properties()));
     public static void registerModItems(IEventBus bus) { ITEMS.register(bus); }
 }
