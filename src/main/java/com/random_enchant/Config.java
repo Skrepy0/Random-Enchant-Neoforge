@@ -14,6 +14,7 @@ public class Config {
     public static ModConfigSpec.BooleanValue infinityPotion = BUILDER.define("infinityPotion", true);
     public static ModConfigSpec.BooleanValue infinityFood = BUILDER.define("infinityFood", true);
     public static ModConfigSpec.BooleanValue infinityThrowableItem = BUILDER.define("infinityThrowableItem", true);
+    public static ModConfigSpec.BooleanValue infinityDispenser = BUILDER.define("infinityDispenser", false);
     public static ModConfigSpec.BooleanValue bedrockViolable = BUILDER.define("bedrockViolable", false);
     public static ModConfigSpec.BooleanValue isEnchantedBlockGetatable =
             BUILDER.define("isEnchantedBlockGetatable", true);
@@ -37,6 +38,7 @@ public class Config {
     public static boolean infinityFood() { return infinityFood.get(); }
 
     public static boolean infinityThrowableItem() { return infinityThrowableItem.get(); }
+    public static boolean infinityDispenser() { return infinityDispenser.get(); }
 
     public static boolean isEnchantedBlockGetatable() { return isEnchantedBlockGetatable.get(); }
 
@@ -67,6 +69,7 @@ public class Config {
     public static void setIsEnchantedBlockGetatable(boolean value) { isEnchantedBlockGetatable.set(value); }
 
     public static void setInfinityFood(boolean value) { infinityFood.set(value); }
+    public static void setInfinityDispenser(boolean value) { infinityDispenser.set(value); }
 
     public static void setBedrockViolable(boolean value) { bedrockViolable.set(value); }
 

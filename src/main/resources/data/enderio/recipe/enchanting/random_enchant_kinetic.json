@@ -1,0 +1,9 @@
+{
+  "type": "enderio:enchanting",
+  "cost_multiplier": 1,
+  "enchantment": "random_enchant:kinetic",
+  "input": {
+    "count": 1,
+    "item": "minecraft:conduit"
+  }
+}

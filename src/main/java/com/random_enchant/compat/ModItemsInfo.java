@@ -14,5 +14,7 @@ public class ModItemsInfo {
                                        Component.translatable("item.jei_info.random_enchant.memory_potion"));
         registration.addIngredientInfo(ModItems.SOULTRANCE_POTION.get(),
                                        Component.translatable("item.jei_info.random_enchant.soultrance_potion"));
+        registration.addIngredientInfo(ModItems.LIGHTNING_ITEM.get(),
+                Component.translatable("item.jei_info.random_enchant.lightning"));
     }
 }

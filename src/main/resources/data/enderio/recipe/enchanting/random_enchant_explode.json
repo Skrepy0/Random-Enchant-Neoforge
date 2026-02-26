@@ -1,0 +1,9 @@
+{
+  "type": "enderio:enchanting",
+  "cost_multiplier": 1,
+  "enchantment": "random_enchant:explode",
+  "input": {
+    "count": 2,
+    "item": "random_enchant:lightning"
+  }
+}

@@ -6,6 +6,8 @@
     "enchantment_block_mixin.custom.badluckofthesea.FallingBlockEntityMixin",
     "enchantment_block_mixin.custom.badluckofthesea.FlowableFluidMixin",
     "enchantment_block_mixin.custom.blastprotection.ExplosionBehaviorMixin",
+    "enchantment_block_mixin.custom.dispense.DefaultDispenseItemBehaviorMixin",
+    "enchantment_block_mixin.custom.dispense.ProjectileDispenseBehaviorMixin",
     "enchantment_block_mixin.custom.fallprotection.BlockMixin",
     "enchantment_block_mixin.custom.fasthopper.HopperBlockEntityMixin",
     "enchantment_block_mixin.custom.knockback.AbstractBlockMixin",
@@ -67,10 +69,14 @@
     "item_mixin.enchantment_item_mixin.infinity.InfinityFireworkRocketMixin",
     "item_mixin.enchantment_item_mixin.infinity.InfinityPotionItemMixin",
     "item_mixin.enchantment_item_mixin.infinity.InfinityThrowablePotionMixin",
+    "item_mixin.enchantment_item_mixin.infinity.dispense.BoatDispenseItemBehaviorMixin",
+    "item_mixin.enchantment_item_mixin.infinity.dispense.DefaultDispenseItemBehaviorMixin",
+    "item_mixin.enchantment_item_mixin.infinity.dispense.ProjectileDispenseBehaviorMixin",
     "item_mixin.enchantment_item_mixin.infinity.throwable_item.InfinityEggItemMixin",
     "item_mixin.enchantment_item_mixin.infinity.throwable_item.InfinityEnderEyeItemMixin",
     "item_mixin.enchantment_item_mixin.infinity.throwable_item.InfinityEnderPearlItemMixin",
-    "item_mixin.enchantment_item_mixin.infinity.throwable_item.InfinitySnowBallItemMixin"
+    "item_mixin.enchantment_item_mixin.infinity.throwable_item.InfinitySnowBallItemMixin",
+    "lightning_rod.LightningRodBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1

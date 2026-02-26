@@ -1,0 +1,9 @@
+{
+  "type": "enderio:enchanting",
+  "cost_multiplier": 1,
+  "enchantment": "random_enchant:fury_of_fly",
+  "input": {
+    "count": 12,
+    "item": "enderio:powdered_ender_pearl"
+  }
+}

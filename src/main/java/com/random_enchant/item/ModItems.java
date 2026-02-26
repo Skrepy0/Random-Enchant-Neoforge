@@ -24,7 +24,7 @@ public class ModItems {
     public static final DeferredItem<Item> PEARL_SPEAR =
             ITEMS.register("pearl_spear", () -> new PearlSpear(new Item.Properties()));
     public static final DeferredItem<Item> LIGHTNING_ITEM = ITEMS.register(
-            "lightning", () -> new LightningItem(Tiers.NETHERITE, new Item.Properties().fireResistant().stacksTo(1)));
+            "lightning", () -> new LightningItem(Tiers.NETHERITE, new Item.Properties().fireResistant().stacksTo(8)));
     public static final DeferredItem<Item> MILK_BOTTLE = ITEMS.register(
             "milk_bottle",
             ()

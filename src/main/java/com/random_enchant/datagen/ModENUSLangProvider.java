@@ -28,6 +28,8 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("random_enchant.configuration.infinityPotion", "§a[Infinity]§r Compatibility with Potions");
         add("random_enchant.configuration.infinityFood", "§a[Infinity]§r Compatibility with Food");
         add("random_enchant.configuration.infinityThrowableItem", "§a[Infinity]§r Compatibility with Throwable Items");
+        add("random_enchant.configuration.infinityDispenser","§a[Infinity]§r Compatibility with Dispenser");
+        add("random_enchant.configuration.infinityDispenser.tooltip","Enable this to make dispenser and dispenser launcher shoot items with §a[Infinity]§r enchantment not disappear");
         add("random_enchant.configuration.isEnchantedBlockGetatable", "§b[Silk Touch]§r Obtain Enchanted Blocks");
         add("random_enchant.configuration.bedrockViolable",
                 "§7[Bedrock]§r Can be destroyed or removed by this mod's features");
@@ -64,6 +66,7 @@ public class ModENUSLangProvider extends LanguageProvider {
         add(ModItems.MILK_BOTTLE.get(), "Milk Bottle");
         add(ModItems.MEMORY_POTION.get(), "§bMemory Potion");
         add(ModItems.SOULTRANCE_POTION.get(), "§aSoultrance Potion");
+        add(ModItems.GUIDE.get(),"Guide");
 
         // Enchantments
         add("enchantment.random_enchant.fury_of_fly", "§aFury of Fly");
@@ -175,7 +178,9 @@ public class ModENUSLangProvider extends LanguageProvider {
                 "§a§lSoultrance Potion§r\\n§lEffect§r:\\nDrink to attempt teleportation to your last death location. If you have no death record (e.g., new player or death counter cleared), teleportation fails, the potion is consumed, and a message appears: \"§cTeleport failed. You have no death records.§r\"\\n\\n§lUsage§r:\\nQuickly return to your death point to retrieve items or explore where you died.\\n\\n§lNote§r:\\nThe destination may still be dangerous (e.g., in lava or near mobs), so prepare accordingly.");
         add("item.jei_info.random_enchant.enchant_brush",
                 "§l§6Enchant Brush§r\\n\\n§lBase Stats§r:\\n• Durability: §a387§r\\n• Cannot be enchanted in an enchanting table; can be enhanced with enchanted books on an anvil\\n\\n§lDurability Consumption§r:\\nActual consumption = number of blocks processed × durability factor, where durability factor depends on Unbreaking level:\\n• No Unbreaking: factor 1.0\\n• Unbreaking I: factor 0.9\\n• Unbreaking II: factor 0.7\\n• Unbreaking III: factor 0.5\\n• Unbreaking IV: factor 0.35\\n• Unbreaking V: factor 0.2\\n• Unbreaking VI: factor 0.1\\n• Unbreaking VII: factor 0.08\\n• Unbreaking ≥VIII: factor 0.05\\n\\n§lMode Switching§r: Press §eTAB§r\\n\\n§7■ Single Block Mode§r:\\n• Right-click a single block to apply all enchantments from the brush to that block. If the brush has no enchantments, it will remove enchantments from the block (no durability cost).\\n\\n§7■ Regional Mode§r:\\n• First right-click selects the starting point, indicated by §agreen particles§r.\\n• Second right-click selects the end point, applying a batch operation to all §bnon-air/non-water/non-lava§r blocks in the region:\\n  - Brush has enchantments: Adds all brush enchantments to the blocks. Durability cost = number of blocks processed × durability factor. If durability is insufficient, operation fails with a message.\\n  - Brush has no enchantments: Removes enchantments from all blocks in the region. Durability cost = number of blocks processed × durability factor.\\n• If a start point is selected but no end point, hold §eShift+Right-click§r to clear the start point and select anew.\\n\\n§lVisual Indicators§r:\\n• While holding the Enchant Brush, enchanted blocks continuously emit §agreen particles§r.\\n• In Regional Mode, start and end points briefly display particle effects when selected.\\n\\n§lSilk Touch Compatibility§r:\\n• Mining an enchanted block with a Silk Touch tool will drop the block with its enchantments intact (controlled by config §eisEnchantedBlockGetatable§r, enabled by default).\\n\\n§lNotes§r:\\n• Durability consumption in Regional Mode depends on the actual number of blocks processed and is reduced by Unbreaking.\\n• If the brush lacks durability, the operation is canceled and the start point is cleared.\\n• An Enchant Brush with no enchantments can be used to quickly clear enchantments from a region.");
-
+        add("item.jei_info.random_enchant.lightning",
+                "§6Lightning Item§r can be obtained by having a lightning bolt strike a §aLightning Rod§r enchanted with §aSilk Touch§r during a thunderstorm.\n\n" +
+                        "The lightning rod must be placed outdoors in a thunderstorm, and the strike must directly hit the rod. The item will drop as an entity to be picked up.");
         // Advancements
         add("advancements.enchant.root.title", "Random Enchant");
         add("advancements.enchant.root.description", "Begin your enchanting journey");
@@ -205,20 +210,25 @@ public class ModENUSLangProvider extends LanguageProvider {
         add("advancements.enchant.hyper_transfer.title", "Hyper Transfer");
         add("advancements.enchant.hyper_transfer.description",
                 "Enchant a hopper with §dQuick Charge§r using an Enchant Brush");
+        add("advancements.enchant.lightning_catcher.title","Lightning Catcher");
+        add("advancements.enchant.lightning_catcher.description","Get a §bLightning§r");
 
         // Event messages
         add("event.random_enchant.get_guide", "Achievement unlocked! You've been rewarded with a §6§lGuide§r");
 
         // Guide book
         add("item.random_enchant.guide.title", "§6§lGuide§r");
-        add("gui.random_enchant.guide.title","§dRandom Enchant§r Guide");
+        add("gui.random_enchant.guide.title","§d§lRandom Enchant§r§l Guide");
         add("gui.random_enchant.guide.no_results", "§cNo results found");
+        add("gui.random_enchant.guide.search","🔍Search...");
+        add("gui.random_enchant.guide.previous_button","§6Previous Page");
+        add("gui.random_enchant.guide.next_button","§6Next Page");
         var book_path = "item.random_enchant.guide.page.";
         List<String> pages = List.of(
-                // Page 1: Cover, Table of Contents, Core Mechanics
-                "§l§6Random Enchant Guide§r\n\n§oObtain this book by completing the root advancement§r\n\n§l§nTable of Contents§r\n§61. Core Mechanics§r\n§62. Block Enchantment Encyclopedia§r\n§63. Pearl Spear & Potions§r\n§64. Item Enchantment Encyclopedia§r\n§65. Command Guide§r\n§66. Default Configurations§r\n§67. Tips & Conclusion§r\n\n§l§n1. Core Mechanics§r\n\n✔ When attacking mobs, the item in your main hand has a §a80%§r chance to gain a random enchantment.\n• §eEnchantment Pool§r: All registered enchantments (including those from other mods), equal probability.\n• §eLevels§r: 60% chance for levels 0–2, 40% chance for levels 6–10.\n• §eStacking§r: New level = current level + 1 + random value.\nExample: Unbreaking II + Unbreaking 6 = Unbreaking 9.\n\n✔ Use the §6Enchant Brush§r to enchant blocks. Press §6TAB§r to switch modes.\n• §eSingle-Block Mode§r: Right-click a block to add/remove enchantments.\n• §eArea Mode§r: Select two points to enchant/clear blocks in bulk. Durability consumption is affected by the §6Unbreaking§r enchantment and the number of blocks.\n• §eClear Start Point§r: §6Shift+Right-Click§r.\n\nEnchanted blocks display §agreen particles§r when holding the brush. Enchanted blocks can be obtained with Silk Touch (configurable).",
+                // Page 1: Core Mechanics
+                "§l§6Random Enchant Guide§r\n\n§oObtain this book by completing the root advancement§r\n\n§l§nTable of Contents§r\n§61. Core Mechanics§r\n§62. Block Enchantment Encyclopedia§r\n§63. Pearl Spear & Potions§r\n§64. Item Enchantment Encyclopedia§r\n§65. Command Guide§r\n§66. Default Configurations§r\n§67. Tips§r\n\n§l§n1. Core Mechanics§r\n\n✔ When attacking mobs, the item in your main hand has an §a80%§r chance to receive a random enchantment.\n• §eEnchantment Pool§r: All registered enchantments (including those from other mods), equal probability.\n• §eLevels§r: §a60%§r chance for levels §b0–2§r, §a40%§r chance for levels §b6–10§r.\n• §eStacking§r: New level = current level + §b1§r + random value.\nExample: Unbreaking §bII§r + Unbreaking §b6§r = Unbreaking §b9§r.\n\n✔ Use the §6Enchant Brush§r to enchant blocks. Press §6TAB§r to switch modes.\n• §eSingle-Block Mode§r: Right-click a block to add/remove enchantments.\n• §eArea Mode§r: Select two points to enchant/clear blocks in bulk. Durability consumption is affected by the §6Unbreaking§r enchantment and the number of blocks.\n• §eClear Start Point§r: §6Shift+Right-Click§r.\n\nEnchanted blocks display §agreen particles§r when holding the brush. Enchanted blocks can be obtained with Silk Touch (configurable).",
 
-                // Page 2: Block Enchantment Encyclopedia (Detailed)
+// Page 2: Block Enchantment Encyclopedia (with Dispenser/Projector enchants)
                 "§l§n2. Block Enchantment Encyclopedia§r\n\n" +
                         "§6Bad Luck of the Sea (Curse)§r (bad_luck_of_the_sea)\n" +
                         "• Effect: When water flows over the block, it breaks into a falling block entity that is pushed toward the nearest shore in water. Upon landing, it reverts to its original block and retains enchantments.\n" +
@@ -228,22 +238,22 @@ public class ModENUSLangProvider extends LanguageProvider {
                         "• Effect: The block is immune to explosion damage.\n" +
                         "• Trigger: Any explosion occurs.\n\n" +
                         "§6Feather Falling§r (feather_falling)\n" +
-                        "• Effect: Reduces fall damage when an entity lands on the block. Damage reduction factor = (-0.25×level + 1).\n" +
+                        "• Effect: Reduces fall damage when an entity lands on the block. Damage reduction factor = §e(-0.25×level+1)§r.\n" +
                         "• Trigger: Entity lands on the block.\n\n" +
                         "§6Quick Charge§r (quick_charge) — Hopper exclusive\n" +
-                        "• Effect: The hopper's cooldown is forced to 0, enabling instant item transfer.\n" +
+                        "• Effect: The hopper's cooldown is forced to §b0§r, enabling instant item transfer.\n" +
                         "• Trigger: After the hopper attempts to move items.\n\n" +
                         "§6Binding Curse§r (binding_curse) — Hopper exclusive\n" +
                         "• Effect: The hopper cannot output items (locked).\n" +
                         "• Trigger: Hopper attempts to eject items.\n\n" +
                         "§6Knockback§r (knockback)\n" +
-                        "• Effect: Entities touching the block are knocked back. Force = level × 0.5.\n" +
+                        "• Effect: Entities touching the block are knocked back. Force = level × §b0.5§r.\n" +
                         "  - Normal blocks / pressure plates: Vertical upward.\n" +
                         "  - Buttons: Horizontal in the button's facing direction.\n" +
                         "  - Nether portals / tripwire: Pushed outward from the center.\n" +
                         "• Trigger: Entity enters the block's collision box or steps on it.\n\n" +
                         "§6Punch§r (punch) — Trapdoor exclusive\n" +
-                        "• Effect: When the trapdoor opens, entities on top are flung at a 45° upward angle. Force = level.\n" +
+                        "• Effect: When the trapdoor opens, entities on top are flung at a §b45°§r upward angle. Force = level.\n" +
                         "• Trigger: Trapdoor opens.\n\n" +
                         "§6Respiration§r (respiration)\n" +
                         "• Effect: The block is not washed away by water.\n" +
@@ -260,141 +270,240 @@ public class ModENUSLangProvider extends LanguageProvider {
                         "§6Aqua Affinity§r (aqua_affinity)\n" +
                         "• Effect: Allows water to flow through the block, and water destroys the block on contact (drops as item).\n" +
                         "• Trigger: Water spreads or flows through.\n\n" +
+
+                        "§lDispenser/Dropper Exclusive Enchantments§r\n" +
+                        "§6Kinetic§r (KINETIC)\n" +
+                        "• Effect: Items or projectiles launched gain increased velocity, §b+30%§r per level.\n" +
+                        "• Applicable to: Dispensers, droppers.\n\n" +
+                        "§6Steady§r (STEADY)\n" +
+                        "• Effect: Eliminates random inaccuracy, launching projectiles in a straight line.\n" +
+                        "• Applicable to: Dispensers, droppers.\n\n" +
+                        "§6No Gravity§r (NO_GRAVITY)\n" +
+                        "• Effect: Projectiles launched are unaffected by gravity.\n" +
+                        "• Applicable to: Dispensers, droppers.\n\n" +
+
                         "§lGeneral Mechanics§r\n" +
                         "• Enchantment data is stored independently; enchanted blocks can be obtained with Silk Touch (configurable).\n" +
-                        "• Area mode with the Enchant Brush consumes durability, reduced by the Unbreaking enchantment.\n" +
-                        "• Some behaviors are controlled by configs: bedrockViolable, infinityTnt, etc.",
+                        "• Area mode with the Enchant Brush consumes durability, reduced by the §6Unbreaking§r enchantment.\n" +
+                        "• Some behaviors are controlled by configs: §6bedrockViolable§r, §6infinityTnt§r, §6infinityDispenser§r, etc.",
 
-                // Page 3: Pearl Spear & New Potions
+// Page 3: Pearl Spear & Potions
                 "§l§n3. Pearl Spear & New Potions§r\n\n" +
                         "§lPearl Spear§r\nCrafting:\n[ ] [Ender Pearl] [Echo Shard]\n[Popped Chorus Fruit] [Heavy Core] [Echo Shard]\n[Breeze Rod] [Popped Chorus Fruit] [ ]\n" +
-                        "Base stats: Attack 8, Attack Speed 1.6, Durability 512, significantly increased movement speed while held.\n" +
-                        "§lRight-Click§r: Dash up to 10 blocks, damaging entities in the path (damage = 8 + Sweeping Edge level). Cooldown: 200 ticks (10s); Quick Charge reduces cooldown.\n" +
-                        "§lLeft-Click§r: Deals bonus damage based on relative velocity, then dashes horizontally, damaging entities in the path similarly.\n" +
-                        "Enchantments: Channeling (summons lightning), §aFury of Fly§r (summons bees, triggers the \"Swarm Assault\" advancement). These two are mutually exclusive. Supports sword enchantments, Unbreaking, Quick Charge, Wind Burst, etc.\n\n" +
+                        "Base stats: Attack Damage §b8§r, Attack Speed §b1.6§r, Durability §b512§r, movement speed increased by §b114.514%§r while held (multiplicative).\n\n" +
+                        "§lSkill Mechanics§r\n" +
+                        "§6Right-Click: Dash Strike§r\n" +
+                        "• Attempts to dash in the look direction, max distance §b10§r blocks, automatically adjusts to a safe position (non-air block).\n" +
+                        "• Damages all entities along the dash path. Damage = §b8§r + Sweeping Edge level.\n" +
+                        "• Cooldown: Base §c200 ticks§r (§c10 seconds§r). If enchanted with §aQuick Charge§r, the actual cooldown is calculated as:\n" +
+                        "  §ecooldown = (-39.1606) / (1 - 1.193 × e^(0.06727 × Quick Charge level))§r (rounded).\n" +
+                        "• Durability loss: Affected by §6Unbreaking§r. Loss probability §ep = 7.054 / (1 + 5.948 × e^(0.314996 × Unbreaking level))§r.\n\n" +
+                        "§6Left-Click: Kinetic Strike§r\n" +
+                        "• Deals bonus damage based on the relative velocity between the user and the target:\n" +
+                        "  - On ground: §edamage = max(0, target velocity projection - player velocity projection) × 10 + 9§r\n" +
+                        "  - In air: §edamage = max(0, player velocity projection - target velocity projection) × 10 + 9§r\n" +
+                        "• After the attack, triggers a horizontal dash of about §b10§r blocks, damaging entities along the path with the same damage as the right-click.\n\n" +
+                        "§lEnchantment Synergy§r\n" +
+                        "• §6Channeling§r: On left-click, summons multiple lightning bolts near the target. Number of bolts = Channeling level (max §b8§r), with random offsets.\n" +
+                        "• §aFury of Fly§r: On left-click, if the target survives, summons empowered bees to assist. Number of bees = enchantment level. Bees have Health Boost, Fire Resistance, Strength, Regeneration, Speed, and disappear after attacking. Triggers the \"Swarm Assault\" advancement.\n" +
+                        "• §cNote§r: Channeling and Fury of Fly are §cmutually exclusive§r and cannot coexist on the same spear.\n\n" +
+                        "§lParticle Effects§r\n" +
+                        "• Dash path: Generates §eFirework§r, §dTotem of Undying§r, and §aHappy Villager§r particles. §b50§r particles along the path, accelerating near the end.\n" +
+                        "• Start and end points: §bElectric Spark§r particles.\n" +
+                        "• Hit: §cDamage Indicator§r particles at the target's location.\n" +
+                        "• Bee summoning: Bursts of §eFlash§r and §dEnchantment§r particles.\n\n" +
+                        "§lEnchantable List§r\n" +
+                        "• Sword enchantments (Sharpness, Knockback, Fire Aspect, Looting, Sweeping Edge, etc.)\n" +
+                        "• §6Unbreaking§r\n" +
+                        "• §6Quick Charge§r (affects cooldown)\n" +
+                        "• §6Channeling§r\n" +
+                        "• §6Wind Burst§r\n" +
+                        "• §aFury of Fly§r (exclusive)\n\n" +
                         "§lNew Potions§r\n" +
-                        "§6Milk Bottle§r: Glass Bottle + Milk Bucket, clears effects.\n" +
+                        "§6Milk Bottle§r: Glass Bottle + Milk Bucket, clears effects. If enchanted with §6Infinity§r, the bottle is not consumed.\n" +
                         "§bMemory Potion§r: Milk Bottle + Ender Pearl + Sugar + Glowstone Dust. Teleports you to your spawn point (even if the bed is missing).\n" +
-                        "§aSoultrance Potion§r: Not craftable. Teleports you to your last death location (no effect if no record).",
+                        "§aSoultrance Potion§r: No recipe. Teleports you to your last death location (no effect if no death record).",
 
-                // Page 4: Item Enchantment Encyclopedia (Detailed)
+// Page 4: Item Enchantment Encyclopedia (including Lightning Item, Milk Bottle, Dispenser Infinity)
                 "§l§n4. Item Enchantment Encyclopedia§r\n\n" +
                         "§6Channeling§r\n" +
-                        "• Effect: When attacking an entity with a mace, lightning strikes the target, and the user gains Resistance V for 3 ticks.\n" +
+                        "• Effect: When attacking an entity with a mace, lightning strikes the target, and the user gains Resistance §bV§r for §b3§r ticks.\n" +
                         "• Trigger: Left-click attack hits an entity.\n" +
                         "• Applicable to: Mace, Pearl Spear, Trident (mutually exclusive with Fury of Fly on Pearl Spear).\n" +
-                        "• Level scaling: Number of lightning bolts = level (max 8).\n\n" +
+                        "• Obtaining: Enchanting table, loot, trading.\n" +
+                        "• Level scaling: Number of lightning bolts = level (max §b8§r).\n\n" +
+
                         "§6Explode§r\n" +
-                        "• Effect: Projectiles (arrows, thrown mace) explode on impact. Power = level × 0.8 (mace), level (arrow hitting entity), or level × 0.2 (arrow hitting ground).\n" +
+                        "• Effect: Projectiles (arrows, thrown mace) explode on impact.\n" +
+                        "  - Mace: Power = level × §b0.8§r.\n" +
+                        "  - Arrow hitting entity: Power = level.\n" +
+                        "  - Arrow hitting ground: Power = level × §b0.2§r.\n" +
                         "• Trigger: Arrow hits target or ground; thrown mace hits entity or block.\n" +
                         "• Applicable to: Bow, Crossbow, Mace (requires Throwable).\n" +
-                        "• Config: explodeDestroyBlock controls whether terrain is destroyed.\n" +
+                        "• Obtaining: Treasure, trade, random loot.\n" +
+                        "• Config: §6explodeDestroyBlock§r controls terrain destruction.\n" +
                         "• Mutually exclusive with Steady.\n\n" +
+
                         "§6No Gravity§r\n" +
                         "• Effect: Projectiles are unaffected by gravity, flying in a straight line.\n" +
-                        "• Applicable to: Bow, Crossbow, Trident, Mace, Fishing Rod.\n\n" +
+                        "• Applicable to: Bow, Crossbow, Trident, Mace, Fishing Rod.\n" +
+                        "• Obtaining: Treasure, random loot.\n\n" +
+
                         "§6No Resistance§r\n" +
                         "• Effect: Projectiles ignore air and water resistance, maintaining constant velocity.\n" +
-                        "• Applicable to: Same as above.\n\n" +
+                        "• Applicable to: Same as above.\n" +
+                        "• Obtaining: Treasure, random loot.\n\n" +
+
                         "§6Kinetic§r\n" +
-                        "• Effect: Increases projectile velocity by +20% per level (arrows, fishing bobbers).\n" +
+                        "• Effect: Increases projectile velocity by §b+20%§r per level (arrows, fishing bobbers).\n" +
                         "• Applicable to: Bow, Crossbow, Fishing Rod.\n" +
+                        "• Obtaining: Enchanting table, loot, trading.\n" +
                         "• Mutually exclusive with Flame.\n\n" +
+
                         "§6Steady§r\n" +
                         "• Effect: Eliminates arrow random spread, greatly improving accuracy.\n" +
                         "• Applicable to: Bow, Crossbow.\n" +
+                        "• Obtaining: Enchanting table, loot, trading.\n" +
                         "• Mutually exclusive with Explode.\n\n" +
+
                         "§6Tracking§r\n" +
                         "• Effect: Arrows automatically home toward nearby targets.\n" +
                         "  - Priority: monsters targeting the owner, then monsters with line of sight, then by directional alignment.\n" +
-                        "  - Searches every 3 ticks; tracking range = 15 + level × 2.\n" +
+                        "  - Searches every §b3§r ticks; tracking range = §b15§r + level × §b2§r.\n" +
                         "  - Emits glowing particles during flight.\n" +
-                        "• Applicable to: Bow, Crossbow.\n\n" +
+                        "• Applicable to: Bow, Crossbow.\n" +
+                        "• Obtaining: Treasure, trade, random loot.\n" +
+                        "• Level scaling: Tracking range increases.\n\n" +
+
                         "§6Loyalty§r\n" +
-                        "• Effect: A thrown mace returns to the owner after hitting a target or flying for 5 seconds. Return speed increases with level.\n" +
-                        "• Trigger: Mace hits entity/block, or after 5 seconds of flight.\n" +
+                        "• Effect: A thrown mace returns to the owner after hitting a target or flying for §b5§r seconds. Return speed increases with level.\n" +
+                        "• Trigger: Mace hits entity/block, or after §b5§r seconds of flight.\n" +
                         "• Applicable to: Mace (requires Throwable).\n" +
-                        "• Deals damage to entities in its path on return: 3 + level × 1.\n" +
-                        "• Level scaling: Return speed = 0.5 + level × 0.3, accelerated at long distances.\n\n" +
+                        "• Obtaining: Vanilla enchantment (for tridents), extended to mace in this mod.\n" +
+                        "• Deals damage to entities in its path on return: §b3§r + level × §b1§r.\n" +
+                        "• Level scaling: Return speed = §b0.5§r + level × §b0.3§r, accelerated at long distances.\n\n" +
+
                         "§6Multishot§r\n" +
                         "• Effect: Launches multiple projectiles.\n" +
-                        "  - Wind Charge: Fires level+2 additional wind charges.\n" +
+                        "  - Wind Charge: Fires level §b+2§r additional wind charges.\n" +
                         "  - Trident: When combined with Redirect, spawns multiple tridents in a spiral pattern; otherwise, random offsets.\n" +
                         "• Applicable to: Wind Charge, Trident.\n\n" +
+
                         "§6Quick Charge§r\n" +
                         "• Effect: Removes the cooldown for using Wind Charges.\n" +
                         "• Applicable to: Wind Charge.\n\n" +
-                        "§6Infinity§r\n" +
+
+                        "§6Infinity§r — Applied to items\n" +
                         "• Effect: Items are not consumed when used (requires corresponding configs).\n" +
                         "  - Throwables (eggs, snowballs, ender pearls, eyes of ender): Not consumed.\n" +
                         "  - Food: Returns the item after eating.\n" +
                         "  - Buckets: Returns itself (not an empty bucket).\n" +
-                        "  - Placeable blocks: Not consumed when placed (requires infinityBlock config).\n" +
-                        "  - TNT: Block remains after ignition (requires infinityTnt config).\n" +
+                        "  - Placeable blocks: Not consumed when placed (requires §6infinityBlock§r).\n" +
+                        "  - TNT: Block remains after ignition (requires §6infinityTnt§r).\n" +
                         "  - Elytra: Flight ignores air resistance (stacks with Fly).\n" +
-                        "• Configs: infinityThrowableItem, infinityFood, infinityBlock, infinityTnt control these.\n\n" +
+                        "  - Firework rockets: Not consumed when used (including launching and use).\n" +
+                        "  - Milk Bottle: Returns itself after drinking (rather than a glass bottle).\n" +
+                        "  - Lightning Item: Not consumed when thrown.\n" +
+                        "• Configs: §6infinityThrowableItem§r, §6infinityFood§r, §6infinityBlock§r, §6infinityTnt§r, §6infinityDispenser§r control these.\n\n" +
+
+                        "§6Infinity§r — Applied to Dispensers/Droppers\n" +
+                        "• Effect: When a dispenser/dropper is enchanted with Infinity and §6infinityDispenser§r is set to §atrue§r, items inside are not consumed (infinite usage).\n" +
+                        "• Trigger: Dispenser/dropper activates.\n\n" +
+
                         "§6Fly§r (Elytra exclusive)\n" +
                         "• Effect: While gliding with an elytra, holding the jump key causes continuous ascent. Ascent height per tick is configurable.\n" +
                         "• Trigger: Pressing jump while gliding.\n" +
-                        "• Durability cost: Each ascent has a chance to consume 1 durability, probability reduced by Unbreaking (no Unbreaking: 8%, Unbreaking I: 7.2%, II: 5.6%, III: 4%, IV: 2.8%, V: 1.6%, VI: 0.8%, ≥VII: 0.4%).\n" +
                         "• Applicable to: Elytra (supports Curios back slots).\n" +
-                        "• Config: flyEnchantmentLiftHeightPerTick controls ascent speed.\n\n" +
+                        "• Obtaining: Treasure, trade, random loot.\n" +
+                        "• Durability cost: Each ascent has a §b1§r durability consumption chance, reduced by Unbreaking (no Unbreaking: §a8%§r, Unbreaking I: §a7.2%§r, II: §a5.6%§r, III: §a4%§r, IV: §a2.8%§r, V: §a1.6%§r, VI: §a0.8%§r, ≥VII: §a0.4%§r).\n" +
+                        "• Config: §6flyEnchantmentLiftHeightPerTick§r controls ascent speed.\n\n" +
+
                         "§6Double Jump§r\n" +
-                        "• Effect: Allows an extra mid-air jump. Jump power = level × 0.45. At level ≥2, provides fall protection (no fall damage).\n" +
+                        "• Effect: Allows an extra mid-air jump. Jump power = level × §b0.45§r. At level ≥ §b2§r, provides fall protection (no fall damage).\n" +
                         "• Trigger: Pressing jump in mid-air (once, resets on ground).\n" +
                         "• Particles: Flame and cloud particles under feet.\n" +
-                        "• Applicable to: Boots.\n\n" +
+                        "• Applicable to: Boots.\n" +
+                        "• Obtaining: Enchanting table, loot, trading.\n\n" +
+
                         "§6Bad Luck of the Sea§r (Curse)\n" +
                         "• Effect (boots): Wearer is repelled from water, pushed toward the nearest shore. Repulsion force increases with level.\n" +
                         "• Effect (items): Item entities are repelled when in water.\n" +
                         "• Applicable to: Boots, any item (as a cursed book).\n" +
-                        "• Level scaling: Repulsion speed = 0.34 × level (horizontal), 0.3 × level (vertical).\n\n" +
+                        "• Obtaining: Treasure, trade, random loot, mob equipment.\n" +
+                        "• Level scaling: Repulsion speed = §b0.34§r × level (horizontal), §b0.3§r × level (vertical).\n\n" +
+
                         "§6No Curse§r\n" +
                         "• Effect: When an item has both No Curse and any curses, dropping and picking it up removes all curses (including No Curse itself).\n" +
                         "• Trigger: Picking up the item.\n" +
                         "• Applicable to: Any enchantable item.\n" +
+                        "• Obtaining: Treasure, random loot.\n" +
                         "• Advancement: Successfully removing a curse triggers the \"Purifier\" advancement.\n\n" +
+
                         "§6Redirect Projectile§r\n" +
-                        "• Effect: A thrown trident has very low initial velocity (0.03) and is unaffected by gravity. Left-clicking a location makes the trident fly rapidly toward that point, speed = level.\n" +
-                        "• Trigger: Left-click within 0.1 seconds after throwing.\n" +
+                        "• Effect: A thrown trident has very low initial velocity (§b0.03§r) and is unaffected by gravity. Left-clicking a location makes the trident fly rapidly toward that point, speed = level.\n" +
+                        "• Trigger: Left-click within §b0.1§r seconds after throwing.\n" +
                         "• Applicable to: Trident.\n" +
-                        "• Special: Can be combined with Fire Aspect; ignites target on hit (duration = level × 80 ticks). Mutually exclusive with Looting.\n" +
-                        "• Config: redirectTridentSetPointDistance controls max flight distance (default 15).\n\n" +
+                        "• Obtaining: Treasure, trade, random loot, mob equipment.\n" +
+                        "• Special: Can be combined with Fire Aspect; ignites target on hit (duration = level × §b80§r ticks). Mutually exclusive with Looting.\n" +
+                        "• Config: §6redirectTridentSetPointDistance§r controls max flight distance (default §b15§r).\n\n" +
+
                         "§6Throwable§r\n" +
                         "• Effect: Right-click to throw a mace. The thrown entity's speed is affected by Kinetic. Supports Channeling, Loyalty, Explode.\n" +
-                        "• Applicable to: Mace.\n\n" +
+                        "• Applicable to: Mace.\n" +
+                        "• Obtaining: Treasure, trade, random loot.\n\n" +
+
                         "§6Wind Burst§r\n" +
-                        "• Effect: Wind charge entities can merge to form larger ones. When radius exceeds 4, they begin attracting nearby entities, making them orbit and gradually approach the center.\n" +
+                        "• Effect: Wind charge entities can merge to form larger ones. When radius exceeds §b4§r, they begin attracting nearby entities, making them orbit and gradually approach the center.\n" +
                         "• Applicable to: Wind Charge, Pearl Spear (via tag).\n\n" +
+
                         "§6Fury of Fly§r\n" +
-                        "• Effect: When attacking with a Pearl Spear, if the target survives, summons empowered bees to assist. Number of bees = level. Bees have Health Boost, Fire Resistance, Strength, Regeneration, Speed, and disappear after attacking.\n" +
+                        "• Effect: When attacking with a Pearl Spear, if the target survives, summons empowered bees to assist. Number of bees = enchantment level. Bees have Health Boost, Fire Resistance, Strength, Regeneration, Speed, and disappear after attacking.\n" +
                         "• Applicable to: Pearl Spear.\n" +
+                        "• Obtaining: Treasure, trade, random loot.\n" +
                         "• Mutually exclusive with Channeling.\n" +
                         "• Advancement: Triggers \"Swarm Assault\" when used.\n\n" +
+
                         "§6Power§r\n" +
-                        "• Effect: Right-click a block with a shovel to launch it as a falling block. Launch speed scales with level. When it lands, it damages entities (damage = block hardness × level × 0.5 + 50).\n" +
+                        "• Effect: Right-click a block with a shovel to launch it as a falling block. Launch speed scales with level. When it lands, it damages entities (damage = block hardness × level × §b0.5§r + §b50§r).\n" +
                         "• Applicable to: Shovel.\n\n" +
+
                         "§6Binding Curse§r — See Block Enchantment section (hopper exclusive)\n" +
                         "• Effect: Locks a hopper, preventing item output.\n\n" +
-                        "§lMutually Exclusive Relationships§r:\n" +
+
+                        "§lSpecial Items§r\n" +
+                        "§6Milk Bottle§r\n" +
+                        "• Clears all status effects when drunk. If enchanted with §6Infinity§r, it is not consumed (returns itself).\n" +
+                        "• Crafting: Glass Bottle + Milk Bucket (shapeless).\n\n" +
+                        "§6Lightning Item§r\n" +
+                        "• Throwing it summons a lightning bolt at the impact point.\n" +
+                        "• Obtaining: During a thunderstorm, have lightning strike a §aLightning Rod§r enchanted with §aSilk Touch§r. The item drops as an entity.\n" +
+                        "• Enchantment support: Can be enchanted with §6Infinity§r to prevent consumption.\n\n" +
+
+                        "§lVanilla Enchantment Extensions§r\n" +
+                        "§6Feather Falling§r\n" +
+                        "• Extra effect: When wearing boots with this enchantment, or having an item with it in the Curios \"feet\" slot, you will not trample crops.\n" +
+                        "• Applicable to: Boots, any item that can be placed in the Curios feet slot.\n\n" +
+
+                        "§lMutually Exclusive Relationships§r\n" +
                         "• Fury of Fly ↔ Channeling (Pearl Spear)\n" +
                         "• Redirect Projectile ↔ Looting (Trident)\n" +
                         "• Explode ↔ Steady (Bow/Crossbow)\n" +
                         "• Kinetic ↔ Flame (Bow/Crossbow)\n\n" +
-                        "§lTreasure Enchantments§r (obtainable only from loot/trading):\n" +
+
+                        "§lTreasure Enchantments§r (obtainable only from loot/trading, not enchanting table):\n" +
                         "§aFury of Fly§r, §6Redirect Projectile§r, §dFly§r, No Gravity, No Resistance, §aNo Curse§r, §bSteady§r, §bKinetic§r, §6Explode§r, Throwable, Double Jump, §aTracking§r, §cBad Luck of the Sea§r.",
 
-                // Page 5: Command Guide (Detailed)
+// Page 5: Command Guide
                 "§l§n5. Command Guide§r\n\n" +
-                        "§6/block_enchant §r — Manage block enchantments (requires permission level 2)\n" +
+                        "§6/block_enchant §r — Manage block enchantments (requires permission level §b2§r)\n" +
                         "• §eget <x y z>§r: Displays the enchantments of the block at the specified coordinates.\n" +
-                        "• §eadd <x y z> <enchantment ID> <level>§r: Adds the specified enchantment to the block (merges with existing enchantments).\n" +
+                        "• §eadd <x y z> <enchantment ID> <level>§r: Adds the specified enchantment to the block (merges with existing enchantments). Level range §b1~255§r.\n" +
                         "• §eremove <x y z>§r: Removes all enchantments from the block.\n" +
                         "Examples:\n" +
                         "  §7/block_enchant add ~ ~ ~ minecraft:sharpness 3§r\n" +
                         "  §7/block_enchant get 100 64 100§r\n" +
                         "  §7/block_enchant remove ~ ~ ~§r\n\n" +
-                        "§6/random_enchant §r — Mod information and configuration (requires permission level 2)\n" +
+                        "§6/random_enchant §r — Mod information and configuration (requires permission level §b2§r)\n" +
                         "• §edescription§r: Gives you this guide book.\n" +
                         "• §econfig <option> [value]§r: Views or modifies configuration.\n" +
                         "  Without arguments, displays the current value; with an argument, sets it.\n" +
@@ -407,7 +516,7 @@ public class ModENUSLangProvider extends LanguageProvider {
                         "  §7/random_enchant config doRandomEnchant true§r\n" +
                         "  §7/random_enchant config redirectTridentSetPointDistance§r  (queries current value)",
 
-                // Page 6: Default Configurations (Full List) & Enchant Brush Durability
+// Page 6: Default Configurations (includes infinityDispenser)
                 "§l§n6. Default Configurations§r\n\n" +
                         "§6doRandomEnchant§r: §cfalse§r  §7Random enchantment on attack§r\n" +
                         "§6alwaysEnchantable§r: §cfalse§r  §7All items can be enchanted on an anvil§r\n" +
@@ -415,27 +524,33 @@ public class ModENUSLangProvider extends LanguageProvider {
                         "§6infinityUndyingTotem§r: §cfalse§r  §7Infinity works on totems of undying§r\n" +
                         "§6infinityBlock§r: §cfalse§r  §7Infinity works on placeable blocks§r\n" +
                         "§6infinityTnt§r: §atrue§r  §7Infinity works on TNT (block remains after ignition)§r\n" +
-                        "§6bedrockViolable§r: §cfalse§r  §7Whether bedrock can be affected by mod features§r\n" +
                         "§6infinityPotion§r: §atrue§r  §7Infinity works on potions§r\n" +
                         "§6infinityFood§r: §atrue§r  §7Infinity works on food§r\n" +
                         "§6infinityThrowableItem§r: §atrue§r  §7Infinity works on throwables§r\n" +
+                        "§6infinityDispenser§r: §cfalse§r  §7Infinity works on dispensers/droppers (items not consumed)§r\n" +
                         "§6isEnchantedBlockGetatable§r: §atrue§r  §7Silk Touch can obtain enchanted blocks§r\n" +
+                        "§6bedrockViolable§r: §cfalse§r  §7Whether bedrock can be affected by mod features§r\n" +
                         "§6redirectTridentSetPointDistance§r: §b15§r  §7Maximum flight distance for Redirect Projectile§r\n" +
                         "§6flyEnchantmentLiftHeightPerTick§r: §b0.05§r  §7Ascent height per tick for the Fly enchantment§r\n\n" +
-                        "§lEnchant Brush Durability Consumption§r (affected by Unbreaking):\n" +
+                        "§lEnchant Brush Durability Consumption§r (affected by §6Unbreaking§r):\n" +
                         "• No Unbreaking: §a20%§r chance to not consume durability\n" +
                         "• Unbreaking I: §a40%§r chance to not consume durability\n" +
                         "• Unbreaking II: §a60%§r chance to not consume durability\n" +
                         "• Unbreaking ≥III: §a80%§r chance to not consume durability",
 
-                // Page 7: Tips & Conclusion
+// Page 7: Tips (includes dispenser/lightning tips)
                 "§l§n7. Tips & Conclusion§r\n\n" +
                         "• Ensure the Enchant Brush has enough durability before area enchanting; otherwise, the operation fails and no durability is consumed.\n" +
                         "• An unenchanted Enchant Brush can quickly clear block enchantments.\n" +
-                        "• Using certain enchantments (e.g., Explode, Bad Luck of the Sea, Quick Charge on a hopper) triggers corresponding advancements.\n" +
-                        "• For Redirect Projectile on a trident, left-click within 0.1 seconds after throwing to redirect.\n" +
+                        "• Using certain enchantments (e.g., §6Explode§r, §6Bad Luck of the Sea§r, §6Quick Charge§r on a hopper) triggers corresponding advancements.\n" +
+                        "• For §6Redirect Projectile§r on a trident, left-click within §b0.1§r seconds after throwing to redirect.\n" +
                         "• The Infinity enchantment on a totem of undying may not return to the original inventory slot; keep an eye on your inventory space.\n" +
-                        "• Silk Touch is your best friend for moving enchanted blocks.\n\n" +
+                        "• Silk Touch is your best friend for moving enchanted blocks.\n" +
+                        "• Wearing boots with §6Feather Falling§r (or having it in a Curios feet slot) prevents crop trampling.\n" +
+                        "• Firework rockets combined with §6Infinity§r can be used infinitely, great for elytra flying.\n" +
+                        "• Dispensers/droppers can be enchanted with §6Kinetic§r, §6Steady§r, §6No Gravity§r to enhance projectiles; if §6infinityDispenser§r is enabled and the dispenser has §6Infinity§r, it can launch items infinitely.\n" +
+                        "• Some enchantments (e.g., §dFly§r, §6Feather Falling§r) support Curios slots – use them to save equipment slots.\n" +
+                        "• The Lightning Item can be obtained by having lightning strike a Silk-Touch Lightning Rod – a fun collectible!\n\n" +
                         "§l§oThank you for reading!§r\n\n" +
                         "We hope you enjoy the randomness of Random Enchant. For feedback, please visit the project page.\n\n" +
                         "§7—— End of Guide ——§r"

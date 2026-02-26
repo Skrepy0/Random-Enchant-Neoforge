@@ -193,6 +193,23 @@ public class RandomEnchantCommand {
                                             }
                                             return 1;
                                         })))
+                                .then(Commands.literal("infinityDispenser")
+                                        .executes(context -> {
+                                            showValue(context, "infinityDispenser", getBoolString(Config.infinityDispenser()));
+                                            return 1;
+                                        })
+                                        .then(Commands.argument("enabled", BoolArgumentType.bool()).executes(context -> {
+                                            boolean preStatus = Config.infinityDispenser();
+                                            if (boolConfig(context, preStatus, "infinityDispenser")) {
+                                                Config.setInfinityDispenser(!preStatus);
+                                            }
+                                            return 1;
+                                        })))
+                                .then(Commands.literal("infinityFood")
+                                        .executes(context -> {
+                                            showValue(context, "infinityFood", getBoolString(Config.infinityFood()));
+                                            return 1;
+                                        }))
                                 .then(Commands.literal("bedrockViolable")
                                         .executes(context -> {
                                             showValue(context, "bedrockViolable", getBoolString(Config.getBedrockViolable()));

@@ -26,7 +26,7 @@ import java.util.Optional;
 public class CommonHooksMixin {
     @Unique
     private static boolean randomEnchant$isEnchantedFF(IDynamicStackHandler stackHandler) {
-        // 3. 遍历背部槽位的所有格子（可能有多个）
+        // 3. 遍历槽位的所有格子（可能有多个）
         for (int i = 0; i < stackHandler.getSlots(); i++) {
             ItemStack stackInSlot = stackHandler.getStackInSlot(i);
             // 4. 检查物品是否匹配（非空且相同）

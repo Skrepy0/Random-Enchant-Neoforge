@@ -1,0 +1,9 @@
+{
+  "type": "enderio:enchanting",
+  "cost_multiplier": 1,
+  "enchantment": "random_enchant:double_jump",
+  "input": {
+    "count": 3,
+    "item": "minecraft:rabbit_foot"
+  }
+}

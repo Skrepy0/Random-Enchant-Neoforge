@@ -1,0 +1,9 @@
+{
+  "type": "enderio:enchanting",
+  "cost_multiplier": 1,
+  "enchantment": "random_enchant:fly",
+  "input": {
+    "count": 64,
+    "item": "minecraft:phantom_membrane"
+  }
+}

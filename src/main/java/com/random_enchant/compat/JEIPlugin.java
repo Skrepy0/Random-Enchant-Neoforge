@@ -12,7 +12,6 @@ public class JEIPlugin implements IModPlugin {
     public ResourceLocation getPluginUid() {
         return ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "jei_plugin");
     }
-
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         ModItemsInfo.register(registration);
