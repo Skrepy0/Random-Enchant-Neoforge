@@ -69,6 +69,7 @@
     "item_mixin.enchantment_item_mixin.infinity.InfinityFireworkRocketMixin",
     "item_mixin.enchantment_item_mixin.infinity.InfinityPotionItemMixin",
     "item_mixin.enchantment_item_mixin.infinity.InfinityThrowablePotionMixin",
+    "item_mixin.enchantment_item_mixin.infinity.InfinityTotemMixin",
     "item_mixin.enchantment_item_mixin.infinity.dispense.BoatDispenseItemBehaviorMixin",
     "item_mixin.enchantment_item_mixin.infinity.dispense.DefaultDispenseItemBehaviorMixin",
     "item_mixin.enchantment_item_mixin.infinity.dispense.ProjectileDispenseBehaviorMixin",

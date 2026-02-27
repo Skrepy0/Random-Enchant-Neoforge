@@ -1,8 +1,7 @@
 package com.random_enchant.event.enchantment;
 
-import static com.random_enchant.enchantment.ModEnchantHelper.getEnchantmentLevel;
-
 import com.random_enchant.Config;
+import com.random_enchant.RandomEnchant;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,14 +12,16 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
 
+import static com.random_enchant.enchantment.ModEnchantHelper.getEnchantmentLevel;
+@EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class UndyingTotem {
     private static void explode(float power, Level level, double x, double y, double z, Entity entity) {
         float f = 4.0F + (float) (power * 0.5);
@@ -31,21 +32,11 @@ public class UndyingTotem {
 
     @SubscribeEvent
     public static void useTotem(LivingUseTotemEvent event) {
-        ItemStack totem = event.getTotem();
         LivingEntity entity = event.getEntity();
         Level level = entity.level();
-        DamageSource damageSource = event.getSource();
         if (level.isClientSide) return;
-        if (Config.infinityUndyingTotem() && getEnchantmentLevel(totem, Enchantments.INFINITY) > 0) {
-            ItemStack itemStack = totem.copy();
-            itemStack.setCount(1);
-            if (entity instanceof Player player) {
-                if (!player.getInventory().add(itemStack)) {
-                    player.drop(itemStack, false);
-                }
-            }
-        }
-
+        ItemStack totem = event.getTotem();
+        DamageSource damageSource = event.getSource();
         int blastProtectLevel = getEnchantmentLevel(totem, Enchantments.BLAST_PROTECTION); // 爆炸保护
         if (blastProtectLevel > 0) {
             if (damageSource.getEntity() != null && damageSource.getDirectEntity() != null) {

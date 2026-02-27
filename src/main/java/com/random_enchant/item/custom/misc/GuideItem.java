@@ -24,6 +24,7 @@ public class GuideItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
+        if (!level.isClientSide()) return super.use(level, player, usedHand);
         List<String> pagesContent = new ArrayList<>();
         for (int i = 1; i < pages.size(); i++) {
             pagesContent.add(translatable("item.random_enchant.guide.page." + i).getString());
