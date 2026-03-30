@@ -1,5 +1,8 @@
 package com.random_enchant.client.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -13,23 +16,19 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 public class GuideScreen extends Screen {
-    private final List<String> pages;                // 原始每页文本
-    private int currentPage = 0;                      // 当前页码（从0开始）
-    private double scrollOffset = 0;                   // 当前页的垂直滚动偏移（单位：行）
+    private final List<String> pages; // 原始每页文本
+    private int currentPage = 0; // 当前页码（从0开始）
+    private double scrollOffset = 0; // 当前页的垂直滚动偏移（单位：行）
     private List<FormattedCharSequence> currentPageLines; // 当前页拆分成行后的列表
-    private int maxLines;                               // 内容区域可显示的最大行数
+    private int maxLines; // 内容区域可显示的最大行数
 
     // 搜索相关
-    private EditBox searchBox;                           // 搜索输入框
-    private Button searchButton;                         // 搜索按钮
-    private SearchResultsList searchResultsList;         // 搜索结果列表
-    private List<SearchResult> allSearchResults;         // 所有搜索结果（原始数据）
-    private boolean searchMode = false;                   // 是否处于搜索模式（即已执行过搜索）
+    private EditBox searchBox; // 搜索输入框
+    private Button searchButton; // 搜索按钮
+    private SearchResultsList searchResultsList; // 搜索结果列表
+    private List<SearchResult> allSearchResults; // 所有搜索结果（原始数据）
+    private boolean searchMode = false; // 是否处于搜索模式（即已执行过搜索）
 
     // 左侧指南内容区域
     private static final int CONTENT_X = 160;
@@ -74,35 +73,49 @@ public class GuideScreen extends Screen {
         int buttonY = this.height - 30;
 
         // ----- 右侧搜索框和按钮 -----
-        this.searchBox = new EditBox(font, RIGHT_PANEL_X, SEARCH_BOX_Y, RIGHT_PANEL_WIDTH - 3, 20, Component.translatable("gui.random_enchant.guide.search"));
+        this.searchBox = new EditBox(font, RIGHT_PANEL_X, SEARCH_BOX_Y, RIGHT_PANEL_WIDTH - 3, 20,
+                                     Component.translatable("gui.random_enchant.guide.search"));
         this.searchBox.setMaxLength(50);
         this.searchBox.setResponder(this::onSearchTextChanged);
         this.searchBox.setSuggestion(Component.translatable("gui.random_enchant.guide.search").getString());
         this.addRenderableWidget(searchBox);
 
-        this.searchButton = Button.builder(Component.literal("🔍"), btn -> performSearch()).bounds(SEARCH_BUTTON_X, SEARCH_BOX_Y, 20, 20).build();
+        this.searchButton = Button.builder(Component.literal("🔍"), btn -> performSearch())
+                                    .bounds(SEARCH_BUTTON_X, SEARCH_BOX_Y, 20, 20)
+                                    .build();
         this.searchButton.setTooltip(Tooltip.create(Component.translatable("gui.random_enchant.guide.search")));
         this.addRenderableWidget(searchButton);
 
-        this.searchResultsList = new SearchResultsList(this.minecraft, RIGHT_PANEL_WIDTH, SEARCH_LIST_HEIGHT, SEARCH_LIST_Y, (SEARCH_LIST_Y + SEARCH_LIST_HEIGHT) / 15);
+        this.searchResultsList = new SearchResultsList(this.minecraft, RIGHT_PANEL_WIDTH, SEARCH_LIST_HEIGHT,
+                                                       SEARCH_LIST_Y, (SEARCH_LIST_Y + SEARCH_LIST_HEIGHT) / 15);
         this.addRenderableWidget(searchResultsList);
 
         // ----- 底部翻页按钮 -----
-        this.addRenderableWidget(Button.builder(Component.literal("<"), btn -> {
-            if (currentPage > 0) {
-                currentPage--;
-                scrollOffset = 0;
-                updateCurrentPageLines();
-            }
-        }).bounds(RIGHT_PANEL_X, buttonY, 20, 20).tooltip(Tooltip.create(Component.translatable("gui.random_enchant.guide.previous_button"))).build());
+        this.addRenderableWidget(
+                Button.builder(Component.literal("<"),
+                               btn -> {
+                                   if (currentPage > 0) {
+                                       currentPage--;
+                                       scrollOffset = 0;
+                                       updateCurrentPageLines();
+                                   }
+                               })
+                        .bounds(RIGHT_PANEL_X, buttonY, 20, 20)
+                        .tooltip(Tooltip.create(Component.translatable("gui.random_enchant.guide.previous_button")))
+                        .build());
 
-        this.addRenderableWidget(Button.builder(Component.literal(">"), btn -> {
-            if (currentPage < pages.size() - 1) {
-                currentPage++;
-                scrollOffset = 0;
-                updateCurrentPageLines();
-            }
-        }).bounds(RIGHT_PANEL_X + 100, buttonY, 20, 20).tooltip(Tooltip.create(Component.translatable("gui.random_enchant.guide.next_button"))).build());
+        this.addRenderableWidget(
+                Button.builder(Component.literal(">"),
+                               btn -> {
+                                   if (currentPage < pages.size() - 1) {
+                                       currentPage++;
+                                       scrollOffset = 0;
+                                       updateCurrentPageLines();
+                                   }
+                               })
+                        .bounds(RIGHT_PANEL_X + 100, buttonY, 20, 20)
+                        .tooltip(Tooltip.create(Component.translatable("gui.random_enchant.guide.next_button")))
+                        .build());
 
         updateCurrentPageLines();
         this.allSearchResults = new ArrayList<>();
@@ -121,7 +134,7 @@ public class GuideScreen extends Screen {
     private void performSearch() {
         String query = searchBox.getValue().toLowerCase(Locale.ROOT).trim();
         if (query.isEmpty()) {
-            searchMode = false;          // 搜索词为空，退出搜索模式
+            searchMode = false; // 搜索词为空，退出搜索模式
             allSearchResults.clear();
             searchResultsList.updateResults(allSearchResults);
             return;
@@ -154,7 +167,8 @@ public class GuideScreen extends Screen {
             int scrollbarX = CONTENT_X + CONTENT_WIDTH + 2;
             int scrollbarWidth = 3;
 
-            if (mouseX >= scrollbarX && mouseX <= scrollbarX + scrollbarWidth && mouseY >= scrollbarY && mouseY <= scrollbarY + scrollbarHeight) {
+            if (mouseX >= scrollbarX && mouseX <= scrollbarX + scrollbarWidth && mouseY >= scrollbarY &&
+                mouseY <= scrollbarY + scrollbarHeight) {
                 isDraggingScrollbar = true;
                 dragStartMouseY = (int) mouseY;
                 return true;
@@ -226,8 +240,10 @@ public class GuideScreen extends Screen {
             int scrollbarHeight = (int) ((float) maxLines / totalLines * CONTENT_HEIGHT);
             int scrollbarY = CONTENT_Y + (int) (scrollOffset / totalLines * CONTENT_HEIGHT);
 
-            graphics.fill(CONTENT_X + CONTENT_WIDTH + 2, CONTENT_Y, CONTENT_X + CONTENT_WIDTH + 4, CONTENT_Y + CONTENT_HEIGHT, 0xFF888888);
-            graphics.fill(CONTENT_X + CONTENT_WIDTH + 2, scrollbarY, CONTENT_X + CONTENT_WIDTH + 4, scrollbarY + scrollbarHeight, 0xFFEEEEEE);
+            graphics.fill(CONTENT_X + CONTENT_WIDTH + 2, CONTENT_Y, CONTENT_X + CONTENT_WIDTH + 4,
+                          CONTENT_Y + CONTENT_HEIGHT, 0xFF888888);
+            graphics.fill(CONTENT_X + CONTENT_WIDTH + 2, scrollbarY, CONTENT_X + CONTENT_WIDTH + 4,
+                          scrollbarY + scrollbarHeight, 0xFFEEEEEE);
         }
 
         // ----- 绘制标题 -----
@@ -236,7 +252,8 @@ public class GuideScreen extends Screen {
 
         // ----- 绘制页码（底部中央）-----
         String pageIndicator = (currentPage + 1) + "/" + pages.size();
-        graphics.drawString(font, pageIndicator, RIGHT_PANEL_X + 60 - font.width(pageIndicator) / 2, this.height - 25, 0xFFFFFF, false);
+        graphics.drawString(font, pageIndicator, RIGHT_PANEL_X + 60 - font.width(pageIndicator) / 2, this.height - 25,
+                            0xFFFFFF, false);
 
         // ----- 无结果提示（仅在搜索模式且结果为空时显示）-----
         if (searchMode && allSearchResults.isEmpty()) {
@@ -247,7 +264,8 @@ public class GuideScreen extends Screen {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (mouseX >= CONTENT_X && mouseX <= CONTENT_X + CONTENT_WIDTH && mouseY >= CONTENT_Y && mouseY <= CONTENT_Y + CONTENT_HEIGHT) {
+        if (mouseX >= CONTENT_X && mouseX <= CONTENT_X + CONTENT_WIDTH && mouseY >= CONTENT_Y &&
+            mouseY <= CONTENT_Y + CONTENT_HEIGHT) {
             if (currentPageLines.size() > maxLines) {
                 double delta = -scrollY * 0.5;
                 double maxScroll = currentPageLines.size() - maxLines;
@@ -264,7 +282,8 @@ public class GuideScreen extends Screen {
             return true; // Exit early to avoid null access
         }
         // 回车键触发搜索（仅当搜索框获得焦点时）
-        if ((keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) && searchBox != null && searchBox.isFocused()) {
+        if ((keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER) && searchBox != null &&
+            searchBox.isFocused()) {
             performSearch();
             return true;
         }
@@ -298,8 +317,7 @@ public class GuideScreen extends Screen {
         return true;
     }
 
-    private record SearchResult(int page, int line, String preview) {
-    }
+    private record SearchResult(int page, int line, String preview) {}
 
     private class SearchResultsList extends ObjectSelectionList<SearchResultsList.Entry> {
         public SearchResultsList(Minecraft mc, int width, int height, int top, int bottom) {
@@ -308,7 +326,7 @@ public class GuideScreen extends Screen {
 
         public void updateResults(List<SearchResult> results) {
             this.clearEntries();
-            for (SearchResult result : results) {
+            for (SearchResult result: results) {
                 this.addEntry(new Entry(result));
             }
             // 重置滚动条到顶部
@@ -328,12 +346,11 @@ public class GuideScreen extends Screen {
         class Entry extends ObjectSelectionList.Entry<Entry> {
             private final SearchResult result;
 
-            Entry(SearchResult result) {
-                this.result = result;
-            }
+            Entry(SearchResult result) { this.result = result; }
 
             @Override
-            public void render(GuiGraphics graphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovering, float partialTick) {
+            public void render(GuiGraphics graphics, int index, int top, int left, int width, int height, int mouseX,
+                               int mouseY, boolean hovering, float partialTick) {
                 Font font = GuideScreen.this.font;
                 String prefix = "P" + (result.page + 1) + ": ";
                 String preview = result.preview;

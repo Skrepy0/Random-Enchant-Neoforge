@@ -2,6 +2,8 @@ package com.random_enchant.item;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantments;
+import java.util.List;
+import java.util.function.Supplier;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -17,9 +19,6 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import java.util.List;
-import java.util.function.Supplier;
 
 public class ModItemGroup {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =

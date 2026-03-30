@@ -2,9 +2,7 @@ package com.random_enchant.item.custom.weapon;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantHelper;
-import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.mixin_helper.RandomHelper;
-import com.random_enchant.util.AdvancementHelper;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -21,12 +19,9 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
@@ -45,122 +40,34 @@ public class PearlSpear extends Item {
 
     public PearlSpear(Properties properties) {
         super(properties.durability(512)
-                .rarity(Rarity.EPIC)
-                .stacksTo(1)
-                .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
-                .attributes(createAttributeModifiers()));
+                      .rarity(Rarity.EPIC)
+                      .stacksTo(1)
+                      .component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)
+                      .attributes(createAttributeModifiers()));
     }
 
     private static ItemAttributeModifiers createAttributeModifiers() {
         return ItemAttributeModifiers.builder()
                 .add(Attributes.ATTACK_DAMAGE,
-                        new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, Tiers.DIAMOND.getAttackDamageBonus() + 1,
-                                AttributeModifier.Operation.ADD_VALUE
+                     new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, Tiers.DIAMOND.getAttackDamageBonus() + 1,
+                                           AttributeModifier.Operation.ADD_VALUE
 
-                        ),
-                        EquipmentSlotGroup.MAINHAND)
+                                           ),
+                     EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.ATTACK_SPEED,
-                        new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, -2.4F, AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND)
+                     new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, -2.4F, AttributeModifier.Operation.ADD_VALUE),
+                     EquipmentSlotGroup.MAINHAND)
                 .add(Attributes.MOVEMENT_SPEED,
-                        new AttributeModifier(
-                                ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "pearl_spear_speed_boot"),
-                                1.14514, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
-                        EquipmentSlotGroup.HAND)
+                     new AttributeModifier(
+                             ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "pearl_spear_speed_boot"),
+                             1.14514, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL),
+                     EquipmentSlotGroup.HAND)
                 .build();
     }
 
     private static int getItemDamage(int unbreakingLevel) {
         float p = (float) (7.054 / (1 + 5.948 * Math.pow(Math.E, 0.314996 * unbreakingLevel)));
         return RandomHelper.random(p) ? 1 : 0;
-    }
-
-    private static void spawnBee(Level world, Entity target, int count, LivingEntity livingEntity) {
-        if (target == null || world.isClientSide() || livingEntity == null) return;
-
-        for (int i = 0; i < Math.min(count, 20); i++) {
-            // 修改点1：实体创建方式
-            Bee bee = new Bee(EntityType.BEE, world) {
-                @Override
-                public boolean doHurtTarget(Entity target) {
-                    boolean result = super.doHurtTarget(target);
-                    if (result && !this.level().isClientSide()) {
-                        this.discard();
-                    }
-                    return result;
-                }
-
-                @Override
-                public void tick() {
-                    super.tick();
-                    // 在服务端持续检查：如果目标无效（死亡、消失等），则立即消失
-                    if (!this.level().isClientSide()) {
-                        LivingEntity currentTarget = this.getTarget();
-                        if (currentTarget == null || !currentTarget.isAlive()) {
-                            this.discard();
-                        }
-                    }
-                }
-            };
-
-            bee.setPos(target.getX(), target.getY() + 1, target.getZ());
-            if (target instanceof LivingEntity) {
-                bee.setTarget((LivingEntity) target);
-            }
-            showBeeParticleEffect(world, livingEntity);
-            world.addFreshEntity(bee);
-            bee.setCustomName(Component.translatable("entity.minecraft.bee.random_enchant.spawn_name"));
-            bee.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 11451419, count * 2));
-            bee.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 11451419, count * 2));
-            bee.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 11451419, (int) (count * 0.2)));
-            bee.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 11451419, count * 2));
-            bee.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 11451419, count * 2));
-        }
-    }
-
-    private static void showBeeParticleEffect(Level world, LivingEntity target) {
-        Vec3 pos = target.position();
-        final int PARTICLE_COUNT = 20;
-        final double RADIUS = 2.0;
-        for (int i = 0; i < PARTICLE_COUNT; i++) {
-            double angle = 2 * Math.PI * i / PARTICLE_COUNT;
-            double x = target.getX() + RADIUS * Math.sin(angle);
-            double y = target.getY();
-            double z = target.getZ() + RADIUS * Math.cos(angle);
-            // 在服务器端发送粒子数据包给所有客户端
-            if (!world.isClientSide()) {
-                ServerLevel serverWorld = (ServerLevel) world;
-                double speed = 0.08;
-
-                // 计算从中心指向粒子位置的方向（向外）
-                Vec3 direction1 = new Vec3(x - pos.x, y - pos.y, z - pos.z).normalize(); // Vec3d -> Vec3
-
-                // 使用 sendParticles 方法，通过速度参数设置粒子运动方向
-                serverWorld.sendParticles(ParticleTypes.FLASH, x, y + 0.3, z, // 粒子位置
-                        10, // 粒子数量
-                        direction1.x * speed, // X方向速度
-                        direction1.y * speed, // Y方向速度
-                        direction1.z * speed, // Z方向速度
-                        0.01 // 基础速度（会被方向向量缩放）
-                );
-                serverWorld.sendParticles( // spawnParticles -> sendParticles
-                        ParticleTypes.ENCHANTED_HIT, x, y + 0.3, z, // 粒子位置
-                        10, // 粒子数量
-                        direction1.x * speed, // X方向速度
-                        direction1.y * speed, // Y方向速度
-                        direction1.z * speed, // Z方向速度
-                        0.01 // 基础速度（会被方向向量缩放）
-                );
-                serverWorld.sendParticles( // spawnParticles -> sendParticles
-                        ParticleTypes.ENCHANT, x, y + 0.3, z, // 粒子位置
-                        10, // 粒子数量
-                        direction1.x * speed * 1.1, // X方向速度
-                        direction1.y * speed * 1.1, // Y方向速度
-                        direction1.z * speed * 1.1, // Z方向速度
-                        0.03 // 基础速度（会被方向向量缩放）
-                );
-            }
-        }
     }
 
     @Override
@@ -177,7 +84,7 @@ public class PearlSpear extends Item {
         }
         // 播放音效
         level.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.TOTEM_USE, SoundSource.AMBIENT, 0.2F,
-                1.4F);
+                        1.4F);
         // 快速装填附魔等级
         int quickCharge = ModEnchantHelper.getEnchantmentLevel(stack, level, Enchantments.QUICK_CHARGE);
         user.getCooldowns().addCooldown(this, getRealCoolDownTime(quickCharge));
@@ -194,6 +101,7 @@ public class PearlSpear extends Item {
         if (user.getCooldowns().isOnCooldown(this)) return false;
         Vec3 playerVelocity = user.getDeltaMovement();
         Vec3 entityVelocity = target.getDeltaMovement();
+        System.out.println(playerVelocity+","+entityVelocity);
         Vec3 playerPos = user.position();
         Vec3 entityPos = target.position();
         Vec3 playerToEntity = entityPos.subtract(playerPos);
@@ -216,7 +124,7 @@ public class PearlSpear extends Item {
         }
         // 播放声音
         world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.TOTEM_USE, SoundSource.AMBIENT, 0.2F,
-                1.0F);
+                        1.0F);
         // 快速装填附魔等级
         int quickCharge = ModEnchantHelper.getEnchantmentLevel(stack, world, Enchantments.QUICK_CHARGE);
         user.getCooldowns().addCooldown(this, getRealCoolDownTime(quickCharge));
@@ -229,21 +137,14 @@ public class PearlSpear extends Item {
         showParticleEffect(world, user);
         // 实体伤害
         target.hurt(user.damageSources().playerAttack(user), damage);
-        // System.out.println(damage);
-        int furyOfFlyLevel = ModEnchantHelper.getEnchantmentLevel(stack, world, ModEnchantments.FURY_OF_FLY);
-        if (furyOfFlyLevel > 0) {
-            spawnBee(world, target, furyOfFlyLevel, user);
-            if (user instanceof ServerPlayer serverPlayer)
-                AdvancementHelper.grantAdvancement(serverPlayer, "enchant/trigger_fly_of_fury", "trigger_fly_of_fury");
-        }
-
+        System.out.println(damage);
         ServerLevel serverLevel = (ServerLevel) world;
         serverLevel.sendParticles(ParticleTypes.DAMAGE_INDICATOR, target.getX(), target.getY() + 0.5, target.getZ(),
-                10, // 粒子数量
-                0.5, // X方向速度
-                0.5, // Y方向速度
-                0.5, // Z方向速度
-                0.03 // 基础速度（会被方向向量缩放）
+                                  10, // 粒子数量
+                                  0.5, // X方向速度
+                                  0.5, // Y方向速度
+                                  0.5, // Z方向速度
+                                  0.03 // 基础速度（会被方向向量缩放）
         );
         return true;
     }
@@ -297,7 +198,7 @@ public class PearlSpear extends Item {
 
                 // 传送玩家
                 player.teleportTo((ServerLevel) level, tpX, tpY, tpZ, EnumSet.noneOf(RelativeMovement.class),
-                        Mth.wrapDegrees(player.getYRot()), Mth.wrapDegrees(player.getXRot()));
+                                  Mth.wrapDegrees(player.getYRot()), Mth.wrapDegrees(player.getXRot()));
 
                 // 恢复动量
                 player.setDeltaMovement(originalVelocity);
@@ -335,25 +236,25 @@ public class PearlSpear extends Item {
 
                 // 使用 sendParticles 方法，通过速度参数设置粒子运动方向
                 serverWorld.sendParticles(ParticleTypes.END_ROD, x, y + 0.3, z, // 粒子位置
-                        10, // 粒子数量
-                        direction1.x * speed, // X方向速度
-                        direction1.y * speed, // Y方向速度
-                        direction1.z * speed, // Z方向速度
-                        0.01 // 基础速度（会被方向向量缩放）
+                                          10, // 粒子数量
+                                          direction1.x * speed, // X方向速度
+                                          direction1.y * speed, // Y方向速度
+                                          direction1.z * speed, // Z方向速度
+                                          0.01 // 基础速度（会被方向向量缩放）
                 );
                 serverWorld.sendParticles(ParticleTypes.FLASH, x, y + 0.3, z, // 粒子位置
-                        10, // 粒子数量
-                        direction1.x * speed, // X方向速度
-                        direction1.y * speed, // Y方向速度
-                        direction1.z * speed, // Z方向速度
-                        0.01 // 基础速度（会被方向向量缩放）
+                                          10, // 粒子数量
+                                          direction1.x * speed, // X方向速度
+                                          direction1.y * speed, // Y方向速度
+                                          direction1.z * speed, // Z方向速度
+                                          0.01 // 基础速度（会被方向向量缩放）
                 );
                 serverWorld.sendParticles(ParticleTypes.DRAGON_BREATH, x, y + 0.3, z, // 粒子位置
-                        10, // 粒子数量
-                        direction1.x * speed * 1.1, // X方向速度
-                        direction1.y * speed * 1.1, // Y方向速度
-                        direction1.z * speed * 1.1, // Z方向速度
-                        0.03 // 基础速度（会被方向向量缩放）
+                                          10, // 粒子数量
+                                          direction1.x * speed * 1.1, // X方向速度
+                                          direction1.y * speed * 1.1, // Y方向速度
+                                          direction1.z * speed * 1.1, // Z方向速度
+                                          0.03 // 基础速度（会被方向向量缩放）
                 );
             }
         }
@@ -399,13 +300,13 @@ public class PearlSpear extends Item {
         final float DAMAGE_AMOUNT = 8.0f + sweepingEdgeLevel; // 调整伤害值
         AABB searchBox =
                 new AABB(player.getX() - SEARCH_RADIUS, player.getY() - SEARCH_RADIUS, player.getZ() - SEARCH_RADIUS,
-                        player.getX() + SEARCH_RADIUS, player.getY() + SEARCH_RADIUS, player.getZ() + SEARCH_RADIUS);
+                         player.getX() + SEARCH_RADIUS, player.getY() + SEARCH_RADIUS, player.getZ() + SEARCH_RADIUS);
         List<LivingEntity> nearbyEntities =
                 world.getEntitiesOfClass(LivingEntity.class, searchBox,
-                        entity -> entity != player && entity.isAlive() // 排除玩家自己和死亡的生物
+                                         entity -> entity != player && entity.isAlive() // 排除玩家自己和死亡的生物
                 );
 
-        for (LivingEntity entity : nearbyEntities) {
+        for (LivingEntity entity: nearbyEntities) {
             if (isEntityNearTrack(entity, startPos, endPos, DAMAGE_RADIUS)) {
                 DamageSource damageSource = world.damageSources().playerAttack(player);
                 boolean damageSuccess = entity.hurt(damageSource, DAMAGE_AMOUNT);
@@ -414,11 +315,11 @@ public class PearlSpear extends Item {
                     // 在服务端生成粒子并发送给附近客户端
                     ClientboundLevelParticlesPacket particlesPacket =
                             new ClientboundLevelParticlesPacket(ParticleTypes.DAMAGE_INDICATOR, // 粒子类型
-                                    false, // 是否远距离渲染
-                                    entity.getX(), entity.getY(0.5), entity.getZ(), // 位置
-                                    0.3f, 0.3f, 0.3f, // 偏移量 (deltaX/Y/Z)
-                                    0.02f, // 速度
-                                    5 // 粒子数量
+                                                                false, // 是否远距离渲染
+                                                                entity.getX(), entity.getY(0.5), entity.getZ(), // 位置
+                                                                0.3f, 0.3f, 0.3f, // 偏移量 (deltaX/Y/Z)
+                                                                0.02f, // 速度
+                                                                5 // 粒子数量
                             );
 
                     // 向追踪此实体的所有玩家发送粒子数据包
@@ -501,10 +402,10 @@ public class PearlSpear extends Item {
 
                 // 添加音效和粒子效果
                 world.playSound(null, // 玩家
-                        groundPos.getX(), groundPos.getY(), groundPos.getZ(), // 位置坐标分开
-                        SoundEvents.LIGHTNING_BOLT_THUNDER,
-                        SoundSource.WEATHER, // 常量名改变
-                        5.0F, 1.0F);
+                                groundPos.getX(), groundPos.getY(), groundPos.getZ(), // 位置坐标分开
+                                SoundEvents.LIGHTNING_BOLT_THUNDER,
+                                SoundSource.WEATHER, // 常量名改变
+                                5.0F, 1.0F);
             }
         }
     }

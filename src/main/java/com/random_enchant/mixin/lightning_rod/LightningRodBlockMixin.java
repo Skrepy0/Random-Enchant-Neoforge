@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class LightningRodBlockMixin {
     @Inject(method = "onLightningStrike", at = @At("RETURN"))
     private void onLightningStrikeMixin(BlockState state, Level level, BlockPos pos, CallbackInfo ci) {
-        if (BlockEnchantmentStorage.getLevel(Enchantments.SILK_TOUCH, pos)>0){
+        if (BlockEnchantmentStorage.getLevel(Enchantments.SILK_TOUCH, pos) > 0) {
             ItemStack stack = new ItemStack(ModItems.LIGHTNING_ITEM.get());
             ItemEntity itemEntity = new ItemEntity(level, pos.getX(), pos.getY(), pos.getZ(), stack);
             itemEntity.setInvulnerable(true);

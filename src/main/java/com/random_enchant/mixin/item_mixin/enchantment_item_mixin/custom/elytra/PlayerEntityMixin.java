@@ -5,6 +5,7 @@ import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.mixin_helper.ElytraJumpMixinHelper;
 import com.random_enchant.mixin_helper.RandomHelper;
+import java.util.Optional;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,8 +24,6 @@ import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
-import java.util.Optional;
-
 @Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -34,7 +33,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
 
     @Unique
-    private static int isEnchantedFly(IDynamicStackHandler stackHandler){
+    private static int isEnchantedFly(IDynamicStackHandler stackHandler) {
         // 3. 遍历背部槽位的所有格子（可能有多个）
         for (int i = 0; i < stackHandler.getSlots(); i++) {
             ItemStack stackInSlot = stackHandler.getStackInSlot(i);
@@ -51,7 +50,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         if (!this.isFallFlying()) return;
 
         ItemStack chestItem = this.getItemBySlot(EquipmentSlot.CHEST);
-        if (ModEnchantHelper.getEnchantmentLevel(chestItem, ModEnchantments.FLY) <= 0){
+        if (ModEnchantHelper.getEnchantmentLevel(chestItem, ModEnchantments.FLY) <= 0) {
             Optional<ICuriosItemHandler> curiosInventory = CuriosApi.getCuriosInventory(this);
             if (curiosInventory.isPresent()) {
                 ICuriosItemHandler handler = curiosInventory.get();
@@ -60,7 +59,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                     ICurioStacksHandler backHandler = backStacks.get();
                     IDynamicStackHandler stackHandler = backHandler.getStacks(); // 获取槽位物品处理器
                     int i = isEnchantedFly(stackHandler);
-                    if (i==-114514)return;
+                    if (i == -114514) return;
                     chestItem = stackHandler.getStackInSlot(i);
                 }
             }

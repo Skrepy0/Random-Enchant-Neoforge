@@ -3,6 +3,7 @@ package com.random_enchant.mixin.item_mixin.enchantment_item_mixin.custom.elytra
 import com.llamalad7.mixinextras.sugar.Local;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
+import java.util.Optional;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.item.ItemStack;
@@ -20,16 +21,11 @@ import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
-import java.util.Optional;
-
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-    public LivingEntityMixin(EntityType<?> entityType, Level level) {
-        super(entityType, level);
-    }
+    public LivingEntityMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
-    @Shadow
-    public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
+    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
 
     @Shadow
     private SoundEvent getFallDamageSound(int height) {
@@ -50,9 +46,9 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(Lnet/minecraft/world/phys/"
-                    + "Vec3;)V",
-            ordinal = 6),
+                     target = "Lnet/minecraft/world/entity/LivingEntity;setDeltaMovement(Lnet/minecraft/world/phys/"
+                              + "Vec3;)V",
+                     ordinal = 6),
             method = "travel", cancellable = true)
     private void
     init1(CallbackInfo ci, @Local(ordinal = 1) Vec3 vec3, @Local(ordinal = 3) double d3) {
@@ -85,6 +81,5 @@ public abstract class LivingEntityMixin extends Entity {
         if (this.onGround() && !this.level().isClientSide) {
             this.setSharedFlag(7, false);
         }
-
     }
 }

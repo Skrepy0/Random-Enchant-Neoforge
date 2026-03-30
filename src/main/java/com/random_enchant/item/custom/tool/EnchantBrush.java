@@ -6,6 +6,9 @@ import com.random_enchant.enchantment.ModEnchantments;
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
 import com.random_enchant.mixin_helper.InjectHelper;
 import com.random_enchant.util.AdvancementHelper;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -22,10 +25,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Blocks;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
 
 public class EnchantBrush extends BrushItem {
@@ -99,11 +98,11 @@ public class EnchantBrush extends BrushItem {
             if (stack.isEnchanted()) {
                 // 如果Pos位置方块没有附魔
                 if (Objects.equals(BlockEnchantmentStorage.getEnchantmentsAtPosition(context.getClickedPos()),
-                        new ListTag())) {
+                                   new ListTag())) {
                     InjectHelper.addToList(stack, context.getClickedPos());
                     EquipmentSlot equipmentSlot = stack.equals(context.getPlayer().getItemBySlot(EquipmentSlot.OFFHAND))
-                            ? EquipmentSlot.OFFHAND
-                            : EquipmentSlot.MAINHAND;
+                                                          ? EquipmentSlot.OFFHAND
+                                                          : EquipmentSlot.MAINHAND;
                     stack.hurtAndBreak(1, context.getPlayer(), equipmentSlot);
                 } else {
                     ListTag oldEnchantments =
@@ -118,13 +117,13 @@ public class EnchantBrush extends BrushItem {
                 if (user instanceof ServerPlayer serverPlayer) {
                     if (ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.BAD_LUCK_OF_THE_SEA) > 0) {
                         AdvancementHelper.grantAdvancement(serverPlayer, "enchant/bad_luck_of_the_sea",
-                                "bad_luck_of_the_sea");
+                                                           "bad_luck_of_the_sea");
                     }
                     if (ModEnchantHelper.getEnchantmentLevel(stack, ModEnchantments.EXPLODE) > 0) {
                         AdvancementHelper.grantAdvancement(serverPlayer, "enchant/explode", "explode");
                     }
                     if (ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.QUICK_CHARGE) > 0 &&
-                            context.getLevel().getBlockState(context.getClickedPos()).is(Blocks.HOPPER)) {
+                        context.getLevel().getBlockState(context.getClickedPos()).is(Blocks.HOPPER)) {
                         AdvancementHelper.grantAdvancement(serverPlayer, "enchant/hyper_transfer", "hyper_transfer");
                     }
                 }
@@ -163,9 +162,9 @@ public class EnchantBrush extends BrushItem {
         Component statusComponent =
                 Component.translatable("item.tooltip.random_enchant.enchant_brush.status")
                         .append(status ? Component.translatable(
-                                "item.tooltip.random_enchant.enchant_brush.status.regional")
-                                : Component.translatable(
-                                "item.tooltip.random_enchant.enchant_brush.status.single"));
+                                                 "item.tooltip.random_enchant.enchant_brush.status.regional")
+                                       : Component.translatable(
+                                                 "item.tooltip.random_enchant.enchant_brush.status.single"));
 
         tooltipComponents.add(statusComponent);
         if (BrushNBTUtils.hasStartPos(stack)) {

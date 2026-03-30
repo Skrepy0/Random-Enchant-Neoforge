@@ -306,6 +306,7 @@
   "enchantment.random_enchant.throwable.desc": "Allows the mace to be thrown",
   "enchantment.random_enchant.tracking": "§aTracking§r",
   "enchantment.random_enchant.tracking.desc": "Arrows track their target",
+  "entity.minecraft.bee.random_enchant.spawn_name": "§aFly",
   "event.random_enchant.get_guide": "Achievement unlocked! You've been rewarded with a §6§lGuide§r",
   "gui.random_enchant.guide.next_button": "§6Next Page",
   "gui.random_enchant.guide.no_results": "§cNo results found",

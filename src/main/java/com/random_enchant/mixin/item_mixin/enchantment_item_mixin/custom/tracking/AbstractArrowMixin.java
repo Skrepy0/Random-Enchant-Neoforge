@@ -2,6 +2,8 @@ package com.random_enchant.mixin.item_mixin.enchantment_item_mixin.custom.tracki
 
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
+import java.util.List;
+import javax.annotation.Nullable;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,43 +23,25 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import javax.annotation.Nullable;
-import java.util.List;
-
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
 
-    @Unique
-    @Nullable
-    private LivingEntity randomEnchantTracking$trackedTarget;
-    @Unique
-    private int randomEnchantTracking$trackingLevel = 1;
-    @Unique
-    private int randomEnchantTracking$ticksSinceLastSearch = 0;
-    @Unique
-    private boolean randomEnchantTracking$isActivelyTracking = false;
+    @Unique @Nullable private LivingEntity randomEnchantTracking$trackedTarget;
+    @Unique private int randomEnchantTracking$trackingLevel = 1;
+    @Unique private int randomEnchantTracking$ticksSinceLastSearch = 0;
+    @Unique private boolean randomEnchantTracking$isActivelyTracking = false;
 
     // ========== 核心参数 ==========
-    @Unique
-    private static final double SEEK_DISTANCE = 8.0;
-    @Unique
-    private static final double SEEK_FACTOR = 0.8;
-    @Unique
-    private static final double SEEK_ANGLE = Math.PI / 6.0;
-    @Unique
-    private static final double SEEK_THRESHOLD = 0.5;
-    @Unique
-    private static final double Y_OFFSET = 0.045;
-    @Unique
-    private static final double MIN_SPEED_FOR_TRACKING = 0.1;
-    @Unique
-    private static final int SEARCH_COOLDOWN = 3;
-    @Unique
-    private static final float ROTATION_LERP_FACTOR = 0.8f;
-    @Unique
-    private static final double BASE_TRACKING_RANGE = 15.0;
-    @Unique
-    private static final double RAYCAST_RANGE = 100.0; // 射线检测最大范围
+    @Unique private static final double SEEK_DISTANCE = 8.0;
+    @Unique private static final double SEEK_FACTOR = 0.8;
+    @Unique private static final double SEEK_ANGLE = Math.PI / 6.0;
+    @Unique private static final double SEEK_THRESHOLD = 0.5;
+    @Unique private static final double Y_OFFSET = 0.045;
+    @Unique private static final double MIN_SPEED_FOR_TRACKING = 0.1;
+    @Unique private static final int SEARCH_COOLDOWN = 3;
+    @Unique private static final float ROTATION_LERP_FACTOR = 0.8f;
+    @Unique private static final double BASE_TRACKING_RANGE = 15.0;
+    @Unique private static final double RAYCAST_RANGE = 100.0; // 射线检测最大范围
 
     @Inject(method = "shoot(DDDFF)V", at = @At("RETURN"))
     private void onShoot(double x, double y, double z, float velocity, float inaccuracy, CallbackInfo ci) {
@@ -96,15 +80,9 @@ public abstract class AbstractArrowMixin {
                 double offsetX = arrow.getDeltaMovement().x() * i / 4.0D;
                 double offsetY = arrow.getDeltaMovement().y() * i / 4.0D;
                 double offsetZ = arrow.getDeltaMovement().z() * i / 4.0D;
-                arrow.level().addParticle(
-                        ParticleTypes.GLOW,
-                        arrow.getX() + offsetX,
-                        arrow.getY() + offsetY,
-                        arrow.getZ() + offsetZ,
-                        -arrow.getDeltaMovement().x(),
-                        -arrow.getDeltaMovement().y() + 0.2D,
-                        -arrow.getDeltaMovement().z()
-                );
+                arrow.level().addParticle(ParticleTypes.GLOW, arrow.getX() + offsetX, arrow.getY() + offsetY,
+                                          arrow.getZ() + offsetZ, -arrow.getDeltaMovement().x(),
+                                          -arrow.getDeltaMovement().y() + 0.2D, -arrow.getDeltaMovement().z());
             }
         }
 
@@ -133,9 +111,9 @@ public abstract class AbstractArrowMixin {
     @Unique
     private void randomEnchantTracking$updateTrackingTarget(AbstractArrow arrow, LivingEntity owner) {
         boolean needSearch = randomEnchantTracking$ticksSinceLastSearch >= SEARCH_COOLDOWN ||
-                randomEnchantTracking$trackedTarget == null ||
-                !randomEnchantTracking$trackedTarget.isAlive() ||
-                !randomEnchantTracking$isInTrackingRange(arrow, randomEnchantTracking$trackedTarget);
+                             randomEnchantTracking$trackedTarget == null ||
+                             !randomEnchantTracking$trackedTarget.isAlive() ||
+                             !randomEnchantTracking$isInTrackingRange(arrow, randomEnchantTracking$trackedTarget);
 
         if (needSearch) {
             randomEnchantTracking$ticksSinceLastSearch = 0;
@@ -143,7 +121,8 @@ public abstract class AbstractArrowMixin {
             randomEnchantTracking$isActivelyTracking = randomEnchantTracking$trackedTarget != null;
         } else if (randomEnchantTracking$trackedTarget != null) {
             Vec3 motionVec = arrow.getDeltaMovement().normalize();
-            Vec3 targetVec = randomEnchantTracking$getVectorToTarget(arrow, randomEnchantTracking$trackedTarget).normalize();
+            Vec3 targetVec =
+                    randomEnchantTracking$getVectorToTarget(arrow, randomEnchantTracking$trackedTarget).normalize();
             double dotProduct = motionVec.dot(targetVec);
 
             if (dotProduct < SEEK_THRESHOLD) {
@@ -179,18 +158,18 @@ public abstract class AbstractArrowMixin {
         double levelRange = randomEnchantTracking$trackingLevel * 3.0;
         targetBB = targetBB.inflate(levelRange);
 
-        List<LivingEntity> candidates = owner.level().getEntitiesOfClass(LivingEntity.class, targetBB,
-                e -> e != owner && e.isAlive() && !e.is(arrow));
+        List<LivingEntity> candidates = owner.level().getEntitiesOfClass(
+                LivingEntity.class, targetBB, e -> e != owner && e.isAlive() && !e.is(arrow));
 
         // 优先级1：攻击主人的怪物
-        for (LivingEntity e : candidates) {
+        for (LivingEntity e: candidates) {
             if (e instanceof Monster monster && monster.getTarget() == owner) {
                 return monster;
             }
         }
 
         // 优先级2：有视线的怪物（改用参考逻辑的视线检测）
-        for (LivingEntity e : candidates) {
+        for (LivingEntity e: candidates) {
             if (e instanceof Monster && randomEnchantTracking$checkLineOfSight(arrow, e)) {
                 return e;
             }
@@ -201,7 +180,7 @@ public abstract class AbstractArrowMixin {
         double bestDot = SEEK_THRESHOLD;
         LivingEntity bestTarget = null;
 
-        for (LivingEntity e : candidates) {
+        for (LivingEntity e: candidates) {
             if (e == owner) continue;
             if (e instanceof TamableAnimal tame && tame.getOwner() == owner) continue;
             if (!randomEnchantTracking$checkLineOfSight(arrow, e)) continue;
@@ -231,8 +210,7 @@ public abstract class AbstractArrowMixin {
 
         // 2. 参考逻辑：先做方块射线检测
         HitResult blockHitResult = arrow.level().clip(
-                new ClipContext(startPos, endPos, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, arrow)
-        );
+                new ClipContext(startPos, endPos, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, arrow));
 
         // 3. 如果方块检测命中（视线被阻挡），直接返回false
         if (blockHitResult.getType() == HitResult.Type.BLOCK) {
@@ -240,21 +218,22 @@ public abstract class AbstractArrowMixin {
         }
 
         // 4. 参考逻辑：方块未命中时，做实体射线检测
-        EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(
-                arrow.level(),          // 世界
-                arrow,                  // 发射者（箭矢自身）
-                startPos,               // 起点
-                endPos,                 // 终点
-                new AABB(startPos, endPos).inflate(1.0), // 搜索范围（扩1格）
-                entity -> {             // 过滤条件（完全参考你的逻辑）
-                    return entity != arrow &&        // 不检测自己
-                            entity.isAlive() &&       // 实体存活
-                            entity.isPickable() &&    // 可被击中
-                            !entity.isSpectator() &&  // 非旁观者
-                            entity == target;         // 仅检测目标实体
-                },
-                0.0F                    // 距离阈值
-        );
+        EntityHitResult entityHitResult =
+                ProjectileUtil.getEntityHitResult(arrow.level(), // 世界
+                                                  arrow, // 发射者（箭矢自身）
+                                                  startPos, // 起点
+                                                  endPos, // 终点
+                                                  new AABB(startPos, endPos).inflate(1.0), // 搜索范围（扩1格）
+                                                  entity
+                                                  -> { // 过滤条件（完全参考你的逻辑）
+                                                      return entity != arrow && // 不检测自己
+                                                              entity.isAlive() && // 实体存活
+                                                              entity.isPickable() && // 可被击中
+                                                              !entity.isSpectator() && // 非旁观者
+                                                              entity == target; // 仅检测目标实体
+                                                  },
+                                                  0.0F // 距离阈值
+                );
 
         // 5. 实体检测命中目标 → 视线畅通
         return entityHitResult != null && entityHitResult.getEntity() == target;
@@ -271,8 +250,7 @@ public abstract class AbstractArrowMixin {
 
         // 第一步：参考逻辑做方块射线检测
         HitResult blockHit = arrow.level().clip(
-                new ClipContext(rayStart, rayEnd, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, arrow)
-        );
+                new ClipContext(rayStart, rayEnd, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, arrow));
         // 如果方块命中，且命中点在50格内 → 射线被阻挡，无目标
         if (blockHit.getType() == HitResult.Type.BLOCK && blockHit.getLocation().distanceTo(rayStart) < RAYCAST_RANGE) {
             return null;
@@ -280,12 +258,7 @@ public abstract class AbstractArrowMixin {
 
         // 第二步：方块未阻挡时，做实体射线检测（参考你的逻辑）
         EntityHitResult entityHitResult = ProjectileUtil.getEntityHitResult(
-                arrow.level(),
-                arrow,
-                rayStart,
-                rayEnd,
-                new AABB(rayStart, rayEnd).inflate(1.0),
-                entity -> {
+                arrow.level(), arrow, rayStart, rayEnd, new AABB(rayStart, rayEnd).inflate(1.0), entity -> {
                     // 过滤条件：非主人、非宠物、存活、可被击中、非旁观者
                     if (entity == owner || !entity.isAlive() || !entity.isPickable() || entity.isSpectator()) {
                         return false;
@@ -294,9 +267,7 @@ public abstract class AbstractArrowMixin {
                         return false;
                     }
                     return entity instanceof LivingEntity; // 仅检测生物
-                },
-                0.0F
-        );
+                }, 0.0F);
 
         // 命中有效生物 → 返回该目标
         if (entityHitResult != null && entityHitResult.getEntity() instanceof LivingEntity livingEntity) {
@@ -311,7 +282,8 @@ public abstract class AbstractArrowMixin {
     private void randomEnchantTracking$steerTowardsTargetSeekerStyle(AbstractArrow arrow) {
         if (randomEnchantTracking$trackedTarget == null) return;
 
-        Vec3 targetVec = randomEnchantTracking$getVectorToTarget(arrow, randomEnchantTracking$trackedTarget).scale(SEEK_FACTOR);
+        Vec3 targetVec =
+                randomEnchantTracking$getVectorToTarget(arrow, randomEnchantTracking$trackedTarget).scale(SEEK_FACTOR);
         Vec3 courseVec = arrow.getDeltaMovement();
 
         double courseLen = courseVec.length();
@@ -322,8 +294,8 @@ public abstract class AbstractArrowMixin {
 
         if (dotProduct > SEEK_THRESHOLD) {
             Vec3 newMotion = courseVec.scale(courseLen / totalLen)
-                    .add(targetVec.scale(courseLen / totalLen))
-                    .add(0, Y_OFFSET, 0);
+                                     .add(targetVec.scale(courseLen / totalLen))
+                                     .add(0, Y_OFFSET, 0);
 
             arrow.setDeltaMovement(newMotion);
             arrow.hasImpulse = true;
@@ -341,11 +313,8 @@ public abstract class AbstractArrowMixin {
 
     @Unique
     private Vec3 randomEnchantTracking$getVectorToTarget(AbstractArrow arrow, Entity target) {
-        return new Vec3(
-                target.getX() - arrow.getX(),
-                (target.getY() + target.getEyeHeight()) - arrow.getY(),
-                target.getZ() - arrow.getZ()
-        );
+        return new Vec3(target.getX() - arrow.getX(), (target.getY() + target.getEyeHeight()) - arrow.getY(),
+                        target.getZ() - arrow.getZ());
     }
 
     @Unique

@@ -22,19 +22,26 @@ public class ProjectileDispenseBehaviorMixin {
         dispenseSource = blockSource;
     }
 
-    @Redirect(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ProjectileItem;shoot(Lnet/minecraft/world/entity/projectile/Projectile;DDDFF)V"))
-    private void redirectShoot(ProjectileItem projectileItem, Projectile projectile, double x, double y, double z, float velocity, float inaccuracy) {
-        int l = Math.max(BlockEnchantmentStorage.getLevel(ModEnchantments.KINETIC, dispenseSource.pos()),0);
-        if (BlockEnchantmentStorage.getLevel(ModEnchantments.NO_GRAVITY, dispenseSource.pos())>0)projectile.setNoGravity(true);
-        if (BlockEnchantmentStorage.getLevel(ModEnchantments.STEADY, dispenseSource.pos())>0){
+    @Redirect(
+            method = "execute",
+            at = @At(
+                    value = "INVOKE",
+                    target =
+                            "Lnet/minecraft/world/item/ProjectileItem;shoot(Lnet/minecraft/world/entity/projectile/Projectile;DDDFF)V"))
+    private void
+    redirectShoot(ProjectileItem projectileItem, Projectile projectile, double x, double y, double z, float velocity,
+                  float inaccuracy) {
+        int l = Math.max(BlockEnchantmentStorage.getLevel(ModEnchantments.KINETIC, dispenseSource.pos()), 0);
+        if (BlockEnchantmentStorage.getLevel(ModEnchantments.NO_GRAVITY, dispenseSource.pos()) > 0)
+            projectile.setNoGravity(true);
+        if (BlockEnchantmentStorage.getLevel(ModEnchantments.STEADY, dispenseSource.pos()) > 0) {
             inaccuracy = 0;
         }
-        projectile.shoot(x, y, z, randomEnchant$getVelocity(l,velocity), inaccuracy);
-
+        projectile.shoot(x, y, z, randomEnchant$getVelocity(l, velocity), inaccuracy);
     }
 
     @Unique
     private float randomEnchant$getVelocity(int level, float velocity) {
-        return (float) (velocity * (1+level*0.3));
+        return (float) (velocity * (1 + level * 0.3));
     }
 }

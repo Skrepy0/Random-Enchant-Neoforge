@@ -58,23 +58,23 @@ public class ThrownMaceEntityRenderer extends EntityRenderer<ThrownMace> {
         poseStack.popPose();
 
         // 可选：渲染轨迹效果
-        //renderTrail(entity, partialTicks, poseStack, buffer, packedLight);
+        // renderTrail(entity, partialTicks, poseStack, buffer, packedLight);
 
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
-//    /**
-//     * 渲染投掷物品的轨迹效果（可选）
-//     */
-//    private void renderTrail(ThrownMace entity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer,
-//                             int packedLight) {
-//        // 这里可以添加轨迹粒子效果
-//        // 例如：根据速度渲染拖尾效果
-//        if (entity.getDeltaMovement().length() > 0.5F && entity.tickCount % 2 == 0) {
-//            // 可以在这里添加粒子效果，但需要在客户端事件中处理
-//            // 或者使用渲染粒子系统
-//        }
-//    }
+    //    /**
+    //     * 渲染投掷物品的轨迹效果（可选）
+    //     */
+    //    private void renderTrail(ThrownMace entity, float partialTicks, PoseStack poseStack, MultiBufferSource buffer,
+    //                             int packedLight) {
+    //        // 这里可以添加轨迹粒子效果
+    //        // 例如：根据速度渲染拖尾效果
+    //        if (entity.getDeltaMovement().length() > 0.5F && entity.tickCount % 2 == 0) {
+    //            // 可以在这里添加粒子效果，但需要在客户端事件中处理
+    //            // 或者使用渲染粒子系统
+    //        }
+    //    }
 
     @Override
     public boolean shouldShowName(ThrownMace entity) {

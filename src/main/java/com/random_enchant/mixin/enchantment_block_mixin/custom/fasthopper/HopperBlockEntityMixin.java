@@ -1,6 +1,7 @@
 package com.random_enchant.mixin.enchantment_block_mixin.custom.fasthopper;
 
 import com.random_enchant.enchantment.enchantmentblock.BlockEnchantmentStorage;
+import java.util.function.BooleanSupplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -12,12 +13,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.function.BooleanSupplier;
-
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntityMixin {
-    @Shadow
-    public abstract double getLevelX();
+    @Shadow public abstract double getLevelX();
 
     @Inject(at = @At("RETURN"), method = "tryMoveItems")
     private static void init1(Level level, BlockPos pos, BlockState state, HopperBlockEntity blockEntity,

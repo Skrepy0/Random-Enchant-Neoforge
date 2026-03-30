@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(BoatDispenseItemBehavior.class)
 public class BoatDispenseItemBehaviorMixin {
-    @Redirect(method = "execute",at = @At(value = "INVOKE",target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"))
+    @Redirect(method = "execute", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"))
     private void shrinkInfinityItemStack(ItemStack stack, int amount) {
         if (!Config.infinityDispenser() || ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.INFINITY) <= 0) {
             stack.shrink(amount);

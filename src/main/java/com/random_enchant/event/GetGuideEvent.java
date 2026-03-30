@@ -48,7 +48,8 @@ public class GetGuideEvent {
 
         if (!added) {
             // 背包满了，掉落在玩家位置
-            ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ModItems.GUIDE.toStack());
+            ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(),
+                                                   ModItems.GUIDE.toStack());
             player.level().addFreshEntity(itemEntity);
         } else {
             // 更新玩家背包（可选，但推荐）
