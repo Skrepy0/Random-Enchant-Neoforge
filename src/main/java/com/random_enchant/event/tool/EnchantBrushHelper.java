@@ -79,13 +79,15 @@ public class EnchantBrushHelper {
             } else {
                 // 第二次点击：记录终点并执行区域操作
                 BlockPos startPos = BrushNBTUtils.getStartPos(brush);
-                double blockCount;
+                double blockCount = 0;
                 int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(Enchantments.UNBREAKING, brush);
                 if (!player.isCreative()) {
                     // 判断耐久是否允许
                     // 实际方块数量的0.1%
-                    blockCount = (double) Math.abs(startPos.getX() - pos.getX()) / 1000 *
-                                 Math.abs(startPos.getZ() - pos.getZ());
+                    if (startPos != null) {
+                        blockCount = (double) Math.abs(startPos.getX() - pos.getX()) / 1000 *
+                                     Math.abs(startPos.getZ() - pos.getZ());
+                    }
                     double durability = (double) (brush.getMaxDamage() - brush.getDamageValue()) / 1000;
                     if (getDamage((int) (blockCount * 1000), unbreakingLevel) >= durability * 1000) {
                         player.displayClientMessage(
@@ -132,13 +134,15 @@ public class EnchantBrushHelper {
                         Component.translatable("message.random_enchant.item.enchant_brush.selected_1"), true);
             } else {
                 BlockPos startPos = BrushNBTUtils.getStartPos(brush);
-                double blockCount;
+                double blockCount = 0;
                 int unbreakingLevel = ModEnchantHelper.getEnchantmentLevel(Enchantments.UNBREAKING, brush);
                 if (!player.isCreative()) {
                     // 判断耐久是否允许
                     // 实际方块数量的0.1%
-                    blockCount = (double) Math.abs(startPos.getX() - pos.getX()) / 1000 *
-                                 Math.abs(startPos.getZ() - pos.getZ());
+                    if (startPos != null) {
+                        blockCount = (double) Math.abs(startPos.getX() - pos.getX()) / 1000 *
+                                     Math.abs(startPos.getZ() - pos.getZ());
+                    }
                     double durability = (double) (brush.getMaxDamage() - brush.getDamageValue()) / 1000;
                     if (getDamage((int) (blockCount * 1000), unbreakingLevel) >= durability * 1000) {
                         player.displayClientMessage(
@@ -150,7 +154,10 @@ public class EnchantBrushHelper {
                         return;
                     }
                 }
-                int originDamage = clearAllBlocks(level, startPos, pos);
+                int originDamage = 0;
+                if (startPos != null) {
+                    originDamage = clearAllBlocks(level, startPos, pos);
+                }
                 if (!player.isCreative()) {
                     int damage = getDamage(originDamage, unbreakingLevel);
                     brush.hurtAndBreak(damage, player, EquipmentSlot.MAINHAND);

@@ -2,7 +2,6 @@ package com.random_enchant.mixin.item_mixin.enchantment_item_mixin.custom.fishin
 
 import com.random_enchant.data.nbt.FishingHookData;
 import java.util.Objects;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FishingHook;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +18,7 @@ public class FishingHookMixin {
                             "Lnet/minecraft/world/entity/projectile/FishingHook;setDeltaMovement(Lnet/minecraft/world/phys/Vec3;)V"))
     private void
     setDeltaMovement(FishingHook fishingHook, Vec3 deltaMovement) {
-        int l = ((Player) (Objects.requireNonNull(fishingHook.getOwner())))
+        int l = Objects.requireNonNull(fishingHook.getOwner())
                         .getData(FishingHookData.KINETIC_LEVEL.get())
                         .getKineticLevel();
         if (l > 0) {

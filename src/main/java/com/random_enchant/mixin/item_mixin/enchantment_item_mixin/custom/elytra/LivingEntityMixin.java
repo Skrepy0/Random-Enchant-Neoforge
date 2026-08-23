@@ -26,7 +26,7 @@ public abstract class LivingEntityMixin extends Entity {
     public LivingEntityMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
     @Unique
-    private static int isEnchantedFly(IDynamicStackHandler stackHandler) {
+    private static int randomEnchant$isEnchantedFly(IDynamicStackHandler stackHandler) {
         // 3. 遍历背部槽位的所有格子（可能有多个）
         for (int i = 0; i < stackHandler.getSlots(); i++) {
             ItemStack stackInSlot = stackHandler.getStackInSlot(i);
@@ -61,7 +61,7 @@ public abstract class LivingEntityMixin extends Entity {
                 if (backStacks.isPresent()) {
                     ICurioStacksHandler backHandler = backStacks.get();
                     IDynamicStackHandler stackHandler = backHandler.getStacks(); // 获取槽位物品处理器
-                    int i = isEnchantedFly(stackHandler);
+                    int i = randomEnchant$isEnchantedFly(stackHandler);
                     if (i == -114514) return;
                 }
             }

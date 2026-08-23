@@ -16,11 +16,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ProjectileDispenseBehavior.class)
 public class ProjectileDispenseBehaviorMixin {
-    private static BlockSource dispenseSource;
+    @Unique private static BlockSource randomEnchant$dispenseSource;
 
     @Inject(method = "execute", at = @At("HEAD"))
     private void injectExecuteHead(BlockSource blockSource, ItemStack item, CallbackInfoReturnable<ItemStack> cir) {
-        dispenseSource = blockSource;
+        randomEnchant$dispenseSource = blockSource;
     }
 
     @Redirect(
@@ -32,10 +32,11 @@ public class ProjectileDispenseBehaviorMixin {
     private void
     redirectShoot(ProjectileItem projectileItem, Projectile projectile, double x, double y, double z, float velocity,
                   float inaccuracy) {
-        int l = Math.max(BlockEnchantmentStorage.getLevel(ModEnchantments.KINETIC, dispenseSource.pos()), 0);
-        if (BlockEnchantmentStorage.getLevel(ModEnchantments.NO_GRAVITY, dispenseSource.pos()) > 0)
+        int l = Math.max(BlockEnchantmentStorage.getLevel(ModEnchantments.KINETIC, randomEnchant$dispenseSource.pos()),
+                         0);
+        if (BlockEnchantmentStorage.getLevel(ModEnchantments.NO_GRAVITY, randomEnchant$dispenseSource.pos()) > 0)
             projectile.setNoGravity(true);
-        if (BlockEnchantmentStorage.getLevel(ModEnchantments.STEADY, dispenseSource.pos()) > 0) {
+        if (BlockEnchantmentStorage.getLevel(ModEnchantments.STEADY, randomEnchant$dispenseSource.pos()) > 0) {
             inaccuracy = 0;
         }
         projectile.shoot(x, y, z, randomEnchant$getVelocity(l, velocity), inaccuracy);

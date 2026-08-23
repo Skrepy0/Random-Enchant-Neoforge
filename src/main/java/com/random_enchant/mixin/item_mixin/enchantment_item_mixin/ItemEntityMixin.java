@@ -13,6 +13,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -20,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
 public class ItemEntityMixin {
-    private boolean success = false;
+    @Unique private boolean randomEnchant$success = false;
 
     @ModifyArg(
             method = "playerTouch",
@@ -44,7 +45,7 @@ public class ItemEntityMixin {
                             -> mutable.removeIf(enchantmentHolder
                                                 -> enchantmentHolder.is(EnchantmentTags.CURSE) ||
                                                            enchantmentHolder.is(ModEnchantments.NO_CURSE)));
-            success = true;
+            randomEnchant$success = true;
         }
         return itemStack;
     }
@@ -54,7 +55,7 @@ public class ItemEntityMixin {
                      target = "Lnet/minecraft/world/entity/player/Player;awardStat(Lnet/minecraft/stats/Stat;I)V"))
     private void
     onPlayerTouch(Player entity, CallbackInfo ci) {
-        if (entity instanceof ServerPlayer serverPlayer && success) {
+        if (entity instanceof ServerPlayer serverPlayer && randomEnchant$success) {
             AdvancementHelper.grantAdvancement(serverPlayer, "enchant/cleanse_curse", "cleansed");
         }
     }

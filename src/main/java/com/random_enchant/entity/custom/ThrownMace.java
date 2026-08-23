@@ -29,6 +29,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class ThrownMace extends ThrowableItemProjectile {
 
@@ -102,7 +103,7 @@ public class ThrownMace extends ThrowableItemProjectile {
      * 通过重写 EntityDimensions 来动态改变尺寸
      */
     @Override
-    public EntityDimensions getDimensions(net.minecraft.world.entity.Pose pose) {
+    public @NotNull EntityDimensions getDimensions(net.minecraft.world.entity.@NotNull Pose pose) {
         // 根据状态返回不同的尺寸
         if (isGrounded) {
             return EntityDimensions.fixed(GROUNDED_WIDTH, GROUNDED_HEIGHT);
@@ -143,8 +144,7 @@ public class ThrownMace extends ThrowableItemProjectile {
         boolean canPickup = (this.tickCount - createTick) >= PICKUP_COOLDOWN;
 
         // 拾取逻辑（没有忠诚附魔或忠诚等级为0时）
-        if (!isReturning && isGrounded && canPickup && this.getOwner() instanceof Player) {
-            Player owner = (Player) this.getOwner();
+        if (!isReturning && isGrounded && canPickup && this.getOwner() instanceof Player owner) {
 
             // 增加拾取范围（1.5格）
             double pickupRange = 1.5;
@@ -273,11 +273,9 @@ public class ThrownMace extends ThrowableItemProjectile {
         // 查找所有可能碰撞的实体
         for (Entity entity: this.level().getEntities(this, boundingBox)) {
             // 排除自己、主人、以及已经击中过的实体
-            if (entity == this || entity == this.getOwner() || !(entity instanceof LivingEntity)) {
+            if (entity == this || entity == this.getOwner() || !(entity instanceof LivingEntity target)) {
                 continue;
             }
-
-            LivingEntity target = (LivingEntity) entity;
 
             // 计算伤害（根据忠诚等级和速度）
             float damage = 3.0F + (loyaltyLevel * 1.0F);
@@ -358,7 +356,7 @@ public class ThrownMace extends ThrowableItemProjectile {
      * 添加渲染效果：飞行时的拖尾效果
      */
     @Override
-    public void onSyncedDataUpdated(net.minecraft.network.syncher.EntityDataAccessor<?> key) {
+    public void onSyncedDataUpdated(net.minecraft.network.syncher.@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
 
         // 可以在这里添加一些视觉效果
@@ -379,7 +377,7 @@ public class ThrownMace extends ThrowableItemProjectile {
     }
 
     @Override
-    public Item getDefaultItem() {
+    public @NotNull Item getDefaultItem() {
         return Items.MACE;
     }
 
@@ -415,10 +413,8 @@ public class ThrownMace extends ThrowableItemProjectile {
             entity.hurt(this.damageSources().thrown(this, this.getOwner()), damage);
 
             // 添加击退效果
-            if (knockback > 0.0F) {
-                Vec3 knockbackVector = this.getDeltaMovement().normalize().scale(knockback);
-                entity.push(knockbackVector.x, knockbackVector.y * 0.1, knockbackVector.z);
-            }
+            Vec3 knockbackVector = this.getDeltaMovement().normalize().scale(knockback);
+            entity.push(knockbackVector.x, knockbackVector.y * 0.1, knockbackVector.z);
 
             // 击中实体后的效果
             if (!this.level().isClientSide) {
@@ -434,8 +430,13 @@ public class ThrownMace extends ThrowableItemProjectile {
                 int channelingLevel = ModEnchantHelper.getEnchantmentLevel(Enchantments.CHANNELING, this.getItem());
                 if (channelingLevel > 0) {
                     Player attacker = (Player) this.getOwner();
-                    Level level = attacker.level();
-                    attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3, 5));
+                    Level level = null;
+                    if (attacker != null) {
+                        level = attacker.level();
+                    }
+                    if (attacker != null) {
+                        attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3, 5));
+                    }
                     LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level);
                     MinecraftServer server = level.getServer();
                     DamageSource damageSource = null;
@@ -471,7 +472,7 @@ public class ThrownMace extends ThrowableItemProjectile {
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult result) {
+    protected void onHitBlock(@NotNull BlockHitResult result) {
         // 如果正在返回，忽略方块碰撞（直接穿过去）
         if (isReturning) {
             return;
@@ -489,8 +490,13 @@ public class ThrownMace extends ThrowableItemProjectile {
             int channelingLevel = ModEnchantHelper.getEnchantmentLevel(Enchantments.CHANNELING, this.getItem());
             if (channelingLevel > 0) {
                 Player attacker = (Player) this.getOwner();
-                Level level = attacker.level();
-                attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3, 5));
+                Level level = null;
+                if (attacker != null) {
+                    level = attacker.level();
+                }
+                if (attacker != null) {
+                    attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3, 5));
+                }
                 LightningBolt lightningBolt = EntityType.LIGHTNING_BOLT.create(level);
                 MinecraftServer server = level.getServer();
                 DamageSource damageSource = null;
@@ -558,7 +564,7 @@ public class ThrownMace extends ThrowableItemProjectile {
      * 客户端处理拾取冷却时间的提示
      */
     @Override
-    public net.minecraft.network.chat.Component getDisplayName() {
+    public net.minecraft.network.chat.@NotNull Component getDisplayName() {
         if (this.level().isClientSide) {
             if (isReturning) {
                 return net.minecraft.network.chat.Component.literal("重锤 (返回中)");

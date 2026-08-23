@@ -133,6 +133,7 @@ public abstract class AbstractArrowMixin {
         }
     }
 
+    @Unique
     @Nullable
     private LivingEntity randomEnchantTracking$findOptimalTarget(AbstractArrow arrow, LivingEntity owner) {
         if (owner.level() != arrow.level()) return null;

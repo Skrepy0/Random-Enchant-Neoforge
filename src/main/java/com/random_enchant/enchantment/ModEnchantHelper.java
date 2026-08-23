@@ -62,7 +62,13 @@ public class ModEnchantHelper {
 
     public static Holder<Enchantment> getHolder(ResourceKey<Enchantment> enchantmentKey) {
         Level world = Minecraft.getInstance().level;
-        return world.registryAccess().registryOrThrow(Registries.ENCHANTMENT).getHolder(enchantmentKey).orElse(null);
+        if (world != null) {
+            return world.registryAccess()
+                    .registryOrThrow(Registries.ENCHANTMENT)
+                    .getHolder(enchantmentKey)
+                    .orElse(null);
+        }
+        return null;
     }
 
     public static String toRoman(int number) {
@@ -119,10 +125,10 @@ public class ModEnchantHelper {
 
     public static float modifyBowChargingTime(ItemStack stack, LivingEntity entity, float bowChargingTime) {
         MutableFloat mutablefloat = new MutableFloat(bowChargingTime);
-        runIterationOnItem(stack,
-                           (p_352869_, p_352870_)
-                                   -> ((Enchantment) p_352869_.value())
-                                              .modifyCrossbowChargeTime(entity.getRandom(), p_352870_, mutablefloat));
+        runIterationOnItem(
+                stack,
+                (p_352869_,
+                 p_352870_) -> p_352869_.value().modifyCrossbowChargeTime(entity.getRandom(), p_352870_, mutablefloat));
         return Math.max(0.0F, mutablefloat.floatValue());
     }
 }

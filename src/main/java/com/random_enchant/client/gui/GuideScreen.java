@@ -14,6 +14,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 public class GuideScreen extends Screen {
@@ -131,7 +132,7 @@ public class GuideScreen extends Screen {
 
         int searchListX = this.padding;
         this.searchResultsList = new SearchResultsList(this.minecraft, this.rightPanelWidth, this.searchListHeight,
-                                                       searchListX, this.searchListY, font.lineHeight);
+                                                       this.searchListY, font.lineHeight);
         this.addRenderableWidget(searchResultsList);
 
         // ----- 底部翻页按钮（搜索区域下方） -----
@@ -267,7 +268,7 @@ public class GuideScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+    public void render(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (this.minecraft == null || currentPageLines == null) return;
         this.renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
@@ -367,7 +368,7 @@ public class GuideScreen extends Screen {
     }
 
     @Override
-    public void resize(Minecraft minecraft, int width, int height) {
+    public void resize(@NotNull Minecraft minecraft, int width, int height) {
         // 保存当前状态
         int savedPage = this.currentPage;
         double savedScroll = this.scrollOffset;
@@ -384,7 +385,7 @@ public class GuideScreen extends Screen {
     private record SearchResult(int page, int line, String preview) {}
 
     private class SearchResultsList extends ObjectSelectionList<SearchResultsList.Entry> {
-        public SearchResultsList(Minecraft mc, int width, int height, int leftPos, int top, int itemHeight) {
+        public SearchResultsList(Minecraft mc, int width, int height, int top, int itemHeight) {
             super(mc, width, height, top, itemHeight);
         }
 
@@ -413,8 +414,8 @@ public class GuideScreen extends Screen {
             Entry(SearchResult result) { this.result = result; }
 
             @Override
-            public void render(GuiGraphics graphics, int index, int top, int left, int width, int height, int mouseX,
-                               int mouseY, boolean hovering, float partialTick) {
+            public void render(@NotNull GuiGraphics graphics, int index, int top, int left, int width, int height,
+                               int mouseX, int mouseY, boolean hovering, float partialTick) {
                 Font font = GuideScreen.this.font;
                 String prefix = "P" + (result.page + 1) + ": ";
                 String preview = result.preview;
@@ -450,7 +451,7 @@ public class GuideScreen extends Screen {
             }
 
             @Override
-            public Component getNarration() {
+            public @NotNull Component getNarration() {
                 return Component.literal(result.preview);
             }
         }

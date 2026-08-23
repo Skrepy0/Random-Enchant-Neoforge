@@ -8,6 +8,7 @@ import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.util.INBTSerializable;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.UnknownNullability;
 
 public class DoubleJumpData {
@@ -92,14 +93,14 @@ public class DoubleJumpData {
         // ==================== NBT序列化 ====================
 
         @Override
-        public @UnknownNullability CompoundTag serializeNBT(HolderLookup.Provider provider) {
+        public @UnknownNullability CompoundTag serializeNBT(HolderLookup.@NotNull Provider provider) {
             CompoundTag tag = new CompoundTag();
             tag.putBoolean("UsedDoubleJump", usedDoubleJump);
             return tag;
         }
 
         @Override
-        public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
+        public void deserializeNBT(HolderLookup.@NotNull Provider provider, CompoundTag tag) {
             usedDoubleJump = tag.getBoolean("UsedDoubleJump");
         }
     }

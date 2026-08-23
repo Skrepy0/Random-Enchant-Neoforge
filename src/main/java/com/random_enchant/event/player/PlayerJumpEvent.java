@@ -27,8 +27,6 @@ public class PlayerJumpEvent {
     private static final Map<UUID, Vec3> protectionStartPositions = new HashMap<>();
     // 配置常量
     private static final float PARTICLE_SPEED = 0.1f;
-    private static final float JUMP_SOUND_VOLUME = 1.0f;
-    private static final float JUMP_SOUND_PITCH = 1.2f;
 
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Pre event) {

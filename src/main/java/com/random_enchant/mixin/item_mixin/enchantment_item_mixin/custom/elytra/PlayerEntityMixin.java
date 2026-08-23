@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -31,7 +32,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Unique
-    private static int isEnchantedFly(IDynamicStackHandler stackHandler) {
+    private static int randomEnchant$isEnchantedFly(IDynamicStackHandler stackHandler) {
         // 3. 遍历背部槽位的所有格子（可能有多个）
         for (int i = 0; i < stackHandler.getSlots(); i++) {
             ItemStack stackInSlot = stackHandler.getStackInSlot(i);
@@ -44,7 +45,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
     }
 
     @Unique
-    private static float getProbability(int unbreaking) {
+    private static float randomEnchant$getProbability(int unbreaking) {
         if (unbreaking <= 0) return 0.08f;
         switch (unbreaking) {
             case 1 -> {
@@ -71,7 +72,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
     }
 
-    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
+    @Shadow public abstract @NotNull ItemStack getItemBySlot(@NotNull EquipmentSlot slot1);
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void onTick(CallbackInfo ci) {
@@ -86,7 +87,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
                 if (backStacks.isPresent()) {
                     ICurioStacksHandler backHandler = backStacks.get();
                     IDynamicStackHandler stackHandler = backHandler.getStacks(); // 获取槽位物品处理器
-                    int i = isEnchantedFly(stackHandler);
+                    int i = randomEnchant$isEnchantedFly(stackHandler);
                     if (i == -114514) return;
                     chestItem = stackHandler.getStackInSlot(i);
                 }
@@ -95,8 +96,8 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
         if (ElytraJumpMixinHelper.isJumpKeyPressed()) {
             this.push(0, Config.getFlyEnchantmentLiftHeightPerTick(), 0);
-            if (RandomHelper.random(
-                        getProbability(ModEnchantHelper.getEnchantmentLevel(chestItem, Enchantments.UNBREAKING)))) {
+            if (RandomHelper.random(randomEnchant$getProbability(
+                        ModEnchantHelper.getEnchantmentLevel(chestItem, Enchantments.UNBREAKING)))) {
                 chestItem.setDamageValue(chestItem.getDamageValue() + 1);
             }
         }

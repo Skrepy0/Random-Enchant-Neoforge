@@ -10,7 +10,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -151,8 +150,8 @@ public class CustomWindChargeEntity extends AbstractWindCharge {
     }
 
     protected void explode(Vec3 pos) {
-        this.level().explode(this, (DamageSource) null, EXPLOSION_DAMAGE_CALCULATOR, pos.x(), pos.y(), pos.z(), radius,
-                             false, Level.ExplosionInteraction.TRIGGER, ParticleTypes.GUST_EMITTER_SMALL,
+        this.level().explode(this, null, EXPLOSION_DAMAGE_CALCULATOR, pos.x(), pos.y(), pos.z(), radius, false,
+                             Level.ExplosionInteraction.TRIGGER, ParticleTypes.GUST_EMITTER_SMALL,
                              ParticleTypes.GUST_EMITTER_LARGE, SoundEvents.WIND_CHARGE_BURST);
     }
 

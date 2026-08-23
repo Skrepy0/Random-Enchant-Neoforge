@@ -1,6 +1,7 @@
 package com.random_enchant.enchantment.enchantmentblock;
 
 import com.random_enchant.RandomEnchant;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -10,12 +11,13 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Mafuyu33
  */
 public class BlockStateSaverAndLoader extends SavedData {
-    private static Factory<BlockStateSaverAndLoader> type =
+    private static final Factory<BlockStateSaverAndLoader> type =
             new Factory<>(BlockStateSaverAndLoader::new, // 若不存在 'BlockStateSaverAndLoader' 则创建
                           BlockStateSaverAndLoader::createFromNbt, // 若存在 'BlockStateSaverAndLoader' NBT, 则调用
                           // 'createFromNbt' 传入参数
@@ -39,7 +41,8 @@ public class BlockStateSaverAndLoader extends SavedData {
     public static BlockStateSaverAndLoader getServerState(MinecraftServer server) {
         // (注：如需在任意维度生效，请使用 'World.OVERWORLD' ，不要使用 'World.END' 或 'World.NETHER')
         if (server != null) {
-            DimensionDataStorage persistentStateManager = server.getLevel(Level.OVERWORLD).getDataStorage();
+            DimensionDataStorage persistentStateManager =
+                    Objects.requireNonNull(server.getLevel(Level.OVERWORLD)).getDataStorage();
 
             // 当第一次调用了方法 'getOrCreate' 后，它会创建新的 'BlockStateSaverAndLoader' 并将其存储于
             // 'PersistentStateManager' 中。
@@ -59,7 +62,7 @@ public class BlockStateSaverAndLoader extends SavedData {
     }
 
     @Override
-    public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
+    public @NotNull CompoundTag save(CompoundTag tag, HolderLookup.@NotNull Provider registries) {
         ListTag blockEnchantmentsList = new ListTag();
         blockEnchantments.forEach((pos, enchantments) -> {
             CompoundTag blockEnchantmentNbt = new CompoundTag();

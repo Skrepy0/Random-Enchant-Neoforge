@@ -22,6 +22,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
+import org.jetbrains.annotations.NotNull;
 
 @EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class FuryOfFly {
@@ -55,7 +56,7 @@ public class FuryOfFly {
             // 修改点1：实体创建方式
             Bee bee = new Bee(EntityType.BEE, world) {
                 @Override
-                public boolean doHurtTarget(Entity target) {
+                public boolean doHurtTarget(@NotNull Entity target) {
                     boolean result = super.doHurtTarget(target);
                     if (result && !this.level().isClientSide()) {
                         this.discard();

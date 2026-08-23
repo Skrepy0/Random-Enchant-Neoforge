@@ -33,6 +33,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 public class PearlSpear extends Item {
     private final int COOL_DOWN_TIME = 200;
@@ -70,7 +71,8 @@ public class PearlSpear extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player user, InteractionHand usedHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, Player user,
+                                                           @NotNull InteractionHand usedHand) {
         ItemStack stack = user.getItemInHand(usedHand);
         if (level.isClientSide) return InteractionResultHolder.pass(stack);
         if (user.getCooldowns().isOnCooldown(this)) return InteractionResultHolder.pass(stack);
@@ -93,7 +95,7 @@ public class PearlSpear extends Item {
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hurtEnemy(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
         Player user = (Player) attacker;
         Level world = user.level();
         if (world.isClientSide) return false;
@@ -410,8 +412,8 @@ public class PearlSpear extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip,
-                                TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack stack, @NotNull TooltipContext context,
+                                @NotNull List<Component> tooltip, @NotNull TooltipFlag tooltipFlag) {
         if (Screen.hasShiftDown()) {
             tooltip.add(Component.translatable("item.tooltip.random_enchant.pearl_spear.detail_description_1"));
             tooltip.add(Component.translatable("item.tooltip.random_enchant.pearl_spear.detail_description_2"));
@@ -422,12 +424,12 @@ public class PearlSpear extends Item {
     }
 
     @Override
-    public ItemStack getDefaultInstance() {
+    public @NotNull ItemStack getDefaultInstance() {
         return super.getDefaultInstance();
     }
 
     @Override
-    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+    public boolean isBookEnchantable(@NotNull ItemStack stack, @NotNull ItemStack book) {
         return true;
     }
 
@@ -437,7 +439,7 @@ public class PearlSpear extends Item {
     }
 
     @Override
-    public boolean isEnchantable(ItemStack stack) {
+    public boolean isEnchantable(@NotNull ItemStack stack) {
         return true;
     }
 }
