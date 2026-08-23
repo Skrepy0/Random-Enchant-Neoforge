@@ -22,6 +22,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
 
+
 @EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class UndyingTotem {
     private static void explode(float power, Level level, double x, double y, double z, Entity entity) {

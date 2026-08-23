@@ -40,11 +40,13 @@ public class FuryOfFly {
                     if (player.getCooldowns().isOnCooldown(weapon.getItem())) return;
                 }
                 int lvl = ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.FURY_OF_FLY);
-                spawnBee(level, target, lvl, attacker);
-                if (attacker instanceof ServerPlayer serverPlayer)
-                    AdvancementHelper.grantAdvancement(serverPlayer, "enchant/trigger_fly_of_fury",
-                                                       "trigger_fly_of_fury");
-                if (attacker instanceof Player player) player.getCooldowns().addCooldown(weapon.getItem(), 50);
+                if (lvl > 0) {
+                    spawnBee(level, target, lvl, attacker);
+                    if (attacker instanceof ServerPlayer serverPlayer)
+                        AdvancementHelper.grantAdvancement(serverPlayer, "enchant/trigger_fly_of_fury",
+                                                           "trigger_fly_of_fury");
+                    if (attacker instanceof Player player) player.getCooldowns().addCooldown(weapon.getItem(), 50);
+                }
             }
         }
     }

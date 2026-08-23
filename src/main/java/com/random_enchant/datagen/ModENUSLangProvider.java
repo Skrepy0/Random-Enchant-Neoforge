@@ -1,13 +1,12 @@
 package com.random_enchant.datagen;
 
+import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
+
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.ModItems;
+import java.util.List;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-
-import java.util.List;
-
-import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
 
 public class ModENUSLangProvider extends LanguageProvider {
     public ModENUSLangProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "en_us"); }
