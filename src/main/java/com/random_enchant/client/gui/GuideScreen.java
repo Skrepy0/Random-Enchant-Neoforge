@@ -1,8 +1,5 @@
 package com.random_enchant.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -16,8 +13,17 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class GuideScreen extends Screen {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GuideScreen.class);
+
     private final List<String> pages; // 原始每页文本
     private int currentPage = 0; // 当前页码（从0开始）
     private double scrollOffset = 0; // 当前页的垂直滚动偏移（单位：行）
@@ -200,7 +206,8 @@ public class GuideScreen extends Screen {
             String[] lines = pageText.split("\\r?\\n");
             for (int line = 0; line < lines.length; line++) {
                 String lineStr = lines[line].trim();
-                if (lineStr.toLowerCase(Locale.ROOT).contains(query)) {
+                // 支持拼音搜索：如果 JustEnoughCharacters 模组加载，使用其匹配方法
+                if (matchesQuery(lineStr, query)) {
                     String preview = lineStr.length() > 100 ? lineStr.substring(0, 97) + "..." : lineStr;
                     allSearchResults.add(new SearchResult(page, line, preview));
                 }
@@ -208,6 +215,21 @@ public class GuideScreen extends Screen {
         }
 
         searchResultsList.updateResults(allSearchResults);
+    }
+
+    /**
+     * 检查文本是否匹配搜索词，支持拼音搜索（JustEnoughCharacters / 通用拼音搜索模组）
+     *
+     * @param text  要检查的文本
+     * @param query 搜索词（已转为小写）
+     * @return 是否匹配
+     */
+    private boolean matchesQuery(String text, String query) {
+        if (text.toLowerCase(Locale.ROOT).contains(query)) {
+            return true;
+        }
+        // 尝试使用 JustEnoughCharacters 的拼音匹配
+        return JecMatcher.contains(text, query);
     }
 
     @Override
@@ -380,6 +402,55 @@ public class GuideScreen extends Screen {
         this.currentPage = savedPage;
         this.scrollOffset = savedScroll;
         updateCurrentPageLines();
+    }
+
+    /**
+     * JustEnoughCharacters (通用拼音搜索) 模组的兼容工具类
+     * 通过反射调用 JEC 的拼音匹配方法，避免硬依赖
+     * JEC 的核心匹配类为 me.towdium.jecharacters.utils.Match
+     * 其方法 boolean contains(CharSequence, CharSequence) 用于检查文本是否包含搜索词（支持拼音）
+     */
+    static class JecMatcher {
+        private static boolean jecChecked = false;
+        private static Method containsMethod;
+
+        /**
+         * 检查文本是否包含搜索词，支持拼音匹配
+         *
+         * @param text   要搜索的文本
+         * @param search 搜索词
+         * @return 是否匹配
+         */
+        static boolean contains(String text, String search) {
+            if (!jecChecked) {
+                initJec();
+                jecChecked = true;
+            }
+            if (containsMethod != null) {
+                try {
+                    return (Boolean) containsMethod.invoke(null, text, search);
+                } catch (Exception e) {
+                    // 拼音匹配失败时返回false，回退到普通匹配
+                    LOGGER.debug("JustEnoughCharacters 拼音匹配失败，回退到普通匹配: {}", e.getMessage());
+                }
+            }
+            return false;
+        }
+
+        private static void initJec() {
+            try {
+                Class<?> matcherClass = Class.forName("me.towdium.jecharacters.utils.Match");
+                // contains(CharSequence, CharSequence) 静态方法
+                containsMethod = matcherClass.getMethod("contains", CharSequence.class, CharSequence.class);
+                LOGGER.info("JustEnoughCharacters (通用拼音搜索) 模组已加载，GuideScreen 已启用拼音搜索支持");
+            } catch (ClassNotFoundException e) {
+                LOGGER.debug("JustEnoughCharacters 模组未安装");
+            } catch (NoSuchMethodException e) {
+                LOGGER.debug("JustEnoughCharacters 未找到匹配方法: {}", e.getMessage());
+            } catch (Exception e) {
+                LOGGER.debug("JustEnoughCharacters 初始化失败: {}", e.getMessage());
+            }
+        }
     }
 
     private record SearchResult(int page, int line, String preview) {}
