@@ -26,11 +26,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
 
-    @Unique @Nullable private LivingEntity randomEnchantTracking$trackedTarget;
-    @Unique private int randomEnchantTracking$trackingLevel = 1;
-    @Unique private int randomEnchantTracking$ticksSinceLastSearch = 0;
-    @Unique private boolean randomEnchantTracking$isActivelyTracking = false;
-
     // ========== 核心参数 ==========
     @Unique private static final double SEEK_DISTANCE = 8.0;
     @Unique private static final double SEEK_FACTOR = 0.8;
@@ -42,6 +37,10 @@ public abstract class AbstractArrowMixin {
     @Unique private static final float ROTATION_LERP_FACTOR = 0.8f;
     @Unique private static final double BASE_TRACKING_RANGE = 15.0;
     @Unique private static final double RAYCAST_RANGE = 100.0; // 射线检测最大范围
+    @Unique @Nullable private LivingEntity randomEnchantTracking$trackedTarget;
+    @Unique private int randomEnchantTracking$trackingLevel = 1;
+    @Unique private int randomEnchantTracking$ticksSinceLastSearch = 0;
+    @Unique private boolean randomEnchantTracking$isActivelyTracking = false;
 
     @Inject(method = "shoot(DDDFF)V", at = @At("RETURN"))
     private void onShoot(double x, double y, double z, float velocity, float inaccuracy, CallbackInfo ci) {

@@ -26,6 +26,7 @@ public class ModEnchantments {
     public static final ResourceKey<Enchantment> THROWABLE = of("throwable");
     public static final ResourceKey<Enchantment> TRACKING = of("tracking");
     public static final ResourceKey<Enchantment> DOUBLE_JUMP = of("double_jump");
+
     public static void bootstrap(BootstrapContext<Enchantment> registry) {
         HolderGetter<Enchantment> registryEntryLookup2 = registry.lookup(Registries.ENCHANTMENT);
         HolderGetter<Item> registryEntryLookup3 = registry.lookup(Registries.ITEM);

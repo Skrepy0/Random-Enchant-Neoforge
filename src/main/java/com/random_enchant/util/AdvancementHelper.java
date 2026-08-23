@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class AdvancementHelper {
     private AdvancementHelper() {}
+
     public static void grantAdvancement(ServerPlayer player, String path, String criterion) {
         ResourceLocation advId = ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, path);
         AdvancementHolder advancement = player.server.getAdvancements().get(advId);

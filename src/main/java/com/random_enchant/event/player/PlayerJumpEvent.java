@@ -29,6 +29,7 @@ public class PlayerJumpEvent {
     private static final float PARTICLE_SPEED = 0.1f;
     private static final float JUMP_SOUND_VOLUME = 1.0f;
     private static final float JUMP_SOUND_PITCH = 1.2f;
+
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Pre event) {
         event.getServer().getPlayerList().getPlayers().forEach(PlayerJumpEvent::checkPlayerLanding);
@@ -41,6 +42,7 @@ public class PlayerJumpEvent {
         fallProtectionMap.remove(playerId);
         protectionStartPositions.remove(playerId);
     }
+
     @SubscribeEvent
     public static void onPlayerJump(InputEvent.Key event) {
         Minecraft mc = Minecraft.getInstance();
@@ -85,6 +87,7 @@ public class PlayerJumpEvent {
             player.playSound(SoundEvents.PLAYER_BREATH, 0.5f, pitch);
         }
     }
+
     private static void checkPlayerLanding(Player player) {
         if (player.level().isClientSide()) return;
 
@@ -124,6 +127,7 @@ public class PlayerJumpEvent {
             player.resetFallDistance();
         }
     }
+
     /**
      * 生成二段跳粒子效果
      */

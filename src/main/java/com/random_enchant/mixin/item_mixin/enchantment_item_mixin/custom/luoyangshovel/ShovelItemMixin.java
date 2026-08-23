@@ -69,11 +69,12 @@ public abstract class ShovelItemMixin extends DiggerItem {
 
     /**
      * 生成一个掉落方块实体，并处理附魔信息
-     * @param targetPos 目标方块位置
+     *
+     * @param targetPos  目标方块位置
      * @param blockState 方块状态
-     * @param world 世界对象
-     * @param power 附魔力量值
-     * @param user 使用者玩家对象
+     * @param world      世界对象
+     * @param power      附魔力量值
+     * @param user       使用者玩家对象
      */
     @Unique
     private void randomEnchant$generateFallingBlock(BlockPos targetPos, BlockState blockState, Level world, int power,

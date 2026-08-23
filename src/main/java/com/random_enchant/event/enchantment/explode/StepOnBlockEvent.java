@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
+
 @EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class StepOnBlockEvent {
     @SubscribeEvent
@@ -42,6 +43,7 @@ public class StepOnBlockEvent {
             }
         }
     }
+
     private static void explode(float power, Level level, double x, double y, double z, Entity entity) {
         float f = 4.0F + (float) (power * 0.5);
         Level.ExplosionInteraction interaction =

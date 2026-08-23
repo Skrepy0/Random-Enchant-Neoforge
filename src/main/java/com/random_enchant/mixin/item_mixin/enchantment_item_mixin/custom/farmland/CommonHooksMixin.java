@@ -36,6 +36,7 @@ public class CommonHooksMixin {
         }
         return false;
     }
+
     @Inject(method = "onFarmlandTrample", at = @At("HEAD"), cancellable = true)
     private static void onFarmlandTrample(Level level, BlockPos pos, BlockState state, float fallDistance,
                                           Entity entity, CallbackInfoReturnable<Boolean> cir) {

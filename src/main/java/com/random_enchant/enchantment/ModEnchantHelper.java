@@ -104,6 +104,7 @@ public class ModEnchantHelper {
     /**
      * 获取当前使用物品的实体
      * 这个方法用于在静态上下文中获取正在使用弓的实体
+     *
      * @return 当前使用物品的实体，如果没有则返回null
      */
     public static LivingEntity getCurrentUsingEntity() {
@@ -115,6 +116,7 @@ public class ModEnchantHelper {
         // 如果需要在服务端使用，可能需要通过其他方式传递实体引用
         return null;
     }
+
     public static float modifyBowChargingTime(ItemStack stack, LivingEntity entity, float bowChargingTime) {
         MutableFloat mutablefloat = new MutableFloat(bowChargingTime);
         runIterationOnItem(stack,

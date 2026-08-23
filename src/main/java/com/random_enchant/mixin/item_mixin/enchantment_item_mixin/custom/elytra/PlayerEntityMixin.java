@@ -30,8 +30,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         super(entityType, level);
     }
 
-    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
-
     @Unique
     private static int isEnchantedFly(IDynamicStackHandler stackHandler) {
         // 3. 遍历背部槽位的所有格子（可能有多个）
@@ -44,6 +42,36 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
         return -114514;
     }
+
+    @Unique
+    private static float getProbability(int unbreaking) {
+        if (unbreaking <= 0) return 0.08f;
+        switch (unbreaking) {
+            case 1 -> {
+                return 0.072f;
+            }
+            case 2 -> {
+                return 0.056f;
+            }
+            case 3 -> {
+                return 0.04f;
+            }
+            case 4 -> {
+                return 0.028f;
+            }
+            case 5 -> {
+                return 0.016f;
+            }
+            case 6 -> {
+                return 0.008f;
+            }
+            default -> {
+                return 0.004f;
+            }
+        }
+    }
+
+    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void onTick(CallbackInfo ci) {
@@ -70,33 +98,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             if (RandomHelper.random(
                         getProbability(ModEnchantHelper.getEnchantmentLevel(chestItem, Enchantments.UNBREAKING)))) {
                 chestItem.setDamageValue(chestItem.getDamageValue() + 1);
-            }
-        }
-    }
-    @Unique
-    private static float getProbability(int unbreaking) {
-        if (unbreaking <= 0) return 0.08f;
-        switch (unbreaking) {
-            case 1 -> {
-                return 0.072f;
-            }
-            case 2 -> {
-                return 0.056f;
-            }
-            case 3 -> {
-                return 0.04f;
-            }
-            case 4 -> {
-                return 0.028f;
-            }
-            case 5 -> {
-                return 0.016f;
-            }
-            case 6 -> {
-                return 0.008f;
-            }
-            default -> {
-                return 0.004f;
             }
         }
     }

@@ -4,7 +4,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-
+    static final ModConfigSpec SPEC = BUILDER.build();
     public static ModConfigSpec.BooleanValue randomEnchant = BUILDER.define("randomEnchant", false);
     public static ModConfigSpec.BooleanValue isAlwaysEnchantable = BUILDER.define("isAlwaysEnchantable", false);
     public static ModConfigSpec.BooleanValue explodeDestroyBlock = BUILDER.define("explodeDestroyBlock", true);
@@ -38,17 +38,26 @@ public class Config {
     public static boolean infinityFood() { return infinityFood.get(); }
 
     public static boolean infinityThrowableItem() { return infinityThrowableItem.get(); }
+
     public static boolean infinityDispenser() { return infinityDispenser.get(); }
 
     public static boolean isEnchantedBlockGetatable() { return isEnchantedBlockGetatable.get(); }
 
     public static int getRedirectTridentSetPointDistance() { return redirectTridentSetPointDistance.get(); }
 
+    public static void setRedirectTridentSetPointDistance(int value) { redirectTridentSetPointDistance.set(value); }
+
     public static boolean getBedrockViolable() { return bedrockViolable.get(); }
+
+    public static void setBedrockViolable(boolean value) { bedrockViolable.set(value); }
 
     public static double getFlyEnchantmentLiftHeightPerTick() { return flyEnchantmentLiftHeightPerTick.get(); }
 
+    public static void setFlyEnchantmentLiftHeightPerTick(double value) { flyEnchantmentLiftHeightPerTick.set(value); }
+
     public static boolean getExplodeDestroyBlock() { return explodeDestroyBlock.get(); }
+
+    public static void setExplodeDestroyBlock(boolean value) { explodeDestroyBlock.set(value); }
 
     public static void setRandomEnchant(boolean value) { randomEnchant.set(value); }
 
@@ -62,20 +71,11 @@ public class Config {
 
     public static void setInfinityTnt(boolean value) { infinityTnt.set(value); }
 
-    public static void setRedirectTridentSetPointDistance(int value) { redirectTridentSetPointDistance.set(value); }
-
-    public static void setFlyEnchantmentLiftHeightPerTick(double value) { flyEnchantmentLiftHeightPerTick.set(value); }
-
     public static void setIsEnchantedBlockGetatable(boolean value) { isEnchantedBlockGetatable.set(value); }
 
     public static void setInfinityFood(boolean value) { infinityFood.set(value); }
+
     public static void setInfinityDispenser(boolean value) { infinityDispenser.set(value); }
 
-    public static void setBedrockViolable(boolean value) { bedrockViolable.set(value); }
-
     public static void setInfinityThrowableItem(boolean value) { infinityThrowableItem.set(value); }
-
-    public static void setExplodeDestroyBlock(boolean value) { explodeDestroyBlock.set(value); }
-
-    static final ModConfigSpec SPEC = BUILDER.build();
 }

@@ -15,8 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HopperBlockEntity.class)
 public abstract class HopperBlockEntityMixin {
-    @Shadow public abstract double getLevelX();
-
     @Inject(at = @At("RETURN"), method = "tryMoveItems")
     private static void init1(Level level, BlockPos pos, BlockState state, HopperBlockEntity blockEntity,
                               BooleanSupplier validator, CallbackInfoReturnable<Boolean> cir) {
@@ -33,4 +31,6 @@ public abstract class HopperBlockEntityMixin {
             cir.cancel();
         }
     }
+
+    @Shadow public abstract double getLevelX();
 }

@@ -45,9 +45,8 @@ public abstract class ThrownTridentMixin extends AbstractArrow {
     @Unique private static final String NBT_REDIRECT_LEVEL = "RandomEnchant_RedirectLevel";
     @Unique private static final String NBT_FIRE_ASPECT_LEVEL = "RandomEnchant_FireAspectLevel";
     @Unique private static final double GROUND_TELEPORT_DISTANCE = 0.5;
-    @Shadow private boolean dealtDamage;
-
     @Shadow @Final private static EntityDataAccessor<Byte> ID_LOYALTY;
+    @Shadow private boolean dealtDamage;
 
     protected ThrownTridentMixin(EntityType<? extends AbstractArrow> entityType, Level level) {
         super(entityType, level);

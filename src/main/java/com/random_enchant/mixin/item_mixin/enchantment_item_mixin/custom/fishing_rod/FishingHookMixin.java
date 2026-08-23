@@ -27,6 +27,7 @@ public class FishingHookMixin {
         }
         fishingHook.setDeltaMovement(deltaMovement);
     }
+
     @Redirect(
             method = "tick",
             at = @At(

@@ -26,6 +26,13 @@ import org.jetbrains.annotations.Nullable;
 
 public class CustomWindChargeEntity extends AbstractWindCharge {
     private static final ExplosionDamageCalculator EXPLOSION_DAMAGE_CALCULATOR;
+
+    static {
+        EXPLOSION_DAMAGE_CALCULATOR = new SimpleExplosionDamageCalculator(
+                true, false, Optional.of(1.22F),
+                BuiltInRegistries.BLOCK.getTag(BlockTags.BLOCKS_WIND_CHARGE_EXPLOSIONS).map(Function.identity()));
+    }
+
     public int radius = 1;
 
     public CustomWindChargeEntity(EntityType<? extends AbstractWindCharge> entityType, Level level) {
@@ -162,11 +169,5 @@ public class CustomWindChargeEntity extends AbstractWindCharge {
     @Override
     public boolean canBeHitByProjectile() {
         return true;
-    }
-
-    static {
-        EXPLOSION_DAMAGE_CALCULATOR = new SimpleExplosionDamageCalculator(
-                true, false, Optional.of(1.22F),
-                BuiltInRegistries.BLOCK.getTag(BlockTags.BLOCKS_WIND_CHARGE_EXPLOSIONS).map(Function.identity()));
     }
 }

@@ -18,8 +18,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
 public abstract class PlayerMixin extends LivingEntity {
-    protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) { super(entityType, level); }
     @Unique int randomEnchant$particleCooldown = 0;
+
+    protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) { super(entityType, level); }
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void init(CallbackInfo ci) {
         // 每 tick 增加计时器

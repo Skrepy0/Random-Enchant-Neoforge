@@ -32,6 +32,7 @@ public class ArrowEvent {
             }
         }
     }
+
     private static void explode(float power, Level level, double x, double y, double z, Entity entity) {
         float f = 4.0F + (float) (power * 0.5);
         Level.ExplosionInteraction interaction = Config.getExplodeDestroyBlock()

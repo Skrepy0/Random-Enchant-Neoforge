@@ -18,7 +18,7 @@ public class BlockStateSaverAndLoader extends SavedData {
     private static Factory<BlockStateSaverAndLoader> type =
             new Factory<>(BlockStateSaverAndLoader::new, // 若不存在 'BlockStateSaverAndLoader' 则创建
                           BlockStateSaverAndLoader::createFromNbt, // 若存在 'BlockStateSaverAndLoader' NBT, 则调用
-                                                                   // 'createFromNbt' 传入参数
+                          // 'createFromNbt' 传入参数
                           null // 此处理论上应为 'DataFixTypes' 的枚举，但我们直接传递为空(null)也可以
             );
     public final ConcurrentHashMap<BlockPos, ListTag> blockEnchantments = new ConcurrentHashMap<>();

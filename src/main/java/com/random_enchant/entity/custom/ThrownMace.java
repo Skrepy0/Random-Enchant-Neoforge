@@ -37,6 +37,9 @@ public class ThrownMace extends ThrowableItemProjectile {
     private static final float FLYING_HEIGHT = 0.8F; // 飞行时高度：原0.5F -> 0.8F
     private static final float GROUNDED_WIDTH = 1.0F; // 落地后宽度：原0.7F -> 1.0F
     private static final float GROUNDED_HEIGHT = 0.3F; // 落地后高度：原0.2F -> 0.3F
+    private static final int PICKUP_COOLDOWN = 5;
+    // 忠诚附魔等级
+    private final int loyaltyLevel;
     // 当前状态
     private boolean isGrounded = false;
     private boolean isReturning = false; // 是否正在返回
@@ -46,11 +49,6 @@ public class ThrownMace extends ThrowableItemProjectile {
     private boolean explodeFlag = true;
     // 创建时间和拾取冷却时间（20 ticks = 1秒）
     private int createTick = 0;
-    private static final int PICKUP_COOLDOWN = 5;
-
-    // 忠诚附魔等级
-    private final int loyaltyLevel;
-
     // 返回阶段计时器
     private int returnTimer = 0;
 
@@ -71,6 +69,33 @@ public class ThrownMace extends ThrowableItemProjectile {
 
         // 从物品堆中获取忠诚附魔等级
         this.loyaltyLevel = ModEnchantHelper.getEnchantmentLevel(Enchantments.LOYALTY, itemStack);
+    }
+
+    private static int getItemDamage(int unbreakingLevel) {
+        Random random = new Random();
+        int rand = random.nextInt(100);
+        if (unbreakingLevel == 0) {
+            if (rand <= 20) {
+                return 0;
+            }
+            return 1;
+        } else if (unbreakingLevel == 1) {
+            if (rand <= 40) {
+                return 0;
+            }
+            return 1;
+        } else if (unbreakingLevel == 2) {
+            if (rand <= 60) {
+                return 0;
+            }
+            return 1;
+        } else if (unbreakingLevel > 2) {
+            if (rand <= 80) {
+                return 0;
+            }
+            return 1;
+        }
+        return 1;
     }
 
     /**
@@ -445,33 +470,6 @@ public class ThrownMace extends ThrowableItemProjectile {
         }
     }
 
-    private static int getItemDamage(int unbreakingLevel) {
-        Random random = new Random();
-        int rand = random.nextInt(100);
-        if (unbreakingLevel == 0) {
-            if (rand <= 20) {
-                return 0;
-            }
-            return 1;
-        } else if (unbreakingLevel == 1) {
-            if (rand <= 40) {
-                return 0;
-            }
-            return 1;
-        } else if (unbreakingLevel == 2) {
-            if (rand <= 60) {
-                return 0;
-            }
-            return 1;
-        } else if (unbreakingLevel > 2) {
-            if (rand <= 80) {
-                return 0;
-            }
-            return 1;
-        }
-        return 1;
-    }
-
     @Override
     protected void onHitBlock(BlockHitResult result) {
         // 如果正在返回，忽略方块碰撞（直接穿过去）
@@ -544,6 +542,7 @@ public class ThrownMace extends ThrowableItemProjectile {
                 Config.getExplodeDestroyBlock() ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE;
         level.explode(entity, x, y, z, f, interaction);
     }
+
     private void tryExplode() {
         if (this.level().isClientSide()) return;
         ItemStack mace = this.getItem();

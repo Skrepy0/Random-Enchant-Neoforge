@@ -23,6 +23,7 @@ public class InfinityFireworkRocketMixin {
             instance.consume(amount, entity);
         }
     }
+
     @Redirect(method = "useOn", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"))
     private void redirectShrink(ItemStack instance, int amount) {
         if (ModEnchantHelper.getEnchantmentLevel(instance, Enchantments.INFINITY) <= 0) {

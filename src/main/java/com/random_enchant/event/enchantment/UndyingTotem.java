@@ -1,5 +1,7 @@
 package com.random_enchant.event.enchantment;
 
+import static com.random_enchant.enchantment.ModEnchantHelper.getEnchantmentLevel;
+
 import com.random_enchant.Config;
 import com.random_enchant.RandomEnchant;
 import net.minecraft.core.BlockPos;
@@ -20,7 +22,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingUseTotemEvent;
 
-import static com.random_enchant.enchantment.ModEnchantHelper.getEnchantmentLevel;
 @EventBusSubscriber(modid = RandomEnchant.MOD_ID)
 public class UndyingTotem {
     private static void explode(float power, Level level, double x, double y, double z, Entity entity) {

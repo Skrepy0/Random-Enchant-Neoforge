@@ -376,5 +376,6 @@ public class GuidePages {
                     + "§l§o感谢阅读！§r\n\n"
                     + "希望您享受 Random Enchant 的乐趣。反馈欢迎前往项目页面。\n\n"
                     + "§7—— 指南结束 ——§r");
+
     private GuidePages() {}
 }

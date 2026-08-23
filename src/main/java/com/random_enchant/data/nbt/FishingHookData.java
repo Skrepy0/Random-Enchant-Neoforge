@@ -22,6 +22,20 @@ public class FishingHookData {
             ATTACHMENT_TYPES.register("fishing_rod_no_resistance_level",
                                       () -> AttachmentType.serializable(NoResistanceLevel::new).build()); // 存储在鱼漂
 
+    public static KineticLevel getKineticLevel(Player player) { return player.getData(KINETIC_LEVEL.get()); }
+
+    public static void setKineticLevel(Player player, int kineticLevel) {
+        getKineticLevel(player).setKineticLevel(kineticLevel);
+    }
+
+    public static NoResistanceLevel getNoResistanceLevel(FishingHook hook) {
+        return hook.getData(NO_RESISTANCE_LEVEL.get());
+    }
+
+    public static void setNoResistanceLevel(FishingHook hook, int noResistanceLevel) {
+        getNoResistanceLevel(hook).setNoResistanceLevel(noResistanceLevel);
+    }
+
     public static class KineticLevel implements INBTSerializable<CompoundTag> {
 
         private static final String KEY_KINETIC_LEVEL = "KineticLevel";
@@ -44,12 +58,6 @@ public class FishingHookData {
         }
     }
 
-    public static KineticLevel getKineticLevel(Player player) { return player.getData(KINETIC_LEVEL.get()); }
-
-    public static void setKineticLevel(Player player, int kineticLevel) {
-        getKineticLevel(player).setKineticLevel(kineticLevel);
-    }
-
     public static class NoResistanceLevel implements INBTSerializable<CompoundTag> {
 
         private static final String KEY_NO_RESISTANCE_LEVEL = "NoResistanceLevel";
@@ -70,13 +78,5 @@ public class FishingHookData {
         public void deserializeNBT(HolderLookup.Provider provider, CompoundTag compoundTag) {
             this.noResistanceLevel = compoundTag.getInt(KEY_NO_RESISTANCE_LEVEL);
         }
-    }
-
-    public static NoResistanceLevel getNoResistanceLevel(FishingHook hook) {
-        return hook.getData(NO_RESISTANCE_LEVEL.get());
-    }
-
-    public static void setNoResistanceLevel(FishingHook hook, int noResistanceLevel) {
-        getNoResistanceLevel(hook).setNoResistanceLevel(noResistanceLevel);
     }
 }

@@ -11,6 +11,7 @@ public class ModEnchantmentTags {
     public static final TagKey<Enchantment> REDIRECT_PROJECTILE_EXCLUSIVE = of("redirect_projectile_exclusive");
     public static final TagKey<Enchantment> EXPLODE_EXCLUSIVE = of("explode_exclusive");
     public static final TagKey<Enchantment> KINETIC_EXCLUSIVE = of("kinetic_exclusive");
+
     public static TagKey<Enchantment> of(String id) {
         return TagKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, id));
     }

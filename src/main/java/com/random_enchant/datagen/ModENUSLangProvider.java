@@ -1,13 +1,12 @@
 package com.random_enchant.datagen;
 
+import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
+
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.item.ModItems;
+import java.util.List;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-
-import java.util.List;
-
-import static com.random_enchant.enchantment.ModEnchantHelper.toRoman;
 
 public class ModENUSLangProvider extends LanguageProvider {
     public ModENUSLangProvider(PackOutput output) { super(output, RandomEnchant.MOD_ID, "en_us"); }
@@ -15,7 +14,7 @@ public class ModENUSLangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         add("itemGroup.random_enchant.title", "Random Enchant");
-        add("entity.minecraft.bee.random_enchant.spawn_name","§aFly");
+        add("entity.minecraft.bee.random_enchant.spawn_name", "§aFly");
         // Configuration entries
         add("random_enchant.configuration.randomEnchant", "§gRandom Enchant§r Event");
         add("random_enchant.configuration.isAlwaysEnchantable", "All Items Enchantable");

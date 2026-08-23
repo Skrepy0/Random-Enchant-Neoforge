@@ -54,8 +54,9 @@ public class ModParticleHelper {
 
     /**
      * 检查方块的某个面是否被其他方块遮挡
-     * @param level 世界实例
-     * @param blockPos 方块位置
+     *
+     * @param level     世界实例
+     * @param blockPos  方块位置
      * @param direction 要检查的方向
      * @return 如果该面被遮挡返回true，否则返回false
      */

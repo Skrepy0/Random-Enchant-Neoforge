@@ -29,6 +29,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 @EventBusSubscriber
 public class EnchantBrushHelper {
     private static boolean haveHopper = false;
+
     @SubscribeEvent
     public static void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
         Player player = event.getEntity();

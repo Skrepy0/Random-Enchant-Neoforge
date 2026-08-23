@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemEntity.class)
 public class ItemEntityMixin {
     private boolean success = false;
+
     @ModifyArg(
             method = "playerTouch",
             at = @At(

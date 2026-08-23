@@ -34,6 +34,7 @@ public abstract class DefaultDispenseItemBehaviorMixin {
             itemEntity.setDeltaMovement(d * (double) l * 0.45, e * (double) l * 0.3, f * (double) l * 0.45);
         }
     }
+
     @Redirect(method = "spawnItem",
               at = @At(value = "INVOKE", target = "Lnet/minecraft/util/RandomSource;triangle(DD)D", ordinal = 0))
     private static double
@@ -44,6 +45,7 @@ public abstract class DefaultDispenseItemBehaviorMixin {
         }
         return instance.triangle(center, maxDeviation);
     }
+
     @Redirect(method = "spawnItem",
               at = @At(value = "INVOKE", target = "Lnet/minecraft/util/RandomSource;triangle(DD)D", ordinal = 1))
     private static double

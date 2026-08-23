@@ -28,71 +28,7 @@ public class SoultrancePotion extends Item {
     private static final Random RANDOM = new Random();
 
     public SoultrancePotion(Properties properties) { super(properties); }
-    @Override
-    public boolean isFoil(ItemStack stack) {
-        return true;
-    }
 
-    @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
-        super.finishUsingItem(stack, level, entityLiving);
-        if (entityLiving instanceof ServerPlayer serverplayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, stack);
-            serverplayer.awardStat(Stats.ITEM_USED.get(this));
-        }
-        boolean flag = false;
-        if (!level.isClientSide()) {
-            if (entityLiving instanceof ServerPlayer serverPlayer) {
-                Optional<GlobalPos> lastDeathLocation = serverPlayer.getLastDeathLocation();
-                boolean f = false;
-                if (lastDeathLocation.isPresent()) {
-                    flag = teleportPlayer(
-                            serverPlayer,
-                            Objects.requireNonNull(serverPlayer.server.getLevel(lastDeathLocation.get().dimension())),
-                            lastDeathLocation.get().pos().getX(), lastDeathLocation.get().pos().getY(),
-                            lastDeathLocation.get().pos().getZ(), serverPlayer.getYRot(), serverPlayer.getXRot());
-                    f = true;
-                }
-                if (!flag && f) {
-                    serverPlayer.displayClientMessage(
-                            Component.translatable("message.random_enchant.item.soultrance_potion.teleport_failed"),
-                            true);
-                }
-            }
-        }
-        if (entityLiving instanceof ServerPlayer serverPlayer) {
-            if (flag) {
-                playSoundAndShowParticle(serverPlayer);
-                level.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(),
-                                SoundEvents.PLAYER_TELEPORT, SoundSource.PLAYERS, 20.0F, 1.0F);
-            } else {
-                serverPlayer.displayClientMessage(
-                        Component.translatable("message.random_enchant.item.soultrance_potion.teleport_failed"), true);
-                level.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(),
-                                SoundEvents.VILLAGER_NO, SoundSource.VOICE, 20.0F, 1.0F);
-            }
-        }
-
-
-        if (stack.isEmpty()) {
-            return new ItemStack(Items.GLASS_BOTTLE);
-        } else {
-            if (entityLiving instanceof Player player && !player.hasInfiniteMaterials()) {
-                if (ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.INFINITY) <= 0) {
-                    ItemStack itemstack = new ItemStack(Items.GLASS_BOTTLE);
-                    if (!player.getInventory().add(itemstack)) {
-                        player.drop(itemstack, false);
-                    }
-                }
-            }
-            return stack;
-        }
-    }
-    private void playSoundAndShowParticle(ServerPlayer serverPlayer) {
-        createOminousAura(serverPlayer);
-        createOminousSpiral(serverPlayer);
-        createOminousExplosion(serverPlayer);
-    }
     /**
      * 在玩家周围创建光环粒子效果
      */
@@ -184,6 +120,73 @@ public class SoultrancePotion extends Item {
         player.setDeltaMovement(0, 0, 0);
         player.resetFallDistance();
         return true;
+    }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
+        super.finishUsingItem(stack, level, entityLiving);
+        if (entityLiving instanceof ServerPlayer serverplayer) {
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, stack);
+            serverplayer.awardStat(Stats.ITEM_USED.get(this));
+        }
+        boolean flag = false;
+        if (!level.isClientSide()) {
+            if (entityLiving instanceof ServerPlayer serverPlayer) {
+                Optional<GlobalPos> lastDeathLocation = serverPlayer.getLastDeathLocation();
+                boolean f = false;
+                if (lastDeathLocation.isPresent()) {
+                    flag = teleportPlayer(
+                            serverPlayer,
+                            Objects.requireNonNull(serverPlayer.server.getLevel(lastDeathLocation.get().dimension())),
+                            lastDeathLocation.get().pos().getX(), lastDeathLocation.get().pos().getY(),
+                            lastDeathLocation.get().pos().getZ(), serverPlayer.getYRot(), serverPlayer.getXRot());
+                    f = true;
+                }
+                if (!flag && f) {
+                    serverPlayer.displayClientMessage(
+                            Component.translatable("message.random_enchant.item.soultrance_potion.teleport_failed"),
+                            true);
+                }
+            }
+        }
+        if (entityLiving instanceof ServerPlayer serverPlayer) {
+            if (flag) {
+                playSoundAndShowParticle(serverPlayer);
+                level.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(),
+                                SoundEvents.PLAYER_TELEPORT, SoundSource.PLAYERS, 20.0F, 1.0F);
+            } else {
+                serverPlayer.displayClientMessage(
+                        Component.translatable("message.random_enchant.item.soultrance_potion.teleport_failed"), true);
+                level.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(),
+                                SoundEvents.VILLAGER_NO, SoundSource.VOICE, 20.0F, 1.0F);
+            }
+        }
+
+
+        if (stack.isEmpty()) {
+            return new ItemStack(Items.GLASS_BOTTLE);
+        } else {
+            if (entityLiving instanceof Player player && !player.hasInfiniteMaterials()) {
+                if (ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.INFINITY) <= 0) {
+                    ItemStack itemstack = new ItemStack(Items.GLASS_BOTTLE);
+                    if (!player.getInventory().add(itemstack)) {
+                        player.drop(itemstack, false);
+                    }
+                }
+            }
+            return stack;
+        }
+    }
+
+    private void playSoundAndShowParticle(ServerPlayer serverPlayer) {
+        createOminousAura(serverPlayer);
+        createOminousSpiral(serverPlayer);
+        createOminousExplosion(serverPlayer);
     }
 
     @Override

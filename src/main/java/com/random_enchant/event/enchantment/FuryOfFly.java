@@ -35,13 +35,15 @@ public class FuryOfFly {
             if (target instanceof LivingEntity) {
                 InteractionHand hand = attacker.getUsedItemHand();
                 ItemStack weapon = attacker.getItemInHand(hand);
-                if (attacker instanceof Player player){
-                    if (player.getCooldowns().isOnCooldown(weapon.getItem()))return;
+                if (attacker instanceof Player player) {
+                    if (player.getCooldowns().isOnCooldown(weapon.getItem())) return;
                 }
                 int lvl = ModEnchantHelper.getEnchantmentLevel(weapon, ModEnchantments.FURY_OF_FLY);
                 spawnBee(level, target, lvl, attacker);
-                if (attacker instanceof ServerPlayer serverPlayer) AdvancementHelper.grantAdvancement(serverPlayer, "enchant/trigger_fly_of_fury", "trigger_fly_of_fury");
-                if (attacker instanceof Player player)player.getCooldowns().addCooldown(weapon.getItem(),50);
+                if (attacker instanceof ServerPlayer serverPlayer)
+                    AdvancementHelper.grantAdvancement(serverPlayer, "enchant/trigger_fly_of_fury",
+                                                       "trigger_fly_of_fury");
+                if (attacker instanceof Player player) player.getCooldowns().addCooldown(weapon.getItem(), 50);
             }
         }
     }
@@ -108,11 +110,11 @@ public class FuryOfFly {
 
                 // 使用 sendParticles 方法，通过速度参数设置粒子运动方向
                 serverWorld.sendParticles(ParticleTypes.FLASH, x, y + 0.3, z, // 粒子位置
-                        10, // 粒子数量
-                        direction1.x * speed, // X方向速度
-                        direction1.y * speed, // Y方向速度
-                        direction1.z * speed, // Z方向速度
-                        0.01 // 基础速度（会被方向向量缩放）
+                                          10, // 粒子数量
+                                          direction1.x * speed, // X方向速度
+                                          direction1.y * speed, // Y方向速度
+                                          direction1.z * speed, // Z方向速度
+                                          0.01 // 基础速度（会被方向向量缩放）
                 );
                 serverWorld.sendParticles( // spawnParticles -> sendParticles
                         ParticleTypes.ENCHANTED_HIT, x, y + 0.3, z, // 粒子位置
@@ -133,5 +135,4 @@ public class FuryOfFly {
             }
         }
     }
-
 }

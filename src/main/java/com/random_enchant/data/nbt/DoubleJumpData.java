@@ -22,28 +22,71 @@ public class DoubleJumpData {
 
     // ==================== 2. 数据类 ====================
 
+    /**
+     * 获取玩家的二段跳数据
+     */
+    public static DoubleJumpState get(Player player) { return player.getData(DOUBLE_JUMP_STATE.get()); }
+
+    // ==================== 3. 便捷访问方法 ====================
+
+    /**
+     * 检查玩家是否使用了二段跳
+     */
+    public static boolean hasUsedDoubleJump(Player player) { return get(player).hasUsedDoubleJump(); }
+
+    /**
+     * 设置玩家的二段跳状态
+     */
+    public static void setUsedDoubleJump(Player player, boolean used) { get(player).setUsedDoubleJump(used); }
+
+    /**
+     * 标记玩家已使用二段跳
+     */
+    public static void markDoubleJumpUsed(Player player) { get(player).markDoubleJumpUsed(); }
+
+    /**
+     * 重置玩家的二段跳状态
+     */
+    public static void reset(Player player) { get(player).reset(); }
+
+    /**
+     * 检查玩家是否可以使用二段跳
+     */
+    public static boolean canDoubleJump(Player player) { return get(player).canDoubleJump(player); }
+
     public static class DoubleJumpState implements INBTSerializable<CompoundTag> {
         // 核心数据：是否在落地前使用了二段跳
         private boolean usedDoubleJump = false;
 
         // ==================== 写入接口 ====================
 
-        /** 设置是否使用了二段跳 */
-        public void setUsedDoubleJump(boolean used) { this.usedDoubleJump = used; }
         public boolean getUsedDoubleJump() { return usedDoubleJump; }
 
-        /** 标记已使用二段跳 */
+        /**
+         * 设置是否使用了二段跳
+         */
+        public void setUsedDoubleJump(boolean used) { this.usedDoubleJump = used; }
+
+        /**
+         * 标记已使用二段跳
+         */
         public void markDoubleJumpUsed() { this.usedDoubleJump = true; }
 
-        /** 重置二段跳状态（落地时调用） */
+        /**
+         * 重置二段跳状态（落地时调用）
+         */
         public void reset() { this.usedDoubleJump = false; }
 
         // ==================== 读取接口 ====================
 
-        /** 检查是否已经使用了二段跳 */
+        /**
+         * 检查是否已经使用了二段跳
+         */
         public boolean hasUsedDoubleJump() { return usedDoubleJump; }
 
-        /** 检查是否可以使用二段跳（还没使用且在空中） */
+        /**
+         * 检查是否可以使用二段跳（还没使用且在空中）
+         */
         public boolean canDoubleJump(Player player) { return !usedDoubleJump && !player.onGround(); }
 
         // ==================== NBT序列化 ====================
@@ -60,24 +103,4 @@ public class DoubleJumpData {
             usedDoubleJump = tag.getBoolean("UsedDoubleJump");
         }
     }
-
-    // ==================== 3. 便捷访问方法 ====================
-
-    /** 获取玩家的二段跳数据 */
-    public static DoubleJumpState get(Player player) { return player.getData(DOUBLE_JUMP_STATE.get()); }
-
-    /** 检查玩家是否使用了二段跳 */
-    public static boolean hasUsedDoubleJump(Player player) { return get(player).hasUsedDoubleJump(); }
-
-    /** 设置玩家的二段跳状态 */
-    public static void setUsedDoubleJump(Player player, boolean used) { get(player).setUsedDoubleJump(used); }
-
-    /** 标记玩家已使用二段跳 */
-    public static void markDoubleJumpUsed(Player player) { get(player).markDoubleJumpUsed(); }
-
-    /** 重置玩家的二段跳状态 */
-    public static void reset(Player player) { get(player).reset(); }
-
-    /** 检查玩家是否可以使用二段跳 */
-    public static boolean canDoubleJump(Player player) { return get(player).canDoubleJump(player); }
 }

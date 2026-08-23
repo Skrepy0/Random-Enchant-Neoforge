@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ProjectileDispenseBehavior.class)
 public class ProjectileDispenseBehaviorMixin {
     private static BlockSource dispenseSource;
+
     @Inject(method = "execute", at = @At("HEAD"))
     private void injectExecuteHead(BlockSource blockSource, ItemStack item, CallbackInfoReturnable<ItemStack> cir) {
         dispenseSource = blockSource;

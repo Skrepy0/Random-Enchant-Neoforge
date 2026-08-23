@@ -25,13 +25,6 @@ import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 public abstract class LivingEntityMixin extends Entity {
     public LivingEntityMixin(EntityType<?> entityType, Level level) { super(entityType, level); }
 
-    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
-
-    @Shadow
-    private SoundEvent getFallDamageSound(int height) {
-        return null;
-    }
-
     @Unique
     private static int isEnchantedFly(IDynamicStackHandler stackHandler) {
         // 3. 遍历背部槽位的所有格子（可能有多个）
@@ -43,6 +36,13 @@ public abstract class LivingEntityMixin extends Entity {
             }
         }
         return -114514;
+    }
+
+    @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot1);
+
+    @Shadow
+    private SoundEvent getFallDamageSound(int height) {
+        return null;
     }
 
     @Inject(at = @At(value = "INVOKE",

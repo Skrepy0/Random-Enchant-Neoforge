@@ -3,6 +3,9 @@ package com.random_enchant.item.custom.weapon;
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.mixin_helper.RandomHelper;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -30,10 +33,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
 
 public class PearlSpear extends Item {
     private final int COOL_DOWN_TIME = 200;
@@ -101,7 +100,7 @@ public class PearlSpear extends Item {
         if (user.getCooldowns().isOnCooldown(this)) return false;
         Vec3 playerVelocity = user.getDeltaMovement();
         Vec3 entityVelocity = target.getDeltaMovement();
-        System.out.println(playerVelocity+","+entityVelocity);
+        System.out.println(playerVelocity + "," + entityVelocity);
         Vec3 playerPos = user.position();
         Vec3 entityPos = target.position();
         Vec3 playerToEntity = entityPos.subtract(playerPos);

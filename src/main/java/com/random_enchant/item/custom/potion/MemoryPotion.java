@@ -27,67 +27,7 @@ public class MemoryPotion extends Item {
     private static final Random RANDOM = new Random();
 
     public MemoryPotion(Properties properties) { super(properties); }
-    @Override
-    public boolean isFoil(ItemStack stack) {
-        return true;
-    }
 
-    @Override
-    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
-        super.finishUsingItem(stack, level, entityLiving);
-        if (entityLiving instanceof ServerPlayer serverplayer) {
-            CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, stack);
-            serverplayer.awardStat(Stats.ITEM_USED.get(this));
-        }
-        boolean flag = false;
-        if (!level.isClientSide) {
-            entityLiving.removeEffectsCuredBy(EffectCures.HONEY);
-            if (entityLiving instanceof Player player) {
-                if (player instanceof ServerPlayer serverPlayer) {
-                    ResourceKey<Level> dimension = serverPlayer.getRespawnDimension();
-                    BlockPos respawnPosition = serverPlayer.getRespawnPosition();
-                    float respawnAngle = serverPlayer.getRespawnAngle();
-                    ServerLevel targetLevel = serverPlayer.server.getLevel(dimension);
-                    if (respawnPosition == null) {
-                        respawnPosition = targetLevel.getSharedSpawnPos();
-                        respawnAngle = targetLevel.getSharedSpawnAngle();
-                    }
-                    boolean result = teleportPlayer(serverPlayer, targetLevel, respawnPosition.getX() + 0.5,
-                                                    respawnPosition.getY(), respawnPosition.getZ() + 0.5, respawnAngle,
-                                                    player.getVoicePitch());
-                    if (!result) {
-                        serverPlayer.sendSystemMessage(net.minecraft.network.chat.Component.literal("§c传送失败"));
-                    } else {
-                        flag = true;
-                    }
-                }
-            }
-        }
-        if (flag) {
-            if (entityLiving instanceof ServerPlayer serverPlayer) playSoundAndShowParticle(serverPlayer);
-            level.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(),
-                            SoundEvents.TRIAL_SPAWNER_OMINOUS_ACTIVATE, SoundSource.PLAYERS, 20.0F, 1.0F);
-        }
-
-        if (stack.isEmpty()) {
-            return new ItemStack(Items.GLASS_BOTTLE);
-        } else {
-            if (entityLiving instanceof Player player && !player.hasInfiniteMaterials()) {
-                if (ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.INFINITY) <= 0) {
-                    ItemStack itemstack = new ItemStack(Items.GLASS_BOTTLE);
-                    if (!player.getInventory().add(itemstack)) {
-                        player.drop(itemstack, false);
-                    }
-                }
-            }
-            return stack;
-        }
-    }
-    private void playSoundAndShowParticle(ServerPlayer serverPlayer) {
-        createOminousAura(serverPlayer);
-        createOminousSpiral(serverPlayer);
-        createOminousExplosion(serverPlayer);
-    }
     /**
      * 在玩家周围创建光环粒子效果
      */
@@ -178,6 +118,69 @@ public class MemoryPotion extends Item {
         player.setDeltaMovement(0, 0, 0);
         player.resetFallDistance();
         return true;
+    }
+
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entityLiving) {
+        super.finishUsingItem(stack, level, entityLiving);
+        if (entityLiving instanceof ServerPlayer serverplayer) {
+            CriteriaTriggers.CONSUME_ITEM.trigger(serverplayer, stack);
+            serverplayer.awardStat(Stats.ITEM_USED.get(this));
+        }
+        boolean flag = false;
+        if (!level.isClientSide) {
+            entityLiving.removeEffectsCuredBy(EffectCures.HONEY);
+            if (entityLiving instanceof Player player) {
+                if (player instanceof ServerPlayer serverPlayer) {
+                    ResourceKey<Level> dimension = serverPlayer.getRespawnDimension();
+                    BlockPos respawnPosition = serverPlayer.getRespawnPosition();
+                    float respawnAngle = serverPlayer.getRespawnAngle();
+                    ServerLevel targetLevel = serverPlayer.server.getLevel(dimension);
+                    if (respawnPosition == null) {
+                        respawnPosition = targetLevel.getSharedSpawnPos();
+                        respawnAngle = targetLevel.getSharedSpawnAngle();
+                    }
+                    boolean result = teleportPlayer(serverPlayer, targetLevel, respawnPosition.getX() + 0.5,
+                                                    respawnPosition.getY(), respawnPosition.getZ() + 0.5, respawnAngle,
+                                                    player.getVoicePitch());
+                    if (!result) {
+                        serverPlayer.sendSystemMessage(net.minecraft.network.chat.Component.literal("§c传送失败"));
+                    } else {
+                        flag = true;
+                    }
+                }
+            }
+        }
+        if (flag) {
+            if (entityLiving instanceof ServerPlayer serverPlayer) playSoundAndShowParticle(serverPlayer);
+            level.playSound(null, entityLiving.getX(), entityLiving.getY(), entityLiving.getZ(),
+                            SoundEvents.TRIAL_SPAWNER_OMINOUS_ACTIVATE, SoundSource.PLAYERS, 20.0F, 1.0F);
+        }
+
+        if (stack.isEmpty()) {
+            return new ItemStack(Items.GLASS_BOTTLE);
+        } else {
+            if (entityLiving instanceof Player player && !player.hasInfiniteMaterials()) {
+                if (ModEnchantHelper.getEnchantmentLevel(stack, Enchantments.INFINITY) <= 0) {
+                    ItemStack itemstack = new ItemStack(Items.GLASS_BOTTLE);
+                    if (!player.getInventory().add(itemstack)) {
+                        player.drop(itemstack, false);
+                    }
+                }
+            }
+            return stack;
+        }
+    }
+
+    private void playSoundAndShowParticle(ServerPlayer serverPlayer) {
+        createOminousAura(serverPlayer);
+        createOminousSpiral(serverPlayer);
+        createOminousExplosion(serverPlayer);
     }
 
     @Override

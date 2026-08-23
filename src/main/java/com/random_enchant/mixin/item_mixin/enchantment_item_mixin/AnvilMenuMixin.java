@@ -10,6 +10,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+
 @Mixin(AnvilMenu.class)
 public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     public AnvilMenuMixin(int containerId, net.minecraft.world.entity.player.Inventory playerInventory,

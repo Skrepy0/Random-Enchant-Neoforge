@@ -22,8 +22,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ProjectileWeaponItem.class)
 public class ProjectileWeaponItemMixin {
-    @Unique private boolean randomEnchant$InaccuracyFlag = false;
     @Unique public int randomEnchant$KineticFlag = 0;
+    @Unique private boolean randomEnchant$InaccuracyFlag = false;
+
     @Inject(method = "shoot",
             at = @At(value = "INVOKE_ASSIGN",
                      target = "Lnet/minecraft/world/item/ProjectileWeaponItem;createProjectile(Lnet/minecraft/world/"
@@ -59,6 +60,7 @@ public class ProjectileWeaponItemMixin {
             randomEnchant$InaccuracyFlag = true;
         }
     }
+
     @ModifyArg(method = "shoot",
                at = @At(value = "INVOKE",
                         target = "Lnet/minecraft/world/item/ProjectileWeaponItem;shootProjectile(Lnet/minecraft/"
@@ -73,6 +75,7 @@ public class ProjectileWeaponItemMixin {
         }
         return inaccuracy;
     }
+
     @Inject(method = "shoot", at = @At(value = "INVOKE",
                                        target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntity(Lnet/"
                                                 + "minecraft/world/entity/Entity;)Z",

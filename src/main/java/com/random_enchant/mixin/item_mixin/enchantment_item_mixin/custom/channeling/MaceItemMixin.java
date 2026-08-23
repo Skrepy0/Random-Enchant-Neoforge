@@ -30,6 +30,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MaceItem.class)
 public class MaceItemMixin {
+    @Unique
+    private static void randomEnchant$explode(float power, Level level, double x, double y, double z, Entity entity) {
+        float f = 4.0F + (float) (power * 0.5);
+        Level.ExplosionInteraction interaction =
+                Config.getExplodeDestroyBlock() ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE;
+        level.explode(entity, x, y, z, f, interaction);
+    }
+
     @Inject(method = "hurtEnemy",
             at = @At(
                     value = "INVOKE",
@@ -72,12 +80,5 @@ public class MaceItemMixin {
             attacker.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 3, 5));
             randomEnchant$explode(explosionLevel * 0.8f, level, target.getX(), target.getY(), target.getZ(), target);
         }
-    }
-    @Unique
-    private static void randomEnchant$explode(float power, Level level, double x, double y, double z, Entity entity) {
-        float f = 4.0F + (float) (power * 0.5);
-        Level.ExplosionInteraction interaction =
-                Config.getExplodeDestroyBlock() ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE;
-        level.explode(entity, x, y, z, f, interaction);
     }
 }
