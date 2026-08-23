@@ -64,5 +64,7 @@ public class CustomWindChargeS2CPacket implements CustomPacketPayload {
         public static void set(UUID newUuid, int newRadius) { dataMap.put(newUuid, newRadius); }
 
         public static int getRadius(UUID uuid) { return dataMap.getOrDefault(uuid, 0); }
+
+        public static void remove(UUID uuid) { dataMap.remove(uuid); }
     }
 }

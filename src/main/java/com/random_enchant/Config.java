@@ -4,7 +4,6 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-    static final ModConfigSpec SPEC = BUILDER.build();
     public static ModConfigSpec.BooleanValue randomEnchant = BUILDER.define("randomEnchant", false);
     public static ModConfigSpec.BooleanValue isAlwaysEnchantable = BUILDER.define("isAlwaysEnchantable", false);
     public static ModConfigSpec.BooleanValue explodeDestroyBlock = BUILDER.define("explodeDestroyBlock", true);
@@ -78,4 +77,6 @@ public class Config {
     public static void setInfinityDispenser(boolean value) { infinityDispenser.set(value); }
 
     public static void setInfinityThrowableItem(boolean value) { infinityThrowableItem.set(value); }
+
+    static final ModConfigSpec SPEC = BUILDER.build();
 }

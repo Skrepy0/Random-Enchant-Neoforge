@@ -23,8 +23,24 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
 public abstract class PlayerEntityMixin extends LivingEntity {
+    // 缓存的上升高度，只在 Config 可用后读取一次
+    @Unique private static volatile double randomEnchant$cachedLiftHeight = Double.NaN;
+
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Unique
+    private static double randomEnchant$getLiftHeight() {
+        double h = randomEnchant$cachedLiftHeight;
+        if (!Double.isNaN(h)) return h;
+        try {
+            randomEnchant$cachedLiftHeight = Config.getFlyEnchantmentLiftHeightPerTick();
+        } catch (Exception e) {
+            // Config spec 尚未初始化时返回默认值
+            randomEnchant$cachedLiftHeight = 0.05;
+        }
+        return randomEnchant$cachedLiftHeight;
     }
 
     @Unique
@@ -72,7 +88,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
         }
 
         if (ElytraJumpMixinHelper.isJumpKeyPressed()) {
-            this.push(0, Config.getFlyEnchantmentLiftHeightPerTick(), 0);
+            this.push(0, randomEnchant$getLiftHeight(), 0);
             if (RandomHelper.random(randomEnchant$getProbability(
                         ModEnchantHelper.getEnchantmentLevel(chestItem, Enchantments.UNBREAKING)))) {
                 chestItem.setDamageValue(chestItem.getDamageValue() + 1);

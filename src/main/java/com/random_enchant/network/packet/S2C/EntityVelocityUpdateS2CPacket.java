@@ -61,6 +61,6 @@ public class EntityVelocityUpdateS2CPacket implements CustomPacketPayload {
 
         public static void set(int newid, Vec3 newVec3) { dataMap.put(newid, newVec3); }
 
-        public static Vec3 getVec3(int id) { return dataMap.getOrDefault(id, new Vec3(0, 0, 0)); }
+        public static void remove(int id) { dataMap.remove(id); }
     }
 }

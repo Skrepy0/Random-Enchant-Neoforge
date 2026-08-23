@@ -12,7 +12,7 @@ public class ThrowPowerC2SPacket implements CustomPacketPayload {
             new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "throw_power_c2s"));
     public static final StreamCodec<FriendlyByteBuf, ThrowPowerC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(ThrowPowerC2SPacket::write, ThrowPowerC2SPacket::new);
-    public static float throw_power;
+    public static volatile float throw_power;
     public float throw_power_message;
 
     public ThrowPowerC2SPacket(float throw_power) { this.throw_power_message = throw_power; }

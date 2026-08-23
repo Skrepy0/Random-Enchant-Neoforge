@@ -14,8 +14,8 @@ public class FuC2SPacket implements CustomPacketPayload {
             new Type<FuC2SPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "fu_c2s"));
     public static final StreamCodec<FriendlyByteBuf, FuC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(FuC2SPacket::write, FuC2SPacket::new);
-    static Vec3 direction;
-    static UUID uuid;
+    static volatile Vec3 direction;
+    static volatile UUID uuid;
     public Vec3 directionMessage;
     public UUID uuidMessage;
     public int flag;

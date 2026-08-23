@@ -5,7 +5,6 @@ import com.random_enchant.enchantment.ModEnchantHelper;
 import com.random_enchant.enchantment.ModEnchantments;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.UUID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
@@ -35,6 +34,14 @@ public class PlayerJumpEvent {
 
     @SubscribeEvent
     public static void onPlayerDisconnect(PlayerEvent.PlayerLoggedOutEvent event) {
+        Player player = event.getEntity();
+        UUID playerId = player.getUUID();
+        fallProtectionMap.remove(playerId);
+        protectionStartPositions.remove(playerId);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         Player player = event.getEntity();
         UUID playerId = player.getUUID();
         fallProtectionMap.remove(playerId);
@@ -81,7 +88,7 @@ public class PlayerJumpEvent {
             }
         }
         if (flag) {
-            float pitch = new Random().nextFloat();
+            float pitch = player.getRandom().nextFloat();
             player.playSound(SoundEvents.PLAYER_BREATH, 0.5f, pitch);
         }
     }

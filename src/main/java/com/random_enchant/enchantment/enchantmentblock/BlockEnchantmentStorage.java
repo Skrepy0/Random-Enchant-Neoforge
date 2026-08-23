@@ -80,10 +80,18 @@ public class BlockEnchantmentStorage {
         // 放入缓存（包括0等级）
         LEVEL_CACHE.put(cacheKey, level);
 
-        // 缓存清理（如果缓存太大）
+        // 缓存清理（使用LRU策略：移除最旧的条目）
         if (LEVEL_CACHE.size() > 1000) {
-            LEVEL_CACHE.clear();
-            LOGGER.fine("Cleared cache due to size limit");
+            int toRemove = LEVEL_CACHE.size() - 800;
+            var iterator = LEVEL_CACHE.keySet().iterator();
+            int removed = 0;
+            while (iterator.hasNext() && removed < toRemove) {
+                iterator.next();
+                iterator.remove();
+                removed++;
+            }
+            int finalRemoved = removed;
+            LOGGER.fine(() -> "LRU evicted " + finalRemoved + " cache entries");
         }
 
         return level;

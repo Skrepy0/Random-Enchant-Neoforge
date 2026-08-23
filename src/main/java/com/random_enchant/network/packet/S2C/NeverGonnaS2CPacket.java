@@ -2,7 +2,7 @@ package com.random_enchant.network.packet.S2C;
 
 import com.random_enchant.RandomEnchant;
 import com.random_enchant.sound.ModSounds;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
@@ -36,7 +36,7 @@ public class NeverGonnaS2CPacket implements CustomPacketPayload {
 
     public static void playRandomSound(ClientLevel world, LocalPlayer player) {
         // 生成一个 0 到 9 之间的随机数
-        int randomIndex = new Random().nextInt(10);
+        int randomIndex = ThreadLocalRandom.current().nextInt(10);
 
         // 根据随机数选择要执行的代码
         switch (randomIndex) {

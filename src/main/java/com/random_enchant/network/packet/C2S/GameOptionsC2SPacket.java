@@ -12,8 +12,8 @@ public class GameOptionsC2SPacket implements CustomPacketPayload {
             new Type<GameOptionsC2SPacket>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "game_options"));
     public static final StreamCodec<FriendlyByteBuf, GameOptionsC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(GameOptionsC2SPacket::write, GameOptionsC2SPacket::new);
-    public static float blocks;
-    public static float master;
+    public static volatile float blocks;
+    public static volatile float master;
     public float blocksMessage;
     public float masterMessage;
 

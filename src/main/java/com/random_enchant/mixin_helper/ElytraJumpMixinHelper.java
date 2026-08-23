@@ -1,29 +1,24 @@
 package com.random_enchant.mixin_helper;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ElytraJumpMixinHelper {
-    // 创建一个静态Map来存储实体ID和值
-    private static final Map<Integer, Integer> entityValueMap = new HashMap<>();
-    // 创建一个静态Map来存储实体ID和值
-    private static final Map<Integer, Integer> HitCoolDownMap = new HashMap<>();
-    private static boolean isJumpKeyPressed = false;
+    private static final Map<Integer, Integer> entityValueMap = new ConcurrentHashMap<>();
+    private static final Map<Integer, Integer> HitCoolDownMap = new ConcurrentHashMap<>();
+    private static volatile boolean isJumpKeyPressed = false;
 
-    // 在适当的时候将实体ID和值添加到Map中
     public static void storeEntityValue(int entityID, int value) { entityValueMap.put(entityID, value); }
 
-    // 在需要时从Map中检索值
-    public static int getEntityValue(int entityID) {
-        return entityValueMap.getOrDefault(entityID, 0); // 默认值为0，如果未找到实体ID
-    }
+    public static int getEntityValue(int entityID) { return entityValueMap.getOrDefault(entityID, 0); }
 
-    // 在适当的时候将实体ID和值添加到Map中
     public static void storeHitCoolDown(int entityID, int value) { HitCoolDownMap.put(entityID, value); }
 
-    // 在需要时从Map中检索值
-    public static int getHitCoolDown(int entityID) {
-        return HitCoolDownMap.getOrDefault(entityID, 0); // 默认值为0
+    public static int getHitCoolDown(int entityID) { return HitCoolDownMap.getOrDefault(entityID, 0); }
+
+    public static void removeEntity(int entityID) {
+        entityValueMap.remove(entityID);
+        HitCoolDownMap.remove(entityID);
     }
 
     public static void setIsJumpKeyPressed(boolean isJumpKeyPressed) {

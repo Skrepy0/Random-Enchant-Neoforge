@@ -62,12 +62,11 @@ public class RandomEnchantEvent {
                                              .wrapAsHolder(selectedEnchantment);
 
         int level;
-        java.util.Random random = new java.util.Random();
-        int pro = random.nextInt(10);
+        int pro = player.getRandom().nextInt(10);
         if (pro <= 3) {
-            level = random.nextInt(5) + 6;
+            level = player.getRandom().nextInt(5) + 6;
         } else {
-            level = random.nextInt(3);
+            level = player.getRandom().nextInt(3);
         }
         int currentLevel = itemStack.getEnchantmentLevel(holder);
         int newLevel = currentLevel + 1 + level;

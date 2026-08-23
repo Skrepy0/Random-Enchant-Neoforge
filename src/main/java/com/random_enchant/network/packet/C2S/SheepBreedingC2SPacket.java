@@ -12,7 +12,7 @@ public class SheepBreedingC2SPacket implements CustomPacketPayload {
             new Type<>(ResourceLocation.fromNamespaceAndPath(RandomEnchant.MOD_ID, "sheep_breeding"));
     public static final StreamCodec<FriendlyByteBuf, SheepBreedingC2SPacket> STREAM_CODEC =
             CustomPacketPayload.codec(SheepBreedingC2SPacket::write, SheepBreedingC2SPacket::new);
-    static int times;
+    static volatile int times;
     int timesMessage;
 
     public SheepBreedingC2SPacket(FriendlyByteBuf buf) { this.timesMessage = buf.readInt(); }
