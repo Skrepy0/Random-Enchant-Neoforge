@@ -26,31 +26,70 @@ public class GuideScreen extends Screen {
     // 搜索相关
     private EditBox searchBox; // 搜索输入框
     private Button searchButton; // 搜索按钮
+    private Button prevButton; // 上一页按钮
+    private Button nextButton; // 下一页按钮
     private SearchResultsList searchResultsList; // 搜索结果列表
     private List<SearchResult> allSearchResults; // 所有搜索结果（原始数据）
     private boolean searchMode = false; // 是否处于搜索模式（即已执行过搜索）
 
-    // 左侧指南内容区域
-    private static final int CONTENT_X = 160;
-    private static final int CONTENT_Y = 30;
-    private static final int CONTENT_WIDTH = 450;
-    private static final int CONTENT_HEIGHT = 350;
-
-    // 右侧面板（搜索框 + 结果列表）
-    private static final int RIGHT_PANEL_X = 2;
-    private static final int RIGHT_PANEL_WIDTH = 122;
-    private static final int SEARCH_BOX_Y = 30;
-    private static final int SEARCH_BUTTON_X = RIGHT_PANEL_X + RIGHT_PANEL_WIDTH + 5;
-    private static final int SEARCH_LIST_Y = SEARCH_BOX_Y + 25;
-    private static final int SEARCH_LIST_HEIGHT = 280;
+    // 动态布局参数（在init中计算）
+    private int contentX;
+    private int contentY;
+    private int contentWidth;
+    private int contentHeight;
+    private int rightPanelWidth;
+    private int searchBoxY;
+    private int searchListY;
+    private int searchListHeight;
+    private int buttonY;
+    private int padding;
 
     private boolean isDraggingScrollbar = false;
     private int dragStartMouseY;
+
+    // 底部按钮布局参数（供render使用）
+    private int buttonStartX;
+    private int buttonSize;
+    private int buttonSpacing;
+    private int pageTextWidth;
 
     public GuideScreen(List<String> pages) {
         super(Component.translatable("gui.random_enchant.guide.title"));
         this.pages = pages;
         this.currentPageLines = new ArrayList<>();
+    }
+
+    /**
+     * 根据屏幕大小计算布局参数
+     * 左侧搜索区域，右侧内容区域
+     */
+    private void calculateLayout() {
+        int screenW = this.width;
+        int screenH = this.height;
+        // 基础内边距，最小8像素
+        this.padding = Math.max(8, screenW / 100);
+
+        // 底部按钮区域高度预留
+        int bottomAreaHeight = Math.max(30, screenH / 15);
+        this.buttonY = screenH - bottomAreaHeight;
+
+        // 标题区域高度预留
+        int titleAreaHeight = Math.max(25, screenH / 20);
+
+        // 左侧面板宽度（搜索区域）：根据屏幕宽度动态调整
+        this.rightPanelWidth = Math.max(100, Math.min(screenW / 4, 180));
+
+        // 搜索区域（左侧）
+        this.searchBoxY = titleAreaHeight;
+        int searchBoxHeight = 20;
+        this.searchListY = this.searchBoxY + searchBoxHeight + this.padding;
+        this.searchListHeight = this.buttonY - this.searchListY - this.padding;
+
+        // 内容区域（右侧）
+        this.contentX = this.rightPanelWidth + this.padding * 2;
+        this.contentY = titleAreaHeight + this.padding;
+        this.contentWidth = screenW - this.rightPanelWidth - this.padding * 3;
+        this.contentHeight = this.buttonY - this.contentY - this.padding;
     }
 
     @Override
@@ -69,29 +108,39 @@ public class GuideScreen extends Screen {
     protected void init() {
         super.init();
 
-        Font font = Minecraft.getInstance().font;
-        int buttonY = this.height - 30;
+        // 计算动态布局
+        calculateLayout();
 
-        // ----- 右侧搜索框和按钮 -----
-        this.searchBox = new EditBox(font, RIGHT_PANEL_X, SEARCH_BOX_Y, RIGHT_PANEL_WIDTH - 3, 20,
+        Font font = Minecraft.getInstance().font;
+
+        // ----- 左侧搜索框和按钮 -----
+        int searchBoxWidth = this.rightPanelWidth - 24;
+        this.searchBox = new EditBox(font, 1, this.searchBoxY, searchBoxWidth, 20,
                                      Component.translatable("gui.random_enchant.guide.search"));
         this.searchBox.setMaxLength(50);
         this.searchBox.setResponder(this::onSearchTextChanged);
         this.searchBox.setSuggestion(Component.translatable("gui.random_enchant.guide.search").getString());
         this.addRenderableWidget(searchBox);
 
+        int searchButtonX = this.padding + searchBoxWidth - 4;
         this.searchButton = Button.builder(Component.literal("🔍"), btn -> performSearch())
-                                    .bounds(SEARCH_BUTTON_X, SEARCH_BOX_Y, 20, 20)
+                                    .bounds(searchButtonX, this.searchBoxY, 20, 20)
                                     .build();
         this.searchButton.setTooltip(Tooltip.create(Component.translatable("gui.random_enchant.guide.search")));
         this.addRenderableWidget(searchButton);
 
-        this.searchResultsList = new SearchResultsList(this.minecraft, RIGHT_PANEL_WIDTH, SEARCH_LIST_HEIGHT,
-                                                       SEARCH_LIST_Y, (SEARCH_LIST_Y + SEARCH_LIST_HEIGHT) / 15);
+        int searchListX = this.padding;
+        this.searchResultsList = new SearchResultsList(this.minecraft, this.rightPanelWidth, this.searchListHeight,
+                                                       searchListX, this.searchListY, font.lineHeight);
         this.addRenderableWidget(searchResultsList);
 
-        // ----- 底部翻页按钮 -----
-        this.addRenderableWidget(
+        // ----- 底部翻页按钮（搜索区域下方） -----
+        this.buttonSize = Math.max(20, this.height / 30);
+        this.buttonSpacing = 4;
+        this.pageTextWidth = this.rightPanelWidth - 52;
+        this.buttonStartX = this.padding / 2;
+
+        this.prevButton =
                 Button.builder(Component.literal("<"),
                                btn -> {
                                    if (currentPage > 0) {
@@ -100,11 +149,12 @@ public class GuideScreen extends Screen {
                                        updateCurrentPageLines();
                                    }
                                })
-                        .bounds(RIGHT_PANEL_X, buttonY, 20, 20)
+                        .bounds(this.buttonStartX, this.buttonY, this.buttonSize, this.buttonSize)
                         .tooltip(Tooltip.create(Component.translatable("gui.random_enchant.guide.previous_button")))
-                        .build());
+                        .build();
+        this.addRenderableWidget(prevButton);
 
-        this.addRenderableWidget(
+        this.nextButton =
                 Button.builder(Component.literal(">"),
                                btn -> {
                                    if (currentPage < pages.size() - 1) {
@@ -113,9 +163,11 @@ public class GuideScreen extends Screen {
                                        updateCurrentPageLines();
                                    }
                                })
-                        .bounds(RIGHT_PANEL_X + 100, buttonY, 20, 20)
+                        .bounds(this.buttonStartX + this.buttonSize + this.buttonSpacing + this.pageTextWidth,
+                                this.buttonY, this.buttonSize, this.buttonSize)
                         .tooltip(Tooltip.create(Component.translatable("gui.random_enchant.guide.next_button")))
-                        .build());
+                        .build();
+        this.addRenderableWidget(nextButton);
 
         updateCurrentPageLines();
         this.allSearchResults = new ArrayList<>();
@@ -162,9 +214,9 @@ public class GuideScreen extends Screen {
         if (currentPageLines == null) return false;
         if (button == 0 && currentPageLines.size() > maxLines) {
             int totalLines = currentPageLines.size();
-            int scrollbarHeight = (int) ((float) maxLines / totalLines * CONTENT_HEIGHT);
-            int scrollbarY = CONTENT_Y + (int) (scrollOffset / totalLines * CONTENT_HEIGHT);
-            int scrollbarX = CONTENT_X + CONTENT_WIDTH + 2;
+            int scrollbarHeight = (int) ((float) maxLines / totalLines * contentHeight);
+            int scrollbarY = contentY + (int) (scrollOffset / totalLines * contentHeight);
+            int scrollbarX = contentX + contentWidth + 2;
             int scrollbarWidth = 3;
 
             if (mouseX >= scrollbarX && mouseX <= scrollbarX + scrollbarWidth && mouseY >= scrollbarY &&
@@ -181,10 +233,10 @@ public class GuideScreen extends Screen {
     public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
         if (isDraggingScrollbar) {
             int totalLines = currentPageLines.size();
-            int scrollbarHeight = (int) ((float) maxLines / totalLines * CONTENT_HEIGHT);
+            int scrollbarHeight = (int) ((float) maxLines / totalLines * contentHeight);
             int maxScroll = totalLines - maxLines;
             double deltaY = mouseY - dragStartMouseY;
-            double deltaScroll = deltaY / (CONTENT_HEIGHT - scrollbarHeight) * maxScroll;
+            double deltaScroll = deltaY / (contentHeight - scrollbarHeight) * maxScroll;
             scrollOffset = Mth.clamp(scrollOffset + deltaScroll, 0, maxScroll);
             dragStartMouseY = (int) mouseY;
             return true;
@@ -208,28 +260,28 @@ public class GuideScreen extends Screen {
         }
         String pageText = pages.get(currentPage);
         Font font = Minecraft.getInstance().font;
-        currentPageLines = font.split(Component.literal(pageText), CONTENT_WIDTH);
-        maxLines = CONTENT_HEIGHT / font.lineHeight;
+        currentPageLines = font.split(Component.literal(pageText), contentWidth);
+        maxLines = contentHeight / font.lineHeight;
         double maxScroll = Math.max(0, currentPageLines.size() - maxLines);
         scrollOffset = Mth.clamp(scrollOffset, 0, maxScroll);
     }
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        if (this.minecraft == null || currentPageLines == null) return; // 增加空检查
+        if (this.minecraft == null || currentPageLines == null) return;
         this.renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
 
         Font font = Minecraft.getInstance().font;
         int lineHeight = font.lineHeight;
 
-        // ----- 绘制左侧指南内容 -----
+        // ----- 绘制右侧指南内容 -----
         if (!currentPageLines.isEmpty()) {
             int startLine = Mth.floor(scrollOffset);
             int endLine = Math.min(startLine + maxLines, currentPageLines.size());
-            int y = CONTENT_Y;
+            int y = contentY;
             for (int i = startLine; i < endLine; i++) {
-                graphics.drawString(font, currentPageLines.get(i), CONTENT_X, y, 0xFFFFFF, false);
+                graphics.drawString(font, currentPageLines.get(i), contentX, y, 0xFFFFFF, false);
                 y += lineHeight;
             }
         }
@@ -237,35 +289,37 @@ public class GuideScreen extends Screen {
         // ----- 绘制内容区域滚动条（仅在需要时）-----
         if (currentPageLines.size() > maxLines) {
             int totalLines = currentPageLines.size();
-            int scrollbarHeight = (int) ((float) maxLines / totalLines * CONTENT_HEIGHT);
-            int scrollbarY = CONTENT_Y + (int) (scrollOffset / totalLines * CONTENT_HEIGHT);
+            int scrollbarHeight = (int) ((float) maxLines / totalLines * contentHeight);
+            int scrollbarY = contentY + (int) (scrollOffset / totalLines * contentHeight);
 
-            graphics.fill(CONTENT_X + CONTENT_WIDTH + 2, CONTENT_Y, CONTENT_X + CONTENT_WIDTH + 4,
-                          CONTENT_Y + CONTENT_HEIGHT, 0xFF888888);
-            graphics.fill(CONTENT_X + CONTENT_WIDTH + 2, scrollbarY, CONTENT_X + CONTENT_WIDTH + 4,
+            graphics.fill(contentX + contentWidth + 2, contentY, contentX + contentWidth + 4, contentY + contentHeight,
+                          0xFF888888);
+            graphics.fill(contentX + contentWidth + 2, scrollbarY, contentX + contentWidth + 4,
                           scrollbarY + scrollbarHeight, 0xFFEEEEEE);
         }
 
         // ----- 绘制标题 -----
         String title = Component.translatable("gui.random_enchant.guide.title").getString();
-        graphics.drawString(font, title, this.width / 2 - font.width(title) / 2, 10, 0xFFFFFF, false);
+        graphics.drawString(font, title, this.width / 2 - font.width(title) / 2, padding, 0xFFFFFF, false);
 
-        // ----- 绘制页码（底部中央）-----
+        // ----- 绘制页码（两个按钮中间）-----
         String pageIndicator = (currentPage + 1) + "/" + pages.size();
-        graphics.drawString(font, pageIndicator, RIGHT_PANEL_X + 60 - font.width(pageIndicator) / 2, this.height - 25,
+        int pageTextX = this.buttonStartX + this.buttonSize + this.buttonSpacing +
+                        (this.pageTextWidth - font.width(pageIndicator)) / 2;
+        graphics.drawString(font, pageIndicator, pageTextX, this.buttonY + (this.buttonSize - font.lineHeight) / 2,
                             0xFFFFFF, false);
 
         // ----- 无结果提示（仅在搜索模式且结果为空时显示）-----
         if (searchMode && allSearchResults.isEmpty()) {
             String noResult = Component.translatable("gui.random_enchant.guide.no_results").getString();
-            graphics.drawString(font, noResult, RIGHT_PANEL_X, SEARCH_LIST_Y + 10, 0xFF5555, false);
+            graphics.drawString(font, noResult, this.padding, this.searchListY + 10, 0xFF5555, false);
         }
     }
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (mouseX >= CONTENT_X && mouseX <= CONTENT_X + CONTENT_WIDTH && mouseY >= CONTENT_Y &&
-            mouseY <= CONTENT_Y + CONTENT_HEIGHT) {
+        if (mouseX >= contentX && mouseX <= contentX + contentWidth && mouseY >= contentY &&
+            mouseY <= contentY + contentHeight) {
             if (currentPageLines.size() > maxLines) {
                 double delta = -scrollY * 0.5;
                 double maxScroll = currentPageLines.size() - maxLines;
@@ -313,15 +367,25 @@ public class GuideScreen extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen() {
-        return true;
+    public void resize(Minecraft minecraft, int width, int height) {
+        // 保存当前状态
+        int savedPage = this.currentPage;
+        double savedScroll = this.scrollOffset;
+
+        // 重新初始化
+        super.resize(minecraft, width, height);
+
+        // 恢复状态
+        this.currentPage = savedPage;
+        this.scrollOffset = savedScroll;
+        updateCurrentPageLines();
     }
 
     private record SearchResult(int page, int line, String preview) {}
 
     private class SearchResultsList extends ObjectSelectionList<SearchResultsList.Entry> {
-        public SearchResultsList(Minecraft mc, int width, int height, int top, int bottom) {
-            super(mc, width, height, top, bottom);
+        public SearchResultsList(Minecraft mc, int width, int height, int leftPos, int top, int itemHeight) {
+            super(mc, width, height, top, itemHeight);
         }
 
         public void updateResults(List<SearchResult> results) {
